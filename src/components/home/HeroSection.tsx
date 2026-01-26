@@ -81,32 +81,6 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Three Entry Points - Horizontal layout */}
-            <div className="pt-6">
-              <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">
-                Choose your path
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {entryPoints.map((entry, index) => (
-                  <Link
-                    key={entry.id}
-                    to={entry.href}
-                    className="group flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
-                    style={{ animationDelay: `${(index + 1) * 150}ms` }}
-                  >
-                    <div
-                      className={`w-9 h-9 rounded-lg bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
-                    >
-                      <entry.icon className="h-4 w-4 text-white" />
-                    </div>
-                    <p className="text-foreground font-medium text-xs group-hover:text-primary transition-colors flex-1 min-w-0">
-                      {entry.label}
-                    </p>
-                    <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Right: Product Image */}
@@ -149,7 +123,35 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Stats Bar */}
+        {/* Three Entry Points - Full Width */}
+        <div className="mt-8">
+          <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">
+            Choose your path
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {entryPoints.map((entry, index) => (
+              <Link
+                key={entry.id}
+                to={entry.href}
+                className="group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                style={{ animationDelay: `${(index + 1) * 150}ms` }}
+              >
+                <div
+                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+                >
+                  <entry.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
+                    {entry.label}
+                  </p>
+                  <p className="text-muted-foreground text-xs mt-0.5">{entry.cta}</p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
         <div className="mt-10 pt-8 border-t border-border/30">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[

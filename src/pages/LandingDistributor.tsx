@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, DollarSign, Package, Headphones, TrendingUp, Award, Truck } from "lucide-react";
+import globalPartnersImg from "@/assets/decorative/global-partners.jpg";
+import partnershipImg from "@/assets/decorative/partnership.jpg";
 
 const benefits = [
   { icon: DollarSign, title: "Healthy Margins", desc: "Competitive wholesale pricing with strong retail potential" },
@@ -22,33 +24,60 @@ const requirements = [
 const LandingDistributorPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="min-h-[90vh] flex items-center bg-gradient-to-b from-card via-background to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      {/* Hero with Background Image */}
+      <section className="min-h-[90vh] flex items-center relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={globalPartnersImg}
+            alt="Global network"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60" />
+        </div>
 
         <div className="container-wide relative py-20">
-          <div className="max-w-3xl">
-            <div className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-sm mb-6">
-              Distribution Partnership
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text */}
+            <div>
+              <div className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-sm mb-6">
+                Distribution Partnership
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
+                Grow Your Business with
+                <span className="block text-emerald-400">TEYES Distribution</span>
+              </h1>
+              <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
+                Join our global network of distributors. Access proven products, 
+                competitive pricing, and comprehensive support to build your business.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="hero" size="xl" asChild>
+                  <Link to="/contact">
+                    Apply to Become a Distributor
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="hero-outline" size="xl" asChild>
+                  <Link to="/products">View Product Catalog</Link>
+                </Button>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
-              Grow Your Business with
-              <span className="block text-emerald-400">TEYES Distribution</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-              Join our global network of distributors. Access proven products, 
-              competitive pricing, and comprehensive support to build your business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="xl" asChild>
-                <Link to="/contact">
-                  Apply to Become a Distributor
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="xl" asChild>
-                <Link to="/products">View Product Catalog</Link>
-              </Button>
+
+            {/* Right: Partnership Image */}
+            <div className="hidden lg:block relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-400/10 rounded-3xl blur-3xl" />
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-2xl">
+                <img
+                  src={partnershipImg}
+                  alt="Business partnership"
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-emerald-400 text-sm font-medium">Global Network</p>
+                  <p className="text-foreground font-semibold">500+ Distribution Partners Worldwide</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -64,7 +93,7 @@ const LandingDistributorPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((b) => (
-              <div key={b.title} className="flex items-start gap-4 p-6 rounded-xl bg-background border border-border/50">
+              <div key={b.title} className="flex items-start gap-4 p-6 rounded-xl bg-background border border-border/50 hover:border-emerald-500/30 transition-colors">
                 <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
                   <b.icon className="h-6 w-6 text-emerald-400" />
                 </div>

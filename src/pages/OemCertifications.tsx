@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Award, FileCheck, Globe } from "lucide-react";
+import certificationsImg from "@/assets/decorative/certifications.jpg";
 
 const certifications = [
   {
@@ -64,20 +65,45 @@ const qualityFeatures = [
 const OemCertificationsPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <Link to="/oem-odm" className="text-primary font-medium mb-2 inline-flex items-center gap-2 hover:underline">
-              ← Back to OEM / ODM
-            </Link>
-            <h1 className="section-title text-4xl md:text-5xl mb-6 mt-4">
-              Certifications & Quality Standards
-            </h1>
-            <p className="section-subtitle">
-              Our commitment to quality is backed by industry-recognized 
-              certifications and rigorous testing standards.
-            </p>
+      {/* Hero with Image */}
+      <section className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={certificationsImg}
+            alt="Quality certifications"
+            className="w-full h-full object-cover opacity-15"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/90 to-background" />
+        </div>
+
+        <div className="container-wide relative py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <Link to="/oem-odm" className="text-primary font-medium mb-2 inline-flex items-center gap-2 hover:underline">
+                ← Back to OEM / ODM
+              </Link>
+              <h1 className="section-title text-4xl md:text-5xl mb-6 mt-4">
+                Certifications & Quality Standards
+              </h1>
+              <p className="section-subtitle">
+                Our commitment to quality is backed by industry-recognized 
+                certifications and rigorous testing standards.
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-xl">
+                <img
+                  src={certificationsImg}
+                  alt="Quality certifications display"
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-primary text-sm font-medium">50+ Certifications</p>
+                  <p className="text-foreground font-semibold">Industry-Recognized Standards</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -89,7 +115,7 @@ const OemCertificationsPage = () => {
             {qualityFeatures.map((feature) => (
               <div
                 key={feature.title}
-                className="p-6 rounded-xl bg-background border border-border/50"
+                className="p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <feature.icon className="h-6 w-6 text-primary" />
@@ -118,7 +144,7 @@ const OemCertificationsPage = () => {
                   {category.items.map((cert) => (
                     <div
                       key={cert.name}
-                      className="flex items-center gap-4 p-4 rounded-lg bg-background border border-border/50"
+                      className="flex items-center gap-4 p-4 rounded-lg bg-background border border-border/50 hover:border-primary/30 transition-colors"
                     >
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                         <Award className="h-5 w-5 text-primary" />

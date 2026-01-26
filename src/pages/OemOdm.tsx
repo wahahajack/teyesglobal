@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cpu, Factory, Award, Headphones, FileCheck, Briefcase } from "lucide-react";
+import oemFactoryImg from "@/assets/decorative/oem-factory.jpg";
+import carInteriorImg from "@/assets/decorative/car-interior.jpg";
 
 const capabilities = [
   {
@@ -78,29 +80,53 @@ const subPages = [
 const OemOdmPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="container-wide relative">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">OEM / ODM</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Build Competitive Products Without Complex R&D
-            </h1>
-            <p className="section-subtitle mb-8">
-              Leverage our proven hardware platforms, manufacturing capabilities, 
-              and technical expertise to bring your infotainment products to market faster.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">
-                  Start an OEM Project
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/landing/oem">View OEM Landing Page</Link>
-              </Button>
+      {/* Hero with Background Image */}
+      <section className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={oemFactoryImg}
+            alt="Manufacturing facility"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/90 to-background" />
+        </div>
+
+        <div className="container-wide relative py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-medium mb-2">OEM / ODM</p>
+              <h1 className="section-title text-4xl md:text-5xl mb-6">
+                Build Competitive Products Without Complex R&D
+              </h1>
+              <p className="section-subtitle mb-8">
+                Leverage our proven hardware platforms, manufacturing capabilities, 
+                and technical expertise to bring your infotainment products to market faster.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/contact">
+                    Start an OEM Project
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button variant="hero-outline" size="lg" asChild>
+                  <Link to="/landing/oem">View OEM Landing Page</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-xl">
+                <img
+                  src={carInteriorImg}
+                  alt="Premium car interior with infotainment"
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-primary text-sm font-medium">Your Brand</p>
+                  <p className="text-foreground font-semibold">Our Technology</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -174,7 +200,7 @@ const OemOdmPage = () => {
             <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
 
             <div className="space-y-8">
-              {processSteps.map((step, index) => (
+              {processSteps.map((step) => (
                 <div key={step.step} className="relative flex gap-8">
                   {/* Step Number */}
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl font-bold text-primary-foreground shrink-0 z-10">

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Car, Settings, Globe } from "lucide-react";
+import solutionsHeroImg from "@/assets/decorative/solutions-hero.jpg";
+import partnershipImg from "@/assets/decorative/partnership.jpg";
 
 const solutionCategories = [
   {
@@ -65,18 +67,43 @@ const solutionCategories = [
 const SolutionsPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Solutions</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Partnership Models for Every Business
-            </h1>
-            <p className="section-subtitle">
-              Whether you're a distributor, auto brand, or system integrator, 
-              we have tailored solutions to support your growth.
-            </p>
+      {/* Hero with Background Image */}
+      <section className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={solutionsHeroImg}
+            alt="Car interior"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/90 to-background" />
+        </div>
+
+        <div className="container-wide relative py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-medium mb-2">Solutions</p>
+              <h1 className="section-title text-4xl md:text-5xl mb-6">
+                Partnership Models for Every Business
+              </h1>
+              <p className="section-subtitle">
+                Whether you're a distributor, auto brand, or system integrator, 
+                we have tailored solutions to support your growth.
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-xl">
+                <img
+                  src={partnershipImg}
+                  alt="Business partnership"
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-primary text-sm font-medium">500+ Partners</p>
+                  <p className="text-foreground font-semibold">Trusted Worldwide</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

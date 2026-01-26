@@ -11,8 +11,8 @@ const navigation = [
     href: "/products",
     children: [
       { name: "Product Lines", href: "/products/lines" },
-      { name: "By Vehicle Type", href: "/products/vehicle-type" },
       { name: "Compare Models", href: "/products/compare" },
+      { name: "Accessories", href: "/accessories" },
     ],
   },
   {

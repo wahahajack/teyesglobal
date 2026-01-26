@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -84,8 +85,8 @@ const ContactPage = () => {
         <section className="py-32 bg-gradient-to-b from-card to-background">
           <div className="container-wide">
             <div className="max-w-xl mx-auto text-center">
-              <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                <CheckCircle className="h-10 w-10 text-emerald-500" />
+              <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <CheckCircle className="h-10 w-10 text-primary" />
               </div>
               <h1 className="text-3xl font-display font-bold mb-4">
                 Thank You for Contacting Us
@@ -106,21 +107,14 @@ const ContactPage = () => {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Contact</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Let's Start a Conversation
-            </h1>
-            <p className="section-subtitle">
-              Whether you're interested in distribution, OEM partnership, or have 
-              questions about our products — we're here to help.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Contact Us"
+        description="Whether you're interested in distribution, OEM partnership, or have questions — we're here to help."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact" },
+        ]}
+      />
 
       {/* Contact Form + Info */}
       <section className="py-20 bg-background">

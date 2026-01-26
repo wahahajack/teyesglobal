@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Award, FileCheck, Globe } from "lucide-react";
-import certificationsImg from "@/assets/decorative/certifications.jpg";
 
 const certifications = [
   {
@@ -65,48 +65,11 @@ const qualityFeatures = [
 const OemCertificationsPage = () => {
   return (
     <Layout>
-      {/* Hero with Image */}
-      <section className="relative overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src={certificationsImg}
-            alt="Quality certifications"
-            className="w-full h-full object-cover opacity-15"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/90 to-background" />
-        </div>
-
-        <div className="container-wide relative py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Link to="/oem-odm" className="text-primary font-medium mb-2 inline-flex items-center gap-2 hover:underline">
-                ← Back to OEM / ODM
-              </Link>
-              <h1 className="section-title text-4xl md:text-5xl mb-6 mt-4">
-                Certifications & Quality Standards
-              </h1>
-              <p className="section-subtitle">
-                Our commitment to quality is backed by industry-recognized 
-                certifications and rigorous testing standards.
-              </p>
-            </div>
-            <div className="hidden lg:block">
-              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-xl">
-                <img
-                  src={certificationsImg}
-                  alt="Quality certifications display"
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
-                  <p className="text-primary text-sm font-medium">50+ Certifications</p>
-                  <p className="text-foreground font-semibold">Industry-Recognized Standards</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Certifications & Quality Standards"
+        description="Industry-recognized certifications and rigorous testing standards backing our commitment to quality."
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+      />
 
       {/* Quality Features */}
       <section className="py-16 bg-card">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Palette, Shield, Zap, Award } from "lucide-react";
 
@@ -62,33 +63,15 @@ const collaborationModels = [
 const SolutionsAutoBrandsPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="container-wide relative">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">For Auto Brands</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Infotainment Solutions Under Your Brand
-            </h1>
-            <p className="section-subtitle mb-8">
-              Launch your own line of car infotainment products without the complexity 
-              of R&D and manufacturing. We provide the technology, you own the brand.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">
-                  Discuss Your Project
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/oem-odm">View OEM Capabilities</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Solutions for Auto Brands"
+        description="Launch your own infotainment line without R&D complexity. We provide the technology, you own the brand."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/solutions" },
+          { label: "For Auto Brands" },
+        ]}
+      />
 
       {/* Benefits */}
       <section className="py-20 bg-background">

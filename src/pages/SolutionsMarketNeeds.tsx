@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, TrendingUp, Shield, Users } from "lucide-react";
 
@@ -72,33 +73,15 @@ const supportServices = [
 const SolutionsMarketNeedsPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-violet-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="container-wide relative">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">By Market Needs</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Solutions Tailored to Your Market
-            </h1>
-            <p className="section-subtitle mb-8">
-              Every market is different. We help you select the right products, 
-              pricing, and approach based on real market experience.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">
-                  Discuss Your Market
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/landing/market-entry">Market Entry Guide</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Solutions by Market Needs"
+        description="Product strategies and configurations adapted to your specific market conditions."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/solutions" },
+          { label: "By Market Needs" },
+        ]}
+      />
 
       {/* Market Types */}
       <section className="py-20 bg-background">

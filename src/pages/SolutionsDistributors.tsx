@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Package, TrendingUp, Users, Headphones } from "lucide-react";
 
@@ -65,33 +66,15 @@ const partnershipLevels = [
 const SolutionsDistributorsPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="container-wide relative">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">For Distributors</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Grow Your Business with a Proven Brand
-            </h1>
-            <p className="section-subtitle mb-8">
-              Partner with TEYES to access premium infotainment products, 
-              competitive pricing, and comprehensive support for your distribution business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">
-                  Become a Distributor
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/products">View Products</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Solutions for Distributors"
+        description="Partner with TEYES to access premium products, competitive pricing, and comprehensive support."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/solutions" },
+          { label: "For Distributors" },
+        ]}
+      />
 
       {/* Benefits */}
       <section className="py-20 bg-background">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Cpu, Palette, Code, Factory, Wrench, TestTube } from "lucide-react";
 
@@ -75,23 +76,11 @@ const capabilities = [
 const OemCapabilitiesPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <Link to="/oem-odm" className="text-primary font-medium mb-2 inline-flex items-center gap-2 hover:underline">
-              ← Back to OEM / ODM
-            </Link>
-            <h1 className="section-title text-4xl md:text-5xl mb-6 mt-4">
-              Full-Spectrum OEM/ODM Capabilities
-            </h1>
-            <p className="section-subtitle">
-              From minor customizations to ground-up product development, 
-              we have the capabilities to support your project.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Full-Spectrum OEM/ODM Capabilities"
+        description="From minor customizations to ground-up product development, we have the capabilities to support your project."
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+      />
 
       {/* Capabilities Grid */}
       <section className="py-20 bg-background">

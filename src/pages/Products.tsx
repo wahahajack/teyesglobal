@@ -22,7 +22,7 @@ const ProductsPage = () => {
       />
 
       {/* Featured Products */}
-      <section className="py-16 bg-card">
+      <section className="py-10 bg-card">
         <div className="container-wide">
           <h2 className="text-2xl font-display font-bold mb-8">Featured Products</h2>
           
@@ -75,7 +75,7 @@ const ProductsPage = () => {
         if (seriesProducts.length === 0) return null;
 
         return (
-          <section key={key} id={key} className="py-16 bg-background border-t border-border/50">
+          <section key={key} id={key} className="py-10 bg-background border-t border-border/50">
             <div className="container-wide">
               <div className="flex items-center justify-between mb-8">
                 <div>

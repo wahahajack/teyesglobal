@@ -36,7 +36,7 @@ const entryPoints = [
 
 export function HeroSection() {
   return (
-    <section className="hero-section relative">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
@@ -51,21 +51,21 @@ export function HeroSection() {
       <div className="hero-glow" />
 
       {/* Content - Left Text, Right Product Image */}
-      <div className="relative container-wide min-h-screen flex flex-col justify-center py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative container-wide pt-28 pb-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Text Content */}
-          <div className="space-y-8 animate-fade-in-up">
+          <div className="space-y-6 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               Trusted by 100+ Markets Worldwide
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
               Smart Infotainment Solutions,{" "}
               <span className="text-gradient">Built for Global Markets</span>
             </h1>
 
-            <p className="text-xl text-muted-foreground max-w-xl">
+            <p className="text-lg text-muted-foreground max-w-xl">
               From branded head units to OEM projects — TEYES supports your growth at every stage.
             </p>
 
@@ -82,15 +82,15 @@ export function HeroSection() {
             </div>
 
             {/* Three Entry Points - Below the buttons */}
-            <div className="pt-8 space-y-3">
-              <p className="text-muted-foreground text-sm uppercase tracking-wider">
+            <div className="pt-6 space-y-2">
+              <p className="text-muted-foreground text-xs uppercase tracking-wider">
                 Choose your path
               </p>
               {entryPoints.map((entry, index) => (
                 <Link
                   key={entry.id}
                   to={entry.href}
-                  className="cta-card-mini group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                  className="cta-card-mini group flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
                   <div
@@ -120,7 +120,7 @@ export function HeroSection() {
                 <img
                   src={cc4ProImg}
                   alt="TEYES CC4 Pro - Flagship Android Head Unit"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover max-h-[400px]"
                 />
                 
                 {/* Image Overlay with Product Info */}
@@ -150,8 +150,8 @@ export function HeroSection() {
         </div>
 
         {/* Stats Bar */}
-        <div className="mt-16 pt-12 border-t border-border/30">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="mt-10 pt-8 border-t border-border/30">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { value: "15+", label: "Years Experience" },
               { value: "100+", label: "Global Markets" },
@@ -159,8 +159,8 @@ export function HeroSection() {
               { value: "10M+", label: "Units Shipped" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="stat-value">{stat.value}</div>
-                <div className="stat-label">{stat.label}</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">{stat.value}</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">{stat.label}</div>
               </div>
             ))}
           </div>

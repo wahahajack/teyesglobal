@@ -30,20 +30,20 @@ export const ContextHeader = ({
   backLink,
 }: ContextHeaderProps) => {
   return (
-    <section className="py-8 md:py-10 bg-card border-b border-border/50">
+    <section className="pt-24 pb-6 bg-card border-b border-border/50">
       <div className="container-wide">
         {/* Back link or Breadcrumbs */}
         {backLink && (
           <Link
             to={backLink.href}
-            className="text-primary text-sm font-medium mb-3 inline-flex items-center gap-1 hover:underline"
+            className="text-primary text-sm font-medium mb-2 inline-flex items-center gap-1 hover:underline"
           >
             ← {backLink.label}
           </Link>
         )}
         
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <Breadcrumb className="mb-3">
+          <Breadcrumb className="mb-2">
             <BreadcrumbList>
               {breadcrumbs.map((item, index) => (
                 <BreadcrumbItem key={index}>
@@ -64,10 +64,10 @@ export const ContextHeader = ({
         )}
 
         {/* Title and Description */}
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
+        <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-1">
           {title}
         </h1>
-        <p className="text-muted-foreground max-w-2xl">
+        <p className="text-muted-foreground max-w-2xl text-sm">
           {description}
         </p>
       </div>

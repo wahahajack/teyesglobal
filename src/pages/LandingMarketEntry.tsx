@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
+import { ArrowRight, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
+import globalPartnersImg from "@/assets/decorative/global-partners.jpg";
+import solutionsHeroImg from "@/assets/decorative/solutions-hero.jpg";
 
 const markets = [
   { name: "Middle East", products: "CC4 Pro, CC3 2K", growth: "High" },
@@ -21,33 +23,60 @@ const support = [
 const LandingMarketEntryPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="min-h-[90vh] flex items-center bg-gradient-to-b from-card via-background to-background relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[800px] h-[800px] bg-violet-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      {/* Hero with Background Image */}
+      <section className="min-h-[90vh] flex items-center relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={globalPartnersImg}
+            alt="Global network"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60" />
+        </div>
 
         <div className="container-wide relative py-20">
-          <div className="max-w-3xl">
-            <div className="inline-block px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 font-medium text-sm mb-6">
-              Market Expansion
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text */}
+            <div>
+              <div className="inline-block px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 font-medium text-sm mb-6">
+                Market Expansion
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
+                Enter New Markets with
+                <span className="block text-violet-400">Confidence</span>
+              </h1>
+              <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
+                Leverage our global experience to successfully launch in new territories. 
+                We provide the products, insights, and support you need.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="hero" size="xl" asChild>
+                  <Link to="/contact">
+                    Discuss Your Market
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="hero-outline" size="xl" asChild>
+                  <Link to="/solutions/market-needs">View Market Solutions</Link>
+                </Button>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
-              Enter New Markets with
-              <span className="block text-violet-400">Confidence</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-              Leverage our global experience to successfully launch in new territories. 
-              We provide the products, insights, and support you need.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="xl" asChild>
-                <Link to="/contact">
-                  Discuss Your Market
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="hero-outline" size="xl" asChild>
-                <Link to="/solutions/market-needs">View Market Solutions</Link>
-              </Button>
+
+            {/* Right: Featured Image */}
+            <div className="hidden lg:block relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-purple-400/10 rounded-3xl blur-3xl" />
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-2xl">
+                <img
+                  src={solutionsHeroImg}
+                  alt="Modern car interior"
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
+                  <p className="text-violet-400 text-sm font-medium">100+ Markets</p>
+                  <p className="text-foreground font-semibold">Proven Success Worldwide</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -63,7 +92,7 @@ const LandingMarketEntryPage = () => {
 
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             {markets.map((m) => (
-              <div key={m.name} className="p-6 rounded-xl bg-background border border-border/50 text-center">
+              <div key={m.name} className="p-6 rounded-xl bg-background border border-border/50 text-center hover:border-violet-500/30 transition-colors">
                 <Globe className="h-8 w-8 text-violet-400 mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">{m.name}</h3>
                 <p className="text-xs text-muted-foreground mb-2">{m.products}</p>
@@ -87,7 +116,7 @@ const LandingMarketEntryPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {support.map((s) => (
-              <div key={s.title} className="p-6 rounded-xl bg-card border border-border/50">
+              <div key={s.title} className="p-6 rounded-xl bg-card border border-border/50 hover:border-violet-500/30 transition-colors">
                 <div className="w-12 h-12 rounded-lg bg-violet-500/10 flex items-center justify-center mb-4">
                   <s.icon className="h-6 w-6 text-violet-400" />
                 </div>

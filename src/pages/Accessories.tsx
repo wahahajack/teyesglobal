@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cable, Camera, Mic, Radio, Usb, Wifi } from "lucide-react";
+import accessoriesHeroImg from "@/assets/decorative/accessories-hero.jpg";
 
 const accessoryCategories = [
   {
@@ -81,18 +82,39 @@ const accessoryCategories = [
 const AccessoriesPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Accessories</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Complete Your Installation
-            </h1>
-            <p className="section-subtitle">
-              Wiring harnesses, cameras, audio accessories, and more — 
-              everything you need for a professional installation.
-            </p>
+      {/* Hero with Image */}
+      <section className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={accessoriesHeroImg}
+            alt="Automotive accessories"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/90 to-background" />
+        </div>
+
+        <div className="container-wide relative py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-primary font-medium mb-2">Accessories</p>
+              <h1 className="section-title text-4xl md:text-5xl mb-6">
+                Complete Your Installation
+              </h1>
+              <p className="section-subtitle">
+                Wiring harnesses, cameras, audio accessories, and more — 
+                everything you need for a professional installation.
+              </p>
+            </div>
+            <div className="hidden lg:block">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-xl">
+                <img
+                  src={accessoriesHeroImg}
+                  alt="Automotive accessories and cables"
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -104,7 +126,7 @@ const AccessoriesPage = () => {
             {accessoryCategories.map((category) => (
               <div
                 key={category.id}
-                className="rounded-2xl bg-card border border-border/50 overflow-hidden"
+                className="rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-colors"
               >
                 {/* Header */}
                 <div className="p-6 bg-gradient-to-br from-secondary/50 to-card">

@@ -1,0 +1,145 @@
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react";
+
+const footerLinks = {
+  products: [
+    { name: "Flagship Series", href: "/products/lines#flagship" },
+    { name: "Advanced Series", href: "/products/lines#advanced" },
+    { name: "Entry Series", href: "/products/lines#entry" },
+    { name: "Accessories", href: "/accessories" },
+  ],
+  solutions: [
+    { name: "For Distributors", href: "/solutions/distributors" },
+    { name: "For Auto Brands", href: "/solutions/auto-brands" },
+    { name: "For Integrators", href: "/solutions/integrators" },
+    { name: "Market Solutions", href: "/solutions/market-needs" },
+  ],
+  company: [
+    { name: "OEM / ODM", href: "/oem-odm" },
+    { name: "Certifications", href: "/oem-odm/certifications" },
+    { name: "Project Cases", href: "/oem-odm/cases" },
+    { name: "Contact", href: "/contact" },
+  ],
+};
+
+const socialLinks = [
+  { name: "LinkedIn", href: "#", icon: Linkedin },
+  { name: "YouTube", href: "#", icon: Youtube },
+  { name: "Facebook", href: "#", icon: Facebook },
+];
+
+export function Footer() {
+  return (
+    <footer className="bg-card border-t border-border">
+      <div className="container-wide py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          {/* Brand Column */}
+          <div className="lg:col-span-2">
+            <Link to="/" className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-lg">T</span>
+              </div>
+              <span className="text-2xl font-display font-bold text-foreground">
+                TEYES
+              </span>
+            </Link>
+            <p className="text-muted-foreground mb-6 max-w-sm">
+              Global Smart Infotainment Solutions for the Automotive Aftermarket. 
+              Trusted by distributors and auto brands across 100+ markets.
+            </p>
+            <div className="space-y-3">
+              <a
+                href="mailto:info@teyes.com"
+                className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Mail className="h-5 w-5 text-primary" />
+                <span>info@teyes.com</span>
+              </a>
+              <a
+                href="tel:+1234567890"
+                className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Phone className="h-5 w-5 text-primary" />
+                <span>+1 (234) 567-890</span>
+              </a>
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <MapPin className="h-5 w-5 text-primary" />
+                <span>Global Headquarters</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Products */}
+          <div>
+            <h4 className="text-foreground font-semibold mb-4">Products</h4>
+            <ul className="space-y-3">
+              {footerLinks.products.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Solutions */}
+          <div>
+            <h4 className="text-foreground font-semibold mb-4">Solutions</h4>
+            <ul className="space-y-3">
+              {footerLinks.solutions.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-foreground font-semibold mb-4">Company</h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-muted-foreground text-sm">
+            © {new Date().getFullYear()} TEYES. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                aria-label={social.name}
+              >
+                <social.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

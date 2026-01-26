@@ -47,7 +47,6 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const location = useLocation();
 
   const isActive = (href: string) => {
@@ -74,9 +73,7 @@ export function Header() {
             {navigation.map((item) => (
               <div
                 key={item.name}
-                className="relative"
-                onMouseEnter={() => item.children && setOpenDropdown(item.name)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                className="relative group"
               >
                 <Link
                   to={item.href}
@@ -94,25 +91,24 @@ export function Header() {
                 >
                   {item.name}
                   {item.children && (
-                    <ChevronDown className={cn(
-                      "h-4 w-4 transition-transform duration-200",
-                      openDropdown === item.name && "rotate-180"
-                    )} />
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                   )}
                 </Link>
 
-                {/* Dropdown */}
-                {item.children && openDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-card/95 backdrop-blur-lg border border-border/50 shadow-lg py-2 animate-fade-in">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        to={child.href}
-                        className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-                      >
-                        {child.name}
-                      </Link>
-                    ))}
+                {/* Dropdown - Using group-hover for stable visibility */}
+                {item.children && (
+                  <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="w-56 rounded-xl bg-card border border-border shadow-xl py-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.name}
+                          to={child.href}
+                          className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

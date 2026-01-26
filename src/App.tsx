@@ -10,7 +10,14 @@ import ProductDetailPage from "./pages/ProductDetail";
 import ProductComparePage from "./pages/ProductCompare";
 import ProductVehicleTypePage from "./pages/ProductVehicleType";
 import SolutionsPage from "./pages/Solutions";
+import SolutionsDistributorsPage from "./pages/SolutionsDistributors";
+import SolutionsAutoBrandsPage from "./pages/SolutionsAutoBrands";
+import SolutionsIntegratorsPage from "./pages/SolutionsIntegrators";
+import SolutionsMarketNeedsPage from "./pages/SolutionsMarketNeeds";
 import OemOdmPage from "./pages/OemOdm";
+import OemCapabilitiesPage from "./pages/OemCapabilities";
+import OemCertificationsPage from "./pages/OemCertifications";
+import OemCasesPage from "./pages/OemCases";
 import ContactPage from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -32,10 +39,15 @@ const App = () => (
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           {/* Solutions */}
           <Route path="/solutions" element={<SolutionsPage />} />
-          <Route path="/solutions/*" element={<SolutionsPage />} />
+          <Route path="/solutions/distributors" element={<SolutionsDistributorsPage />} />
+          <Route path="/solutions/auto-brands" element={<SolutionsAutoBrandsPage />} />
+          <Route path="/solutions/integrators" element={<SolutionsIntegratorsPage />} />
+          <Route path="/solutions/market-needs" element={<SolutionsMarketNeedsPage />} />
           {/* OEM/ODM */}
           <Route path="/oem-odm" element={<OemOdmPage />} />
-          <Route path="/oem-odm/*" element={<OemOdmPage />} />
+          <Route path="/oem-odm/capabilities" element={<OemCapabilitiesPage />} />
+          <Route path="/oem-odm/certifications" element={<OemCertificationsPage />} />
+          <Route path="/oem-odm/cases" element={<OemCasesPage />} />
           {/* Other */}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/landing/*" element={<NotFound />} />

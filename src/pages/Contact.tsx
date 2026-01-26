@@ -117,7 +117,7 @@ const ContactPage = () => {
       />
 
       {/* Contact Form + Info */}
-      <section className="py-20 bg-background">
+      <section className="py-10 bg-background">
         <div className="container-wide">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Form */}

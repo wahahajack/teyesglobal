@@ -1,0 +1,193 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const navigation = [
+  { name: "Home", href: "/" },
+  {
+    name: "Products",
+    href: "/products",
+    children: [
+      { name: "Product Lines", href: "/products/lines" },
+      { name: "By Vehicle Type", href: "/products/vehicle-type" },
+      { name: "Compare Models", href: "/products/compare" },
+    ],
+  },
+  {
+    name: "Solutions",
+    href: "/solutions",
+    children: [
+      { name: "For Distributors", href: "/solutions/distributors" },
+      { name: "For Auto Brands", href: "/solutions/auto-brands" },
+      { name: "For System Integrators", href: "/solutions/integrators" },
+      { name: "By Market Needs", href: "/solutions/market-needs" },
+    ],
+  },
+  {
+    name: "OEM / ODM",
+    href: "/oem-odm",
+    children: [
+      { name: "Capabilities", href: "/oem-odm/capabilities" },
+      { name: "Certifications", href: "/oem-odm/certifications" },
+      { name: "Project Cases", href: "/oem-odm/cases" },
+    ],
+  },
+  {
+    name: "Landing Pages",
+    href: "#",
+    children: [
+      { name: "OEM Solutions", href: "/landing/oem" },
+      { name: "Market Entry", href: "/landing/market-entry" },
+    ],
+  },
+  { name: "Contact", href: "/contact" },
+];
+
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const location = useLocation();
+
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+      <nav className="container-wide" aria-label="Global">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-lg">T</span>
+            </div>
+            <span className="text-2xl font-display font-bold text-foreground">
+              TEYES
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex lg:items-center lg:gap-1">
+            {navigation.map((item) => (
+              <div
+                key={item.name}
+                className="relative"
+                onMouseEnter={() => item.children && setOpenDropdown(item.name)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <Link
+                  to={item.href}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1 rounded-lg",
+                    isActive(item.href)
+                      ? "text-foreground bg-secondary/50"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+                  )}
+                  onClick={(e) => {
+                    if (item.children && item.href === "#") {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  {item.name}
+                  {item.children && (
+                    <ChevronDown className={cn(
+                      "h-4 w-4 transition-transform duration-200",
+                      openDropdown === item.name && "rotate-180"
+                    )} />
+                  )}
+                </Link>
+
+                {/* Dropdown */}
+                {item.children && openDropdown === item.name && (
+                  <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-card/95 backdrop-blur-lg border border-border/50 shadow-lg py-2 animate-fade-in">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.name}
+                        to={child.href}
+                        className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                      >
+                        {child.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="hidden lg:flex lg:items-center lg:gap-4">
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/contact">Get in Touch</Link>
+            </Button>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span className="sr-only">Toggle menu</span>
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-border/50 animate-fade-in">
+            <div className="space-y-1">
+              {navigation.map((item) => (
+                <div key={item.name}>
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      "block px-4 py-3 text-base font-medium rounded-lg transition-colors",
+                      isActive(item.href)
+                        ? "text-foreground bg-secondary/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+                    )}
+                    onClick={() => {
+                      if (!item.children) setMobileMenuOpen(false);
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.children && (
+                    <div className="pl-6 space-y-1 mt-1">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.name}
+                          to={child.href}
+                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 px-4">
+              <Button variant="hero" size="lg" className="w-full" asChild>
+                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                  Get in Touch
+                </Link>
+              </Button>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
+  );
+}

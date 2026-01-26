@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { Check, X, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -47,21 +48,15 @@ const ProductComparePage = () => {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Compare Models</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Find Your Perfect Match
-            </h1>
-            <p className="section-subtitle">
-              Compare specifications side-by-side to find the best product for 
-              your market needs.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Compare Models"
+        description="Compare specifications side-by-side to find the best product for your market."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products", href: "/products" },
+          { label: "Compare" },
+        ]}
+      />
 
       {/* Comparison Table */}
       <section className="py-16 bg-background">

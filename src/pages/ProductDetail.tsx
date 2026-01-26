@@ -30,9 +30,9 @@ const ProductDetailPage = () => {
 
   return (
     <Layout>
-      {/* Breadcrumb */}
-      <div className="bg-card border-b border-border/50">
-        <div className="container-wide py-4">
+      {/* Simple Breadcrumb Header */}
+      <div className="py-4 bg-card border-b border-border/50">
+        <div className="container-wide">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link to="/products" className="hover:text-foreground transition-colors">
               Products
@@ -47,8 +47,8 @@ const ProductDetailPage = () => {
         </div>
       </div>
 
-      {/* Product Hero */}
-      <section className="py-16 bg-gradient-to-b from-card to-background">
+      {/* Product Showcase - Not a Hero, but product display */}
+      <section className="py-12 bg-background">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Image */}

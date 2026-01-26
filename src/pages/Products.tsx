@@ -2,35 +2,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Cpu, Car, BarChart3 } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
-
-const productCategories = [
-  {
-    id: "lines",
-    title: "Product Lines",
-    description: "Browse by series - Flagship, Advanced, and Entry",
-    icon: Cpu,
-    href: "/products/lines",
-    color: "from-primary to-accent",
-  },
-  {
-    id: "vehicle",
-    title: "By Vehicle Type",
-    description: "Find products for your specific vehicle category",
-    icon: Car,
-    href: "/products/vehicle-type",
-    color: "from-emerald-500 to-teal-400",
-  },
-  {
-    id: "compare",
-    title: "Compare Models",
-    description: "Side-by-side comparison of features and specs",
-    icon: BarChart3,
-    href: "/products/compare",
-    color: "from-amber-500 to-orange-400",
-  },
-];
 
 const ProductsPage = () => {
   const flagshipProducts = getProductsBySeries("flagship");
@@ -47,33 +20,6 @@ const ProductsPage = () => {
           { label: "Products" },
         ]}
       />
-
-      {/* Quick Navigation */}
-      <section className="py-16 bg-background">
-        <div className="container-wide">
-          <div className="grid md:grid-cols-3 gap-6">
-            {productCategories.map((cat) => (
-              <Link
-                key={cat.id}
-                to={cat.href}
-                className="group p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2"
-              >
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-6`}>
-                  <cat.icon className="h-7 w-7 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                  {cat.title}
-                </h3>
-                <p className="text-muted-foreground mb-4">{cat.description}</p>
-                <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                  Browse
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Featured Products */}
       <section className="py-16 bg-card">

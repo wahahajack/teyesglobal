@@ -8,7 +8,6 @@ import ProductsPage from "./pages/Products";
 import ProductLinesPage from "./pages/ProductLines";
 import ProductDetailPage from "./pages/ProductDetail";
 import ProductComparePage from "./pages/ProductCompare";
-import ProductVehicleTypePage from "./pages/ProductVehicleType";
 import SolutionsPage from "./pages/Solutions";
 import SolutionsDistributorsPage from "./pages/SolutionsDistributors";
 import SolutionsAutoBrandsPage from "./pages/SolutionsAutoBrands";
@@ -38,7 +37,6 @@ const App = () => (
           {/* Products */}
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/lines" element={<ProductLinesPage />} />
-          <Route path="/products/vehicle-type" element={<ProductVehicleTypePage />} />
           <Route path="/products/compare" element={<ProductComparePage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           {/* Solutions */}

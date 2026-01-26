@@ -18,6 +18,10 @@ import OemOdmPage from "./pages/OemOdm";
 import OemCapabilitiesPage from "./pages/OemCapabilities";
 import OemCertificationsPage from "./pages/OemCertifications";
 import OemCasesPage from "./pages/OemCases";
+import LandingOemPage from "./pages/LandingOem";
+import LandingMarketEntryPage from "./pages/LandingMarketEntry";
+import LandingDistributorPage from "./pages/LandingDistributor";
+import AccessoriesPage from "./pages/Accessories";
 import ContactPage from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -48,10 +52,14 @@ const App = () => (
           <Route path="/oem-odm/capabilities" element={<OemCapabilitiesPage />} />
           <Route path="/oem-odm/certifications" element={<OemCertificationsPage />} />
           <Route path="/oem-odm/cases" element={<OemCasesPage />} />
-          {/* Other */}
+          {/* Landing Pages */}
+          <Route path="/landing/oem" element={<LandingOemPage />} />
+          <Route path="/landing/market-entry" element={<LandingMarketEntryPage />} />
+          <Route path="/landing/distributor" element={<LandingDistributorPage />} />
+          {/* Accessories */}
+          <Route path="/accessories" element={<AccessoriesPage />} />
+          {/* Contact */}
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/landing/*" element={<NotFound />} />
-          <Route path="/accessories" element={<NotFound />} />
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>

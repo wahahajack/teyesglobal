@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
@@ -7,21 +8,15 @@ import { products, seriesInfo, getProductsBySeries } from "@/data/products";
 const ProductLinesPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Product Lines</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Three Series, One Promise: Quality
-            </h1>
-            <p className="section-subtitle">
-              Each series is designed for specific market needs, from cutting-edge 
-              flagship to value-focused entry solutions.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Product Lines"
+        description="Explore TEYES infotainment series designed for different market tiers."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products", href: "/products" },
+          { label: "Product Lines" },
+        ]}
+      />
 
       {/* Series Sections */}
       {(["flagship", "advanced", "entry"] as const).map((seriesKey) => {

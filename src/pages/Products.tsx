@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Cpu, Car, BarChart3 } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
@@ -38,21 +39,14 @@ const ProductsPage = () => {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">Products</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Smart Infotainment Solutions for Every Need
-            </h1>
-            <p className="section-subtitle">
-              From flagship performance to value-focused entry solutions, find the 
-              perfect product for your market and customers.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Products"
+        description="From flagship performance to value-focused entry solutions, find the perfect product for your market."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products" },
+        ]}
+      />
 
       {/* Quick Navigation */}
       <section className="py-16 bg-background">

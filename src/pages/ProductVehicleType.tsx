@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Car, Truck } from "lucide-react";
 import { products } from "@/data/products";
@@ -26,21 +27,15 @@ const vehicleTypes = [
 const ProductVehicleTypePage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <p className="text-primary font-medium mb-2">By Vehicle Type</p>
-            <h1 className="section-title text-4xl md:text-5xl mb-6">
-              Solutions for Every Vehicle Category
-            </h1>
-            <p className="section-subtitle">
-              Find the right infotainment solution optimized for your specific 
-              vehicle type and application.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="By Vehicle Type"
+        description="Find the right infotainment solution optimized for your specific vehicle type."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products", href: "/products" },
+          { label: "By Vehicle Type" },
+        ]}
+      />
 
       {/* Vehicle Types */}
       <section className="py-16 bg-background">

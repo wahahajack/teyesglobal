@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, Building2, Car, Truck } from "lucide-react";
 
@@ -65,23 +66,11 @@ const projectCases = [
 const OemCasesPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-card to-background">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <Link to="/oem-odm" className="text-primary font-medium mb-2 inline-flex items-center gap-2 hover:underline">
-              ← Back to OEM / ODM
-            </Link>
-            <h1 className="section-title text-4xl md:text-5xl mb-6 mt-4">
-              Project Success Stories
-            </h1>
-            <p className="section-subtitle">
-              Real examples of how we've helped partners achieve their goals 
-              through OEM/ODM collaboration.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContextHeader
+        title="Project Success Stories"
+        description="Real examples of how we've helped partners achieve their goals through OEM/ODM collaboration."
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+      />
 
       {/* Project Cases */}
       <section className="py-20 bg-background">

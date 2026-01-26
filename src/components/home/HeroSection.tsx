@@ -52,7 +52,7 @@ export function HeroSection() {
 
       {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide pt-28 pb-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Left: Text Content */}
           <div className="space-y-6 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
@@ -81,31 +81,31 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Three Entry Points - Below the buttons */}
-            <div className="pt-6 space-y-2">
-              <p className="text-muted-foreground text-xs uppercase tracking-wider">
+            {/* Three Entry Points - Horizontal layout */}
+            <div className="pt-6">
+              <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">
                 Choose your path
               </p>
-              {entryPoints.map((entry, index) => (
-                <Link
-                  key={entry.id}
-                  to={entry.href}
-                  className="cta-card-mini group flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
-                  style={{ animationDelay: `${(index + 1) * 150}ms` }}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-lg bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {entryPoints.map((entry, index) => (
+                  <Link
+                    key={entry.id}
+                    to={entry.href}
+                    className="group flex items-center gap-3 p-3 rounded-lg border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                    style={{ animationDelay: `${(index + 1) * 150}ms` }}
                   >
-                    <entry.icon className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-foreground font-medium text-sm group-hover:text-primary transition-colors">
+                    <div
+                      className={`w-9 h-9 rounded-lg bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+                    >
+                      <entry.icon className="h-4 w-4 text-white" />
+                    </div>
+                    <p className="text-foreground font-medium text-xs group-hover:text-primary transition-colors flex-1 min-w-0">
                       {entry.label}
                     </p>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-                </Link>
-              ))}
+                    <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 

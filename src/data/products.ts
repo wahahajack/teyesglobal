@@ -1,6 +1,10 @@
 import cc4ProImg from "@/assets/products/cc4-pro.jpg";
 import cc3Img from "@/assets/products/cc3-2k.jpg";
 import x1ProImg from "@/assets/products/x1-pro.jpg";
+import cc4ScreenImg from "@/assets/products/cc4-screen.webp";
+import cc4BackImg from "@/assets/products/cc4-back.webp";
+import cc4lScreenImg from "@/assets/products/cc4l-screen.webp";
+import cc4lBackImg from "@/assets/products/cc4l-back.webp";
 
 export interface ProductSpec {
   label: string;
@@ -15,6 +19,7 @@ export interface Product {
   tagline: string;
   description: string;
   image: string;
+  imageBack?: string;
   badge?: string;
   features: string[];
   specs: ProductSpec[];
@@ -171,27 +176,39 @@ export const products: Product[] = [
     seriesName: "Advanced Series",
     tagline: "Performance Standard",
     description:
-      "High-performance solution with advanced features and excellent value proposition.",
-    image: cc3Img,
+      "High-performance Android head unit with stunning 2K display, powerful 8-core processor, and advanced audio system. Features dual-fan cooling design for stable operation.",
+    image: cc4ScreenImg,
+    imageBack: cc4BackImg,
     features: [
       "8-Core CPU",
       "2K Display",
       "5.1 Channel Audio",
+      "Dual-Fan Cooling",
       "WIFI 5",
       "Bluetooth 5.1",
     ],
     specs: [
-      { label: "CPU", value: "8-Core" },
+      { label: "CPU", value: "8-Core 2.0GHz" },
       { label: "RAM + ROM", value: "4+64GB / 6+128GB" },
       { label: "Screen Resolution", value: "2000×1200" },
-      { label: "OS", value: "Android 11" },
+      { label: "Display", value: "IPS 2.5D Glass" },
+      { label: "Cooling", value: "Dual-Fan Active Cooling" },
+      { label: "Amplifier", value: "Digital Amplifier" },
+      { label: "Audio Channel", value: "5.1 Channel" },
+      { label: "Subwoofer Output", value: "Yes" },
+      { label: "Camera Channels", value: "Up to 4" },
+      { label: "360° SVM", value: "Optional" },
+      { label: "OS", value: "TEYES OS (Android 11)" },
+      { label: "WIFI", value: "WIFI 5" },
+      { label: "Bluetooth", value: "5.1" },
       { label: "Apple CarPlay", value: "Yes" },
       { label: "Android Auto", value: "Yes" },
     ],
     highlights: [
-      "Balanced performance and features",
-      "Great display quality",
-      "Reliable for high-volume markets",
+      "Dual-Fan cooling system for stable performance",
+      "Stunning 2K IPS display with 2.5D glass",
+      "5.1 Channel premium audio output",
+      "Full CarPlay & Android Auto support",
     ],
   },
   {
@@ -199,28 +216,38 @@ export const products: Product[] = [
     name: "CC4L",
     series: "entry",
     seriesName: "Entry Series",
-    tagline: "Smart Value",
+    tagline: "Smart Value Choice",
     description:
-      "Streamlined version of CC4 with essential features for value-focused markets.",
-    image: x1ProImg,
+      "Streamlined version of CC4 offering essential smart features at an accessible price. Features modern UI design, smooth navigation experience, and dual-fan cooling.",
+    image: cc4lScreenImg,
+    imageBack: cc4lBackImg,
     features: [
       "Quad-Core CPU",
-      "HD Display",
+      "HD+ Display",
+      "Dual-Fan Cooling",
       "Apple CarPlay",
       "Android Auto",
+      "Modern UI",
     ],
     specs: [
-      { label: "CPU", value: "Quad-Core" },
-      { label: "RAM + ROM", value: "2+32GB" },
+      { label: "CPU", value: "Quad-Core 1.6GHz" },
+      { label: "RAM + ROM", value: "2+32GB / 4+64GB" },
       { label: "Screen Resolution", value: "1280×720" },
-      { label: "OS", value: "Android 10" },
+      { label: "Display", value: "IPS 2.5D Glass" },
+      { label: "Cooling", value: "Dual-Fan Active Cooling" },
+      { label: "Camera Channels", value: "Up to 2" },
+      { label: "Navigation", value: "GPS + GLONASS" },
+      { label: "OS", value: "TEYES OS (Android 10)" },
+      { label: "WIFI", value: "WIFI 4" },
+      { label: "Bluetooth", value: "5.0" },
       { label: "Apple CarPlay", value: "Yes" },
       { label: "Android Auto", value: "Yes" },
     ],
     highlights: [
-      "Affordable smart upgrade",
-      "Essential connectivity features",
-      "Simple and reliable",
+      "Affordable smart infotainment upgrade",
+      "Modern UI with smooth animations",
+      "Dual-Fan cooling for reliability",
+      "Full CarPlay & Android Auto support",
     ],
   },
 ];

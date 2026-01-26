@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import cc4ProImg from "@/assets/products/cc4-pro.jpg";
 
 const entryPoints = [
   {
@@ -41,7 +42,7 @@ export function HeroSection() {
         <img
           src={heroBg}
           alt="Car interior"
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-30"
         />
         <div className="hero-overlay absolute inset-0" />
       </div>
@@ -49,9 +50,9 @@ export function HeroSection() {
       {/* Glow Effect */}
       <div className="hero-glow" />
 
-      {/* Content */}
+      {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide min-h-screen flex flex-col justify-center py-32">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
@@ -79,47 +80,77 @@ export function HeroSection() {
                 <Link to="/contact">Talk to Sales</Link>
               </Button>
             </div>
+
+            {/* Three Entry Points - Below the buttons */}
+            <div className="pt-8 space-y-3">
+              <p className="text-muted-foreground text-sm uppercase tracking-wider">
+                Choose your path
+              </p>
+              {entryPoints.map((entry, index) => (
+                <Link
+                  key={entry.id}
+                  to={entry.href}
+                  className="cta-card-mini group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                  style={{ animationDelay: `${(index + 1) * 150}ms` }}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-lg bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+                  >
+                    <entry.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-foreground font-medium text-sm group-hover:text-primary transition-colors">
+                      {entry.label}
+                    </p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Right: Three Entry Points */}
-          <div className="space-y-4 animate-fade-in-up delay-200">
-            <p className="text-muted-foreground text-sm uppercase tracking-wider mb-6">
-              Choose your path
-            </p>
-
-            {entryPoints.map((entry, index) => (
-              <Link
-                key={entry.id}
-                to={entry.href}
-                className="cta-card group flex items-center gap-6"
-                style={{ animationDelay: `${(index + 1) * 150}ms` }}
-              >
-                {/* Icon */}
-                <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
-                >
-                  <entry.icon className="h-7 w-7 text-white" />
+          {/* Right: Product Image */}
+          <div className="relative animate-fade-in-up delay-200">
+            <div className="relative">
+              {/* Glow behind image */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
+              
+              {/* Product Image */}
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
+                <img
+                  src={cc4ProImg}
+                  alt="TEYES CC4 Pro - Flagship Android Head Unit"
+                  className="w-full h-auto object-cover"
+                />
+                
+                {/* Image Overlay with Product Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
+                      <h3 className="text-2xl font-bold text-foreground">CC4 Pro</h3>
+                      <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
+                    </div>
+                    <Button variant="hero" size="sm" asChild>
+                      <Link to="/products/cc4-pro">
+                        View Details
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
+              </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <p className="text-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
-                    {entry.label}
-                  </p>
-                  <p className="text-muted-foreground text-sm">
-                    {entry.description}
-                  </p>
-                </div>
-
-                {/* Arrow */}
-                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-2 transition-all duration-300 shrink-0" />
-              </Link>
-            ))}
+              {/* Floating Badge */}
+              <div className="absolute -top-4 -right-4 px-4 py-2 bg-gold text-gold-foreground rounded-full text-sm font-bold shadow-lg animate-float">
+                #1 Best Seller
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Stats Bar */}
-        <div className="mt-20 pt-12 border-t border-border/30">
+        <div className="mt-16 pt-12 border-t border-border/30">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "15+", label: "Years Experience" },

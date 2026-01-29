@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cpu, Factory, Award, Headphones, FileCheck, Briefcase } from "lucide-react";
@@ -79,6 +80,12 @@ const subPages = [
 const OemOdmPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="OEM/ODM Services - Car Infotainment Manufacturing Partner"
+        description="TEYES OEM/ODM services for car infotainment systems. Custom hardware, branding, software development, and scalable manufacturing with ISO certifications."
+        keywords="OEM car infotainment, ODM manufacturing, custom head unit, white-label, automotive electronics"
+        canonicalPath="/oem-odm"
+      />
       <ContextHeader
         title="OEM / ODM Services"
         description="Leverage our proven hardware platforms and manufacturing capabilities to bring your products to market faster."

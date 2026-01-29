@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { Check, X, ArrowRight } from "lucide-react";
@@ -48,6 +49,12 @@ const ProductComparePage = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Compare Car Head Units - CC4 Pro vs CC3 2K vs X1 Pro"
+        description="Compare TEYES car infotainment models side-by-side. Compare CPU, display, audio, cameras, and connectivity features across CC4 Pro, CC3 2K, and X1 Pro."
+        keywords="compare car head units, CC4 Pro vs CC3 2K, android head unit comparison, infotainment specs"
+        canonicalPath="/products/compare"
+      />
       <ContextHeader
         title="Compare Models"
         description="Compare specifications side-by-side to find the best product for your market."

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -107,6 +108,12 @@ const ContactPage = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Contact Us - Partnership & Product Inquiries"
+        description="Contact TEYES for distribution partnerships, OEM/ODM inquiries, product information, or technical support. Our team responds within 24-48 hours."
+        keywords="contact TEYES, car infotainment distributor, OEM inquiry, partnership, technical support"
+        canonicalPath="/contact"
+      />
       <ContextHeader
         title="Contact Us"
         description="Whether you're interested in distribution, OEM partnership, or have questions — we're here to help."

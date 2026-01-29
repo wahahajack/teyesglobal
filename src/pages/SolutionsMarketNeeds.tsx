@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, TrendingUp, Shield, Users } from "lucide-react";
@@ -73,6 +74,12 @@ const supportServices = [
 const SolutionsMarketNeedsPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Market Entry Solutions - Regional Strategy Support"
+        description="Market entry support for car infotainment distribution. Market analysis, product positioning, compliance guidance, and partner network access."
+        keywords="market entry strategy, regional distribution, compliance support, emerging markets, infotainment distribution"
+        canonicalPath="/solutions/market-needs"
+      />
       <ContextHeader
         title="Solutions by Market Needs"
         description="Product strategies and configurations adapted to your specific market conditions."

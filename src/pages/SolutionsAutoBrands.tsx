@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Palette, Shield, Zap, Award } from "lucide-react";
@@ -63,6 +64,12 @@ const collaborationModels = [
 const SolutionsAutoBrandsPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Auto Brand Solutions - White-Label Car Infotainment"
+        description="White-label and co-branded infotainment solutions for auto brands. Custom branding, exclusive models, fast time-to-market, and quality assurance."
+        keywords="white-label car infotainment, co-branded head unit, automotive brand partnership, custom car stereo"
+        canonicalPath="/solutions/auto-brands"
+      />
       <ContextHeader
         title="Solutions for Auto Brands"
         description="Launch your own infotainment line without R&D complexity. We provide the technology, you own the brand."

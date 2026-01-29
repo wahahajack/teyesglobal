@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Code, Plug, FileText, Wrench } from "lucide-react";
@@ -49,6 +50,12 @@ const integrationOptions = [
 const SolutionsIntegratorsPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="System Integrator Solutions - APIs & Development Tools"
+        description="Build on TEYES hardware with open APIs, SDKs, and development tools. Fleet management, telematics, custom applications, and hardware interfaces."
+        keywords="system integrator, open API, car infotainment SDK, fleet management integration, telematics"
+        canonicalPath="/solutions/integrators"
+      />
       <ContextHeader
         title="Solutions for System Integrators"
         description="Build on our proven hardware platforms with open APIs and comprehensive development tools."

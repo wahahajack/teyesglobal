@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg.jpg";
-import cc4ProImg from "@/assets/products/cc4-pro-screen.webp";
+import heroBg from "@/assets/hero-bg.webp";
+import cc4ProImg from "@/assets/products/cc4-pro-hero.webp";
 
 const entryPoints = [
   {
@@ -92,6 +92,8 @@ export function HeroSection() {
                   alt="TEYES CC4 Pro - Flagship Android Head Unit"
                   className="w-full h-auto object-cover max-h-[400px]"
                   loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                 />
                 
                 {/* Image Overlay with Product Info */}

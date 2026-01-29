@@ -45,6 +45,7 @@ const ProductsPage = () => {
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                 </div>
 

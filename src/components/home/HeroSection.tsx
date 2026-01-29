@@ -86,11 +86,12 @@ export function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
               
               {/* Product Image */}
-              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
                 <img
                   src={cc4ProImg}
                   alt="TEYES CC4 Pro - Flagship Android Head Unit"
                   className="w-full h-auto object-cover max-h-[400px]"
+                  loading="eager"
                 />
                 
                 {/* Image Overlay with Product Info */}

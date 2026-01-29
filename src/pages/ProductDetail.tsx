@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Star } from "lucide-react";
 import { getProductById, products } from "@/data/products";
@@ -28,8 +29,25 @@ const ProductDetailPage = () => {
     .filter((p) => p.series === product.series && p.id !== product.id)
     .slice(0, 2);
 
+  // Generate SEO content
+  const seoTitle = `${product.name} - ${product.tagline} | TEYES Car Infotainment`;
+  const seoDescription = `${product.description} Features: ${product.features.slice(0, 4).join(", ")}. ${product.seriesName}.`;
+  const seoKeywords = `${product.name}, TEYES, car head unit, android car stereo, ${product.features.join(", ")}, ${product.seriesName}`;
+
   return (
     <Layout>
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        canonicalPath={`/products/${product.id}`}
+        ogType="product"
+        productData={{
+          name: product.name,
+          brand: "TEYES",
+          category: product.seriesName,
+        }}
+      />
       {/* Simple Breadcrumb Header */}
       <div className="py-4 bg-card border-b border-border/50">
         <div className="container-wide">

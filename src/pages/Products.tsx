@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
@@ -12,6 +13,12 @@ const ProductsPage = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Car Infotainment Products - Android Head Units"
+        description="Browse TEYES car infotainment products. From flagship CC4 Pro to entry-level solutions. Android head units with CarPlay, Android Auto, 2K displays, and premium audio."
+        keywords="TEYES products, car head unit, android car stereo, CC4 Pro, CC3 2K, CarPlay, Android Auto"
+        canonicalPath="/products"
+      />
       <ContextHeader
         title="Products"
         description="From flagship performance to value-focused entry solutions, find the perfect product for your market."

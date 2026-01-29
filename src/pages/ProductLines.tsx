@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
@@ -8,6 +9,12 @@ import { products, seriesInfo, getProductsBySeries } from "@/data/products";
 const ProductLinesPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Product Lines - Flagship, Advanced & Entry Series"
+        description="Explore TEYES infotainment product lines. Flagship CC4 Pro with AI NPU, Advanced CC3 2K bestseller, and Entry series for value markets. Compare features and specs."
+        keywords="TEYES product lines, flagship series, advanced series, entry series, CC4 Pro, CC3 2K, X1 Pro"
+        canonicalPath="/products/lines"
+      />
       <ContextHeader
         title="Product Lines"
         description="Explore TEYES infotainment series designed for different market tiers."

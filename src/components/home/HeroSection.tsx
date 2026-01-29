@@ -8,28 +8,25 @@ const entryPoints = [
   {
     id: "brand",
     icon: Building2,
-    label: "I'm looking for a proven brand",
-    description: "Looking for a proven infotainment brand",
-    cta: "Explore TEYES Products",
+    label: "Explore TEYES Products",
+    description: "Browse our proven infotainment lineup",
     href: "/products",
     color: "from-primary to-blue-400",
   },
   {
-    id: "oem",
+    id: "oem-capabilities",
     icon: Cpu,
-    label: "I need a reliable OEM manufacturer",
-    description: "Sourcing a reliable OEM / ODM partner",
-    cta: "OEM / ODM Capabilities",
+    label: "OEM / ODM Capabilities",
+    description: "Learn about manufacturing & engineering",
     href: "/oem-odm",
     color: "from-accent to-cyan-400",
   },
   {
-    id: "market",
+    id: "oem-project",
     icon: Globe,
-    label: "I'm exploring solutions for my market",
-    description: "Exploring solutions for your local market",
-    cta: "See Market Solutions",
-    href: "/solutions/market-needs",
+    label: "Start an OEM Project",
+    description: "Discuss your cooperation needs",
+    href: "/contact?intent=oem",
     color: "from-emerald-500 to-teal-400",
   },
 ];
@@ -51,33 +48,32 @@ export function HeroSection() {
       <div className="hero-glow" />
 
       {/* Content - Left Text, Right Product Image */}
-      <div className="relative container-wide pt-28 pb-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
           {/* Left: Text Content */}
-          <div className="space-y-6 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <div className="space-y-4 md:space-y-6 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
               Trusted by 100+ Markets Worldwide
             </div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
-              Smart Infotainment Solutions,{" "}
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
               <span className="text-gradient">Built for Global Markets</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-xl">
-              From branded head units to OEM projects — TEYES supports your growth at every stage.
+            <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide">
+              OEM-ready · Multi-market proven · Localization-friendly
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="xl" asChild>
+            <div className="flex flex-wrap gap-3 md:gap-4">
+              <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
                 <Link to="/products">
                   Explore Products
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="xl" asChild>
-                <Link to="/contact">Talk to Sales</Link>
+              <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
+                <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
 
@@ -124,30 +120,30 @@ export function HeroSection() {
         </div>
 
         {/* Three Entry Points - Full Width */}
-        <div className="mt-8">
-          <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">
+        <div className="mt-6 md:mt-8">
+          <p className="text-muted-foreground text-xs uppercase tracking-wider mb-2 md:mb-3">
             Choose your path
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
             {entryPoints.map((entry, index) => (
               <Link
                 key={entry.id}
                 to={entry.href}
-                className="group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
                 style={{ animationDelay: `${(index + 1) * 150}ms` }}
               >
                 <div
-                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
+                  className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}
                 >
-                  <entry.icon className="h-6 w-6 text-white" />
+                  <entry.icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
                     {entry.label}
                   </p>
-                  <p className="text-muted-foreground text-xs mt-0.5">{entry.cta}</p>
+                  <p className="text-muted-foreground text-xs mt-0.5">{entry.description}</p>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+                <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 shrink-0" />
               </Link>
             ))}
           </div>

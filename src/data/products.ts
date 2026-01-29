@@ -1,4 +1,5 @@
-import cc4ProImg from "@/assets/products/cc4-pro.jpg";
+import cc4ProScreenImg from "@/assets/products/cc4-pro-screen.webp";
+import cc4ProBackImg from "@/assets/products/cc4-pro-back.webp";
 import cc3Img from "@/assets/products/cc3-2k.jpg";
 import x1ProImg from "@/assets/products/x1-pro.jpg";
 import cc4ScreenImg from "@/assets/products/cc4-screen.webp";
@@ -35,7 +36,8 @@ export const products: Product[] = [
     tagline: "Leading Flagship",
     description:
       "The most advanced car infotainment system with 6nm CPU, 12TOPS NPU for AI-powered driving assistance, premium DTS audio, and comprehensive camera support.",
-    image: cc4ProImg,
+    image: cc4ProScreenImg,
+    imageBack: cc4ProBackImg,
     badge: "NEW",
     features: [
       "8-Core 6nm CPU",

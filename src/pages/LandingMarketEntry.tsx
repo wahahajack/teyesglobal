@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
 import globalPartnersImg from "@/assets/decorative/global-partners.jpg";
@@ -23,6 +24,12 @@ const support = [
 const LandingMarketEntryPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Market Entry Support - Global Infotainment Distribution"
+        description="Enter new markets with TEYES support. Market analysis, product positioning, compliance guidance, and local partner connections for car infotainment distribution."
+        keywords="market entry support, global distribution, emerging markets, car infotainment expansion"
+        canonicalPath="/partners/market-entry"
+      />
       {/* Hero with Background Image */}
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">
         {/* Background Image */}

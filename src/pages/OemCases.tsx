@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, Building2, Car, Truck } from "lucide-react";
@@ -66,6 +67,12 @@ const projectCases = [
 const OemCasesPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="OEM/ODM Project Cases - Success Stories"
+        description="Real OEM/ODM success stories: European white-label partnerships, Middle East regional customization, fleet management integration, and private label programs."
+        keywords="OEM case study, ODM success story, white-label partnership, fleet management, private label"
+        canonicalPath="/oem-odm/cases"
+      />
       <ContextHeader
         title="Project Success Stories"
         description="Real examples of how we've helped partners achieve their goals through OEM/ODM collaboration."

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cable, Camera, Mic, Radio, Usb, Wifi } from "lucide-react";
@@ -82,6 +83,12 @@ const accessoryCategories = [
 const AccessoriesPage = () => {
   return (
     <Layout>
+      <SEOHead
+        title="Car Head Unit Accessories - Harnesses, Cameras & Audio"
+        description="TEYES accessories: wiring harnesses, backup cameras, 360° systems, audio accessories, GPS antennas, and installation kits for all TEYES head units."
+        keywords="car head unit accessories, wiring harness, backup camera, 360 camera kit, GPS antenna, installation kit"
+        canonicalPath="/products/accessories"
+      />
       <ContextHeader
         title="Accessories"
         description="Wiring harnesses, cameras, audio accessories — everything for a professional installation."

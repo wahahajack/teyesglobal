@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
-import cc4ProImg from "@/assets/products/cc4-pro.jpg";
+import cc4ProImg from "@/assets/products/cc4-pro-screen.webp";
 
 const entryPoints = [
   {

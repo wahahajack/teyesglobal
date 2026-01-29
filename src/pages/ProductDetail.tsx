@@ -52,7 +52,7 @@ const ProductDetailPage = () => {
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Image */}
-            <div className="relative aspect-square rounded-3xl bg-gradient-to-b from-secondary/50 to-background p-12 overflow-hidden">
+            <div className="relative aspect-[4/3] rounded-3xl bg-gradient-to-b from-secondary/50 to-background p-8 overflow-hidden">
               {product.badge && (
                 <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center gap-1">
                   {product.badge === "NEW" && <Star className="h-4 w-4" />}
@@ -62,7 +62,7 @@ const ProductDetailPage = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover rounded-xl"
               />
             </div>
 

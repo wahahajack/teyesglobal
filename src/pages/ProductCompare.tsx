@@ -9,18 +9,30 @@ import { products } from "@/data/products";
 
 const compareSpecs = [
   "CPU",
+  "GPU",
+  "NPU",
   "RAM + ROM",
+  "Memory Type",
   "Screen Resolution",
+  "Display Type",
   "Touch Haptic",
+  "Amplifier",
   "Audio Channel",
+  "Subwoofer Output",
   "Sound Effect",
+  "Digital Output",
+  "Camera Signal",
   "Camera Channels",
   "360° SVM",
+  "Sentry Mode",
   "Navigation",
   "Accuracy",
   "OS",
   "WIFI",
   "Bluetooth",
+  "4G",
+  "Video Output",
+  "Video Playback",
   "Apple CarPlay",
   "Android Auto",
 ];
@@ -28,8 +40,8 @@ const compareSpecs = [
 const ProductComparePage = () => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([
     "cc4-pro",
-    "cc3-2k",
-    "x1-pro",
+    "cc4",
+    "cc4l",
   ]);
 
   const comparedProducts = selectedProducts

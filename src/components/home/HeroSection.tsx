@@ -84,7 +84,7 @@ export function HeroSection() {
             <div className="relative">
               {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
-              
+
               {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
                 <img
@@ -95,7 +95,7 @@ export function HeroSection() {
                   fetchPriority="high"
                   decoding="async"
                 />
-                
+
                 {/* Image Overlay with Product Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
                   <div className="flex items-end justify-between">
@@ -116,7 +116,7 @@ export function HeroSection() {
 
               {/* Floating Badge */}
               <div className="absolute -top-4 -right-4 px-4 py-2 bg-gold text-gold-foreground rounded-full text-sm font-bold shadow-lg animate-float">
-                #1 Best Seller
+                Flagship Model
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@ export function HeroSection() {
               <Link
                 key={entry.id}
                 to={entry.href}
-                className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                className="group flex items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
                 style={{ animationDelay: `${(index + 1) * 150}ms` }}
               >
                 <div
@@ -151,25 +151,11 @@ export function HeroSection() {
             ))}
           </div>
         </div>
-        <div className="mt-10 pt-8 border-t border-border/30">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { value: "15+", label: "Years Experience" },
-              { value: "100+", label: "Global Markets" },
-              { value: "500+", label: "Distribution Partners" },
-              { value: "10M+", label: "Units Shipped" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">{stat.value}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
 
       {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 }

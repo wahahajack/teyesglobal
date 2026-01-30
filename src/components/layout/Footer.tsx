@@ -35,38 +35,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">T</span>
-              </div>
-              <span className="text-2xl font-display font-bold text-foreground">
-                TEYES
-              </span>
+            <Link to="/" className="flex items-center mb-6">
+              <img
+                src="/main-logo.png"
+                alt="TEYES Logo"
+                className="h-8 w-auto transition-all"
+              />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Global Smart Infotainment Solutions for the Automotive Aftermarket. 
+              Global Smart Infotainment Solutions for the Automotive Aftermarket.
               Trusted by distributors and auto brands across 100+ markets.
             </p>
-            <div className="space-y-3">
-              <a
-                href="mailto:info@teyes.com"
-                className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Mail className="h-5 w-5 text-primary" />
-                <span>info@teyes.com</span>
-              </a>
-              <a
-                href="tel:+1234567890"
-                className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Phone className="h-5 w-5 text-primary" />
-                <span>+1 (234) 567-890</span>
-              </a>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <MapPin className="h-5 w-5 text-primary" />
-                <span>Global Headquarters</span>
-              </div>
-            </div>
           </div>
 
           {/* Products */}

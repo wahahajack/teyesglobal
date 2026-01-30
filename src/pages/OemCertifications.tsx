@@ -9,33 +9,32 @@ const certifications = [
   {
     category: "Quality Management",
     items: [
-      { name: "ISO 9001:2015", description: "Quality Management System" },
-      { name: "IATF 16949", description: "Automotive Quality Management" },
+      { name: "IATF 16949", description: "Global Automotive Quality Management System" },
+      { name: "ISO 9001", description: "Quality Management Standards" },
     ],
   },
   {
-    category: "Environmental & Safety",
+    category: "Global Compliance",
     items: [
-      { name: "ISO 14001", description: "Environmental Management System" },
-      { name: "ISO 45001", description: "Occupational Health & Safety" },
-    ],
-  },
-  {
-    category: "Product Compliance",
-    items: [
-      { name: "CE Marking", description: "European Conformity" },
-      { name: "FCC Certification", description: "US Federal Communications" },
-      { name: "RoHS Compliance", description: "Restriction of Hazardous Substances" },
-      { name: "REACH Compliance", description: "EU Chemical Safety" },
+      { name: "CE-EMC", description: "RED Evaluation for European Markets" },
+      { name: "FCC", description: "SDOC Certification for North America" },
+      { name: "ROHS-CE", description: "Restriction of Hazardous Substances" },
     ],
   },
   {
     category: "Regional Certifications",
     items: [
-      { name: "E-Mark", description: "European Vehicle Components" },
       { name: "CCC", description: "China Compulsory Certification" },
+      { name: "EAC", description: "Eurasian Conformity (Russia/CIS)" },
+      { name: "NBTC", description: "Thailand Broadcasting & Telecom Commission" },
+    ],
+  },
+  {
+    category: "Network & Specialized",
+    items: [
+      { name: "GSMA", description: "Global System for Mobile Communications" },
       { name: "BIS", description: "Bureau of Indian Standards" },
-      { name: "SASO", description: "Saudi Standards Organization" },
+      { name: "WPC", description: "Wireless Planning & Coordination (India)" },
     ],
   },
 ];

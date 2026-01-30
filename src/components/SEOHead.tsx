@@ -14,8 +14,9 @@ interface SEOHeadProps {
   };
 }
 
-const BASE_URL = "https://teyesglobal.lovable.app";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
+// Use current origin if available, fallback for metadata
+const BASE_URL = typeof window !== 'undefined' ? window.location.origin : "https://teyesauto.com";
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
 export function SEOHead({
   title,

@@ -22,6 +22,7 @@ import LandingMarketEntryPage from "./pages/LandingMarketEntry";
 import LandingDistributorPage from "./pages/LandingDistributor";
 import AccessoriesPage from "./pages/Accessories";
 import ContactPage from "./pages/Contact";
+import HomeThankYou from "./pages/HomeThankYou";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/accessories" element={<AccessoriesPage />} />
           {/* Contact */}
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/thank-you" element={<HomeThankYou />} />
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>

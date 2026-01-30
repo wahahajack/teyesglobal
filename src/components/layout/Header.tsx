@@ -34,14 +34,6 @@ const navigation = [
       { name: "Project Cases", href: "/oem-odm/cases" },
     ],
   },
-  {
-    name: "Landing Pages",
-    href: "#",
-    children: [
-      { name: "OEM Solutions", href: "/landing/oem" },
-      { name: "Market Entry", href: "/landing/market-entry" },
-    ],
-  },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -59,13 +51,12 @@ export function Header() {
       <nav className="container-wide" aria-label="Global">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">T</span>
-            </div>
-            <span className="text-2xl font-display font-bold text-foreground">
-              TEYES
-            </span>
+          <Link to="/" className="flex items-center">
+            <img
+              src="/main-logo.png"
+              alt="TEYES Logo"
+              className="h-8 w-auto md:h-10 transition-all"
+            />
           </Link>
 
           {/* Desktop Navigation */}

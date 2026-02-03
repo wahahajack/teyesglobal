@@ -11,11 +11,11 @@ export function WhatsAppFloat() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/20 transition-all duration-300 hover:scale-110 active:scale-95 group"
+            className="fixed bottom-20 right-4 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-110 active:scale-95 group"
             aria-label="Contact us on WhatsApp"
         >
             {/* Glow Effect */}
-            <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25 group-hover:opacity-40" />
+            <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25 group-hover:opacity-40" />
 
             {/* Icon */}
             <svg

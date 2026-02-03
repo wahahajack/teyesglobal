@@ -133,7 +133,7 @@ export function HeroSection() {
                 key={entry.id}
                 to={entry.href}
                 className="group flex items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
-                style={{ animationDelay: `${(index + 1) * 150}ms` }}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div
                   className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}

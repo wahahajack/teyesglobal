@@ -3,10 +3,41 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Camera, Gauge, Cable, Mic, Radio, Monitor, Car, Cpu, Volume2 } from "lucide-react";
+import { ArrowRight, Camera, Gauge, Cable, Mic, Radio, Monitor, Car, Cpu, Volume2, LucideIcon } from "lucide-react";
+
+// Import accessory images
+import tpmsSystem from "@/assets/accessories/tpms-system.webp";
+import obd2Adapter from "@/assets/accessories/obd2-adapter.webp";
+import dvrDashcam from "@/assets/accessories/dvr-dashcam.webp";
+import sonyBackupCamera from "@/assets/accessories/sony-backup-camera.webp";
+import rearViewCameraHs from "@/assets/accessories/rear-view-camera-hs.webp";
+import dabAdapter from "@/assets/accessories/dab-adapter.webp";
+import rcaCable from "@/assets/accessories/rca-cable.webp";
+
+// Product image mapping
+const productImages: Record<string, string> = {
+  "tpms": tpmsSystem,
+  "obd2": obd2Adapter,
+  "dvr-dash-camera": dvrDashcam,
+  "sony-backup-camera": sonyBackupCamera,
+  "rear-view-camera-hs": rearViewCameraHs,
+  "dab-adapter": dabAdapter,
+  "line-out-rca": rcaCable,
+};
+
+interface AccessoryProduct {
+  id: string;
+  category: string;
+  name: string;
+  description: string;
+  price: string;
+  compat: string;
+  reviews: number;
+  icon: LucideIcon;
+}
 
 // Real TEYES accessories based on official product catalog
-const accessoryProducts = [
+const accessoryProducts: AccessoryProduct[] = [
   {
     id: "360-camera-cc3",
     category: "Camera Systems",
@@ -222,6 +253,51 @@ const accessoryProducts = [
 // Group products by category
 const categories = [...new Set(accessoryProducts.map(p => p.category))];
 
+// Accessory Card Component
+const AccessoryCard = ({ product }: { product: AccessoryProduct }) => {
+  const image = productImages[product.id];
+  const IconComponent = product.icon;
+  
+  return (
+    <div className="group rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+      {/* Product Image */}
+      <div className="aspect-square bg-gradient-to-br from-secondary/50 to-card flex items-center justify-center relative overflow-hidden">
+        {image ? (
+          <img 
+            src={image} 
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <IconComponent className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
+        )}
+        <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
+          {product.price}
+        </div>
+      </div>
+
+      {/* Product Info */}
+      <div className="p-4">
+        <h3 className="font-semibold text-foreground mb-1 line-clamp-2 min-h-[2.5rem]">
+          {product.name}
+        </h3>
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 min-h-[2.5rem]">
+          {product.description}
+        </p>
+        
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-muted-foreground">{product.compat}</span>
+          {product.reviews > 0 && (
+            <span className="text-primary font-medium">
+              {product.reviews} reviews
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AccessoriesPage = () => {
   return (
     <Layout>
@@ -253,37 +329,7 @@ const AccessoriesPage = () => {
                 {accessoryProducts
                   .filter(p => p.category === category)
                   .map((product) => (
-                    <div
-                      key={product.id}
-                      className="group rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
-                    >
-                      {/* Product Image Placeholder with Icon */}
-                      <div className="aspect-square bg-gradient-to-br from-secondary/50 to-card flex items-center justify-center relative overflow-hidden">
-                        <product.icon className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
-                        <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
-                          {product.price}
-                        </div>
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="p-4">
-                        <h3 className="font-semibold text-foreground mb-1 line-clamp-2 min-h-[2.5rem]">
-                          {product.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 min-h-[2.5rem]">
-                          {product.description}
-                        </p>
-                        
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">{product.compat}</span>
-                          {product.reviews > 0 && (
-                            <span className="text-primary font-medium">
-                              {product.reviews} reviews
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                    <AccessoryCard key={product.id} product={product} />
                   ))}
               </div>
             </div>

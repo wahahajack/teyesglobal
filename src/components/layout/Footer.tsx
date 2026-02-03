@@ -37,7 +37,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
               <img
-                src="/main-logo.png"
+                src="/main-logo.webp"
                 alt="TEYES Logo"
                 className="h-8 w-auto transition-all"
               />

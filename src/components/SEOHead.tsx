@@ -16,7 +16,7 @@ interface SEOHeadProps {
 
 // Use current origin if available, fallback for metadata
 const BASE_URL = typeof window !== 'undefined' ? window.location.origin : "https://teyesauto.com";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.webp`;
 
 export function SEOHead({
   title,

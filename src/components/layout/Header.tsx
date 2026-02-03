@@ -54,7 +54,7 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
-              src="/main-logo.png"
+              src="/main-logo.webp"
               alt="TEYES Logo"
               className="h-8 w-auto md:h-10 transition-all"
             />

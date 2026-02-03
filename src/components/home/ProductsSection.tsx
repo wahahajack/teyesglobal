@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import cc4ProImg from "@/assets/products/cc4-pro-screen.webp";
-import cc3Img from "@/assets/products/cc3-2k.jpg";
-import x1ProImg from "@/assets/products/x1-pro.jpg";
+import cc3Img from "@/assets/products/cc3-2k.webp";
+import x1ProImg from "@/assets/products/x1-pro.webp";
 
 const productSeries = [
   {

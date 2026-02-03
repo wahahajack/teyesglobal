@@ -3,8 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, DollarSign, Package, Headphones, TrendingUp, Award, Truck } from "lucide-react";
-import globalPartnersImg from "@/assets/decorative/global-partners.jpg";
-import partnershipImg from "@/assets/decorative/partnership.jpg";
+import globalPartnersImg from "@/assets/decorative/global-partners.webp";
+import partnershipImg from "@/assets/decorative/partnership.webp";
 
 const benefits = [
   { icon: DollarSign, title: "Healthy Margins", desc: "Competitive wholesale pricing with strong retail potential" },
@@ -55,7 +55,7 @@ const LandingDistributorPage = () => {
                 <span className="block text-emerald-400">TEYES Distribution</span>
               </h1>
               <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-                Join our global network of distributors. Access proven products, 
+                Join our global network of distributors. Access proven products,
                 competitive pricing, and comprehensive support to build your business.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">

@@ -3,8 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
-import globalPartnersImg from "@/assets/decorative/global-partners.jpg";
-import solutionsHeroImg from "@/assets/decorative/solutions-hero.jpg";
+import globalPartnersImg from "@/assets/decorative/global-partners.webp";
+import solutionsHeroImg from "@/assets/decorative/solutions-hero.webp";
 
 const markets = [
   { name: "Middle East", products: "CC4 Pro, CC3 2K", growth: "High" },
@@ -54,7 +54,7 @@ const LandingMarketEntryPage = () => {
                 <span className="block text-violet-400">Confidence</span>
               </h1>
               <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-                Leverage our global experience to successfully launch in new territories. 
+                Leverage our global experience to successfully launch in new territories.
                 We provide the products, insights, and support you need.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -103,11 +103,10 @@ const LandingMarketEntryPage = () => {
                 <Globe className="h-8 w-8 text-violet-400 mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">{m.name}</h3>
                 <p className="text-xs text-muted-foreground mb-2">{m.products}</p>
-                <span className={`text-xs px-2 py-1 rounded-full ${
-                  m.growth === "High" ? "bg-emerald-500/10 text-emerald-400" :
-                  m.growth === "Medium" ? "bg-amber-500/10 text-amber-400" :
-                  "bg-violet-500/10 text-violet-400"
-                }`}>
+                <span className={`text-xs px-2 py-1 rounded-full ${m.growth === "High" ? "bg-emerald-500/10 text-emerald-400" :
+                    m.growth === "Medium" ? "bg-amber-500/10 text-amber-400" :
+                      "bg-violet-500/10 text-violet-400"
+                  }`}>
                   {m.growth} Growth
                 </span>
               </div>

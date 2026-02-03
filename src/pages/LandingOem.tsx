@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Factory, Cpu, Palette, Clock, Shield, Users } from "lucide-react";
-import oemFactoryImg from "@/assets/decorative/oem-factory.jpg";
+import oemFactoryImg from "@/assets/decorative/oem-factory.webp";
 
 const benefits = [
   { icon: Factory, title: "Manufacturing Scale", text: "From prototype to 100K+ units" },
@@ -64,7 +64,7 @@ const LandingOemPage = () => {
                 <span className="block text-primary">Car Infotainment Line</span>
               </h1>
               <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-                Skip years of R&D and millions in investment. Partner with TEYES to bring 
+                Skip years of R&D and millions in investment. Partner with TEYES to bring
                 competitive infotainment products to market under your own brand.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -108,24 +109,28 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex lg:items-center lg:gap-4">
+            <ThemeToggle />
             <Button variant="hero" size="lg" asChild>
               <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <button
-            type="button"
-            className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <span className="sr-only">Toggle menu</span>
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <span className="sr-only">Toggle menu</span>
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

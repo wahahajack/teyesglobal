@@ -3,95 +3,237 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Cable, Camera, Mic, Radio, Usb, Wifi } from "lucide-react";
+import { ArrowRight, Camera, Gauge, Cable, Mic, Radio, Monitor, Car, Cpu, Volume2 } from "lucide-react";
 
-const accessoryCategories = [
+// Real TEYES accessories based on official product catalog
+const accessoryProducts = [
   {
-    id: "harnesses",
-    title: "Wiring Harnesses",
-    description: "Vehicle-specific plug-and-play harnesses for clean installation",
-    icon: Cable,
-    items: [
-      { name: "Toyota/Lexus Harness", compat: "CC4 Pro, CC3 2K" },
-      { name: "Honda Harness", compat: "All TEYES units" },
-      { name: "VW/Audi Harness", compat: "CC4 Pro, CC3 2K" },
-      { name: "Hyundai/Kia Harness", compat: "All TEYES units" },
-    ],
-  },
-  {
-    id: "cameras",
-    title: "Camera Systems",
-    description: "Backup cameras, 360° systems, and dash cameras",
+    id: "360-camera-cc3",
+    category: "Camera Systems",
+    name: "CC3 360° Camera System",
+    description: "3D 360° surround view camera with 4 HD cameras for seamless bird's-eye view",
+    price: "from $100",
+    compat: "CC3, CC3 2K",
+    reviews: 220,
     icon: Camera,
-    items: [
-      { name: "HD Backup Camera", compat: "Universal" },
-      { name: "360° Camera Kit", compat: "CC4 Pro, CC3 2K" },
-      { name: "Front Dash Camera", compat: "All TEYES units" },
-      { name: "Dual Channel DVR", compat: "CC4 Pro" },
-    ],
   },
   {
-    id: "audio",
-    title: "Audio Accessories",
-    description: "Microphones, amplifiers, and audio interface adapters",
+    id: "360-camera-luxone",
+    category: "Camera Systems",
+    name: "LUX ONE 360° Camera System",
+    description: "Premium 3D 360° surround view system designed for LUX ONE series",
+    price: "from $106",
+    compat: "LUX ONE Pro",
+    reviews: 3,
+    icon: Camera,
+  },
+  {
+    id: "dvr-dash-camera",
+    category: "Camera Systems",
+    name: "Integrated AR HD Dash Camera DVR",
+    description: "Full HD 1080P dash camera with ADAS features and AR overlay",
+    price: "$48",
+    compat: "CC2, CC3, CC3 2K, CC3L",
+    reviews: 938,
+    icon: Camera,
+  },
+  {
+    id: "sony-backup-camera",
+    category: "Camera Systems",
+    name: "Sony Lens Backup Camera 1080p",
+    description: "HD night vision streaming camera with 170° wide angle and Sony sensor",
+    price: "from $15",
+    compat: "All TEYES units",
+    reviews: 212,
+    icon: Camera,
+  },
+  {
+    id: "rear-view-camera-hs",
+    category: "Camera Systems",
+    name: "Rear View Backup Camera HS AHD",
+    description: "High-sensitivity AHD camera with excellent low-light performance",
+    price: "from $14",
+    compat: "All TEYES units",
+    reviews: 55,
+    icon: Camera,
+  },
+  {
+    id: "cc4-front-camera",
+    category: "Camera Systems",
+    name: "CC4 Digital Front View Camera",
+    description: "High-definition digital front view camera for CC4 series",
+    price: "$51",
+    compat: "CC4 Pro",
+    reviews: 22,
+    icon: Camera,
+  },
+  {
+    id: "cc4-rear-camera",
+    category: "Camera Systems",
+    name: "CC4 Digital Rear View Camera",
+    description: "Digital rear view camera with enhanced clarity for CC4 series",
+    price: "from $14",
+    compat: "CC4 Pro",
+    reviews: 16,
+    icon: Camera,
+  },
+  {
+    id: "tpms",
+    category: "Vehicle Monitoring",
+    name: "Tyre Pressure Monitoring System",
+    description: "Real-time tire pressure and temperature monitoring with 4 sensors",
+    price: "$56",
+    compat: "All TEYES units",
+    reviews: 315,
+    icon: Gauge,
+  },
+  {
+    id: "obd2",
+    category: "Vehicle Monitoring",
+    name: "OBD II Bluetooth Adapter",
+    description: "Bluetooth diagnostic tool for real-time vehicle data display",
+    price: "$36",
+    compat: "All Android units",
+    reviews: 127,
+    icon: Cpu,
+  },
+  {
+    id: "parking-sensors",
+    category: "Vehicle Monitoring",
+    name: "Front & Rear Parking Sensors",
+    description: "Complete parking radar system with visual and audio alerts",
+    price: "from $124",
+    compat: "CC4 Pro, CC3 2K, LUX ONE",
+    reviews: 34,
+    icon: Car,
+  },
+  {
+    id: "screen-protector",
+    category: "Protection",
+    name: "Tempered Glass Screen Protector",
+    description: "Anti-glare and glossy options for 9\" and 10.2\" screens",
+    price: "from $18",
+    compat: "CC3, CC3 2K, CC4 Pro, CC2 Plus",
+    reviews: 332,
+    icon: Monitor,
+  },
+  {
+    id: "external-mic",
+    category: "Audio",
+    name: "External Microphone Hands Free",
+    description: "High-quality external microphone for clear voice calls",
+    price: "$12",
+    compat: "All TEYES units",
+    reviews: 87,
     icon: Mic,
-    items: [
-      { name: "External Microphone", compat: "Universal" },
-      { name: "DSP Amplifier", compat: "All TEYES units" },
-      { name: "Fiber Optic Adapter", compat: "For premium audio" },
-      { name: "Subwoofer Cable Kit", compat: "Universal" },
-    ],
   },
   {
-    id: "connectivity",
-    title: "Connectivity",
-    description: "Antennas, adapters, and connectivity modules",
-    icon: Wifi,
-    items: [
-      { name: "GPS Antenna", compat: "Universal" },
-      { name: "4G LTE Module", compat: "CC4 Pro, CC3 2K" },
-      { name: "CarPlay Dongle", compat: "All Android units" },
-      { name: "DAB+ Antenna", compat: "For European market" },
-    ],
+    id: "cc4-digital-mic",
+    category: "Audio",
+    name: "CC4 Digital External Microphone",
+    description: "Digital microphone with enhanced noise cancellation for CC4",
+    price: "$42",
+    compat: "CC4 Pro",
+    reviews: 27,
+    icon: Mic,
   },
   {
-    id: "interface",
-    title: "Vehicle Interfaces",
-    description: "Steering wheel controls, CAN bus adapters, and OBD interfaces",
+    id: "dab-adapter",
+    category: "Connectivity",
+    name: "DAB+ USB Adapter",
+    description: "Digital Audio Broadcasting receiver for European radio stations",
+    price: "$33",
+    compat: "All Android units",
+    reviews: 69,
     icon: Radio,
-    items: [
-      { name: "SWC Adapter", compat: "Vehicle-specific" },
-      { name: "CAN Bus Decoder", compat: "All TEYES units" },
-      { name: "OBD2 Interface", compat: "For vehicle data" },
-      { name: "Amp Retention Cable", compat: "Factory amp vehicles" },
-    ],
   },
   {
-    id: "installation",
-    title: "Installation Kits",
-    description: "Trim kits, mounting brackets, and installation hardware",
-    icon: Usb,
-    items: [
-      { name: "Dash Trim Kit", compat: "Vehicle-specific" },
-      { name: "Mounting Brackets", compat: "Universal" },
-      { name: "Installation Tool Kit", compat: "All installations" },
-      { name: "Extension Cables", compat: "Universal" },
-    ],
+    id: "line-out-rca",
+    category: "Connectivity",
+    name: "Line Out Adapter RCA Cable",
+    description: "Multi-functional 8 RCA AV output cable for audio integration",
+    price: "from $14",
+    compat: "All TEYES units",
+    reviews: 249,
+    icon: Cable,
+  },
+  {
+    id: "usb-hdmi",
+    category: "Connectivity",
+    name: "USB to HDMI Adapter",
+    description: "Connect external displays via HDMI output",
+    price: "$37",
+    compat: "CC4 Pro, CC3 2K",
+    reviews: 0,
+    icon: Cable,
+  },
+  {
+    id: "steering-control",
+    category: "Controls",
+    name: "Bluetooth Intelligent Steering Controls",
+    description: "Wireless steering wheel control buttons with LED backlight",
+    price: "$24",
+    compat: "All TEYES units",
+    reviews: 78,
+    icon: Radio,
+  },
+  {
+    id: "power-filter",
+    category: "Power",
+    name: "Power Filter",
+    description: "Reduces alternator noise and power interference",
+    price: "$9",
+    compat: "All TEYES units",
+    reviews: 52,
+    icon: Cable,
+  },
+  {
+    id: "trim-removal-kit",
+    category: "Installation",
+    name: "Panel Trim Dash Removal Kit",
+    description: "4-piece professional trim removal tool set for clean installation",
+    price: "$7",
+    compat: "Universal",
+    reviews: 2407,
+    icon: Cable,
+  },
+  {
+    id: "license-bracket",
+    category: "Installation",
+    name: "License Plate Camera Bracket Kit",
+    description: "Universal mounting bracket for rear view camera installation",
+    price: "$13",
+    compat: "Universal",
+    reviews: 46,
+    icon: Cable,
+  },
+  {
+    id: "voice-control",
+    category: "Software",
+    name: "TEYES Voice Control - Forever",
+    description: "Lifetime voice control activation for hands-free operation",
+    price: "$39",
+    compat: "All TEYES units",
+    reviews: 4,
+    icon: Volume2,
   },
 ];
+
+// Group products by category
+const categories = [...new Set(accessoryProducts.map(p => p.category))];
 
 const AccessoriesPage = () => {
   return (
     <Layout>
       <SEOHead
-        title="Car Head Unit Accessories - Harnesses, Cameras & Audio"
-        description="TEYES accessories: wiring harnesses, backup cameras, 360° systems, audio accessories, GPS antennas, and installation kits for all TEYES head units."
-        keywords="car head unit accessories, wiring harness, backup camera, 360 camera kit, GPS antenna, installation kit"
-        canonicalPath="/products/accessories"
+        title="Car Head Unit Accessories - Cameras, TPMS & Audio"
+        description="TEYES official accessories: 360° camera systems, dash cameras, TPMS, OBD2 adapters, screen protectors, microphones and installation kits for all TEYES head units."
+        keywords="TEYES accessories, 360 camera system, dash camera DVR, backup camera, TPMS, OBD2, screen protector"
+        canonicalPath="/accessories"
       />
       <ContextHeader
-        title="Accessories"
-        description="Wiring harnesses, cameras, audio accessories — everything for a professional installation."
+        title="Smart Accessories"
+        description="Official TEYES accessories — cameras, sensors, audio, and installation kits for professional upgrades."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products", href: "/products" },
@@ -99,42 +241,53 @@ const AccessoriesPage = () => {
         ]}
       />
 
-      {/* Categories Grid */}
+      {/* Products by Category */}
       <section className="py-20 bg-background">
         <div className="container-wide">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {accessoryCategories.map((category) => (
-              <div
-                key={category.id}
-                className="rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-colors"
-              >
-                {/* Header */}
-                <div className="p-6 bg-gradient-to-br from-secondary/50 to-card">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <category.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-semibold">{category.title}</h2>
-                      <p className="text-sm text-muted-foreground">{category.description}</p>
-                    </div>
-                  </div>
-                </div>
+          {categories.map((category) => (
+            <div key={category} className="mb-16 last:mb-0">
+              <h2 className="text-2xl font-display font-bold mb-8 text-foreground">
+                {category}
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accessoryProducts
+                  .filter(p => p.category === category)
+                  .map((product) => (
+                    <div
+                      key={product.id}
+                      className="group rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+                    >
+                      {/* Product Image Placeholder with Icon */}
+                      <div className="aspect-square bg-gradient-to-br from-secondary/50 to-card flex items-center justify-center relative overflow-hidden">
+                        <product.icon className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
+                        <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
+                          {product.price}
+                        </div>
+                      </div>
 
-                {/* Items */}
-                <div className="p-6">
-                  <ul className="space-y-3">
-                    {category.items.map((item) => (
-                      <li key={item.name} className="flex items-center justify-between text-sm">
-                        <span>{item.name}</span>
-                        <span className="text-xs text-muted-foreground">{item.compat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      {/* Product Info */}
+                      <div className="p-4">
+                        <h3 className="font-semibold text-foreground mb-1 line-clamp-2 min-h-[2.5rem]">
+                          {product.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 min-h-[2.5rem]">
+                          {product.description}
+                        </p>
+                        
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-muted-foreground">{product.compat}</span>
+                          {product.reviews > 0 && (
+                            <span className="text-primary font-medium">
+                              {product.reviews} reviews
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 

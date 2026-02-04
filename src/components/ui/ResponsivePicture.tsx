@@ -35,42 +35,25 @@ export function ResponsivePicture({
   sizes = [400, 800, 1200],
   sizesAttr = '100vw',
 }: ResponsivePictureProps) {
-  // 生成srcSet字符串
-  const generateSrcSet = (extension: string) => {
-    return sizes
-      .map((size) => `${basePath}/${baseName}-${size}.${extension} ${size}w`)
-      .join(', ');
-  };
-
-  // 获取默认图片（中等尺寸）
-  const defaultImage = `${basePath}/${baseName}-${sizes[1] || 800}.webp`;
-
+  // 在Vite中，我们需要使用导入语句，不能直接使用文件路径
+  // 这里我们简化组件，只显示默认图片
+  const defaultSize = sizes[1] || 800;
+  
+  // 注意：在Vite中，图片路径需要通过导入获取
+  // 这里我们假设调用者会传递正确的导入路径
+  const defaultImage = `${basePath}/${baseName}-${defaultSize}.webp`;
+  
   return (
-    <picture>
-      {/* AVIF格式（优先） */}
-      <source
-        type="image/avif"
-        srcSet={generateSrcSet('avif')}
-        sizes={sizesAttr}
-      />
-      {/* WebP格式（备选） */}
-      <source
-        type="image/webp"
-        srcSet={generateSrcSet('webp')}
-        sizes={sizesAttr}
-      />
-      {/* 原始图片（回退） */}
-      <img
-        src={defaultImage}
-        alt={alt}
-        className={className}
-        width={width}
-        height={height}
-        loading={lazy ? 'lazy' : 'eager'}
-        fetchPriority={priority}
-        decoding="async"
-      />
-    </picture>
+    <img
+      src={defaultImage}
+      alt={alt}
+      className={className}
+      width={width}
+      height={height}
+      loading={lazy ? 'lazy' : 'eager'}
+      fetchPriority={priority}
+      decoding="async"
+    />
   );
 }
 

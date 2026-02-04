@@ -3,10 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { ResponsivePicture } from "@/components/ui/ResponsivePicture";
 import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
-import { getProductImageBase } from "@/utils/imageUtils";
 
 const ProductsPage = () => {
   const flagshipProducts = getProductsBySeries("flagship");
@@ -36,34 +34,27 @@ const ProductsPage = () => {
           <h2 className="text-2xl font-display font-bold mb-8">Featured Products</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[flagshipProducts[0], advancedProducts[0], entryProducts[0]].filter(Boolean).map((product) => {
-              const imageBase = getProductImageBase(product.id);
-              return (
-                <Link
-                  key={product.id}
-                  to={`/products/${product.id}`}
-                  className="group bg-background rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300"
-                >
-                  {product.badge && (
-                    <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold flex items-center gap-1">
-                      {product.badge === "NEW" && <Star className="h-3 w-3" />}
-                      {product.badge}
-                    </div>
-                  )}
-
-                  <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden relative">
-                    <ResponsivePicture
-                      baseName={imageBase.front}
-                      basePath="@/assets/products"
-                      alt={product.name}
-                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                      width={400}
-                      height={400}
-                      priority="auto"
-                      lazy={true}
-                      sizesAttr="(max-width: 768px) 45vw, 400px"
-                    />
+            {[flagshipProducts[0], advancedProducts[0], entryProducts[0]].filter(Boolean).map((product) => (
+              <Link
+                key={product.id}
+                to={`/products/${product.id}`}
+                className="group bg-background rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300"
+              >
+                {product.badge && (
+                  <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold flex items-center gap-1">
+                    {product.badge === "NEW" && <Star className="h-3 w-3" />}
+                    {product.badge}
                   </div>
+                )}
+
+                <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden relative">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
 
                   <div className="p-6">
                     <p className="text-primary text-sm font-medium mb-1">
@@ -106,27 +97,19 @@ const ProductsPage = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {seriesProducts.slice(0, 3).map((product) => {
-                  const imageBase = getProductImageBase(product.id);
-                  return (
-                    <Link
-                      key={product.id}
-                      to={`/products/${product.id}`}
-                      className="group flex gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all"
-                    >
-                      <div className="w-24 h-24 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0 overflow-hidden">
-                        <ResponsivePicture
-                          baseName={imageBase.front}
-                          basePath="@/assets/products"
-                          alt={product.name}
-                          className="w-full h-full object-contain"
-                          width={96}
-                          height={96}
-                          priority="auto"
-                          lazy={true}
-                          sizesAttr="96px"
-                        />
-                      </div>
+                {seriesProducts.slice(0, 3).map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/products/${product.id}`}
+                    className="group flex gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all"
+                  >
+                    <div className="w-24 h-24 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0 overflow-hidden">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold group-hover:text-primary transition-colors">
                           {product.name}

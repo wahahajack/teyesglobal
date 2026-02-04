@@ -31,7 +31,7 @@ function Counter({ value, suffix = "" }: { value: string; suffix?: string }) {
   useEffect(() => {
     if (!hasStarted) return;
 
-    let start = 0;
+    const start = 0;
     const duration = 1500; // 1.5s
     const startTime = performance.now();
 

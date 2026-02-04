@@ -13,6 +13,20 @@ import sonyBackupCamera from "@/assets/accessories/sony-backup-camera.webp";
 import rearViewCameraHs from "@/assets/accessories/rear-view-camera-hs.webp";
 import dabAdapter from "@/assets/accessories/dab-adapter.webp";
 import rcaCable from "@/assets/accessories/rca-cable.webp";
+import cc3360Camera from "@/assets/accessories/cc3-360-camera.webp";
+import cc4FrontCamera from "@/assets/accessories/cc4-front-camera.webp";
+import cc4RearCamera from "@/assets/accessories/cc4-rear-camera.webp";
+import luxone360Camera from "@/assets/accessories/luxone-360-camera.webp";
+import parkingSensors from "@/assets/accessories/parking-sensors.webp";
+import screenProtector from "@/assets/accessories/screen-protector.webp";
+import externalMicrophone from "@/assets/accessories/external-microphone.webp";
+import cc4DigitalMicrophone from "@/assets/accessories/cc4-digital-microphone.webp";
+import steeringControl from "@/assets/accessories/steering-control.webp";
+import powerFilter from "@/assets/accessories/power-filter.webp";
+import trimRemovalKit from "@/assets/accessories/trim-removal-kit.webp";
+import licenseBracket from "@/assets/accessories/license-bracket.webp";
+import usbHdmiAdapter from "@/assets/accessories/usb-hdmi-adapter.webp";
+import voiceControl from "@/assets/accessories/voice-control.webp";
 
 // Product image mapping
 const productImages: Record<string, string> = {
@@ -23,6 +37,20 @@ const productImages: Record<string, string> = {
   "rear-view-camera-hs": rearViewCameraHs,
   "dab-adapter": dabAdapter,
   "line-out-rca": rcaCable,
+  "360-camera-cc3": cc3360Camera,
+  "cc4-front-camera": cc4FrontCamera,
+  "cc4-rear-camera": cc4RearCamera,
+  "360-camera-luxone": luxone360Camera,
+  "parking-sensors": parkingSensors,
+  "screen-protector": screenProtector,
+  "external-mic": externalMicrophone,
+  "cc4-digital-mic": cc4DigitalMicrophone,
+  "steering-control": steeringControl,
+  "power-filter": powerFilter,
+  "trim-removal-kit": trimRemovalKit,
+  "license-bracket": licenseBracket,
+  "usb-hdmi": usbHdmiAdapter,
+  "voice-control": voiceControl,
 };
 
 interface AccessoryProduct {

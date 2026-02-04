@@ -271,9 +271,6 @@ const AccessoryCard = ({ product }: { product: AccessoryProduct }) => {
         ) : (
           <IconComponent className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
         )}
-        <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
-          {product.price}
-        </div>
       </div>
 
       {/* Product Info */}
@@ -285,13 +282,8 @@ const AccessoryCard = ({ product }: { product: AccessoryProduct }) => {
           {product.description}
         </p>
         
-        <div className="flex items-center justify-between text-xs">
+        <div className="text-xs">
           <span className="text-muted-foreground">{product.compat}</span>
-          {product.reviews > 0 && (
-            <span className="text-primary font-medium">
-              {product.reviews} reviews
-            </span>
-          )}
         </div>
       </div>
     </div>

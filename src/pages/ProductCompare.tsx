@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { Check, X, ArrowRight } from "lucide-react";
+import { Check, X, ArrowRight, Plus, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { products } from "@/data/products";
 
@@ -48,6 +48,22 @@ const ProductComparePage = () => {
     .map((id) => products.find((p) => p.id === id))
     .filter(Boolean);
 
+  const availableToAdd = products.filter(
+    (p) => !selectedProducts.includes(p.id)
+  );
+
+  const addProduct = (productId: string) => {
+    if (selectedProducts.length < 5) {
+      setSelectedProducts([...selectedProducts, productId]);
+    }
+  };
+
+  const removeProduct = (productId: string) => {
+    if (selectedProducts.length > 2) {
+      setSelectedProducts(selectedProducts.filter((id) => id !== productId));
+    }
+  };
+
   const getSpecValue = (product: typeof products[0], specLabel: string) => {
     const spec = product.specs.find((s) => s.label === specLabel);
     return spec?.value || "-";
@@ -89,7 +105,17 @@ const ProductComparePage = () => {
                     <span className="text-muted-foreground font-normal">Specification</span>
                   </th>
                   {comparedProducts.map((product) => (
-                    <th key={product!.id} className="p-4 border-b border-border/50">
+                    <th key={product!.id} className="p-4 border-b border-border/50 relative">
+                      {/* Remove button */}
+                      {selectedProducts.length > 2 && (
+                        <button
+                          onClick={() => removeProduct(product!.id)}
+                          className="absolute top-2 right-2 text-muted-foreground hover:text-destructive transition-colors"
+                          title="Remove from comparison"
+                        >
+                          <XCircle className="h-5 w-5" />
+                        </button>
+                      )}
                       <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 rounded-xl bg-secondary/50 flex items-center justify-center overflow-hidden">
                           <img
@@ -112,6 +138,36 @@ const ProductComparePage = () => {
                       </div>
                     </th>
                   ))}
+                  {/* Add Product Column */}
+                  {availableToAdd.length > 0 && selectedProducts.length < 5 && (
+                    <th className="p-4 border-b border-border/50 min-w-[200px]">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-32 h-32 rounded-xl border-2 border-dashed border-border flex items-center justify-center">
+                          <Plus className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-muted-foreground text-sm">Add Model</p>
+                        </div>
+                        <select
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              addProduct(e.target.value);
+                              e.target.value = "";
+                            }
+                          }}
+                          className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                          defaultValue=""
+                        >
+                          <option value="" disabled>Select model...</option>
+                          {availableToAdd.map((product) => (
+                            <option key={product.id} value={product.id}>
+                              {product.name} ({product.seriesName})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </th>
+                  )}
                 </tr>
               </thead>
 
@@ -133,11 +189,20 @@ const ProductComparePage = () => {
                         {renderValue(getSpecValue(product!, spec))}
                       </td>
                     ))}
+                    {/* Empty cell for add column */}
+                    {availableToAdd.length > 0 && selectedProducts.length < 5 && (
+                      <td className="p-4 border-b border-border/30"></td>
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          {/* Helper text */}
+          <p className="text-sm text-muted-foreground mt-6 text-center">
+            Compare up to 5 models. Click the × to remove a model, or use the dropdown to add more.
+          </p>
         </div>
       </section>
 

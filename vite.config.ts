@@ -12,6 +12,22 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor": ["react", "react-dom", "react-router-dom"],
+          "ui": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+    // use esbuild minifier (faster, no extra deps)
+    minify: "esbuild",
+    esbuild: {
+      drop: ["console"],
+    },
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {

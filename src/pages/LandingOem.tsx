@@ -3,7 +3,12 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Factory, Cpu, Palette, Clock, Shield, Users } from "lucide-react";
-import oemFactoryImg from "@/assets/decorative/oem-factory.webp";
+import oemFactoryImg from "@/assets/decorative/oem-factory-800.webp";
+import oemFactory400Avif from "@/assets/decorative/oem-factory-400.avif";
+import oemFactory800Avif from "@/assets/decorative/oem-factory-800.avif";
+import oemFactory1200Avif from "@/assets/decorative/oem-factory-1200.avif";
+import oemFactory400Webp from "@/assets/decorative/oem-factory-400.webp";
+import oemFactory1200Webp from "@/assets/decorative/oem-factory-1200.webp";
 
 const benefits = [
   { icon: Factory, title: "Manufacturing Scale", text: "From prototype to 100K+ units" },
@@ -34,11 +39,23 @@ const LandingOemPage = () => {
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src={oemFactoryImg}
-            alt="Modern manufacturing facility"
-            className="w-full h-full object-cover opacity-20"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={`${oemFactory400Avif} 400w, ${oemFactory800Avif} 800w, ${oemFactory1200Avif} 1200w`}
+              sizes="100vw"
+            />
+            <source
+              type="image/webp"
+              srcSet={`${oemFactory400Webp} 400w, ${oemFactoryImg} 800w, ${oemFactory1200Webp} 1200w`}
+              sizes="100vw"
+            />
+            <img
+              src={oemFactoryImg}
+              alt="Modern manufacturing facility"
+              className="w-full h-full object-cover opacity-20"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
         </div>
 
@@ -84,11 +101,23 @@ const LandingOemPage = () => {
             <div className="hidden lg:block relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 rounded-3xl blur-3xl" />
               <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-2xl">
-                <img
-                  src={oemFactoryImg}
-                  alt="Advanced manufacturing facility"
-                  className="w-full h-auto"
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${oemFactory400Avif} 400w, ${oemFactory800Avif} 800w, ${oemFactory1200Avif} 1200w`}
+                    sizes="(min-width:1024px) 520px, 100vw"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${oemFactory400Webp} 400w, ${oemFactoryImg} 800w, ${oemFactory1200Webp} 1200w`}
+                    sizes="(min-width:1024px) 520px, 100vw"
+                  />
+                  <img
+                    src={oemFactoryImg}
+                    alt="Advanced manufacturing facility"
+                    className="w-full h-auto"
+                  />
+                </picture>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
                   <p className="text-primary text-sm font-medium">Modern Manufacturing</p>
                   <p className="text-foreground font-semibold">State-of-the-Art Production Lines</p>

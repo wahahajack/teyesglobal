@@ -3,8 +3,18 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
-import globalPartnersImg from "@/assets/decorative/global-partners.webp";
-import solutionsHeroImg from "@/assets/decorative/solutions-hero.webp";
+import globalPartnersImg from "@/assets/decorative/global-partners-800.webp";
+import globalPartners400Webp from "@/assets/decorative/global-partners-400.webp";
+import globalPartners1200Webp from "@/assets/decorative/global-partners-1200.webp";
+import globalPartners400Avif from "@/assets/decorative/global-partners-400.avif";
+import globalPartners800Avif from "@/assets/decorative/global-partners-800.avif";
+import globalPartners1200Avif from "@/assets/decorative/global-partners-1200.avif";
+import solutionsHeroImg from "@/assets/decorative/solutions-hero-800.webp";
+import solutionsHero400Webp from "@/assets/decorative/solutions-hero-400.webp";
+import solutionsHero1200Webp from "@/assets/decorative/solutions-hero-1200.webp";
+import solutionsHero400Avif from "@/assets/decorative/solutions-hero-400.avif";
+import solutionsHero800Avif from "@/assets/decorative/solutions-hero-800.avif";
+import solutionsHero1200Avif from "@/assets/decorative/solutions-hero-1200.avif";
 
 const markets = [
   { name: "Middle East", products: "CC4 Pro, CC3 2K", growth: "High" },
@@ -34,11 +44,23 @@ const LandingMarketEntryPage = () => {
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src={globalPartnersImg}
-            alt="Global network"
-            className="w-full h-full object-cover opacity-25"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={`${globalPartners400Avif} 400w, ${globalPartners800Avif} 800w, ${globalPartners1200Avif} 1200w`}
+              sizes="100vw"
+            />
+            <source
+              type="image/webp"
+              srcSet={`${globalPartners400Webp} 400w, ${globalPartnersImg} 800w, ${globalPartners1200Webp} 1200w`}
+              sizes="100vw"
+            />
+            <img
+              src={globalPartnersImg}
+              alt="Global network"
+              className="w-full h-full object-cover opacity-25"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60" />
         </div>
 
@@ -74,11 +96,23 @@ const LandingMarketEntryPage = () => {
             <div className="hidden lg:block relative">
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-purple-400/10 rounded-3xl blur-3xl" />
               <div className="relative rounded-2xl overflow-hidden border border-border/30 shadow-2xl">
-                <img
-                  src={solutionsHeroImg}
-                  alt="Modern car interior"
-                  className="w-full h-auto"
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${solutionsHero400Avif} 400w, ${solutionsHero800Avif} 800w, ${solutionsHero1200Avif} 1200w`}
+                    sizes="(min-width:1024px) 520px, 100vw"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${solutionsHero400Webp} 400w, ${solutionsHeroImg} 800w, ${solutionsHero1200Webp} 1200w`}
+                    sizes="(min-width:1024px) 520px, 100vw"
+                  />
+                  <img
+                    src={solutionsHeroImg}
+                    alt="Modern car interior"
+                    className="w-full h-auto"
+                  />
+                </picture>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
                   <p className="text-violet-400 text-sm font-medium">100+ Markets</p>
                   <p className="text-foreground font-semibold">Proven Success Worldwide</p>

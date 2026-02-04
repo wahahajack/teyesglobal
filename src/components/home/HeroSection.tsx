@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg.webp";
-import cc4ProImg from "@/assets/products/cc4-pro-hero.webp";
+import heroBg400 from "@/assets/hero-bg-400.webp";
+import heroBg800 from "@/assets/hero-bg-800.webp";
+import heroBg1200 from "@/assets/hero-bg-1200.webp";
+import heroBg400Avif from "@/assets/hero-bg-400.avif";
+import heroBg800Avif from "@/assets/hero-bg-800.avif";
+import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
+import cc4Pro400 from "@/assets/products/cc4-pro-hero-400.webp";
+import cc4Pro800 from "@/assets/products/cc4-pro-hero-800.webp";
+import cc4Pro1200 from "@/assets/products/cc4-pro-hero-1200.webp";
+import cc4Pro400Avif from "@/assets/products/cc4-pro-hero-400.avif";
+import cc4Pro800Avif from "@/assets/products/cc4-pro-hero-800.avif";
+import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
 
 const entryPoints = [
   {
@@ -36,11 +46,28 @@ export function HeroSection() {
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Car interior"
-          className="w-full h-full object-cover opacity-30"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${heroBg400Avif} 400w, ${heroBg800Avif} 800w, ${heroBg1200Avif} 1200w`}
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${heroBg400} 400w, ${heroBg800} 800w, ${heroBg1200} 1200w`}
+            sizes="100vw"
+          />
+          <img
+            src={heroBg800}
+            alt="Car interior"
+            className="w-full h-full object-cover opacity-30"
+            width={1920}
+            height={1080}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         <div className="hero-overlay absolute inset-0" />
       </div>
 
@@ -87,14 +114,28 @@ export function HeroSection() {
 
               {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
-                <img
-                  src={cc4ProImg}
-                  alt="TEYES CC4 Pro - Flagship Android Head Unit"
-                  className="w-full h-auto object-cover max-h-[400px]"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${cc4Pro400Avif} 400w, ${cc4Pro800Avif} 800w, ${cc4Pro1200Avif} 1200w`}
+                    sizes="(max-width: 768px) 90vw, 800px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${cc4Pro400} 400w, ${cc4Pro800} 800w, ${cc4Pro1200} 1200w`}
+                    sizes="(max-width: 768px) 90vw, 800px"
+                  />
+                  <img
+                    src={cc4Pro800}
+                    alt="TEYES CC4 Pro - Flagship Android Head Unit"
+                    className="w-full h-auto object-cover max-h-[400px]"
+                    width={800}
+                    height={600}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                </picture>
 
                 {/* Image Overlay with Product Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 via-background/60 to-transparent">

@@ -8,12 +8,22 @@ import { ArrowRight, Camera, Gauge, Cable, Mic, Radio, Monitor, Car, Cpu, Volume
 // Import accessory images
 import tpmsSystem from "@/assets/accessories/tpms-system.webp";
 import obd2Adapter from "@/assets/accessories/obd2-adapter.webp";
-import dvrDashcam from "@/assets/accessories/dvr-dashcam.webp";
+import dvrDashcam from "@/assets/accessories/dvr-dashcam-800.webp";
+import dvrDashcam400 from "@/assets/accessories/dvr-dashcam-400.webp";
+import dvrDashcam1200 from "@/assets/accessories/dvr-dashcam-1200.webp";
+import dvrDashcam400Avif from "@/assets/accessories/dvr-dashcam-400.avif";
+import dvrDashcam800Avif from "@/assets/accessories/dvr-dashcam-800.avif";
+import dvrDashcam1200Avif from "@/assets/accessories/dvr-dashcam-1200.avif";
 import sonyBackupCamera from "@/assets/accessories/sony-backup-camera.webp";
 import rearViewCameraHs from "@/assets/accessories/rear-view-camera-hs.webp";
 import dabAdapter from "@/assets/accessories/dab-adapter.webp";
 import rcaCable from "@/assets/accessories/rca-cable.webp";
-import cc3360Camera from "@/assets/accessories/cc3-360-camera.webp";
+import cc3360Camera from "@/assets/accessories/cc3-360-camera-800.webp";
+import cc3360Camera400 from "@/assets/accessories/cc3-360-camera-400.webp";
+import cc3360Camera1200 from "@/assets/accessories/cc3-360-camera-1200.webp";
+import cc3360Camera400Avif from "@/assets/accessories/cc3-360-camera-400.avif";
+import cc3360Camera800Avif from "@/assets/accessories/cc3-360-camera-800.avif";
+import cc3360Camera1200Avif from "@/assets/accessories/cc3-360-camera-1200.avif";
 import cc4FrontCamera from "@/assets/accessories/cc4-front-camera.webp";
 import cc4RearCamera from "@/assets/accessories/cc4-rear-camera.webp";
 import luxone360Camera from "@/assets/accessories/luxone-360-camera.webp";
@@ -29,15 +39,26 @@ import usbHdmiAdapter from "@/assets/accessories/usb-hdmi-adapter.webp";
 import voiceControl from "@/assets/accessories/voice-control.webp";
 
 // Product image mapping
-const productImages: Record<string, string> = {
+type ImageVariants = { avif?: string; webp?: string; srcSetWebp?: string; srcSetAvif?: string };
+const productImages: Record<string, string | ImageVariants> = {
   "tpms": tpmsSystem,
   "obd2": obd2Adapter,
-  "dvr-dash-camera": dvrDashcam,
+  "dvr-dash-camera": {
+    webp: dvrDashcam,
+    avif: dvrDashcam800Avif,
+    srcSetWebp: `${dvrDashcam400} 400w, ${dvrDashcam} 800w, ${dvrDashcam1200} 1200w`,
+    srcSetAvif: `${dvrDashcam400Avif} 400w, ${dvrDashcam800Avif} 800w, ${dvrDashcam1200Avif} 1200w`,
+  },
   "sony-backup-camera": sonyBackupCamera,
   "rear-view-camera-hs": rearViewCameraHs,
   "dab-adapter": dabAdapter,
   "line-out-rca": rcaCable,
-  "360-camera-cc3": cc3360Camera,
+  "360-camera-cc3": {
+    webp: cc3360Camera,
+    avif: cc3360Camera800Avif,
+    srcSetWebp: `${cc3360Camera400} 400w, ${cc3360Camera} 800w, ${cc3360Camera1200} 1200w`,
+    srcSetAvif: `${cc3360Camera400Avif} 400w, ${cc3360Camera800Avif} 800w, ${cc3360Camera1200Avif} 1200w`,
+  },
   "cc4-front-camera": cc4FrontCamera,
   "cc4-rear-camera": cc4RearCamera,
   "360-camera-luxone": luxone360Camera,
@@ -291,11 +312,27 @@ const AccessoryCard = ({ product }: { product: AccessoryProduct }) => {
       {/* Product Image */}
       <div className="aspect-square bg-gradient-to-br from-secondary/50 to-card flex items-center justify-center relative overflow-hidden">
         {image ? (
-          <img 
-            src={image} 
-            alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+          typeof image === 'string' ? (
+            <img
+              src={image}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <picture>
+              {image.avif && (
+                <source type="image/avif" srcSet={image.srcSetAvif} sizes="(max-width: 768px) 45vw, 200px" />
+              )}
+              {image.webp && (
+                <source type="image/webp" srcSet={image.srcSetWebp} sizes="(max-width: 768px) 45vw, 200px" />
+              )}
+              <img
+                src={image.webp || ''}
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </picture>
+          )
         ) : (
           <IconComponent className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
         )}

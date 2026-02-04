@@ -1,11 +1,11 @@
-import cc4ProScreenImg from "@/assets/products/cc4-pro-screen.webp";
-import cc4ProBackImg from "@/assets/products/cc4-pro-back.webp";
+import cc4ProScreenImg from "@/assets/products/cc4-pro-screen-800.webp";
+import cc4ProBackImg from "@/assets/products/cc4-pro-back-800.webp";
 import cc3Img from "@/assets/products/cc3-2k.webp";
 import x1ProImg from "@/assets/products/x1-pro.webp";
-import cc4ScreenImg from "@/assets/products/cc4-screen.webp";
-import cc4BackImg from "@/assets/products/cc4-back.webp";
-import cc4lScreenImg from "@/assets/products/cc4l-screen.webp";
-import cc4lBackImg from "@/assets/products/cc4l-back.webp";
+import cc4ScreenImg from "@/assets/products/cc4-screen-800.webp";
+import cc4BackImg from "@/assets/products/cc4-back-800.webp";
+import cc4lScreenImg from "@/assets/products/cc4l-screen-800.webp";
+import cc4lBackImg from "@/assets/products/cc4l-back-800.webp";
 
 export interface ProductSpec {
   label: string;

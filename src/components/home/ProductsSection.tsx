@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import cc4ProImg from "@/assets/products/cc4-pro-screen.webp";
+import cc4ProImg from "@/assets/products/cc4-pro-screen-800.webp";
+import cc4ProScreen400 from "@/assets/products/cc4-pro-screen-400.webp";
+import cc4ProScreen800 from "@/assets/products/cc4-pro-screen-800.webp";
+import cc4ProScreen1200 from "@/assets/products/cc4-pro-screen-1200.webp";
+import cc4ProScreen400Avif from "@/assets/products/cc4-pro-screen-400.avif";
+import cc4ProScreen800Avif from "@/assets/products/cc4-pro-screen-800.avif";
+import cc4ProScreen1200Avif from "@/assets/products/cc4-pro-screen-1200.avif";
 import cc3Img from "@/assets/products/cc3-2k.webp";
 import x1ProImg from "@/assets/products/x1-pro.webp";
 
@@ -74,12 +80,39 @@ export function ProductsSection() {
 
               {/* Image */}
               <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
+                {product.id === 'flagship' ? (
+                  <picture>
+                    <source
+                      type="image/avif"
+                      srcSet={`${cc4ProScreen400Avif} 400w, ${cc4ProScreen800Avif} 800w, ${cc4ProScreen1200Avif} 1200w`}
+                      sizes="(max-width: 768px) 45vw, 400px"
+                    />
+                    <source
+                      type="image/webp"
+                      srcSet={`${cc4ProScreen400} 400w, ${cc4ProScreen800} 800w, ${cc4ProScreen1200} 1200w`}
+                      sizes="(max-width: 768px) 45vw, 400px"
+                    />
+                    <img
+                      src={cc4ProScreen800}
+                      alt={product.name}
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      width={400}
+                      height={400}
+                      decoding="async"
+                    />
+                  </picture>
+                ) : (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                    width={400}
+                    height={400}
+                    decoding="async"
+                  />
+                )}
               </div>
 
               {/* Content */}

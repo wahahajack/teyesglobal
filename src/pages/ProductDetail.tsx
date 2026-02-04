@@ -81,6 +81,11 @@ const ProductDetailPage = () => {
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover rounded-xl"
+                width={600}
+                height={450}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
 

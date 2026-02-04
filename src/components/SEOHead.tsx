@@ -80,6 +80,33 @@ export function SEOHead({
     setMeta("twitter:image", ogImage);
     setMeta("twitter:card", "summary_large_image");
 
+    // Preload ogImage to improve LCP
+    if (ogImage) {
+      let preload = document.querySelector(`link[rel="preload"][href="${ogImage}"]`);
+      if (!preload) {
+        preload = document.createElement("link");
+        preload.setAttribute("rel", "preload");
+        preload.setAttribute("href", ogImage);
+        preload.setAttribute("as", "image");
+        document.head.appendChild(preload);
+      }
+    }
+
+    // Preconnect common font origins
+    const addPreconnect = (href: string, cross = false) => {
+      let p = document.querySelector(`link[rel=\"preconnect\"][href=\"${href}\"]`);
+      if (!p) {
+        p = document.createElement("link");
+        p.setAttribute("rel", "preconnect");
+        p.setAttribute("href", href);
+        if (cross) p.setAttribute("crossorigin", "anonymous");
+        document.head.appendChild(p);
+      }
+    };
+
+    addPreconnect("https://fonts.gstatic.com", true);
+    addPreconnect("https://fonts.googleapis.com");
+
     // Product structured data (JSON-LD)
     if (productData) {
       let script = document.querySelector('script[type="application/ld+json"]');

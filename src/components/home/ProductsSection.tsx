@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import cc4ProImg from "@/assets/products/cc4-pro-screen-800.webp";
-import cc4ProScreen400 from "@/assets/products/cc4-pro-screen-400.webp";
-import cc4ProScreen800 from "@/assets/products/cc4-pro-screen-800.webp";
-import cc4ProScreen1200 from "@/assets/products/cc4-pro-screen-1200.webp";
-import cc4ProScreen400Avif from "@/assets/products/cc4-pro-screen-400.avif";
-import cc4ProScreen800Avif from "@/assets/products/cc4-pro-screen-800.avif";
-import cc4ProScreen1200Avif from "@/assets/products/cc4-pro-screen-1200.avif";
-import cc3Img from "@/assets/products/cc3-2k.webp";
-import x1ProImg from "@/assets/products/x1-pro.webp";
+
+// Product images are now served from the public folder
+const cc4ProImg = "/assets/products/cc4-pro-screen-800.webp";
+const cc4ProScreen400 = "/assets/products/cc4-pro-screen-400.webp";
+const cc4ProScreen800 = "/assets/products/cc4-pro-screen-800.webp";
+const cc4ProScreen1200 = "/assets/products/cc4-pro-screen-1200.webp";
+const cc4ProScreen400Avif = "/assets/products/cc4-pro-screen-400.avif";
+const cc4ProScreen800Avif = "/assets/products/cc4-pro-screen-800.avif";
+const cc4ProScreen1200Avif = "/assets/products/cc4-pro-screen-1200.avif";
+const cc3Img = "/assets/products/cc3-2k.webp";
+const x1ProImg = "/assets/products/x1-pro.webp";
 
 const productSeries = [
   {

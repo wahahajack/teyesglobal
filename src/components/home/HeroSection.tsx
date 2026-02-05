@@ -7,12 +7,13 @@ import heroBg1200 from "@/assets/hero-bg-1200.webp";
 import heroBg400Avif from "@/assets/hero-bg-400.avif";
 import heroBg800Avif from "@/assets/hero-bg-800.avif";
 import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
-import cc4Pro400 from "@/assets/products/cc4-pro-hero-400.webp";
-import cc4Pro800 from "@/assets/products/cc4-pro-hero-800.webp";
-import cc4Pro1200 from "@/assets/products/cc4-pro-hero-1200.webp";
-import cc4Pro400Avif from "@/assets/products/cc4-pro-hero-400.avif";
-import cc4Pro800Avif from "@/assets/products/cc4-pro-hero-800.avif";
-import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
+// Hero product images are now served from the public folder
+const cc4Pro400 = "/assets/products/cc4-pro-hero-400.webp";
+const cc4Pro800 = "/assets/products/cc4-pro-hero-800.webp";
+const cc4Pro1200 = "/assets/products/cc4-pro-hero-1200.webp";
+const cc4Pro400Avif = "/assets/products/cc4-pro-hero-400.avif";
+const cc4Pro800Avif = "/assets/products/cc4-pro-hero-800.avif";
+const cc4Pro1200Avif = "/assets/products/cc4-pro-hero-1200.avif";
 
 const entryPoints = [
   {

@@ -32,7 +32,7 @@ const ProductsPage = () => {
       <section className="py-10 bg-card">
         <div className="container-wide">
           <h2 className="text-2xl font-display font-bold mb-8">Featured Products</h2>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {[flagshipProducts[0], advancedProducts[0], entryProducts[0]].filter(Boolean).map((product) => (
               <Link
@@ -56,24 +56,24 @@ const ProductsPage = () => {
                   />
                 </div>
 
-                  <div className="p-6">
-                    <p className="text-primary text-sm font-medium mb-1">
-                      {product.seriesName}
-                    </p>
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                      View Details
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
-                    </div>
+                <div className="p-6">
+                  <p className="text-primary text-sm font-medium mb-1">
+                    {product.seriesName}
+                  </p>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                    {product.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-primary font-medium text-sm">
+                    View Details
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
                   </div>
-                </Link>
-              );
-            })}
+                </div>
+              </Link>
+            ))
+            }
           </div>
         </div>
       </section>
@@ -110,24 +110,24 @@ const ProductsPage = () => {
                         className="w-full h-full object-contain"
                       />
                     </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold group-hover:text-primary transition-colors">
-                          {product.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          {product.tagline}
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {product.features.slice(0, 2).map((f) => (
-                            <span key={f} className="text-xs px-2 py-0.5 bg-secondary rounded">
-                              {f}
-                            </span>
-                          ))}
-                        </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold group-hover:text-primary transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {product.tagline}
+                      </p>
+                      <div className="flex flex-wrap gap-1">
+                        {product.features.slice(0, 2).map((f) => (
+                          <span key={f} className="text-xs px-2 py-0.5 bg-secondary rounded">
+                            {f}
+                          </span>
+                        ))}
                       </div>
-                    </Link>
-                  );
-                })}
+                    </div>
+                  </Link>
+                ))
+                }
               </div>
             </div>
           </section>

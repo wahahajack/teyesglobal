@@ -37,10 +37,14 @@
   <!-- Preconnect for fonts (improves loading) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Preload critical LCP image -->
-  <link rel="preload" as="image" type="image/avif" href="/assets/products/cc4-pro-hero-800.avif" />
+  <!-- Preload critical LCP image - Responsive for Mobile Performance -->
+  <link rel="preload" as="image" href="/assets/products/cc4-pro-hero-800.avif"
+    imagesrcset="/assets/products/cc4-pro-hero-400.avif 400w, /assets/products/cc4-pro-hero-800.avif 800w, /assets/products/cc4-pro-hero-1200.avif 1200w"
+    imagesizes="(max-width: 768px) 100vw, 50vw" />
   <link rel="preload" as="image" type="image/avif" href="/assets/hero-bg-800.avif" />
+
+  <!-- Preconnect for external assets if present -->
+  <link rel="preconnect" href="https://cdn.gpteng.co" crossorigin />
 
   <!-- Optimized font loading with reduced weights -->
   <link rel="preload" as="style"

@@ -1,11 +1,12 @@
 // Product images are now served from the public folder
-const cc4ProScreenImg = "/assets/products/cc4-pro-screen-800.webp";
+// Using 400px for mobile-first, with srcset handling larger sizes
+const cc4ProScreenImg = "/assets/products/cc4-pro-screen-400.webp";
 const cc4ProBackImg = "/assets/products/cc4-pro-back-800.webp";
-const cc3Img = "/assets/products/cc3-2k.webp";
-const x1ProImg = "/assets/products/x1-pro.webp";
-const cc4ScreenImg = "/assets/products/cc4-screen-800.webp";
+const cc3Img = "/assets/products/cc3-2k-400.webp";
+const x1ProImg = "/assets/products/x1-pro-400.webp";
+const cc4ScreenImg = "/assets/products/cc4-screen-400.webp";
 const cc4BackImg = "/assets/products/cc4-back-800.webp";
-const cc4lScreenImg = "/assets/products/cc4l-screen-800.webp";
+const cc4lScreenImg = "/assets/products/cc4l-screen-400.webp";
 const cc4lBackImg = "/assets/products/cc4l-back-800.webp";
 
 export interface ProductSpec {

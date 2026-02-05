@@ -4,27 +4,46 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Suspense, lazy } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Critical path - load immediately
 import Index from "./pages/Index";
-import ProductsPage from "./pages/Products";
-import ProductLinesPage from "./pages/ProductLines";
-import ProductDetailPage from "./pages/ProductDetail";
-import ProductComparePage from "./pages/ProductCompare";
-import SolutionsPage from "./pages/Solutions";
-import SolutionsDistributorsPage from "./pages/SolutionsDistributors";
-import SolutionsAutoBrandsPage from "./pages/SolutionsAutoBrands";
-import SolutionsIntegratorsPage from "./pages/SolutionsIntegrators";
-import SolutionsMarketNeedsPage from "./pages/SolutionsMarketNeeds";
-import OemOdmPage from "./pages/OemOdm";
-import OemCapabilitiesPage from "./pages/OemCapabilities";
-import OemCertificationsPage from "./pages/OemCertifications";
-import OemCasesPage from "./pages/OemCases";
-import LandingOemPage from "./pages/LandingOem";
-import LandingMarketEntryPage from "./pages/LandingMarketEntry";
-import LandingDistributorPage from "./pages/LandingDistributor";
-import AccessoriesPage from "./pages/Accessories";
-import ContactPage from "./pages/Contact";
-import HomeThankYou from "./pages/HomeThankYou";
 import NotFound from "./pages/NotFound";
+
+// Lazy load non-critical pages for better mobile performance
+const ProductsPage = lazy(() => import("./pages/Products"));
+const ProductLinesPage = lazy(() => import("./pages/ProductLines"));
+const ProductDetailPage = lazy(() => import("./pages/ProductDetail"));
+const ProductComparePage = lazy(() => import("./pages/ProductCompare"));
+const SolutionsPage = lazy(() => import("./pages/Solutions"));
+const SolutionsDistributorsPage = lazy(() => import("./pages/SolutionsDistributors"));
+const SolutionsAutoBrandsPage = lazy(() => import("./pages/SolutionsAutoBrands"));
+const SolutionsIntegratorsPage = lazy(() => import("./pages/SolutionsIntegrators"));
+const SolutionsMarketNeedsPage = lazy(() => import("./pages/SolutionsMarketNeeds"));
+const OemOdmPage = lazy(() => import("./pages/OemOdm"));
+const OemCapabilitiesPage = lazy(() => import("./pages/OemCapabilities"));
+const OemCertificationsPage = lazy(() => import("./pages/OemCertifications"));
+const OemCasesPage = lazy(() => import("./pages/OemCases"));
+const LandingOemPage = lazy(() => import("./pages/LandingOem"));
+const LandingMarketEntryPage = lazy(() => import("./pages/LandingMarketEntry"));
+const LandingDistributorPage = lazy(() => import("./pages/LandingDistributor"));
+const AccessoriesPage = lazy(() => import("./pages/Accessories"));
+const ContactPage = lazy(() => import("./pages/Contact"));
+const HomeThankYou = lazy(() => import("./pages/HomeThankYou"));
+
+// Minimal loading fallback
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="space-y-4 w-full max-w-md px-4">
+        <Skeleton className="h-8 w-3/4 mx-auto" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+      </div>
+    </div>
+  );
+}
 
 const queryClient = new QueryClient();
 
@@ -35,6 +54,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
             {/* Products */}
@@ -65,6 +85,7 @@ const App = () => (
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

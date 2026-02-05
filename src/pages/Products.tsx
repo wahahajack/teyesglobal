@@ -5,6 +5,61 @@ import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
+import { useState } from "react";
+
+// Optimized product image component with srcset
+function ProductImage({ 
+  src, 
+  alt, 
+  className = "",
+  priority = false,
+  size = "large"
+}: { 
+  src: string; 
+  alt: string; 
+  className?: string;
+  priority?: boolean;
+  size?: "large" | "small";
+}) {
+  const [loaded, setLoaded] = useState(false);
+  
+  // Generate srcset for responsive loading
+  const getSrcSet = (baseSrc: string) => {
+    // Extract base path without size suffix
+    const match = baseSrc.match(/^(.+)-(\d+)\.(\w+)$/);
+    if (match) {
+      const [, base, , ext] = match;
+      return `${base}-400.${ext} 400w, ${base}-800.${ext} 800w, ${base}-1200.${ext} 1200w`;
+    }
+    return undefined;
+  };
+
+  const srcSet = getSrcSet(src);
+  const sizes = size === "large" 
+    ? "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+    : "(max-width: 768px) 96px, 96px";
+
+  return (
+    <div className="relative w-full h-full">
+      {!loaded && (
+        <div className="absolute inset-0 bg-secondary/50 animate-pulse rounded" />
+      )}
+      <img
+        src={src}
+        srcSet={srcSet}
+        sizes={sizes}
+        alt={alt}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+        loading={priority ? "eager" : "lazy"}
+        width={size === "large" ? 400 : 96}
+        height={size === "large" ? 400 : 96}
+        decoding="async"
+        fetchPriority={priority ? "high" : "low"}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+}
 
 const ProductsPage = () => {
   const flagshipProducts = getProductsBySeries("flagship");
@@ -48,14 +103,12 @@ const ProductsPage = () => {
                 )}
 
                 <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden relative">
-                  <img
+                  <ProductImage
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                    width="800"
-                    height="800"
-                    decoding="async"
+                    size="large"
+                    priority={true}
                   />
                 </div>
 
@@ -107,14 +160,11 @@ const ProductsPage = () => {
                     className="group flex gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all"
                   >
                     <div className="w-24 h-24 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0 overflow-hidden">
-                      <img
+                      <ProductImage
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-contain"
-                        width="96"
-                        height="96"
-                        decoding="async"
-                        loading="lazy"
+                        size="small"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

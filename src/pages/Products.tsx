@@ -53,6 +53,9 @@ const ProductsPage = () => {
                     alt={product.name}
                     className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
+                    width="800"
+                    height="800"
+                    decoding="async"
                   />
                 </div>
 
@@ -108,6 +111,10 @@ const ProductsPage = () => {
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-contain"
+                        width="96"
+                        height="96"
+                        decoding="async"
+                        loading="lazy"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

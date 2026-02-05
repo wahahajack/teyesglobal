@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Star } from "lucide-react";
 import { getProductById, products } from "@/data/products";
@@ -29,25 +29,32 @@ const ProductDetailPage = () => {
     .filter((p) => p.series === product.series && p.id !== product.id)
     .slice(0, 2);
 
-  // Generate SEO content
-  const seoTitle = `${product.name} - ${product.tagline} | TEYES Car Infotainment`;
-  const seoDescription = `${product.description} Features: ${product.features.slice(0, 4).join(", ")}. ${product.seriesName}.`;
-  const seoKeywords = `${product.name}, TEYES, car head unit, android car stereo, ${product.features.join(", ")}, ${product.seriesName}`;
+  const schema = JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": `TEYES ${product.name}`,
+    "image": [`https://teyesauto.com${product.image}`],
+    "description": product.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "TEYES"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "TEYES"
+    }
+  });
 
   return (
     <Layout>
-      <SEOHead
-        title={seoTitle}
-        description={seoDescription}
-        keywords={seoKeywords}
-        canonicalPath={`/products/${product.id}`}
-        ogType="product"
-        productData={{
-          name: product.name,
-          brand: "TEYES",
-          category: product.seriesName,
-        }}
+      <SEO
+        title={`${product.name} - ${product.tagline} | TEYES Car Infotainment`}
+        description={`${product.description} Features: ${product.features.join(", ")}.`}
+        image={product.image}
+        path={`/products/${product.id}`}
+        schema={schema}
       />
+
       {/* Simple Breadcrumb Header */}
       <div className="py-4 bg-card border-b border-border/50">
         <div className="container-wide">
@@ -65,7 +72,7 @@ const ProductDetailPage = () => {
         </div>
       </div>
 
-      {/* Product Showcase - Not a Hero, but product display */}
+      {/* Product Showcase */}
       <section className="py-12 bg-background">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -152,9 +159,8 @@ const ProductDetailPage = () => {
               {product.specs.map((spec, index) => (
                 <div
                   key={spec.label}
-                  className={`flex justify-between p-4 border-b border-border/50 ${
-                    index % 2 === 0 ? "md:border-r" : ""
-                  }`}
+                  className={`flex justify-between p-4 border-b border-border/50 ${index % 2 === 0 ? "md:border-r" : ""
+                    }`}
                 >
                   <span className="text-muted-foreground">{spec.label}</span>
                   <span className="font-medium text-right">{spec.value}</span>

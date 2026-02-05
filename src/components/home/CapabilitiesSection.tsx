@@ -35,7 +35,7 @@ export function CapabilitiesSection() {
 
       <div className="container-wide relative">
         <div className="max-w-3xl mb-16">
-          <p className="text-primary font-medium mb-2">Core Capabilities</p>
+          <span className="text-primary font-medium mb-2 block">Core Capabilities</span>
           <h2 className="section-title">
             What Makes TEYES a Long-term Partner
           </h2>
@@ -55,7 +55,7 @@ export function CapabilitiesSection() {
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6">
                 <cap.icon className="h-7 w-7 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{cap.title}</h3>
+              <h3 className="text-lg font-semibold mb-3">{cap.title}</h3>
               <p className="text-muted-foreground">{cap.description}</p>
             </div>
           ))}

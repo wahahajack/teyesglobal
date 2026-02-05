@@ -23,10 +23,10 @@ export function OemCtaSection() {
                 <Cpu className="h-8 w-8 text-primary-foreground" />
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
                 Building Your Own Product Line?
               </h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Start with TEYES OEM / ODM Solutions. We help you bring competitive 
                 infotainment products to market faster.
               </p>

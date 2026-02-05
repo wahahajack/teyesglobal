@@ -52,7 +52,7 @@ export function ProductsSection() {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <p className="text-primary font-medium mb-2">Product Matrix</p>
+            <span className="text-primary font-medium mb-2 block">Product Matrix</span>
             <h2 className="section-title">
               For Partners Who Know What They're Looking For
             </h2>
@@ -122,7 +122,7 @@ export function ProductsSection() {
                 <p className="text-primary text-sm font-medium mb-1">
                   {product.tagline}
                 </p>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">

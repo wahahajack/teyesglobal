@@ -74,7 +74,8 @@ export function HeroSection() {
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
           {/* Left: Text Content */}
-          <div className="space-y-4 md:space-y-6 animate-fade-in-up">
+          {/* Left: Text Content */}
+          <div className="space-y-4 md:space-y-6 md:animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
               <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
               Trusted by 100+ Markets Worldwide
@@ -102,14 +103,14 @@ export function HeroSection() {
 
           </div>
 
-          {/* Right: Product Image */}
-          <div className="relative animate-fade-in-up delay-200">
+          {/* Right: Product Image - No animation on mobile for LCP speed */}
+          <div className="relative md:animate-fade-in-up md:delay-200">
             <div className="relative">
               {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
 
               {/* Product Image */}
-              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
                 <picture>
                   <source
                     type="image/avif"

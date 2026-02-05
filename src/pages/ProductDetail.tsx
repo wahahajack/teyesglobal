@@ -29,7 +29,7 @@ const ProductDetailPage = () => {
     .filter((p) => p.series === product.series && p.id !== product.id)
     .slice(0, 2);
 
-  const schema = JSON.stringify({
+  const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": `TEYES ${product.name}`,
@@ -43,7 +43,34 @@ const ProductDetailPage = () => {
       "@type": "Organization",
       "name": "TEYES"
     }
-  });
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Products",
+        "item": "https://teyesauto.com/products"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": product.seriesName,
+        "item": "https://teyesauto.com/products/lines"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": product.name,
+        "item": `https://teyesauto.com/products/${product.id}`
+      }
+    ]
+  };
+
+  const schemaString = JSON.stringify([productSchema, breadcrumbSchema]);
 
   return (
     <Layout>
@@ -52,7 +79,7 @@ const ProductDetailPage = () => {
         description={`${product.description} Features: ${product.features.join(", ")}.`}
         image={product.image}
         path={`/products/${product.id}`}
-        schema={schema}
+        schema={schemaString}
       />
 
       {/* Simple Breadcrumb Header */}

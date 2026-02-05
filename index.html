@@ -38,6 +38,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+  <!-- Preload critical LCP image -->
+  <link rel="preload" as="image" type="image/avif" href="/assets/products/cc4-pro-hero-800.avif" fetchpriority="high" />
+  <link rel="preload" as="image" type="image/avif" href="/assets/hero-bg-800.avif" />
+
   <!-- Optimized font loading with reduced weights -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Rajdhani:wght@600;700&display=swap" />
@@ -51,6 +55,12 @@
 
   <!-- Robots -->
   <meta name="robots" content="index, follow" />
+
+  <!-- Critical CSS inline for faster FCP -->
+  <style>
+    body { background: hsl(222 47% 5%); color: hsl(210 40% 98%); font-family: system-ui, sans-serif; }
+    .min-h-screen { min-height: 100vh; }
+  </style>
 </head>
 
 <body>

@@ -1,19 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg400 from "@/assets/hero-bg-400.webp";
-import heroBg800 from "@/assets/hero-bg-800.webp";
-import heroBg1200 from "@/assets/hero-bg-1200.webp";
-import heroBg400Avif from "@/assets/hero-bg-400.avif";
-import heroBg800Avif from "@/assets/hero-bg-800.avif";
-import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
-// Hero product images are now served from the public folder
-const cc4Pro400 = "/assets/products/cc4-pro-hero-400.webp";
-const cc4Pro800 = "/assets/products/cc4-pro-hero-800.webp";
-const cc4Pro1200 = "/assets/products/cc4-pro-hero-1200.webp";
-const cc4Pro400Avif = "/assets/products/cc4-pro-hero-400.avif";
-const cc4Pro800Avif = "/assets/products/cc4-pro-hero-800.avif";
-const cc4Pro1200Avif = "/assets/products/cc4-pro-hero-1200.avif";
+
+// Use public paths for preload compatibility - critical for LCP
+const heroBg = {
+  avif: { s400: "/assets/hero-bg-400.avif", s800: "/assets/hero-bg-800.avif", s1200: "/assets/hero-bg-1200.avif" },
+  webp: { s400: "/assets/hero-bg-400.webp", s800: "/assets/hero-bg-800.webp", s1200: "/assets/hero-bg-1200.webp" },
+};
+const cc4Pro = {
+  avif: { s400: "/assets/products/cc4-pro-hero-400.avif", s800: "/assets/products/cc4-pro-hero-800.avif", s1200: "/assets/products/cc4-pro-hero-1200.avif" },
+  webp: { s400: "/assets/products/cc4-pro-hero-400.webp", s800: "/assets/products/cc4-pro-hero-800.webp", s1200: "/assets/products/cc4-pro-hero-1200.webp" },
+};
 
 const entryPoints = [
   {
@@ -50,22 +47,20 @@ export function HeroSection() {
         <picture>
           <source
             type="image/avif"
-            srcSet={`${heroBg400Avif} 400w, ${heroBg800Avif} 800w, ${heroBg1200Avif} 1200w`}
+            srcSet={`${heroBg.avif.s400} 400w, ${heroBg.avif.s800} 800w, ${heroBg.avif.s1200} 1200w`}
             sizes="100vw"
           />
           <source
             type="image/webp"
-            srcSet={`${heroBg400} 400w, ${heroBg800} 800w, ${heroBg1200} 1200w`}
+            srcSet={`${heroBg.webp.s400} 400w, ${heroBg.webp.s800} 800w, ${heroBg.webp.s1200} 1200w`}
             sizes="100vw"
           />
           <img
-            src={heroBg800}
+            src={heroBg.webp.s800}
             alt="Car interior"
             className="w-full h-full object-cover opacity-30"
             width={1920}
             height={1080}
-            loading="eager"
-            fetchPriority="high"
             decoding="async"
           />
         </picture>
@@ -118,23 +113,23 @@ export function HeroSection() {
                 <picture>
                   <source
                     type="image/avif"
-                    srcSet={`${cc4Pro400Avif} 400w, ${cc4Pro800Avif} 800w, ${cc4Pro1200Avif} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 800px"
+                    srcSet={`${cc4Pro.avif.s400} 400w, ${cc4Pro.avif.s800} 800w, ${cc4Pro.avif.s1200} 1200w`}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <source
                     type="image/webp"
-                    srcSet={`${cc4Pro400} 400w, ${cc4Pro800} 800w, ${cc4Pro1200} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 800px"
+                    srcSet={`${cc4Pro.webp.s400} 400w, ${cc4Pro.webp.s800} 800w, ${cc4Pro.webp.s1200} 1200w`}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <img
-                    src={cc4Pro800}
+                    src={cc4Pro.webp.s800}
                     alt="TEYES CC4 Pro - Flagship Android Head Unit"
                     className="w-full h-auto object-cover max-h-[400px]"
                     width={800}
                     height={600}
                     loading="eager"
                     fetchPriority="high"
-                    decoding="async"
+                    decoding="sync"
                   />
                 </picture>
 

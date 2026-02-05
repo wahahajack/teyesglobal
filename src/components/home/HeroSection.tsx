@@ -139,7 +139,7 @@ export function HeroSection() {
                   <div className="flex items-end justify-between">
                     <div>
                       <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
-                      <h3 className="text-2xl font-bold text-foreground">CC4 Pro</h3>
+                      <h2 className="text-2xl font-bold text-foreground">CC4 Pro</h2>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
                     <Button variant="hero" size="sm" asChild>

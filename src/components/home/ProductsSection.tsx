@@ -3,15 +3,24 @@ import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Product images are now served from the public folder
-const cc4ProImg = "/assets/products/cc4-pro-screen-800.webp";
-const cc4ProScreen400 = "/assets/products/cc4-pro-screen-400.webp";
-const cc4ProScreen800 = "/assets/products/cc4-pro-screen-800.webp";
-const cc4ProScreen1200 = "/assets/products/cc4-pro-screen-1200.webp";
-const cc4ProScreen400Avif = "/assets/products/cc4-pro-screen-400.avif";
-const cc4ProScreen800Avif = "/assets/products/cc4-pro-screen-800.avif";
-const cc4ProScreen1200Avif = "/assets/products/cc4-pro-screen-1200.avif";
-const cc3Img = "/assets/products/cc3-2k.webp";
-const x1ProImg = "/assets/products/x1-pro.webp";
+// Product images - optimized paths
+const cc4ProImages = {
+  src: "/assets/products/cc4-pro-screen-800.webp",
+  avif: { 400: "/assets/products/cc4-pro-screen-400.avif", 800: "/assets/products/cc4-pro-screen-800.avif", 1200: "/assets/products/cc4-pro-screen-1200.avif" },
+  webp: { 400: "/assets/products/cc4-pro-screen-400.webp", 800: "/assets/products/cc4-pro-screen-800.webp", 1200: "/assets/products/cc4-pro-screen-1200.webp" },
+};
+
+const cc3Images = {
+  src: "/assets/products/cc3-2k-800.webp", // Using 800 as fallback/src
+  avif: { 400: "/assets/products/cc3-2k-400.avif", 800: "/assets/products/cc3-2k-800.avif", 1200: "/assets/products/cc3-2k-1200.avif" },
+  webp: { 400: "/assets/products/cc3-2k-400.webp", 800: "/assets/products/cc3-2k-800.webp", 1200: "/assets/products/cc3-2k-1200.webp" },
+};
+
+const x1ProImages = {
+  src: "/assets/products/x1-pro-800.webp",
+  avif: { 400: "/assets/products/x1-pro-400.avif", 800: "/assets/products/x1-pro-800.avif", 1200: "/assets/products/x1-pro-1200.avif" },
+  webp: { 400: "/assets/products/x1-pro-400.webp", 800: "/assets/products/x1-pro-800.webp", 1200: "/assets/products/x1-pro-1200.webp" },
+};
 
 const productSeries = [
   {
@@ -19,7 +28,7 @@ const productSeries = [
     name: "Flagship Series",
     tagline: "CC4 Pro",
     description: "Leading performance with 6nm CPU, 12TOPS NPU, and premium DTS audio.",
-    image: cc4ProImg,
+    images: cc4ProImages,
     badge: "NEW",
     features: ["8-Core 6nm CPU", "12TOPS AI NPU", "7.1 Channel Audio", "360° Camera"],
     href: "/products/lines#flagship",
@@ -29,7 +38,7 @@ const productSeries = [
     name: "Advanced Series",
     tagline: "CC3 2K",
     description: "Best-selling performance and value for demanding users.",
-    image: cc3Img,
+    images: cc3Images,
     badge: "BESTSELLER",
     features: ["8-Core 12nm CPU", "2K Display", "5.1 Channel Audio", "4 Cameras"],
     href: "/products/lines#advanced",
@@ -39,7 +48,7 @@ const productSeries = [
     name: "Entry Series",
     tagline: "X1 Pro",
     description: "Reliable and affordable entry point for every market.",
-    image: x1ProImg,
+    images: x1ProImages,
     badge: null,
     features: ["Quad-Core CPU", "HD Display", "Apple CarPlay", "Android Auto"],
     href: "/products/lines#entry",
@@ -82,31 +91,19 @@ export function ProductsSection() {
 
               {/* Image */}
               <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden">
-                {product.id === 'flagship' ? (
-                  <picture>
-                    <source
-                      type="image/avif"
-                      srcSet={`${cc4ProScreen400Avif} 400w, ${cc4ProScreen800Avif} 800w, ${cc4ProScreen1200Avif} 1200w`}
-                      sizes="(max-width: 768px) 45vw, 400px"
-                    />
-                    <source
-                      type="image/webp"
-                      srcSet={`${cc4ProScreen400} 400w, ${cc4ProScreen800} 800w, ${cc4ProScreen1200} 1200w`}
-                      sizes="(max-width: 768px) 45vw, 400px"
-                    />
-                    <img
-                      src={cc4ProScreen800}
-                      alt={product.name}
-                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      width={400}
-                      height={400}
-                      decoding="async"
-                    />
-                  </picture>
-                ) : (
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${product.images.avif[400]} 400w, ${product.images.avif[800]} 800w, ${product.images.avif[1200]} 1200w`}
+                    sizes="(max-width: 768px) 45vw, 400px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${product.images.webp[400]} 400w, ${product.images.webp[800]} 800w, ${product.images.webp[1200]} 1200w`}
+                    sizes="(max-width: 768px) 45vw, 400px"
+                  />
                   <img
-                    src={product.image}
+                    src={product.images.src}
                     alt={product.name}
                     className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
@@ -114,7 +111,7 @@ export function ProductsSection() {
                     height={400}
                     decoding="async"
                   />
-                )}
+                </picture>
               </div>
 
               {/* Content */}

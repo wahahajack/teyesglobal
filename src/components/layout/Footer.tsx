@@ -39,6 +39,8 @@ export function Footer() {
               <img
                 src="/main-logo.webp"
                 alt="TEYES Logo"
+                width="300"
+                height="56"
                 className="h-8 w-auto transition-all"
               />
             </Link>
@@ -50,7 +52,7 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="text-foreground font-semibold mb-4">Products</h4>
+            <h3 className="text-foreground font-semibold mb-4">Products</h3>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.name}>
@@ -67,7 +69,7 @@ export function Footer() {
 
           {/* Solutions */}
           <div>
-            <h4 className="text-foreground font-semibold mb-4">Solutions</h4>
+            <h3 className="text-foreground font-semibold mb-4">Solutions</h3>
             <ul className="space-y-3">
               {footerLinks.solutions.map((link) => (
                 <li key={link.name}>
@@ -84,7 +86,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-foreground font-semibold mb-4">Company</h4>
+            <h3 className="text-foreground font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>

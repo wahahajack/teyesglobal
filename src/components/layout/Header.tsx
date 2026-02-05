@@ -56,6 +56,8 @@ export function Header() {
             <img
               src="/main-logo.webp"
               alt="TEYES Logo"
+              width="300"
+              height="56"
               className="h-8 w-auto md:h-10 transition-all"
             />
           </Link>

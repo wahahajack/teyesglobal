@@ -327,8 +327,17 @@
     }
   }
 
+
   /* Backdrop blur variants */
   .backdrop-blur-xs {
+    -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
+  }
+
+  /* Grid pattern overlay */
+  .grid-pattern {
+    background-image: linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px);
+    background-size: 80px 80px;
   }
 }

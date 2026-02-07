@@ -138,10 +138,17 @@ const ContactPage = () => {
         throw new Error("Failed to send message via EmailJS");
       }
     } catch (error) {
+      const errorMessage =
+        typeof error === "object" && error && "text" in error
+          ? (error as { text?: string }).text
+          : error instanceof Error
+            ? error.message
+            : "Unknown error";
+
       console.error("Submission error:", error);
       toast({
         title: "Submission Failed",
-        description: "There was an error sending your message. Please try again or contact us via WhatsApp.",
+        description: `There was an error sending your message: ${errorMessage}. Please try again or contact us via WhatsApp.`,
         variant: "destructive",
       });
     } finally {

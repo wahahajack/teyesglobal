@@ -76,9 +76,24 @@ $lead = [
 $dataDir = dirname(DATA_FILE);
 if (!is_dir($dataDir))
     mkdir($dataDir, 0755, true);
-$leads = file_exists(DATA_FILE) ? json_decode(file_get_contents(DATA_FILE), true) : [];
-$leads[] = $lead;
-file_put_contents(DATA_FILE, json_encode($leads, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+$fileHandle = fopen(DATA_FILE, 'c+');
+if ($fileHandle) {
+    if (flock($fileHandle, LOCK_EX)) {
+        $existingData = stream_get_contents($fileHandle);
+        $leads = $existingData ? json_decode($existingData, true) : [];
+        if (!is_array($leads)) {
+            $leads = [];
+        }
+        $leads[] = $lead;
+        $payload = json_encode($leads, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        ftruncate($fileHandle, 0);
+        rewind($fileHandle);
+        fwrite($fileHandle, $payload);
+        fflush($fileHandle);
+        flock($fileHandle, LOCK_UN);
+    }
+    fclose($fileHandle);
+}
 
 // ============================================
 // ✅ 第二步：先发邮件（重要：必须在响应前执行，因为服务器不支持后台执行）

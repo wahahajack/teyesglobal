@@ -19,20 +19,13 @@ export default defineConfig(({ mode }) => ({
           "vendor": ["react", "react-dom", "react-router-dom"],
           "ui": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu"],
         },
-        // Add content hashing for long-term caching
-        assetFileNames: 'assets/[name]-[hash][extname]',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
-    // Enable CSS code splitting
-    cssCodeSplit: true,
-    // Reduce chunk size warning limit
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 600,
     // use esbuild minifier (faster, no extra deps)
     minify: "esbuild",
     esbuild: {
-      drop: ["console", "debugger"],
+      drop: ["console"],
     },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),

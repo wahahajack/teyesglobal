@@ -1,26 +1,15 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-// Product images are now served from the public folder
-// Product images - optimized paths
-const cc4ProImages = {
-  src: "/assets/products/cc4-pro-screen-800.webp",
-  avif: { 400: "/assets/products/cc4-pro-screen-400.avif", 800: "/assets/products/cc4-pro-screen-800.avif", 1200: "/assets/products/cc4-pro-screen-1200.avif" },
-  webp: { 400: "/assets/products/cc4-pro-screen-400.webp", 800: "/assets/products/cc4-pro-screen-800.webp", 1200: "/assets/products/cc4-pro-screen-1200.webp" },
-};
-
-const cc3Images = {
-  src: "/assets/products/cc3-2k-800.webp", // Using 800 as fallback/src
-  avif: { 400: "/assets/products/cc3-2k-400.avif", 800: "/assets/products/cc3-2k-800.avif", 1200: "/assets/products/cc3-2k-1200.avif" },
-  webp: { 400: "/assets/products/cc3-2k-400.webp", 800: "/assets/products/cc3-2k-800.webp", 1200: "/assets/products/cc3-2k-1200.webp" },
-};
-
-const x1ProImages = {
-  src: "/assets/products/x1-pro-800.webp",
-  avif: { 400: "/assets/products/x1-pro-400.avif", 800: "/assets/products/x1-pro-800.avif", 1200: "/assets/products/x1-pro-1200.avif" },
-  webp: { 400: "/assets/products/x1-pro-400.webp", 800: "/assets/products/x1-pro-800.webp", 1200: "/assets/products/x1-pro-1200.webp" },
-};
+import cc4ProImg from "@/assets/products/cc4-pro-screen-800.webp";
+import cc4ProScreen400 from "@/assets/products/cc4-pro-screen-400.webp";
+import cc4ProScreen800 from "@/assets/products/cc4-pro-screen-800.webp";
+import cc4ProScreen1200 from "@/assets/products/cc4-pro-screen-1200.webp";
+import cc4ProScreen400Avif from "@/assets/products/cc4-pro-screen-400.avif";
+import cc4ProScreen800Avif from "@/assets/products/cc4-pro-screen-800.avif";
+import cc4ProScreen1200Avif from "@/assets/products/cc4-pro-screen-1200.avif";
+import cc3Img from "@/assets/products/cc3-2k.webp";
+import x1ProImg from "@/assets/products/x1-pro.webp";
 
 const productSeries = [
   {
@@ -28,7 +17,7 @@ const productSeries = [
     name: "Flagship Series",
     tagline: "CC4 Pro",
     description: "Leading performance with 6nm CPU, 12TOPS NPU, and premium DTS audio.",
-    images: cc4ProImages,
+    image: cc4ProImg,
     badge: "NEW",
     features: ["8-Core 6nm CPU", "12TOPS AI NPU", "7.1 Channel Audio", "360° Camera"],
     href: "/products/lines#flagship",
@@ -38,7 +27,7 @@ const productSeries = [
     name: "Advanced Series",
     tagline: "CC3 2K",
     description: "Best-selling performance and value for demanding users.",
-    images: cc3Images,
+    image: cc3Img,
     badge: "BESTSELLER",
     features: ["8-Core 12nm CPU", "2K Display", "5.1 Channel Audio", "4 Cameras"],
     href: "/products/lines#advanced",
@@ -48,7 +37,7 @@ const productSeries = [
     name: "Entry Series",
     tagline: "X1 Pro",
     description: "Reliable and affordable entry point for every market.",
-    images: x1ProImages,
+    image: x1ProImg,
     badge: null,
     features: ["Quad-Core CPU", "HD Display", "Apple CarPlay", "Android Auto"],
     href: "/products/lines#entry",
@@ -61,7 +50,7 @@ export function ProductsSection() {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-primary font-medium mb-2 block">Product Matrix</span>
+            <p className="text-primary font-medium mb-2">Product Matrix</p>
             <h2 className="section-title">
               For Partners Who Know What They're Looking For
             </h2>
@@ -91,19 +80,31 @@ export function ProductsSection() {
 
               {/* Image */}
               <div className="aspect-square p-8 bg-gradient-to-b from-secondary/50 to-background flex items-center justify-center overflow-hidden">
-                <picture>
-                  <source
-                    type="image/avif"
-                    srcSet={`${product.images.avif[400]} 400w, ${product.images.avif[800]} 800w, ${product.images.avif[1200]} 1200w`}
-                    sizes="(max-width: 768px) 45vw, 400px"
-                  />
-                  <source
-                    type="image/webp"
-                    srcSet={`${product.images.webp[400]} 400w, ${product.images.webp[800]} 800w, ${product.images.webp[1200]} 1200w`}
-                    sizes="(max-width: 768px) 45vw, 400px"
-                  />
+                {product.id === 'flagship' ? (
+                  <picture>
+                    <source
+                      type="image/avif"
+                      srcSet={`${cc4ProScreen400Avif} 400w, ${cc4ProScreen800Avif} 800w, ${cc4ProScreen1200Avif} 1200w`}
+                      sizes="(max-width: 768px) 45vw, 400px"
+                    />
+                    <source
+                      type="image/webp"
+                      srcSet={`${cc4ProScreen400} 400w, ${cc4ProScreen800} 800w, ${cc4ProScreen1200} 1200w`}
+                      sizes="(max-width: 768px) 45vw, 400px"
+                    />
+                    <img
+                      src={cc4ProScreen800}
+                      alt={product.name}
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      width={400}
+                      height={400}
+                      decoding="async"
+                    />
+                  </picture>
+                ) : (
                   <img
-                    src={product.images.src}
+                    src={product.image}
                     alt={product.name}
                     className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
@@ -111,7 +112,7 @@ export function ProductsSection() {
                     height={400}
                     decoding="async"
                   />
-                </picture>
+                )}
               </div>
 
               {/* Content */}
@@ -119,7 +120,7 @@ export function ProductsSection() {
                 <p className="text-primary text-sm font-medium mb-1">
                   {product.tagline}
                 </p>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">

@@ -13,9 +13,9 @@ import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 
 // EmailJS Configuration
-const EMAILJS_SERVICE_ID = "service_8dukj7a";
-const EMAILJS_TEMPLATE_ID = "template_wx75z18";
-const EMAILJS_PUBLIC_KEY = "eh7lZwVUAimYqLaDP";
+const EMAILJS_SERVICE_ID = "service_kzddimj";
+const EMAILJS_TEMPLATE_ID = "template_8l4kcgw";
+const EMAILJS_PUBLIC_KEY = "qqyCnA4nzk57_gF6N";
 
 const inquiryTypes = [
   { value: "distribution", label: "Distribution Partnership" },
@@ -80,14 +80,47 @@ const ContactPage = () => {
 
     setIsSubmitting(true);
 
+    const fetchWithTimeout = async (url: string, timeout = 4000) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+      try {
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timer);
+        return response;
+      } catch (error) {
+        clearTimeout(timer);
+        throw error;
+      }
+    };
+
     try {
+      let user_country = "Unknown";
+
+      try {
+        const geoResponse = await fetchWithTimeout("https://ipapi.co/json/");
+        if (geoResponse.ok) {
+          const geo = await geoResponse.json();
+          user_country = geo.country_name || geo.country || user_country;
+        } else {
+          const fallbackResponse = await fetchWithTimeout("https://ipwho.is/");
+          if (fallbackResponse.ok) {
+            const fallbackGeo = await fallbackResponse.json();
+            user_country = fallbackGeo.country || user_country;
+          }
+        }
+      } catch (geoError) {
+        console.warn("Geo lookup failed:", geoError);
+      }
+
       // EmailJS template parameters
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+        full_name: formData.name,
+        user_email: formData.email,
         company: formData.company || "N/A",
         country: formData.country || "N/A",
+        user_country,
         inquiry_type: formData.inquiryType || "General",
+        user_time: new Date().toISOString(),
         message: formData.message,
         to_email: "info@teyesauto.com",
       };

@@ -1,376 +1,226 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Premium Car Head Unit Wholesale | TEYES</title>
-  <meta name="description" content="Premium Car Head Unit Wholesale. Start From 15 Units — Built for Sustainable Margin." />
+  <meta name="description" content="Start From 15 Units — Built for Sustainable Margin." />
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png" />
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --brand:#3C83F6;
-      --brand-dark:#2D6FD5;
-      --bg:#070a13;
-      --bg2:#0b111e;
-      --card:#111827;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --border:rgba(148,163,184,.22);
-      --ok:#25D366;
-      --radius:14px;
-      --max:1180px;
-    }
-    [data-theme="light"]{
-      --bg:#f8fafc;
-      --bg2:#eef2f7;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#475569;
-      --border:rgba(15,23,42,.16);
-    }
-    html{scroll-behavior:smooth}
-    body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:.25s}
-    .container{max-width:var(--max);margin:auto;padding:0 22px}
-    a{text-decoration:none;color:inherit}
-
-    .nav{position:fixed;inset:0 0 auto 0;height:72px;z-index:100;background:color-mix(in srgb,var(--bg) 92%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-    .nav-in{height:72px;display:flex;align-items:center;justify-content:space-between}
-    .logo img{height:30px;width:auto}
-    [data-theme="light"] .logo img{filter:brightness(0) saturate(100%)}
-    .nav-cta{height:40px;padding:0 18px;border-radius:10px;background:var(--brand);color:#fff;font-weight:700;font-size:13px;display:inline-flex;align-items:center}
-    .nav-cta:hover{background:var(--brand-dark)}
-
-    section{padding:88px 0}
-    .hero{padding-top:130px;min-height:96vh;display:flex;align-items:center;background:radial-gradient(circle at 10% 0, rgba(60,131,246,.15), transparent 50%)}
-    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
-    .tag{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 40%, transparent);padding:6px 12px;border-radius:999px;margin-bottom:14px}
-    h1{font-size:clamp(34px,6vw,64px);line-height:1.04;letter-spacing:-.02em}
-    .sublead{margin:14px 0 26px;color:var(--muted);font-size:19px}
-    .hero-from{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-    .hero-from b{color:var(--text)}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{height:48px;padding:0 22px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-primary:hover{background:var(--brand-dark)}
-    .btn-wa{background:var(--ok);color:#fff}
-    .btn-wa:hover{filter:brightness(.95)}
-    .hero-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px}
-    .screen{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--border);margin-bottom:12px}
-    .screen picture,.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62}
-    @media (max-width:767px){.screen img{object-position:center 32%}}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{font-size:11px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--brand) 12%, transparent);border:1px solid color-mix(in srgb,var(--brand) 35%, transparent);color:var(--brand)}
-
-    .title{font-size:clamp(28px,4vw,46px);line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
-    .desc{color:var(--muted)}
-
-    .profit{background:var(--bg2)}
-    .profit-grid{margin-top:28px;display:grid;grid-template-columns:1fr 70px 1fr 70px 1fr;gap:10px;align-items:start}
-    .op{font-size:36px;color:var(--muted);display:flex;justify-content:center;padding-top:70px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
-    .card h3{font-size:20px;line-height:1.25;margin-bottom:10px}
-    .card ul{list-style:none;display:grid;gap:7px;color:var(--muted);font-size:14px}
-    .card ul li::before{content:"→ ";color:var(--brand)}
-    .formula{margin-top:26px;background:linear-gradient(135deg, rgba(60,131,246,.10), rgba(60,131,246,.03));border:1px solid color-mix(in srgb,var(--brand) 40%, transparent);border-radius:var(--radius);padding:28px;text-align:center}
-    .formula .line{font-size:clamp(18px,2.4vw,28px);font-weight:800}
-    .formula .mut{color:var(--muted)}
-
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .block{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
-    .block h4{font-size:19px;margin-bottom:10px}
-    .block ul{list-style:none;display:grid;gap:7px;color:var(--muted);font-size:14px}
-    .block ul li::before{content:"✓ ";color:var(--brand)}
-
-    .supply{background:var(--bg2)}
-    .supply-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .metric{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
-    .metric .v{font-size:28px;font-weight:900;line-height:1;color:var(--text)}
-    .metric .l{font-size:12px;color:var(--muted);margin-top:6px}
-    .s-visuals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-    .vbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;color:var(--muted);font-size:13px}
-
-    .faq{background:var(--bg2)}
-    details{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:700}
-    summary::marker{color:var(--brand)}
-    details p{margin-top:8px;color:var(--muted)}
-
-    .final{position:relative}
-    .form-wrap{max-width:760px;margin:0 auto}
-    .form-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px}
-    .form-head{font-size:clamp(28px,3.2vw,42px);line-height:1.12;margin-bottom:14px;text-align:center}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .full{grid-column:1/-1}
-    label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
-    input,select{width:100%;height:44px;background:color-mix(in srgb,var(--card) 78%, #fff 2%);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:0 12px}
-    .submit{margin-top:14px;width:100%;height:48px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-weight:800;cursor:pointer}
-    .submit:hover{background:var(--brand-dark)}
-    .note{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
-    .ok{display:none;text-align:center;color:var(--muted);padding:18px 8px}
-
-    .footer{padding:26px 0 100px;border-top:1px solid var(--border)}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}
-    .links{display:flex;gap:14px;align-items:center}
-    .theme-btn{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
-
-    .thumb{display:none}
-    @media (max-width:980px){
-      .hero-grid,.supply-wrap{grid-template-columns:1fr}
-      .profit-grid{grid-template-columns:1fr;gap:12px}
-      .op{display:none}
-      .grid-3{grid-template-columns:1fr}
-    }
-    @media (max-width:767px){
-      .nav-cta{display:none}
-      .grid{grid-template-columns:1fr}
-      body{padding-bottom:88px}
-      .thumb{position:fixed;left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:160;background:color-mix(in srgb,var(--bg) 88%, transparent);border:1px solid var(--border);border-radius:14px;padding:10px;backdrop-filter:blur(8px)}
-      .thumb a{height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
-      .thumb .p{background:var(--brand);color:#fff}
-      .thumb .w{background:var(--ok);color:#fff}
-    }
-  </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="container nav-in">
-      <a class="logo" href="#hero">
-        <img src="https://teyesglobal.com/main-logo.webp" srcset="https://teyesglobal.com/main-logo.webp 240w" sizes="120px" width="120" height="30" alt="TEYES" />
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="logo-link" aria-label="TEYES Home">
+        <img class="logo" src="./images/logo-teyes.webp" alt="TEYES" width="120" height="30" />
       </a>
-      <a href="#contact" class="nav-cta">Request Official Wholesale Pricing</a>
+      <a href="#contact" class="top-cta">Request Official Wholesale Pricing</a>
     </div>
-  </nav>
+  </header>
 
-  <section class="hero" id="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="tag">Sustainable Margin Program</span>
-        <div class="hero-from">Start From <b>15 Units</b> — Built for Sustainable Margin</div>
-        <h1>Premium Car Head Unit Wholesale</h1>
-        <p class="sublead">Upgrade Your Product Line Without Heavy Inventory Risk</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Get Official Wholesale Pricing</a>
-          <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+  <main>
+    <section id="hero" class="hero section">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill">Sustainable Margin Program</span>
+          <p class="hero-from">Start From <strong>15 Units</strong> — Built for Sustainable Margin</p>
+          <h1>Premium Car Head Unit Wholesale</h1>
+          <p class="hero-sub">Upgrade Your Product Line Without Heavy Inventory Risk</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Get Official Wholesale Pricing</a>
+            <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+          </div>
+        </div>
+        <article class="hero-card">
+          <div class="hero-media">
+            <picture>
+              <source media="(max-width: 767px)" srcset="./images/hero-mobile.avif" />
+              <source media="(min-width: 768px)" srcset="./images/hero-desktop.avif" />
+              <img src="./images/hero-desktop.avif" alt="TEYES premium head unit" loading="eager" decoding="async" />
+            </picture>
+          </div>
+          <div class="chips">
+            <span>Apple CarPlay</span><span>Android Auto</span><span>8-Core Chipset</span><span>Stable Firmware</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt" id="profit">
+      <div class="container">
+        <h2>How This Creates Sustainable Margin</h2>
+        <p class="section-sub">Sustainable Margin = Higher Retail Position + Lower After-Sales Risk + Controlled Entry Cost</p>
+
+        <div class="profit-grid">
+          <article class="card">
+            <small>Sell Higher</small>
+            <h3>① Higher Retail Position</h3>
+            <ul>
+              <li>Positioned above entry-level units</li>
+              <li>Premium UI &amp; performance perception</li>
+              <li>Better in-store pricing flexibility</li>
+            </ul>
+            <div class="visual priceband">
+              <div><span>Entry</span><i style="width:35%"></i><b>Low</b></div>
+              <div><span>Mid</span><i style="width:60%"></i><b>Mid</b></div>
+              <div><span>Premium</span><i style="width:90%"></i><b>High</b></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <small>Fewer Returns</small>
+            <h3>② Lower After-Sales Risk</h3>
+            <ul>
+              <li>Stable firmware system</li>
+              <li>Controlled QC process</li>
+              <li>Technical support available</li>
+            </ul>
+            <div class="visual qc-flow"><span>IQC</span><em>›</em><span>IPQC</span><em>›</em><span>OQC</span><em>›</em><span>PASS</span></div>
+          </article>
+
+          <article class="card">
+            <small>No Heavy Inventory</small>
+            <h3>③ Controlled Entry Cost</h3>
+            <ul>
+              <li>MOQ 15 units</li>
+              <li>Mixed models allowed</li>
+              <li>Test before scaling</li>
+            </ul>
+            <div class="visual moq-grid">
+              <i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </article>
+        </div>
+
+        <div class="formula">
+          <p>Higher Selling Price</p>
+          <p>− Fewer Returns</p>
+          <p>− Lower Trial Risk</p>
+          <p class="result">= Sustainable Margin</p>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="screen">
-          <picture>
-            <source media="(max-width:767px)" srcset="https://teyesglobal.com/assets/hero-bg-800-2w2qDJqR.avif 800w" sizes="100vw" />
-            <source media="(min-width:768px)" srcset="https://teyesglobal.com/assets/cc4-pro-hero-800-CKKI_kKp.avif 800w" sizes="(min-width:768px) 48vw" />
-            <img src="https://teyesglobal.com/assets/cc4-pro-hero-800-CKKI_kKp.avif" alt="TEYES head unit" width="800" height="450" fetchpriority="high" decoding="async" />
-          </picture>
-        </div>
-        <div class="chips">
-          <span class="chip">Apple CarPlay</span>
-          <span class="chip">Android Auto</span>
-          <span class="chip">8-Core Chipset</span>
-          <span class="chip">Stable Firmware</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="profit" id="profit-formula">
-    <div class="container">
-      <h2 class="title">How This Creates Sustainable Margin</h2>
-      <p class="desc">Sustainable Margin = Higher Retail Position + Lower After-Sales Risk + Controlled Entry Cost.</p>
-
-      <div class="profit-grid">
-        <article class="card">
-          <h3>① Higher Retail Position</h3>
-          <ul>
-            <li>Positioned above entry-level units</li>
-            <li>Premium UI & performance perception</li>
-            <li>Better in-store pricing flexibility</li>
-          </ul>
-        </article>
-        <div class="op">+</div>
-        <article class="card">
-          <h3>② Lower After-Sales Risk</h3>
-          <ul>
-            <li>Stable firmware system</li>
-            <li>Controlled QC process</li>
-            <li>Technical support available</li>
-          </ul>
-        </article>
-        <div class="op">+</div>
-        <article class="card">
-          <h3>③ Controlled Entry Cost</h3>
-          <ul>
-            <li>MOQ 15 units</li>
-            <li>Mixed models allowed</li>
-            <li>Test before scaling</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="formula">
-        <div class="line">Higher Selling Price</div>
-        <div class="line mut">− Fewer Returns</div>
-        <div class="line mut">− Lower Trial Risk</div>
-        <div class="line">= Sustainable Margin</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="stability">
-    <div class="container">
-      <h2 class="title">Built for Long-Term Stability</h2>
-      <div class="grid-3">
-        <article class="block">
-          <h4>System Performance</h4>
-          <ul>
-            <li>Fast boot</li>
-            <li>Smooth operation</li>
-            <li>Stable CarPlay / Android Auto</li>
-            <li>Powerful chipset</li>
-          </ul>
-        </article>
-        <article class="block">
-          <h4>Quality Control</h4>
-          <ul>
-            <li>IQC → IPQC → OQC</li>
-            <li>Aging test</li>
-            <li>Batch consistency control</li>
-          </ul>
-        </article>
-        <article class="block">
-          <h4>Firmware & Support</h4>
-          <ul>
-            <li>Firmware update support</li>
-            <li>Technical documentation</li>
-            <li>Remote troubleshooting when needed</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="supply" id="supply">
-    <div class="container supply-wrap">
-      <div>
-        <h2 class="title">Stable Supply When You Scale</h2>
-        <div class="metrics">
-          <div class="metric"><div class="v">Scalable</div><div class="l">Monthly production capacity</div></div>
-          <div class="metric"><div class="v">15</div><div class="l">MOQ to start</div></div>
-          <div class="metric"><div class="v">Standard</div><div class="l">Production timeline</div></div>
-          <div class="metric"><div class="v">30/70</div><div class="l">Structured payment</div></div>
+    <section class="section" id="stability">
+      <div class="container">
+        <h2>Built for Long-Term Stability</h2>
+        <div class="three-col">
+          <article class="card-lite">
+            <h4>System Performance</h4>
+            <ul><li>Fast boot</li><li>Smooth operation</li><li>Stable CarPlay / Android Auto</li><li>Powerful chipset</li></ul>
+          </article>
+          <article class="card-lite">
+            <h4>Quality Control</h4>
+            <ul><li>IQC → IPQC → OQC</li><li>Aging test</li><li>Batch consistency control</li></ul>
+          </article>
+          <article class="card-lite">
+            <h4>Firmware &amp; Support</h4>
+            <ul><li>Firmware update support</li><li>Technical documentation</li><li>Remote troubleshooting when needed</li></ul>
+            <div class="quote">You stay in control after the sale — not stuck in after-sales chaos.</div>
+          </article>
         </div>
       </div>
-      <div>
-        <div class="s-visuals">
-          <div class="vbox">🧱<br/>Pallet Shipment</div>
-          <div class="vbox">🚢<br/>Container Loading</div>
-          <div class="vbox">🏬<br/>Warehouse Shelves</div>
+    </section>
+
+    <section class="section alt" id="supply">
+      <div class="container split">
+        <div>
+          <h2>Stable Supply When You Scale</h2>
+          <p class="section-sub">Start with 15 units, then scale with stable capacity, warehouse inventory and structured payment.</p>
+          <div class="metrics">
+            <div><strong>Scalable</strong><span>Monthly production capacity</span></div>
+            <div><strong>15</strong><span>MOQ to start</span></div>
+            <div><strong>Standard</strong><span>Production timeline</span></div>
+            <div><strong>30/70</strong><span>Payment structure</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="supply-visuals">
+            <div>🧱<br/>Pallet Shipment</div>
+            <div>🚢<br/>Container Loading</div>
+            <div>🏬<br/>Warehouse Shelves</div>
+          </div>
+          <div class="steps">
+            <p><b>Step 1 — Trial Order (15 Units)</b><span>Mixed models allowed for low-risk validation.</span></p>
+            <p><b>Step 2 — Production Timeline</b><span>Standard schedule with clear progress updates.</span></p>
+            <p><b>Step 3 — Scale-Up Supply</b><span>Move from small batch to larger volume when ready.</span></p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="market">
-    <div class="container">
-      <h2 class="title">Move Beyond Entry-Level Competition</h2>
-      <div class="grid-3">
-        <article class="block"><h4>Designed for mid-to-high segment</h4><p class="desc">Upgrade positioning with stronger retail presentation.</p></article>
-        <article class="block"><h4>For installation shops & specialty dealers</h4><p class="desc">Built for channels that value reliability and finish.</p></article>
-        <article class="block"><h4>Differentiated from mass-market units</h4><p class="desc">A strategic upgrade, not a price-war product.</p></article>
+    <section class="section" id="market">
+      <div class="container">
+        <h2>Move Beyond Entry-Level Competition</h2>
+        <div class="three-col">
+          <article class="card-lite"><h4>Designed for mid-to-high segment</h4><p>This is an upgrade in positioning, not a price-war tactic.</p></article>
+          <article class="card-lite"><h4>Suitable for installation shops &amp; specialty dealers</h4><p>Built for channels that value reliability and presentation.</p></article>
+          <article class="card-lite"><h4>Differentiated from mass-market units</h4><p>A strategic move toward stronger retail value perception.</p></article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="faq" id="faq">
-    <div class="container" style="max-width:860px">
-      <h2 class="title">FAQ</h2>
-      <details><summary>Can I mix different models within 15 units?</summary><p>Yes. Mixed models are supported within one 15-unit trial order.</p></details>
-      <details><summary>What is the standard production time?</summary><p>Standard timeline is confirmed per model and order mix after deposit.</p></details>
-      <details><summary>Do you provide marketing materials?</summary><p>Yes. Product assets and key sales materials are available for partners.</p></details>
-      <details><summary>Is firmware update included?</summary><p>Yes. Firmware update support is included with technical guidance.</p></details>
-      <details><summary>Is possible to be a master distributor?</summary><p>Possible for qualified partners based on market and volume criteria.</p></details>
-    </div>
-  </section>
+    <section class="section alt" id="faq">
+      <div class="container faq">
+        <h2>FAQ</h2>
+        <details><summary>Can I mix different models within 15 units?</summary><p>Yes. Mixed models are supported within one trial order.</p></details>
+        <details><summary>What is the standard production time?</summary><p>Timeline is confirmed per order mix after payment confirmation.</p></details>
+        <details><summary>Do you provide marketing materials?</summary><p>Yes. Product images/specs and partner materials are available.</p></details>
+        <details><summary>Is firmware update included?</summary><p>Yes. Firmware updates and technical guidance are included.</p></details>
+        <details><summary>Is possible to be a master distributor?</summary><p>Possible for qualified partners based on market and volume criteria.</p></details>
+      </div>
+    </section>
 
-  <section class="final" id="contact">
-    <div class="container form-wrap">
-      <h2 class="form-head">Ready to Test or Scale?</h2>
-      <div class="form-card">
-        <form id="wholesale-form" novalidate>
-          <div class="grid">
-            <div><label>Company Name</label><input name="company_name" required /></div>
-            <div><label>Business Email</label><input name="user_email" type="email" required /></div>
-            <div><label>Country</label><input name="country" required /></div>
-            <div>
-              <label>Estimated Monthly Volume</label>
+    <section class="section" id="contact">
+      <div class="container form-wrap">
+        <h2 class="center">Ready to Test or Scale?</h2>
+        <form id="wholesale-form" class="form-card" novalidate>
+          <div class="form-grid">
+            <label>Company Name<input name="company_name" required /></label>
+            <label>Business Email<input type="email" name="user_email" required /></label>
+            <label>Country<input name="country" required /></label>
+            <label>Estimated Monthly Volume
               <select name="monthly_volume">
                 <option value="">Select range</option>
                 <option>15–50 units</option><option>50–200 units</option><option>200–500 units</option><option>500+ units</option>
               </select>
-            </div>
-            <div class="full"><label>Target Models</label><input name="target_models" /></div>
+            </label>
+            <label class="full">Target Models<input name="target_models" /></label>
           </div>
-          <button class="submit" id="form-btn" type="submit">Request Official Wholesale Pricing</button>
-          <div class="note">No commitment required.</div>
-          <div id="form-error" class="note" style="display:none;color:#60a5fa">Failed to send. Please contact info@teyesauto.com</div>
+          <button type="submit" id="form-btn" class="btn btn-primary submit-btn">Request Official Wholesale Pricing</button>
+          <p id="form-error" class="msg error" hidden>Failed to send. Contact: info@teyesauto.com</p>
+          <p id="form-success" class="msg ok" hidden>Request received. We will reply within 24 hours.</p>
         </form>
-        <div id="form-ok" class="ok">Request received. We will reply within 24 hours.</div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer class="footer">
-    <div class="container foot">
-      <div>© 2026 TEYES</div>
-      <div class="links">
+    <div class="container footer-inner">
+      <span>© 2026 TEYES</span>
+      <div class="footer-links">
         <a href="https://teyesglobal.com" target="_blank" rel="noopener">Website</a>
         <a href="https://wa.me/8618594023375" target="_blank" rel="noopener">WhatsApp</a>
-        <button class="theme-btn" id="theme-toggle" type="button">Theme</button>
+        <button id="theme-toggle" class="theme-btn" type="button">Theme</button>
       </div>
     </div>
   </footer>
 
-  <div class="thumb" aria-label="Mobile CTA">
-    <a class="p" href="#contact">Get Pricing</a>
-    <a class="w" href="https://wa.me/8618594023375" target="_blank" rel="noopener">WhatsApp</a>
+  <div class="thumb-cta" aria-label="Mobile quick actions">
+    <a href="#contact" class="primary">Get Pricing</a>
+    <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="wa">WhatsApp</a>
   </div>
 
-  <script>
-    (function(){
-      const saved = localStorage.getItem('theme');
-      const preferLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      document.documentElement.setAttribute('data-theme', saved || (preferLight ? 'light' : 'dark'));
-    })();
-
-    document.getElementById('theme-toggle')?.addEventListener('click', function(){
-      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-
-    const EMAILJS_PUBLIC_KEY='YOUR_PUBLIC_KEY';
-    const EMAILJS_SERVICE_ID='YOUR_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID='YOUR_TEMPLATE_ID';
-    emailjs.init({publicKey:EMAILJS_PUBLIC_KEY});
-
-    document.getElementById('wholesale-form').addEventListener('submit', function(e){
-      e.preventDefault();
-      const form=this;
-      const btn=document.getElementById('form-btn');
-      const err=document.getElementById('form-error');
-      err.style.display='none';
-      btn.disabled=true; btn.textContent='Sending...';
-
-      emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form).then(()=>{
-        form.style.display='none';
-        document.getElementById('form-ok').style.display='block';
-      }).catch(()=>{
-        err.style.display='block';
-        btn.disabled=false; btn.textContent='Request Official Wholesale Pricing';
-      });
-    });
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>

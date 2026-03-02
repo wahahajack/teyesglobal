@@ -1,6 +1,8 @@
 (() => {
   const root = document.documentElement;
   const themeBtn = document.getElementById('theme-toggle');
+  const heroPricingBtn = document.getElementById('hero-pricing-cta');
+  const thumbCta = document.querySelector('.thumb-cta');
   const form = document.getElementById('wholesale-form');
   const submitBtn = document.getElementById('form-btn');
   const errMsg = document.getElementById('form-error');
@@ -21,6 +23,25 @@
 
   initTheme();
   themeBtn?.addEventListener('click', toggleTheme);
+
+  const initMobileStickyCta = () => {
+    if (!heroPricingBtn || !thumbCta) return;
+
+    const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+    const setVisible = (visible) => thumbCta.classList.toggle('is-visible', visible && isMobile());
+
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      setVisible(!entry.isIntersecting);
+    }, { threshold: 0.15 });
+
+    observer.observe(heroPricingBtn);
+    window.addEventListener('resize', () => {
+      if (!isMobile()) setVisible(false);
+    });
+  };
+
+  initMobileStickyCta();
 
   const EMAILJS_PUBLIC_KEY = 'r4hPxgrdEnnONhc9E';
   const EMAILJS_SERVICE_ID = 'service_p161z11';

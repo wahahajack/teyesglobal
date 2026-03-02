@@ -20,9 +20,15 @@
   <header class="nav">
     <div class="container nav-inner">
       <a href="#hero" class="logo-link" aria-label="TEYES Home">
-        <img class="logo" src="./images/logo-teyes.webp" alt="TEYES" width="120" height="30" />
+        <img class="logo" src="./images/logo-teyes.webp" alt="TEYES" width="120" height="30" onerror="this.onerror=null;this.src='./images/apple-touch-icon.png'" />
       </a>
-      <a href="#contact" class="top-cta">Request Official Wholesale Pricing</a>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Switch theme">
+          <span class="icon-sun" aria-hidden="true">☀️</span>
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+        </button>
+        <a href="#contact" class="top-cta">Request Official Wholesale Pricing</a>
+      </div>
     </div>
   </header>
 
@@ -35,8 +41,7 @@
           <h1>Premium Car Head Unit Wholesale</h1>
           <p class="hero-sub">Upgrade Your Product Line Without Heavy Inventory Risk</p>
           <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">Get Official Wholesale Pricing</a>
-            <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+            <a id="hero-pricing-cta" href="#contact" class="btn btn-primary">Get Official Wholesale Pricing</a>
           </div>
         </div>
         <article class="hero-card">
@@ -174,10 +179,10 @@
       <div class="container faq">
         <h2>FAQ</h2>
         <details><summary>Can I mix different models within 15 units?</summary><p>Yes. Mixed models are supported within one trial order.</p></details>
-        <details><summary>What is the standard production time?</summary><p>Timeline is confirmed per order mix after payment confirmation.</p></details>
-        <details><summary>Do you provide marketing materials?</summary><p>Yes. Product images/specs and partner materials are available.</p></details>
+        <details><summary>What is the standard production time?</summary><p>For in-stock products, shipment is usually arranged in around 3 days after payment. For out-of-stock products, lead time is confirmed based on the model and quantity.</p></details>
+        <details><summary>Do you provide marketing materials?</summary><p>Yes. We provide product images, promotional videos, roll-up banners, and showing racks. You can also tell us your needs for additional materials.</p></details>
         <details><summary>Is firmware update included?</summary><p>Yes. Firmware updates and technical guidance are included.</p></details>
-        <details><summary>Is possible to be a master distributor?</summary><p>Possible for qualified partners based on market and volume criteria.</p></details>
+        <details><summary>Is possible to be a master distributor?</summary><p>You are welcome to become an exclusive distributor. We provide strong regional protection policies, and our products can be remotely identified to help prevent cross-region sales conflicts.</p></details>
       </div>
     </section>
 
@@ -209,16 +214,15 @@
     <div class="container footer-inner">
       <span>© 2026 TEYES</span>
       <div class="footer-links">
-        <a href="https://teyesglobal.com" target="_blank" rel="noopener">Website</a>
-        <a href="https://wa.me/8618594023375" target="_blank" rel="noopener">WhatsApp</a>
-        <button id="theme-toggle" class="theme-btn" type="button">Theme</button>
+        <a href="#faq">Information</a>
+        <a href="#contact">Privacy &amp; Security</a>
       </div>
     </div>
   </footer>
 
   <div class="thumb-cta" aria-label="Mobile quick actions">
-    <a href="#contact" class="primary">Get Pricing</a>
     <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="wa">WhatsApp</a>
+    <a href="#contact" class="primary">Get Pricing</a>
   </div>
 
   <script src="./script.js"></script>

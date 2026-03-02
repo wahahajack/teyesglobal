@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Car Head Unit Wholesale | TEYES Global</title>
+  <meta name="description" content="Start from 15 units. Premium Android car head units built for sustainable margin — higher retail price, fewer returns, controlled entry cost." />
+
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:       #3C83F6;
+      --red-dark:  #2D6FD5;
+      --bg:        #0a0a0a;
+      --bg-2:      #111111;
+      --bg-3:      #161616;
+      --bg-card:   #1a1a1a;
+      --border:    rgba(255,255,255,0.08);
+      --text:      #f0f0f0;
+      --text-muted:#8a8a8a;
+      --text-dim:  #555;
+      --white:     #ffffff;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --transition: 0.25s ease;
+    }
+
+    [data-theme="light"] {
+      --bg:        #f8fafc;
+      --bg-2:      #f1f5f9;
+      --bg-3:      #e2e8f0;
+      --bg-card:   #ffffff;
+      --border:    rgba(15,23,42,0.12);
+      --text:      #0f172a;
+      --text-muted:#475569;
+      --text-dim:  #64748b;
+      --white:     #0f172a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY UTILITIES
+    ============================================================ */
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--white);
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       DIVIDER
+    ============================================================ */
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--red);
+      border-radius: 2px;
+      margin: 16px 0 24px;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    [data-theme="light"] .nav {
+      background: rgba(248,250,252,0.92);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img {
+      height: 28px;
+      width: auto;
+    }
+    [data-theme="light"] .nav-logo img {
+      filter: brightness(0) saturate(100%);
+    }
+    .nav-logo-fallback {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .nav-logo-fallback span { color: var(--red); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+    }
+    .nav-contact {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .nav-contact a { color: var(--red); font-weight: 600; }
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .theme-toggle:hover {
+      border-color: rgba(60,131,246,0.4);
+      background: rgba(60,131,246,0.08);
+      transform: translateY(-1px);
+    }
+    @media (max-width: 640px) {
+      .nav-contact { display: none; }
+    }
+    @media (max-width: 767px) {
+      .nav-cta { display: none; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 24px 80px;
+      background: var(--bg);
+    }
+
+    /* Subtle grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    [data-theme="light"] .hero::before {
+      background-image:
+        linear-gradient(rgba(15,23,42,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,0.03) 1px, transparent 1px);
+    }
+
+    /* Red glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(60,131,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(60,131,246,0.12);
+      border: 1px solid rgba(60,131,246,0.3);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero-title .accent { color: var(--red); }
+
+    .hero-from {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-from span {
+      color: var(--white);
+      background: rgba(255,255,255,0.07);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .hero-sub {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 26px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-whatsapp:hover { background: #1ebf5b; transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .hero-stat-val span { color: var(--red); }
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* Hero visual right side */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-device-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-device-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+    }
+    .hero-device-screen {
+      background: #0d1117;
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      margin-bottom: 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-device-media {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+    .hero-device-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.62;
+    }
+    .hero-device-screen-inner {
+      text-align: center;
+    }
+    .hero-device-screen-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0.6;
+    }
+    .screen-ui-mock {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+    .screen-topbar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .screen-icons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .screen-icon {
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .screen-map {
+      height: 40px;
+      background: linear-gradient(90deg, rgba(60,131,246,0.25), rgba(148,163,184,0.2));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+    .hero-device-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .device-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .device-tag.red {
+      background: rgba(60,131,246,0.15);
+      color: var(--red);
+    }
+
+    /* Floating label */
+    .float-badge {
+      position: absolute;
+      top: -16px; right: 24px;
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    /* ============================================================
+       SECTION SPACING
+    ============================================================ */
+    .section {
+      padding: 100px 0;
+    }
+    .section-alt {
+      background: var(--bg-2);
+    }
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    /* ============================================================
+       SECTION 2 — PROFIT FORMULA
+    ============================================================ */
+    .profit-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+      margin-bottom: 64px;
+    }
+
+    @media (max-width: 900px) {
+      .profit-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .profit-op { display: none; }
+    }
+
+    .profit-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .profit-card:hover {
+      border-color: rgba(60,131,246,0.3);
+      transform: translateY(-4px);
+    }
+    .profit-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .profit-card:hover::after { opacity: 1; }
+
+    .profit-card-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .profit-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .profit-card-tagline {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .profit-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .profit-card-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    .profit-card-list li::before {
+      content: '→';
+      color: var(--red);
+      flex-shrink: 0;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    /* Price tier visual */
+    .price-tier-vis {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .price-tier {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+    .price-tier-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-tier-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    .tier-entry .price-tier-fill { background: #3a3a3a; width: 35%; }
+    .tier-mid .price-tier-fill { background: #666; width: 60%; }
+    .tier-premium .price-tier-fill { background: var(--red); width: 90%; }
+    .price-tier-label {
+      width: 70px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .tier-premium .price-tier-label { color: var(--red); font-weight: 600; }
+    .price-tier-val {
+      font-size: 11px;
+      color: var(--text-dim);
+      width: 30px;
+      text-align: right;
+    }
+    .tier-premium .price-tier-val { color: var(--white); font-weight: 700; }
+
+    /* QC visual */
+    .qc-flow {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .qc-step {
+      flex: 1;
+      text-align: center;
+    }
+    .qc-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(60,131,246,0.15);
+      border: 1px solid rgba(60,131,246,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      margin: 0 auto 4px;
+    }
+    .qc-step-label { font-size: 9px; color: var(--text-dim); }
+    .qc-arrow {
+      color: var(--border);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* MOQ visual */
+    .moq-vis {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+    .moq-unit {
+      aspect-ratio: 1;
+      background: rgba(60,131,246,0.1);
+      border: 1px solid rgba(60,131,246,0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .profit-op {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--text-dim);
+      padding: 0 8px;
+      padding-top: 80px;
+    }
+
+    /* Formula box */
+    .profit-formula {
+      background: linear-gradient(135deg, rgba(60,131,246,0.08) 0%, rgba(60,131,246,0.03) 100%);
+      border: 1px solid rgba(60,131,246,0.2);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .profit-formula::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+    .formula-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+    .formula-lines {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+    .formula-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .formula-line .op {
+      color: var(--text-dim);
+      font-weight: 300;
+      width: 20px;
+    }
+    .formula-line.result {
+      margin-top: 16px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: clamp(20px, 3vw, 28px);
+    }
+    .formula-line.result .label-inline { color: var(--red); }
+
+    /* ============================================================
+       SECTION 3 — SYSTEM STABILITY
+    ============================================================ */
+    .stability-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .stability-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 769px) and (max-width: 960px) {
+      .stability-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .stability-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .stability-card:hover { border-color: rgba(255,255,255,0.15); }
+
+    .stability-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba(60,131,246,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .stability-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .stability-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stability-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+    .stability-list li .check {
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Boot speed bar */
+    .boot-bar {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .boot-bar-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .boot-bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .boot-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--red);
+      animation: bootLoad 2s ease-out forwards;
+    }
+    @keyframes bootLoad {
+      from { width: 0; }
+      to { width: 88%; }
+    }
+    .boot-bar-time {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-top: 10px;
+    }
+    .boot-bar-time span {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-dim);
+    }
+
+    /* ============================================================
+       SECTION 4 — SUPPLY CAPACITY
+    ============================================================ */
+    .supply-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .supply-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .supply-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .supply-metric {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      transition: border-color var(--transition);
+    }
+    .supply-metric:hover { border-color: rgba(255,255,255,0.15); }
+    .supply-metric-val {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .supply-metric-val span { color: var(--red); }
+    .supply-metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    .supply-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .supply-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .supply-step:last-child { border-bottom: none; }
+    .supply-step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(60,131,246,0.1);
+      border: 1px solid rgba(60,131,246,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+    .supply-step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .supply-step-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .supply-note {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: rgba(60,131,246,0.05);
+      border: 1px solid rgba(60,131,246,0.15);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .supply-note strong { color: var(--white); }
+
+    /* ============================================================
+       SECTION 5 — MARKET POSITIONING
+    ============================================================ */
+    .market-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .market-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .market-points {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .market-point {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .market-point-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(60,131,246,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .market-point-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .market-point-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .market-upgrade-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-upgrade-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+    }
+    .market-upgrade-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .market-ladder {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .market-rung {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rung-mass {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+    .rung-mid {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .rung-teyes {
+      background: rgba(60,131,246,0.08);
+      border: 1px solid rgba(60,131,246,0.25);
+    }
+    .market-rung-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .rung-teyes .market-rung-label { color: var(--white); }
+    .market-rung-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+    }
+    .rung-mass .market-rung-badge {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-dim);
+    }
+    .rung-mid .market-rung-badge {
+      background: rgba(255,255,255,0.08);
+      color: var(--text-muted);
+    }
+    .rung-teyes .market-rung-badge {
+      background: var(--red);
+      color: #fff;
+    }
+    .market-join-arrow {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+
+    /* ============================================================
+       SECTION 6 — FAQ
+    ============================================================ */
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--white); }
+    .faq-question.active { color: var(--white); }
+    .faq-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .faq-question.active .faq-icon {
+      background: rgba(60,131,246,0.15);
+      color: var(--red);
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+    }
+    .faq-answer.open {
+      max-height: 300px;
+    }
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       SECTION 7 — FINAL CTA / FORM
+    ============================================================ */
+    .cta-section {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(60,131,246,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .cta-form-only {
+      grid-template-columns: 1fr;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .cta-left-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .cta-left-title .accent { color: var(--red); }
+    .cta-left-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .cta-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cta-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .cta-contact-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .cta-contact-item a { color: var(--text); transition: color var(--transition); }
+    .cta-contact-item a:hover { color: var(--red); }
+
+    /* FORM */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+    }
+    .form-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .form-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 500px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    .form-full { grid-column: 1 / -1; }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .form-input, .form-select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--text-dim); }
+    .form-input:focus, .form-select:focus {
+      border-color: rgba(60,131,246,0.5);
+      background: rgba(255,255,255,0.06);
+    }
+    .form-select option { background: #1a1a1a; color: var(--text); }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--red);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .form-submit:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .form-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 12px;
+    }
+    .form-success {
+      text-align: center;
+      padding: 48px 24px;
+      display: none;
+    }
+    .form-success.visible { display: block; }
+    .form-success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .form-success-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .form-success-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .form-error-msg {
+      font-size: 13px;
+      color: #60a5fa;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-dim);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--text-muted); }
+
+    .thumb-cta {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: calc(84px + env(safe-area-inset-bottom));
+      }
+      .thumb-cta {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: calc(10px + env(safe-area-inset-bottom));
+        z-index: 220;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        background: rgba(7,10,19,0.85);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 10px;
+        backdrop-filter: blur(10px);
+      }
+      [data-theme="light"] .thumb-cta {
+        background: rgba(255,255,255,0.92);
+      }
+      .thumb-cta a {
+        height: 44px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .thumb-cta .thumb-primary {
+        background: var(--red);
+        color: #fff;
+      }
+      .thumb-cta .thumb-wa {
+        background: #25D366;
+        color: #fff;
+      }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL (minimal)
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ============================================================
+       RESPONSIVE MISC
+    ============================================================ */
+    @media (max-width: 600px) {
+      .form-card { padding: 28px 20px; }
+      .profit-formula { padding: 32px 24px; }
+      .hero-stats { gap: 20px; }
+      .section { padding: 72px 0; }
+    }
+    @media (max-width: 767px) {
+      .hero-device-media img { object-position: center 32%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="nav">
+  <div class="nav-logo">
+    <img
+      src="https://teyesglobal.com/main-logo.webp"
+      srcset="https://teyesglobal.com/main-logo.webp 240w"
+      sizes="120px"
+      alt="TEYES"
+      style="height:28px;width:auto;"
+      width="120"
+      height="28"
+      loading="eager"
+      decoding="async"
+      onerror="this.style.display='none';document.getElementById('nav-logo-text').style.display='block';"
+    />
+    <span class="nav-logo-fallback" id="nav-logo-text" style="display:none;">TEYES<span>.</span></span>
+  </div>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Request Official Wholesale Pricing</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Sustainable Margin Program</div>
+      <div class="hero-from">Start From <span>15 Units</span> — Built for Sustainable Margin</div>
+      <h1 class="hero-title">
+        Premium Car<br />
+        <span class="accent">Head Unit</span><br />
+        Wholesale
+      </h1>
+      <p class="hero-sub">
+        Upgrade Your Product Line Without Heavy Inventory Risk
+      </p>
+      <div class="hero-cta-group">
+        <a href="#contact" class="btn-primary">
+          Get Official Wholesale Pricing
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://wa.me/8618594023375" target="_blank" rel="noopener" class="btn-whatsapp">
+          WhatsApp
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0012.1.03C5.59.03.3 5.33.3 11.84c0 2.08.54 4.1 1.56 5.88L.02 24l6.46-1.7a11.76 11.76 0 005.62 1.43h.01c6.51 0 11.8-5.3 11.8-11.8 0-3.15-1.23-6.12-3.39-8.45zm-8.41 18.24h-.01a9.8 9.8 0 01-5-1.37l-.36-.22-3.83 1.01 1.02-3.74-.24-.38a9.77 9.77 0 01-1.51-5.18c0-5.41 4.4-9.81 9.82-9.81 2.62 0 5.07 1.02 6.92 2.88a9.72 9.72 0 012.88 6.93c0 5.41-4.4 9.81-9.81 9.81zm5.38-7.34c-.29-.14-1.7-.84-1.96-.94-.26-.1-.45-.14-.64.14-.19.29-.74.94-.91 1.13-.17.19-.33.22-.62.08-.29-.14-1.21-.45-2.31-1.44-.85-.76-1.42-1.7-1.58-1.99-.17-.29-.02-.45.12-.6.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.56-.88-2.14-.23-.55-.47-.47-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.44 0 1.44 1.04 2.82 1.19 3.02.14.19 2.05 3.12 4.95 4.38.69.3 1.23.48 1.65.62.69.22 1.31.19 1.8.11.55-.08 1.7-.69 1.95-1.35.24-.67.24-1.24.17-1.35-.07-.11-.26-.18-.55-.32z"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">15<span>+</span></div>
+          <div class="hero-stat-label">Units to Start</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">100<span>+</span></div>
+          <div class="hero-stat-label">Active Markets</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">0.3<span>%</span></div>
+          <div class="hero-stat-label">Defect Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="hero-device-card">
+        <div class="float-badge">CC3 2K · CC4 Pro</div>
+        <div class="hero-device-screen">
+          <picture class="hero-device-media">
+            <source
+              media="(max-width: 767px)"
+              srcset="https://teyesglobal.com/assets/hero-bg-800-2w2qDJqR.avif 800w"
+              sizes="(max-width: 767px) 100vw"
+            />
+            <source
+              media="(min-width: 768px)"
+              srcset="https://teyesglobal.com/assets/cc4-pro-hero-800-CKKI_kKp.avif 800w"
+              sizes="(min-width: 768px) 50vw"
+            />
+            <img
+              src="https://teyesglobal.com/assets/cc4-pro-hero-800-CKKI_kKp.avif"
+              alt="TEYES Premium Head Unit UI"
+              width="800"
+              height="450"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              onerror="this.style.display='none'"
+            />
+          </picture>
+          <div class="screen-ui-mock">
+            <div class="screen-topbar">
+              <span>● CarPlay</span>
+              <span>22°C  09:41</span>
+              <span>WiFi ▶</span>
+            </div>
+            <div class="screen-icons">
+              <div class="screen-icon">🗺️</div>
+              <div class="screen-icon">🎵</div>
+              <div class="screen-icon">📷</div>
+              <div class="screen-icon">📱</div>
+            </div>
+            <div class="screen-map">↗ Premium UI — Fast, Smooth, Stable</div>
+          </div>
+        </div>
+        <div class="hero-device-meta">
+          <div class="device-tag red">Apple CarPlay</div>
+          <div class="device-tag red">Android Auto</div>
+          <div class="device-tag">8-Core CPU</div>
+          <div class="device-tag">2K Display</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — PROFIT FORMULA
+============================================================ -->
+<section class="section section-alt" id="profit-formula">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">Margin Logic</div>
+      <div class="divider"></div>
+      <h2 class="section-title">How This Creates<br />Sustainable Margin</h2>
+      <p class="section-sub" style="margin-top:16px;">
+        Sustainable Margin = Higher Retail Position + Lower After-Sales Risk + Controlled Entry Cost.
+      </p>
+    </div>
+
+    <div class="profit-grid">
+      <!-- Card 1 -->
+      <div class="profit-card reveal">
+        <div class="profit-card-num">01 / Higher Retail Position</div>
+        <h3 class="profit-card-title">Sell at a Premium Price Point</h3>
+        <div class="profit-card-tagline">Sell Higher ↑</div>
+        <ul class="profit-card-list">
+          <li>Positioned above entry-level units with visible quality difference</li>
+          <li>Premium UI &amp; performance perception that commands shelf price</li>
+          <li>Better in-store pricing flexibility vs. mass-market alternatives</li>
+        </ul>
+        <div class="price-tier-vis">
+          <div class="price-tier tier-entry">
+            <span class="price-tier-label">Entry</span>
+            <div class="price-tier-bar"><div class="price-tier-fill"></div></div>
+            <span class="price-tier-val">Low</span>
+          </div>
+          <div class="price-tier tier-mid">
+            <span class="price-tier-label">Mid</span>
+            <div class="price-tier-bar"><div class="price-tier-fill"></div></div>
+            <span class="price-tier-val">Mid</span>
+          </div>
+          <div class="price-tier tier-premium">
+            <span class="price-tier-label">TEYES ✦</span>
+            <div class="price-tier-bar"><div class="price-tier-fill"></div></div>
+            <span class="price-tier-val">$$$</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profit-op">+</div>
+
+      <!-- Card 2 -->
+      <div class="profit-card reveal reveal-delay-1">
+        <div class="profit-card-num">02 / Lower After-Sales Risk</div>
+        <h3 class="profit-card-title">Fewer Returns. Less Headache.</h3>
+        <div class="profit-card-tagline">Protect Margin ↓</div>
+        <ul class="profit-card-list">
+          <li>Stable firmware with proven long-term field performance</li>
+          <li>Structured QC process — IQC, IPQC, OQC &amp; aging test</li>
+          <li>Technical support available when your customers need it</li>
+        </ul>
+        <div class="qc-flow">
+          <div class="qc-step">
+            <div class="qc-dot">IQC</div>
+            <div class="qc-step-label">Incoming</div>
+          </div>
+          <div class="qc-arrow">›</div>
+          <div class="qc-step">
+            <div class="qc-dot">IPQC</div>
+            <div class="qc-step-label">In-Process</div>
+          </div>
+          <div class="qc-arrow">›</div>
+          <div class="qc-step">
+            <div class="qc-dot">OQC</div>
+            <div class="qc-step-label">Outgoing</div>
+          </div>
+          <div class="qc-arrow">›</div>
+          <div class="qc-step">
+            <div class="qc-dot">✓</div>
+            <div class="qc-step-label">Shipped</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profit-op">+</div>
+
+      <!-- Card 3 -->
+      <div class="profit-card reveal reveal-delay-2">
+        <div class="profit-card-num">03 / Controlled Entry Cost</div>
+        <h3 class="profit-card-title">Test the Market First</h3>
+        <div class="profit-card-tagline">Low Risk Entry ↓</div>
+        <ul class="profit-card-list">
+          <li>MOQ of only 15 units — no heavy inventory commitment</li>
+          <li>Mixed models allowed within a single order</li>
+          <li>Test and validate before scaling volume</li>
+        </ul>
+        <div class="moq-vis">
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+          <div class="moq-unit">📦</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profit Formula Box -->
+    <div class="profit-formula reveal">
+      <div class="formula-label">The Margin Equation</div>
+      <div class="formula-lines">
+        <div class="formula-line" style="color: var(--white);">
+          <span class="op" style="opacity:0">–</span>
+          Higher Selling Price
+        </div>
+        <div class="formula-line">
+          <span class="op">–</span>
+          Fewer Returns
+        </div>
+        <div class="formula-line">
+          <span class="op">–</span>
+          Lower Trial Risk
+        </div>
+        <div class="formula-line result">
+          <span class="op">=</span>
+          <span class="label-inline">Sustainable Margin</span>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--text-muted);max-width:480px;margin:0 auto;line-height:1.6;">
+        This is the full picture. Not a single discount. A structural advantage that compounds as you scale.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — SYSTEM STABILITY
+============================================================ -->
+<section class="section" id="stability">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label">Product Capability</div>
+      <div class="divider"></div>
+      <h2 class="section-title">Built for Long-Term Stability</h2>
+      <p class="section-sub" style="margin-top:16px;">
+        Not a spec sheet. Evidence that what you sell won't come back.
+      </p>
+    </div>
+
+    <div class="stability-grid">
+      <!-- System Performance -->
+      <div class="stability-card reveal">
+        <div class="stability-icon">⚡</div>
+        <h3 class="stability-card-title">System Performance</h3>
+        <ul class="stability-list">
+          <li><span class="check">✓</span> Fast boot — under 3 seconds to home screen</li>
+          <li><span class="check">✓</span> Smooth multi-app operation with no lag perception</li>
+          <li><span class="check">✓</span> Stable Apple CarPlay &amp; Android Auto integration</li>
+          <li><span class="check">✓</span> Flagship-class chipset with proven thermal management</li>
+        </ul>
+        <div class="boot-bar">
+          <div class="boot-bar-label">
+            <span>System Boot Time</span>
+            <span>Fast</span>
+          </div>
+          <div class="boot-bar-track">
+            <div class="boot-bar-fill"></div>
+          </div>
+          <div class="boot-bar-time">&lt;3s <span>average boot to home</span></div>
+        </div>
+      </div>
+
+      <!-- Quality Control -->
+      <div class="stability-card reveal reveal-delay-1">
+        <div class="stability-icon">🔬</div>
+        <h3 class="stability-card-title">Quality Control</h3>
+        <ul class="stability-list">
+          <li><span class="check">✓</span> IQC → IPQC → OQC — three-stage inspection</li>
+          <li><span class="check">✓</span> Aging test on every production batch</li>
+          <li><span class="check">✓</span> Batch consistency control — what you test is what ships</li>
+          <li><span class="check">✓</span> &lt;0.3% defect rate across global shipments</li>
+        </ul>
+        <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em;">Defect Rate vs. Industry Average</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <span style="font-size:12px;color:var(--text-dim);width:80px;">Industry Avg</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;">
+              <div style="width:60%;height:100%;background:#555;border-radius:3px;"></div>
+            </div>
+            <span style="font-size:12px;color:var(--text-dim);">~2%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:12px;color:var(--red);width:80px;">TEYES</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;">
+              <div style="width:9%;height:100%;background:var(--red);border-radius:3px;"></div>
+            </div>
+            <span style="font-size:12px;color:var(--white);font-weight:700;">&lt;0.3%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Firmware & Support -->
+      <div class="stability-card reveal reveal-delay-2">
+        <div class="stability-icon">🛡️</div>
+        <h3 class="stability-card-title">Firmware &amp; Support</h3>
+        <ul class="stability-list">
+          <li><span class="check">✓</span> Active firmware update support — products stay current</li>
+          <li><span class="check">✓</span> Technical documentation provided per model</li>
+          <li><span class="check">✓</span> Remote troubleshooting support when needed</li>
+          <li><span class="check">✓</span> After-sales doesn't end at the invoice</li>
+        </ul>
+        <div style="margin-top:20px;padding:16px;background:rgba(60,131,246,0.04);border-radius:8px;border:1px solid rgba(60,131,246,0.12);">
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.55;">
+            <strong style="color:var(--white);">Once you ship it, you stay in control.</strong><br />
+            Firmware updates, documentation, and remote support mean your customers don't escalate — they come back.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — SUPPLY CAPACITY
+============================================================ -->
+<section class="section section-alt" id="supply">
+  <div class="container">
+    <div class="supply-inner">
+      <div class="reveal">
+        <div class="label">Supply Chain</div>
+        <div class="divider"></div>
+        <h2 class="section-title">Stable Supply<br />When You Scale</h2>
+        <p class="section-sub" style="margin-top:16px;margin-bottom:40px;">
+            Start with 15 units to validate, then scale with stable production, inventory and shipment structure.
+          </p>
+
+        <div class="supply-metrics">
+          <div class="supply-metric">
+            <div class="supply-metric-val">Scalable<span></span></div>
+            <div class="supply-metric-label">Monthly Production Capacity</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-val">15<span></span></div>
+            <div class="supply-metric-label">Units MOQ to Start</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-val">Standard<span></span></div>
+            <div class="supply-metric-label">Production Timeline</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-val">30<span>/70</span></div>
+            <div class="supply-metric-label">Standard Payment Structure</div>
+          </div>
+        </div>
+
+        <div class="supply-note">
+          <strong>Structured 30/70 payment</strong> — predictable cash flow for both trial and scale-up orders.
+        </div>
+
+        <div class="supply-visuals" style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="font-size:22px;margin-bottom:8px;">🧱</div>
+            <div style="font-size:12px;color:var(--white);font-weight:600;">Pallet Shipment</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="font-size:22px;margin-bottom:8px;">🚢</div>
+            <div style="font-size:12px;color:var(--white);font-weight:600;">Container Loading</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+            <div style="font-size:22px;margin-bottom:8px;">🏬</div>
+            <div style="font-size:12px;color:var(--white);font-weight:600;">Warehouse Shelves</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="supply-step">
+          <div class="supply-step-num">1</div>
+          <div>
+            <div class="supply-step-title">Place Your Trial Order (15 Units)</div>
+            <div class="supply-step-desc">Mixed models allowed. Test the product in your market with real customers before committing to volume.</div>
+          </div>
+        </div>
+        <div class="supply-step">
+          <div class="supply-step-num">2</div>
+          <div>
+            <div class="supply-step-title">Production Confirmation</div>
+            <div class="supply-step-desc">30% deposit locks in your order. Standard production timeline 7–14 days. You'll receive updates throughout.</div>
+          </div>
+        </div>
+        <div class="supply-step">
+          <div class="supply-step-num">3</div>
+          <div>
+            <div class="supply-step-title">QC &amp; Pre-Shipment Inspection</div>
+            <div class="supply-step-desc">Every batch passes IQC → IPQC → OQC before packing. Photos and reports available on request.</div>
+          </div>
+        </div>
+        <div class="supply-step">
+          <div class="supply-step-num">4</div>
+          <div>
+            <div class="supply-step-title">Scale When Ready</div>
+            <div class="supply-step-desc">Warehouse stock available for repeat orders. Full container capacity ready when your volume demands it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — MARKET POSITIONING
+============================================================ -->
+<section class="section" id="market">
+  <div class="container">
+    <div class="market-inner">
+      <div class="reveal">
+        <div class="label">Market Strategy</div>
+        <div class="divider"></div>
+        <h2 class="section-title">Move Beyond<br />Entry-Level Competition</h2>
+        <p class="section-sub" style="margin-top:16px;margin-bottom:40px;">
+          This is an upgrade path for partners moving into a stronger retail position and clearer differentiation.
+        </p>
+        <div class="market-points">
+          <div class="market-point">
+            <div class="market-point-icon">🎯</div>
+            <div>
+              <div class="market-point-title">Designed for Mid-to-High Segment</div>
+              <div class="market-point-desc">Spec and build quality that positions above mass-market. Customers who value performance will pay for it — and stay loyal.</div>
+            </div>
+          </div>
+          <div class="market-point">
+            <div class="market-point-icon">🏪</div>
+            <div>
+              <div class="market-point-title">Built for Installation Shops &amp; Specialty Dealers</div>
+              <div class="market-point-desc">Products that installation professionals believe in sell themselves. TEYES is a recommendation, not a compromise.</div>
+            </div>
+          </div>
+          <div class="market-point">
+            <div class="market-point-icon">📊</div>
+            <div>
+              <div class="market-point-title">Differentiated from Mass-Market Units</div>
+              <div class="market-point-desc">No feature-for-feature comparison wars. A different category, with a different customer conversation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="market-upgrade-box">
+          <div class="market-upgrade-title">Market Segment Positioning</div>
+          <div class="market-ladder">
+            <div class="market-rung rung-mass">
+              <span class="market-rung-label">Generic Mass-Market</span>
+              <span class="market-rung-badge">Volume Focus</span>
+            </div>
+            <div class="market-rung rung-mid">
+              <span class="market-rung-label">Branded Mid-Range</span>
+              <span class="market-rung-badge">Balanced</span>
+            </div>
+            <div class="market-rung rung-teyes">
+              <span class="market-rung-label">TEYES Premium</span>
+              <span class="market-rung-badge">Upgraded Position</span>
+            </div>
+          </div>
+          <div class="market-join-arrow">↑ Segment Upgrade Direction</div>
+          <div style="margin-top:24px;padding:20px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--border);">
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">
+              Upgrade positioning helps installation shops and specialty dealers present stronger value to end users.<br /><br />
+              <strong style="color:var(--white);">It is a strategic move beyond entry-level competition.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — FAQ
+============================================================ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;">
+      <div class="label" style="display:block;">Before You Decide</div>
+      <div class="divider" style="margin:16px auto 24px;"></div>
+      <h2 class="section-title">Common Questions from Buyers</h2>
+    </div>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I mix different models within 15 units?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Yes. Mixed models are allowed within a single wholesale order. This lets you test multiple product lines in your market simultaneously — without needing to commit your full MOQ to one SKU. Our team will confirm model availability and lead times at pricing confirmation.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the standard production time?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Standard production time is 7–14 business days after deposit confirmation. Express options are available for in-stock models. Shipping time varies by destination, typically 5–12 days by air and 25–35 days by sea. Full timeline will be confirmed when we discuss your order specifics.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you provide marketing materials?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Yes. Product images, spec sheets, and marketing assets are provided with your wholesale account. For partners scaling to higher volumes, localized content and co-marketing support are available on discussion.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is firmware update included?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Yes. All TEYES products come with active firmware support. Updates are released regularly and distributed through our support channel. Technical documentation and update guides are included. Remote troubleshooting support is available when needed — this is part of the after-sales structure that keeps your return rate low.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is possible to be a master distributor?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Yes. Regional exclusivity and master distributor arrangements are available for partners meeting volume and market criteria. Most master distributor relationships begin with a trial order — the program above is often the first step. Mention your interest in master distribution in your inquiry and we'll include it in the initial discussion.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — FINAL CTA / FORM
+============================================================ -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-inner cta-form-only">
+      <div class="reveal reveal-delay-1">
+        <div class="form-card">
+          <div id="form-wrapper">
+            <div class="form-title">Request Official Wholesale Pricing</div>
+            <div class="form-sub">We'll respond within 24 hours with pricing and details.</div>
+
+            <form id="wholesale-form" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="company_name">Company Name *</label>
+                  <input class="form-input" type="text" id="company_name" name="company_name" placeholder="Your Company" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="user_email">Business Email *</label>
+                  <input class="form-input" type="email" id="user_email" name="user_email" placeholder="name@company.com" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="country">Country *</label>
+                  <input class="form-input" type="text" id="country" name="country" placeholder="e.g. Germany, Brazil..." required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="monthly_volume">Est. Monthly Volume</label>
+                  <select class="form-select" id="monthly_volume" name="monthly_volume">
+                    <option value="">Select range</option>
+                    <option value="15–50 units">15–50 units (Testing)</option>
+                    <option value="50–200 units">50–200 units (Growing)</option>
+                    <option value="200–500 units">200–500 units (Scaling)</option>
+                    <option value="500+ units">500+ units (High Volume)</option>
+                  </select>
+                </div>
+                <div class="form-group form-full">
+                  <label class="form-label" for="target_models">Target Models / Product Interest</label>
+                  <input class="form-input" type="text" id="target_models" name="target_models" placeholder="e.g. CC4 Pro, CC3 2K, or not sure yet" />
+                </div>
+              </div>
+
+              <div id="form-error" class="form-error-msg">Something went wrong. Please try again or contact us directly.</div>
+
+              <button type="submit" class="form-submit" id="form-btn">
+                Request Official Wholesale Pricing
+              </button>
+              <div class="form-note">No commitment required. Pricing sent within 24 hours.</div>
+            </form>
+          </div>
+
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">✅</div>
+            <div class="form-success-title">Request Received</div>
+            <div class="form-success-desc">Thank you. Our wholesale team will send you official pricing and details within 24 hours.<br /><br />You can also reach us directly at <a href="mailto:info@teyesauto.com" style="color:var(--red);">info@teyesauto.com</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">TEYES<span>.</span></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Global Smart Infotainment Solutions</div>
+      </div>
+      <div class="footer-copy">© 2026 TEYES. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="https://teyesglobal.com" target="_blank" rel="noopener">teyesglobal.com</a>
+        <a href="mailto:info@teyesauto.com">info@teyesauto.com</a>
+        <a href="https://wa.me/8618594023375" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">◐</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="thumb-cta" aria-label="Mobile quick actions">
+  <a class="thumb-primary" href="#contact">Get Pricing</a>
+  <a class="thumb-wa" href="https://wa.me/8618594023375" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+  (function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    const current = saved || preferred;
+    document.documentElement.setAttribute('data-theme', current);
+  })();
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = next === 'dark' ? '◐' : '◑';
+  }
+
+  // ── EmailJS Init ──────────────────────────────────────────────
+  // IMPORTANT: Replace with your own EmailJS credentials
+  // 1. Sign up at https://www.emailjs.com
+  // 2. Create a Service (e.g., Gmail or SMTP)
+  // 3. Create an Email Template with variables:
+  //    {{company_name}}, {{user_email}}, {{country}},
+  //    {{monthly_volume}}, {{target_models}}
+  // 4. Replace the values below:
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // From EmailJS Account → API Keys
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // From EmailJS → Email Services
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // From EmailJS → Email Templates
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  // ── Form Submission ───────────────────────────────────────────
+  document.getElementById('wholesale-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form   = this;
+    const btn    = document.getElementById('form-btn');
+    const errEl  = document.getElementById('form-error');
+
+    // Basic validation
+    const company = form.company_name.value.trim();
+    const email   = form.user_email.value.trim();
+    const country = form.country.value.trim();
+
+    if (!company || !email || !country) {
+      errEl.textContent = 'Please fill in Company Name, Email, and Country.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+      .then(function() {
+        document.getElementById('form-wrapper').style.display = 'none';
+        document.getElementById('form-success').classList.add('visible');
+      })
+      .catch(function(error) {
+        console.error('EmailJS error:', error);
+        errEl.textContent = 'Something went wrong. Please email us directly at info@teyesauto.com';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Request Official Wholesale Pricing';
+      });
+  });
+
+  // ── FAQ Accordion ─────────────────────────────────────────────
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
+
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('active');
+    }
+  }
+
+  // ── Scroll Reveal ─────────────────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer  = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── TEYES Logo ────────────────────────────────────────────────
+  const logoImg = document.querySelector('.nav-logo img');
+  if (logoImg) {
+    logoImg.src = 'https://teyesglobal.com/main-logo.webp';
+  }
+</script>
+
+</body>
+</html>

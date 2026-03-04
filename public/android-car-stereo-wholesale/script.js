@@ -149,7 +149,7 @@
       errMsg.hidden = false;
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Request Official Wholesale Pricing';
+      submitBtn.textContent = 'Get 2026 Wholesale Price list';
     }
   });
 })();

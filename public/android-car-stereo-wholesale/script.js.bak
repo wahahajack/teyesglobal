@@ -42,69 +42,6 @@
 
   initMobileStickyCta();
 
-  const initImageLightbox = () => {
-    const images = document.querySelectorAll('.hero-media img, .visual-photo img');
-    if (!images.length) return;
-
-    images.forEach((img) => {
-      img.classList.add('zoomable-image');
-      img.setAttribute('role', 'button');
-      img.setAttribute('tabindex', '0');
-      img.setAttribute('aria-label', 'Open image preview');
-    });
-
-    const lightbox = document.createElement('div');
-    lightbox.className = 'image-lightbox';
-    lightbox.setAttribute('aria-hidden', 'true');
-
-    const closeBtn = document.createElement('button');
-    closeBtn.type = 'button';
-    closeBtn.className = 'image-lightbox-close';
-    closeBtn.setAttribute('aria-label', 'Close image preview');
-    closeBtn.textContent = '×';
-
-    const preview = document.createElement('img');
-    preview.alt = '';
-
-    lightbox.append(closeBtn, preview);
-    document.body.appendChild(lightbox);
-
-    const close = () => {
-      lightbox.classList.remove('is-open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('lightbox-open');
-      preview.removeAttribute('src');
-    };
-
-    const open = (img) => {
-      preview.src = img.currentSrc || img.src;
-      preview.alt = img.alt || '';
-      lightbox.classList.add('is-open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('lightbox-open');
-    };
-
-    images.forEach((img) => {
-      img.addEventListener('click', () => open(img));
-      img.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          open(img);
-        }
-      });
-    });
-
-    closeBtn.addEventListener('click', close);
-    lightbox.addEventListener('click', (event) => {
-      if (event.target === lightbox) close();
-    });
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) close();
-    });
-  };
-
-  initImageLightbox();
-
   const EMAILJS_PUBLIC_KEY = 'r4hPxgrdEnnONhc9E';
   const EMAILJS_SERVICE_ID = 'service_p161z11';
   const EMAILJS_TEMPLATE_ID = 'template_wz0rjg3';

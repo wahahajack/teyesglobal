@@ -7,10 +7,12 @@
   <meta name="description" content="Start With 10 Units — Test High-Margin Market Safely. Built for resellers who want margin stability, not price wars." />
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png" />
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="./images/teyes-head-unit-hero-960.avif" imagesrcset="./images/teyes-head-unit-hero-640.avif 640w, ./images/teyes-head-unit-hero-960.avif 960w, ./images/teyes-head-unit-hero-1280.avif 1280w" imagesizes="(max-width: 980px) 100vw, 45vw" />
+  <link rel="preload" as="image" href="./images/teyes-head-unit-hero.avif" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -46,17 +48,8 @@
         <article class="hero-card">
           <div class="hero-media">
             <picture>
-              <source
-                type="image/avif"
-                srcset="./images/teyes-head-unit-hero-640.avif 640w, ./images/teyes-head-unit-hero-960.avif 960w, ./images/teyes-head-unit-hero-1280.avif 1280w"
-                sizes="(max-width: 980px) 100vw, 45vw"
-              />
-              <source
-                type="image/webp"
-                srcset="./images/teyes-head-unit-hero-640.webp 640w, ./images/teyes-head-unit-hero-960.webp 960w, ./images/teyes-head-unit-hero-1280.webp 1280w"
-                sizes="(max-width: 980px) 100vw, 45vw"
-              />
-              <img src="./images/teyes-head-unit-hero-960.webp" alt="TEYES premium head unit" loading="eager" fetchpriority="high" decoding="async" />
+              <source media="(min-width: 768px)" srcset="./images/teyes-head-unit-hero.avif" />
+              <img src="./images/teyes-head-unit-hero.avif" alt="TEYES premium head unit" loading="eager" fetchpriority="high" decoding="async" />
             </picture>
           </div>
           <div class="chips">
@@ -80,19 +73,13 @@
               <li>Drives cross-sales of premium products</li>
             </ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/premium-ui-showcase-640.webp?v=20260304 640w, ./images/premium-ui-showcase-960.webp?v=20260304 960w, ./images/premium-ui-showcase-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/premium-ui-showcase-960.webp?v=20260304"
-                  alt="Premium in-car UI close-up"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/premium-ui-showcase.webp?v=20260304"
+                alt="Premium in-car UI close-up"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
 
@@ -105,19 +92,13 @@
               <li>Stable firmware with ongoing support</li>
             </ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/qc-inspection-line-640.webp?v=20260304 640w, ./images/qc-inspection-line-960.webp?v=20260304 960w, ./images/qc-inspection-line-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/qc-inspection-line-960.webp?v=20260304"
-                  alt="Real quality inspection scene"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/qc-inspection-line.webp?v=20260304"
+                alt="Real quality inspection scene"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
 
@@ -130,19 +111,13 @@
               <li>Most models in stock</li>
             </ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/warehouse-inventory-pallets-640.webp?v=20260304 640w, ./images/warehouse-inventory-pallets-960.webp?v=20260304 960w, ./images/warehouse-inventory-pallets-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/warehouse-inventory-pallets-960.webp?v=20260304"
-                  alt="Warehouse in-stock inventory"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/warehouse-inventory-pallets.webp?v=20260304"
+                alt="Warehouse in-stock inventory"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
         </div>
@@ -197,57 +172,39 @@
             <h4>Powerful Chipsets</h4>
             <ul><li>Fast Boot</li><li>Zero Lag &amp; No Crashing</li><li>Rock-Solid Phone Link</li></ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/chipset-performance-visual-640.webp?v=20260304 640w, ./images/chipset-performance-visual-960.webp?v=20260304 960w, ./images/chipset-performance-visual-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/chipset-performance-visual-960.webp?v=20260304"
-                  alt="System performance testing scene"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/chipset-performance-visual.webp?v=20260304"
+                alt="System performance testing scene"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
           <article class="card-lite">
             <h4>Pro Thermal Design</h4>
             <ul><li>No Overheating</li><li>Zero Crashes</li><li>Built for Hot Climates</li></ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/thermal-design-dual-fan-640.webp?v=20260304 640w, ./images/thermal-design-dual-fan-960.webp?v=20260304 960w, ./images/thermal-design-dual-fan-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/thermal-design-dual-fan-960.webp?v=20260304"
-                  alt="Quality control process on site"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/thermal-design-dual-fan.webp?v=20260304"
+                alt="Quality control process on site"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
           <article class="card-lite">
             <h4>Firmware &amp; Support</h4>
             <ul><li>Firmware update support</li><li>Technical documentation</li><li>Team Support, No Missed Requests</li></ul>
             <div class="visual visual-photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="./images/technical-support-dashboard-640.webp?v=20260304 640w, ./images/technical-support-dashboard-960.webp?v=20260304 960w, ./images/technical-support-dashboard-1280.webp?v=20260304 1280w"
-                  sizes="(max-width: 980px) 100vw, 33vw"
-                />
-                <img
-                  src="./images/technical-support-dashboard-960.webp?v=20260304"
-                  alt="Firmware and remote support service"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="./images/technical-support-dashboard.webp?v=20260304"
+                alt="Firmware and remote support service"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
           </article>
         </div>

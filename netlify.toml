@@ -2,6 +2,12 @@
   command = "npm run build"
   publish = "dist"
 
+[[plugins]]
+  package = "netlify-plugin-inline-critical-css"
+
+  [plugins.inputs]
+  files = ["assets/index-*.css", "assets/index.css"]
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

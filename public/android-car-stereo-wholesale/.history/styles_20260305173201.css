@@ -392,7 +392,6 @@ h1 {
 .comparison-vs {
     height: 44px;
     width: 44px;
-    justify-self: center;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
     background: color-mix(in srgb, var(--brand) 14%, var(--bg));
@@ -717,6 +716,10 @@ body.lightbox-open {
     .three-col,
     .comparison-grid {
         grid-template-columns: 1fr
+    }
+
+    .comparison-vs {
+        display: none
     }
 
     .profit-grid {

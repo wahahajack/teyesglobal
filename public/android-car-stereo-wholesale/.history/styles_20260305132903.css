@@ -374,35 +374,17 @@ h1 {
 
 .comparison-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-    width: 100%;
-    margin: 0;
-    align-items: center
+    max-width: 960px;
+    margin: 0 auto
 }
 
 .comp-col {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    overflow: hidden;
-    min-width: 0
-}
-
-.comparison-vs {
-    height: 44px;
-    width: 44px;
-    justify-self: center;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
-    background: color-mix(in srgb, var(--brand) 14%, var(--bg));
-    color: var(--brand);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .06em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center
+    overflow: hidden
 }
 
 .comp-bad {
@@ -565,48 +547,24 @@ h1 {
 }
 
 .footer {
-    padding: 22px 0 100px;
+    padding: 26px 0 100px;
     border-top: 1px solid var(--border)
 }
 
-.footer-stack {
+.footer-inner {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px
-}
-
-.footer-trust {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    justify-content: center;
-    color: #89b3e5;
+    color: var(--muted);
     font-size: 13px
 }
 
-.trust-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap
-}
-
-.trust-icon {
-    font-size: 12px;
-    line-height: 1
-}
-
-.trust-divider {
-    color: color-mix(in srgb, #89b3e5 60%, transparent)
-}
-
-.footer-copy {
-    margin: 0;
-    text-align: center;
-    color: #a7c0df;
-    font-size: 13px
+.footer-links {
+    display: flex;
+    gap: 14px;
+    align-items: center
 }
 
 .theme-btn {
@@ -744,7 +702,8 @@ body.lightbox-open {
 
     .card ul,
     .card-lite ul,
-    .faq p {
+    .faq p,
+    {
         font-size: 15px
     }
 
@@ -797,37 +756,11 @@ body.lightbox-open {
         background: var(--ok);
         color: #fff
     }
-
-    .footer-trust {
-        row-gap: 6px;
-        column-gap: 10px;
-        font-size: 12px
-    }
-
-    .trust-divider {
-        display: none
-    }
-
-    .footer-copy {
-        font-size: 12px
-    }
 }
 
 [data-theme="light"] .thumb-cta {
     background: #ffffff;
     backdrop-filter: none
-}
-
-[data-theme="light"] .footer-trust {
-    color: #2b64a5
-}
-
-[data-theme="light"] .trust-divider {
-    color: color-mix(in srgb, #2b64a5 55%, transparent)
-}
-
-[data-theme="light"] .footer-copy {
-    color: #355f93
 }
 
 [data-theme="light"] .card ul,

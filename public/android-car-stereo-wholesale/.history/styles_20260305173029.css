@@ -374,35 +374,17 @@ h1 {
 
 .comparison-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-    width: 100%;
-    margin: 0;
-    align-items: center
+    max-width: 960px;
+    margin: 0 auto
 }
 
 .comp-col {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    overflow: hidden;
-    min-width: 0
-}
-
-.comparison-vs {
-    height: 44px;
-    width: 44px;
-    justify-self: center;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
-    background: color-mix(in srgb, var(--brand) 14%, var(--bg));
-    color: var(--brand);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .06em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center
+    overflow: hidden
 }
 
 .comp-bad {

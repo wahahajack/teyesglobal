@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>Application Received | TEYES Distributor Portal</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="https://teyesglobal.com/favicon-32x32.png?v=20260306c">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://teyesglobal.com/favicon-16x16.png?v=20260306c">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://teyesglobal.com/apple-touch-icon.png?v=20260306c">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .font-tech { font-family: 'Rajdhani', sans-serif; text-transform: uppercase; }
+        .status-box { 
+            background: #111; 
+            border: 1px solid #222; 
+            border-radius: 12px; 
+        }
+        .btn-whatsapp { 
+            background: #25D366; 
+            transition: all 0.3s ease; 
+        }
+        .btn-whatsapp:hover { 
+            background: #128C7E; 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+        .btn-ghost:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MSPH5TMK');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body class="px-6 py-12">
+    <div class="max-w-lg w-full text-center fade-in">
+        
+        <!-- Header Icon -->
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#2962FF] to-[#00E5FF] flex items-center justify-center pulse-icon">
+            <i class="fas fa-file-signature text-3xl text-white"></i>
+        </div>
+        
+        <!-- Title -->
+        <h1 class="font-tech text-4xl md:text-5xl font-bold mb-3">Application Received</h1>
+        <p class="text-[#2962FF] font-bold uppercase tracking-[3px] text-xs mb-10">Official Reference: <span id="ref-id">TEYES-2026-PENDING</span></p>
+        
+        <!-- Status Box -->
+        <div class="status-box p-6 md:p-8 text-left mb-8">
+            <h3 class="text-gray-500 text-[10px] uppercase font-bold tracking-widest mb-4">What Happens Next</h3>
+            <ul class="space-y-4 text-sm text-gray-300">
+                <li class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#2962FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fas fa-clock text-[#2962FF] text-xs"></i>
+                    </div>
+                    <span>Our team will review your business credentials within <strong class="text-white">48 hours</strong>.</span>
+                </li>
+                <li class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-[#2962FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fas fa-envelope text-[#2962FF] text-xs"></i>
+                    </div>
+                    <span>Qualified partners will be contacted to discuss territory availability and contract details.</span>
+                </li>
+                <li class="flex items-start gap-4">
+                    <div class="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fas fa-shield-alt text-red-500 text-xs"></i>
+                    </div>
+                    <span class="text-gray-400"><strong class="text-gray-300">Security Note:</strong> We will ONLY contact you via official email or WhatsApp. We never make unsolicited cold calls.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- WhatsApp CTA -->
+        <div class="mb-8">
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-3">Urgent Inquiry?</p>
+            <a href="javascript:void(0);" onclick="openWhatsAppSmart()" 
+               class="btn-whatsapp inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-bold text-white w-full md:w-auto cursor-pointer">
+                <i class="fab fa-whatsapp text-xl"></i> 
+                <span>Priority Chat with Manager</span>
+            </a>
+        </div>
+        
+        <!-- Back Link -->
+        <a href="index.html" class="btn-ghost inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-gray-400 text-sm font-medium hover:text-white">
+            <i class="fas fa-arrow-left text-xs"></i> Back to Homepage
+        </a>
+        
+        <!-- Footer -->
+        <p class="mt-12 text-[10px] text-gray-700 uppercase tracking-widest">© 2008-2026 TEYES High-tech Co., Ltd.</p>
+    </div>
+
+    <script>
+        function openWhatsAppSmart() {
+            // 1. 设置参数
+            var phone = '8618594023375';
+            // 注意：这是 Catalog 页面的文案。如果是 index 页面请改回原来的。
+            var text = 'Hi TEYES, I’ve submitted the distributor application form and would like to discuss the distribution opportunity.';
+            var encodedText = encodeURIComponent(text);
+            
+            // 2. 检测设备类型 (是电脑还是手机？)
+            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            // 3. 准备链接
+            var appUrl = 'whatsapp://send?phone=' + phone + '&text=' + encodedText;
+            var webUrl = '';
+
+            if (isMobile) {
+                // 手机：使用 API 接口 (兼容性好，能跳 App Store)
+                webUrl = 'https://api.whatsapp.com/send?phone=' + phone + '&text=' + encodedText;
+            } else {
+                // 电脑：强制使用 Web 网页版 (跳过询问页，直达聊天界面)
+                webUrl = 'https://web.whatsapp.com/send?phone=' + phone + '&text=' + encodedText;
+            }
+
+            // 4. 执行唤起逻辑
+            var start = Date.now();
+            
+            // 优先尝试唤起本地软件 (App)
+            window.location.href = appUrl;
+
+            // 5. 倒计时判断
+            setTimeout(function() {
+                var end = Date.now();
+                // 如果页面一直可见（说明软件没弹出来），则跳转对应的网页链接
+                if (!document.hidden && (end - start < 2000)) {
+                    window.location.href = webUrl;
+                }
+            }, 1500);
+        }
+    </script>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH5TMK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

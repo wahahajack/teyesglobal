@@ -60,10 +60,6 @@ export function Header() {
               height="56"
               className="site-logo h-8 w-auto md:h-10"
             />
-            <span
-              aria-hidden="true"
-              className="site-logo-light hidden h-8 w-[171px] md:h-10 md:w-[214px]"
-            />
           </Link>
 
           {/* Desktop Navigation */}

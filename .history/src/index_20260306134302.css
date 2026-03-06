@@ -131,22 +131,9 @@
 
 @layer components {
 
-  /* Match light-mode logo color to CTA primary color exactly. */
+  /* Keep the header logo visible in light theme when source asset is light-colored. */
   .light .site-logo {
-    display: none;
-  }
-
-  .light .site-logo-light {
-    display: block;
-    background-color: hsl(var(--primary));
-    -webkit-mask-image: url('/main-logo.webp');
-    mask-image: url('/main-logo.webp');
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
+    filter: brightness(0) saturate(100%);
   }
 
   /* Hero Section Styles */

@@ -52,17 +52,13 @@ export function Header() {
       <nav className="container-wide" aria-label="Global">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="site-logo-link flex items-center">
+          <Link to="/" className="site-logo-link flex items-center rounded-md px-2 py-1 transition-colors">
             <img
               src="/main-logo.webp"
               alt="TEYES Logo"
               width="300"
               height="56"
               className="site-logo h-8 w-auto md:h-10"
-            />
-            <span
-              aria-hidden="true"
-              className="site-logo-light hidden h-8 w-[171px] md:h-10 md:w-[214px]"
             />
           </Link>
 

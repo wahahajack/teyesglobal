@@ -152,10 +152,10 @@
 
     const email = form.user_email?.value?.trim();
     const country = form.country?.value?.trim();
-    const estimatedQuantity = form.estimated_quantity?.value?.trim();
+    const monthlyVolume = form.monthly_volume?.value?.trim();
     const emailField = form.user_email;
 
-    if (!email || !country || !estimatedQuantity) {
+    if (!email || !country || !monthlyVolume) {
       errMsg.textContent = 'Please fill in all required fields.';
       errMsg.hidden = false;
       return;

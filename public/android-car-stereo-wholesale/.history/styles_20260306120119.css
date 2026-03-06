@@ -52,10 +52,6 @@ a {
 
 .alt {
     background: var(--bg-alt)
-.required-star {
-    color: #ef4444;
-    font-weight: 700;
-}
 }
 
 h1,
@@ -208,11 +204,6 @@ h1 {
 
 .btn-primary {
     background: var(--brand);
-    color: #fff
-}
-
-.btn-wa {
-    background: #22c55e;
     color: #fff
 }
 

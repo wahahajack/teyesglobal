@@ -150,12 +150,12 @@
     const honeypot = form.website?.value?.trim();
     if (honeypot) return;
 
+    const company = form.company_name?.value?.trim();
     const email = form.user_email?.value?.trim();
     const country = form.country?.value?.trim();
-    const estimatedQuantity = form.estimated_quantity?.value?.trim();
     const emailField = form.user_email;
 
-    if (!email || !country || !estimatedQuantity) {
+    if (!company || !email || !country) {
       errMsg.textContent = 'Please fill in all required fields.';
       errMsg.hidden = false;
       return;

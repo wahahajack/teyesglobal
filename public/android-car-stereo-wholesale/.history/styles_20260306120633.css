@@ -211,11 +211,6 @@ h1 {
     color: #fff
 }
 
-.btn-wa {
-    background: #22c55e;
-    color: #fff
-}
-
 .hero-card {
     background: var(--card);
     border: 1px solid var(--border);

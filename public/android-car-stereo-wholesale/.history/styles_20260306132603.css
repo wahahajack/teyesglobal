@@ -780,17 +780,13 @@ body.lightbox-open {
         grid-template-columns: 1fr
     }
 
-    .hero-actions {
-        justify-content: flex-end
-    }
-
     .thumb-cta {
         position: fixed;
         left: 10px;
         right: 10px;
         bottom: 10px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 10px;
         z-index: 180;
         background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -821,16 +817,9 @@ body.lightbox-open {
     }
 
     .thumb-cta .primary {
+        display: none;
         background: var(--brand);
         color: #fff
-    }
-
-    .thumb-cta.wa-only {
-        grid-template-columns: 1fr
-    }
-
-    .thumb-cta.wa-only .primary {
-        display: none
     }
 
     .thumb-cta .wa {

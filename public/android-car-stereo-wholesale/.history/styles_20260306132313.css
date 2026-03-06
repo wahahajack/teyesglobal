@@ -780,10 +780,6 @@ body.lightbox-open {
         grid-template-columns: 1fr
     }
 
-    .hero-actions {
-        justify-content: flex-end
-    }
-
     .thumb-cta {
         position: fixed;
         left: 10px;
@@ -823,14 +819,6 @@ body.lightbox-open {
     .thumb-cta .primary {
         background: var(--brand);
         color: #fff
-    }
-
-    .thumb-cta.wa-only {
-        grid-template-columns: 1fr
-    }
-
-    .thumb-cta.wa-only .primary {
-        display: none
     }
 
     .thumb-cta .wa {

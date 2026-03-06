@@ -102,7 +102,7 @@ h2 {
 }
 
 [data-theme="light"] .logo {
-    filter: brightness(0) saturate(100%) invert(39%) sepia(97%) saturate(1732%) hue-rotate(204deg) brightness(100%) contrast(94%) drop-shadow(0 1px 1px rgba(255, 255, 255, .25))
+    filter: brightness(0) saturate(100%) drop-shadow(0 1px 1px rgba(255, 255, 255, .25))
 }
 
 .logo-fallback {
@@ -780,10 +780,6 @@ body.lightbox-open {
         grid-template-columns: 1fr
     }
 
-    .hero-actions {
-        justify-content: flex-end
-    }
-
     .thumb-cta {
         position: fixed;
         left: 10px;
@@ -823,14 +819,6 @@ body.lightbox-open {
     .thumb-cta .primary {
         background: var(--brand);
         color: #fff
-    }
-
-    .thumb-cta.wa-only {
-        grid-template-columns: 1fr
-    }
-
-    .thumb-cta.wa-only .primary {
-        display: none
     }
 
     .thumb-cta .wa {

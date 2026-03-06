@@ -29,42 +29,41 @@
 
   const initMobileStickyCta = () => {
     if (!heroPricingBtn || !thumbCta) return;
+    if (!('IntersectionObserver' in window)) return;
 
     const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
-    const isInViewport = (el, bottomOffset = 0) => {
-      if (!el) return false;
-      const rect = el.getBoundingClientRect();
-      return rect.bottom > 0 && rect.top < (window.innerHeight - bottomOffset);
+    const state = {
+      heroCtaInView: true,
+      formCtaInView: false
     };
 
     const syncStickyCta = () => {
-      if (!isMobile()) {
-        thumbCta.classList.remove('is-visible', 'wa-only');
-        return;
-      }
-
-      const heroCtaInView = isInViewport(heroPricingBtn);
-      const formCtaInView = isInViewport(submitBtn, 96);
-      const shouldShowSticky = !heroCtaInView;
-
-      thumbCta.classList.toggle('is-visible', shouldShowSticky);
-      thumbCta.classList.toggle('wa-only', shouldShowSticky && formCtaInView);
+      const shouldShow = isMobile() && !state.heroCtaInView;
+      thumbCta.classList.toggle('is-visible', shouldShow);
+      thumbCta.classList.toggle('wa-only', shouldShow && state.formCtaInView);
     };
 
-    let ticking = false;
-    const queueSync = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
+    const heroObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      state.heroCtaInView = entry.isIntersecting;
+      syncStickyCta();
+    }, { threshold: 0.15 });
+
+    heroObserver.observe(heroPricingBtn);
+
+    if (submitBtn) {
+      const formObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        state.formCtaInView = entry.isIntersecting;
         syncStickyCta();
-        ticking = false;
-      });
-    };
+      }, { threshold: 0.25 });
 
-    window.addEventListener('scroll', queueSync, { passive: true });
-    window.addEventListener('resize', queueSync);
-    window.addEventListener('orientationchange', queueSync);
-    syncStickyCta();
+      formObserver.observe(submitBtn);
+    }
+
+    window.addEventListener('resize', () => {
+      syncStickyCta();
+    });
   };
 
   initMobileStickyCta();

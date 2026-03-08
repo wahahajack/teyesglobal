@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | TEYES OEM Manufacturing</title>
+    <meta name="description" content="Thank you for your OEM inquiry. Our manufacturing team will contact you soon." />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png?v=20260308" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png?v=20260308" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png?v=20260308" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <main class="section" style="min-height:100vh;display:flex;align-items:center;">
+        <div class="container" style="max-width:780px;">
+            <div class="form-card" style="text-align:center;">
+                <h1 style="font-size:clamp(34px,6vw,54px);margin:0 0 10px;">Thank You</h1>
+                <p class="section-sub" style="margin-bottom:18px;">Your OEM inquiry has been received. Our manufacturing
+                    team will contact you within 24 hours.</p>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                    <a class="btn btn-primary" href="https://teyesauto.com" target="_blank" rel="noopener">Back to
+                        Homepage</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lead_submitted', page: 'thank_you_oem' });
+
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'conversion', { send_to: 'AW-XXXXXXX/XXXXXXXXXXX' });
+        }
+
+        if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead');
+        }
+    </script>
+</body>
+
+</html>

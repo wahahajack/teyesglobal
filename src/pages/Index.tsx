@@ -16,12 +16,32 @@ const Index = () => {
     "name": "TEYES",
     "url": "https://teyesauto.com",
     "logo": "https://teyesauto.com/logo.webp",
+    "description": "Global leader in automotive infotainment systems, offering advanced Android head units, 360° cameras, and smart driving solutions for the aftermarket.",
+    "foundingDate": "2011",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 500
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Global (100+ markets)"
+    },
+    "knowsAbout": [
+      "Car Infotainment Systems",
+      "Android Head Units",
+      "OEM/ODM Manufacturing",
+      "Automotive Aftermarket Solutions"
+    ],
     "sameAs": [
       "https://www.facebook.com/teyesglobal",
       "https://www.instagram.com/teyes_global",
       "https://www.youtube.com/@teyes"
     ],
-    "description": "Global leader in automotive infotainment systems, offering advanced Android head units, 360° cameras, and smart driving solutions."
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "availableLanguage": ["English", "Chinese", "Russian"]
+    }
   });
 
   return (

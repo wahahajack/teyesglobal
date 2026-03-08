@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Package, TrendingUp, Users, Headphones } from "lucide-react";
@@ -67,11 +67,11 @@ const partnershipLevels = [
 const SolutionsDistributorsPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Distributor Partnership - Wholesale Car Infotainment"
         description="Become a TEYES distributor. Access proven products, competitive wholesale pricing, marketing support, and dedicated account management across 100+ markets."
         keywords="car infotainment distributor, wholesale head unit, TEYES partner, distribution partnership"
-        canonicalPath="/solutions/distributors"
+        path="/solutions/distributors"
       />
       <ContextHeader
         title="Solutions for Distributors"

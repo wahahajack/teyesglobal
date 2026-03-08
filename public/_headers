@@ -1,11 +1,6 @@
 # Cache static assets for 1 year
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
-  Link: <https://cdn.gpteng.co>; rel=preconnect; crossorigin
-
-# Preconnect for root html
-/*
-  Link: <https://cdn.gpteng.co>; rel=preconnect; crossorigin
 
 # Cache images for 1 year
 /*.webp

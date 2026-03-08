@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, DollarSign, Package, Headphones, TrendingUp, Award, Truck } from "lucide-react";
 import globalPartnersImg from "@/assets/decorative/global-partners-800.webp";
@@ -35,11 +35,12 @@ const requirements = [
 const LandingDistributorPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Become a Distributor - Car Infotainment Partnership"
         description="Join TEYES distributor network. Access proven car infotainment products, competitive margins, marketing support, and growth opportunities in 100+ global markets."
         keywords="car infotainment distributor, become a distributor, TEYES partnership, wholesale car stereo"
-        canonicalPath="/partners/distributors"
+        path="/landing/distributor"
+        noindex={true}
       />
       {/* Hero with Background Image */}
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">

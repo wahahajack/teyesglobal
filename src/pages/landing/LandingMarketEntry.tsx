@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, TrendingUp, Package, Users, MapPin, BarChart3 } from "lucide-react";
 import globalPartnersImg from "@/assets/decorative/global-partners-800.webp";
@@ -34,11 +34,12 @@ const support = [
 const LandingMarketEntryPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Market Entry Support - Global Infotainment Distribution"
         description="Enter new markets with TEYES support. Market analysis, product positioning, compliance guidance, and local partner connections for car infotainment distribution."
         keywords="market entry support, global distribution, emerging markets, car infotainment expansion"
-        canonicalPath="/partners/market-entry"
+        path="/landing/market-entry"
+        noindex={true}
       />
       {/* Hero with Background Image */}
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">
@@ -138,8 +139,8 @@ const LandingMarketEntryPage = () => {
                 <h3 className="font-semibold mb-2">{m.name}</h3>
                 <p className="text-xs text-muted-foreground mb-2">{m.products}</p>
                 <span className={`text-xs px-2 py-1 rounded-full ${m.growth === "High" ? "bg-emerald-500/10 text-emerald-400" :
-                    m.growth === "Medium" ? "bg-amber-500/10 text-amber-400" :
-                      "bg-violet-500/10 text-violet-400"
+                  m.growth === "Medium" ? "bg-amber-500/10 text-amber-400" :
+                    "bg-violet-500/10 text-violet-400"
                   }`}>
                   {m.growth} Growth
                 </span>

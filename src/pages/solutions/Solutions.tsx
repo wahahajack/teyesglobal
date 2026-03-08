@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Car, Settings, Globe } from "lucide-react";
@@ -67,11 +67,11 @@ const solutionCategories = [
 const SolutionsPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Partnership Solutions - Distributors, Auto Brands & Integrators"
         description="TEYES partnership solutions for distributors, auto brands, and system integrators. OEM/ODM services, white-label options, and market entry support for 100+ markets."
         keywords="TEYES solutions, car infotainment distributor, OEM partnership, ODM services, white-label, system integrator"
-        canonicalPath="/solutions"
+        path="/solutions"
       />
       <ContextHeader
         title="Solutions"

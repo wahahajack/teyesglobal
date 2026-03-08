@@ -23,9 +23,9 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "YouTube", href: "#", icon: Youtube },
-  { name: "Facebook", href: "#", icon: Facebook },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/teyes", icon: Linkedin },
+  { name: "YouTube", href: "https://www.youtube.com/@teyes", icon: Youtube },
+  { name: "Facebook", href: "https://www.facebook.com/teyesglobal", icon: Facebook },
 ];
 
 export function Footer() {
@@ -112,6 +112,8 @@ export function Footer() {
               <a
                 key={social.name}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
                 aria-label={social.name}
               >

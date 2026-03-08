@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Cpu, Palette, Code, Factory, Wrench, TestTube } from "lucide-react";
@@ -77,11 +77,11 @@ const capabilities = [
 const OemCapabilitiesPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="OEM/ODM Capabilities - Hardware, Software & Manufacturing"
         description="Full-spectrum OEM/ODM capabilities: hardware customization, branding, software development, manufacturing, engineering support, and testing services."
         keywords="OEM capabilities, hardware customization, custom branding, software development, automotive manufacturing"
-        canonicalPath="/oem-odm/capabilities"
+        path="/oem-odm/capabilities"
       />
       <ContextHeader
         title="Full-Spectrum OEM/ODM Capabilities"

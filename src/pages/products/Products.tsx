@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
@@ -8,21 +8,21 @@ import { products, seriesInfo, getProductsBySeries } from "@/data/products";
 import { useState } from "react";
 
 // Optimized product image component with srcset
-function ProductImage({ 
-  src, 
-  alt, 
+function ProductImage({
+  src,
+  alt,
   className = "",
   priority = false,
   size = "large"
-}: { 
-  src: string; 
-  alt: string; 
+}: {
+  src: string;
+  alt: string;
   className?: string;
   priority?: boolean;
   size?: "large" | "small";
 }) {
   const [loaded, setLoaded] = useState(false);
-  
+
   // Generate srcset for responsive loading
   const getSrcSet = (baseSrc: string) => {
     // Extract base path without size suffix
@@ -35,7 +35,7 @@ function ProductImage({
   };
 
   const srcSet = getSrcSet(src);
-  const sizes = size === "large" 
+  const sizes = size === "large"
     ? "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
     : "(max-width: 768px) 96px, 96px";
 
@@ -68,11 +68,15 @@ const ProductsPage = () => {
 
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Car Infotainment Products - Android Head Units"
         description="Browse TEYES car infotainment products. From flagship CC4 Pro to entry-level solutions. Android head units with CarPlay, Android Auto, 2K displays, and premium audio."
         keywords="TEYES products, car head unit, android car stereo, CC4 Pro, CC3 2K, CarPlay, Android Auto"
-        canonicalPath="/products"
+        path="/products"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products" },
+        ]}
       />
       <ContextHeader
         title="Products"

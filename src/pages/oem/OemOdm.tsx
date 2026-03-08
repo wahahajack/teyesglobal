@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cpu, Factory, Award, Headphones, FileCheck, Briefcase } from "lucide-react";
@@ -80,11 +80,33 @@ const subPages = [
 const OemOdmPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="OEM/ODM Services - Car Infotainment Manufacturing Partner"
         description="TEYES OEM/ODM services for car infotainment systems. Custom hardware, branding, software development, and scalable manufacturing with ISO certifications."
         keywords="OEM car infotainment, ODM manufacturing, custom head unit, white-label, automotive electronics"
-        canonicalPath="/oem-odm"
+        path="/oem-odm"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM / ODM" },
+        ]}
+        faq={[
+          {
+            question: "What is the minimum order quantity (MOQ) for OEM projects?",
+            answer: "MOQ varies by project complexity. For standard customization (branding, UI), MOQ starts at 500 units. For full custom hardware, MOQ is typically 3,000+ units. Contact us to discuss your specific needs."
+          },
+          {
+            question: "How long does an OEM/ODM project take from concept to production?",
+            answer: "Typical timelines are 6-12 months depending on customization level. Standard branding projects can be completed in 6-8 weeks, while full custom hardware takes 8-12 months including tooling."
+          },
+          {
+            question: "What certifications does TEYES hold for manufacturing?",
+            answer: "TEYES holds ISO 9001 quality management, IATF 16949 automotive quality, and various regional certifications including CE, FCC, and E-Mark for different markets."
+          },
+          {
+            question: "Can TEYES customize both hardware and software?",
+            answer: "Yes. We offer full-stack customization including hardware design, Android OS customization, UI/UX design, app integration, and branding. You can choose any combination of these services."
+          },
+        ]}
       />
       <ContextHeader
         title="OEM / ODM Services"
@@ -189,7 +211,7 @@ const OemOdmPage = () => {
             Talk to an Engineer Before Making Any Commitment
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            No obligation discussion. Let's explore how TEYES can support your 
+            No obligation discussion. Let's explore how TEYES can support your
             product development goals.
           </p>
           <Button variant="hero" size="lg" asChild>

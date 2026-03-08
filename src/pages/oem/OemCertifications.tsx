@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Award, FileCheck, Globe } from "lucide-react";
@@ -65,11 +65,11 @@ const qualityFeatures = [
 const OemCertificationsPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="Certifications & Quality Standards - ISO, CE, FCC, E-Mark"
         description="TEYES quality certifications: ISO 9001, IATF 16949, CE, FCC, RoHS, E-Mark, and regional certifications. 100% inspection and complete traceability."
         keywords="ISO certification, IATF 16949, CE marking, FCC, RoHS, E-Mark, automotive quality"
-        canonicalPath="/oem-odm/certifications"
+        path="/oem-odm/certifications"
       />
       <ContextHeader
         title="Certifications & Quality Standards"

@@ -12,22 +12,31 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 // Lazy load non-critical pages for better mobile performance
-const ProductsPage = lazy(() => import("./pages/Products"));
-const ProductLinesPage = lazy(() => import("./pages/ProductLines"));
-const ProductDetailPage = lazy(() => import("./pages/ProductDetail"));
-const ProductComparePage = lazy(() => import("./pages/ProductCompare"));
-const SolutionsPage = lazy(() => import("./pages/Solutions"));
-const SolutionsDistributorsPage = lazy(() => import("./pages/SolutionsDistributors"));
-const SolutionsAutoBrandsPage = lazy(() => import("./pages/SolutionsAutoBrands"));
-const SolutionsIntegratorsPage = lazy(() => import("./pages/SolutionsIntegrators"));
-const SolutionsMarketNeedsPage = lazy(() => import("./pages/SolutionsMarketNeeds"));
-const OemOdmPage = lazy(() => import("./pages/OemOdm"));
-const OemCapabilitiesPage = lazy(() => import("./pages/OemCapabilities"));
-const OemCertificationsPage = lazy(() => import("./pages/OemCertifications"));
-const OemCasesPage = lazy(() => import("./pages/OemCases"));
-const LandingOemPage = lazy(() => import("./pages/LandingOem"));
-const LandingMarketEntryPage = lazy(() => import("./pages/LandingMarketEntry"));
-const LandingDistributorPage = lazy(() => import("./pages/LandingDistributor"));
+// Products
+const ProductsPage = lazy(() => import("./pages/products/Products"));
+const ProductLinesPage = lazy(() => import("./pages/products/ProductLines"));
+const ProductDetailPage = lazy(() => import("./pages/products/ProductDetail"));
+const ProductComparePage = lazy(() => import("./pages/products/ProductCompare"));
+
+// Solutions
+const SolutionsPage = lazy(() => import("./pages/solutions/Solutions"));
+const SolutionsDistributorsPage = lazy(() => import("./pages/solutions/SolutionsDistributors"));
+const SolutionsAutoBrandsPage = lazy(() => import("./pages/solutions/SolutionsAutoBrands"));
+const SolutionsIntegratorsPage = lazy(() => import("./pages/solutions/SolutionsIntegrators"));
+const SolutionsMarketNeedsPage = lazy(() => import("./pages/solutions/SolutionsMarketNeeds"));
+
+// OEM/ODM
+const OemOdmPage = lazy(() => import("./pages/oem/OemOdm"));
+const OemCapabilitiesPage = lazy(() => import("./pages/oem/OemCapabilities"));
+const OemCertificationsPage = lazy(() => import("./pages/oem/OemCertifications"));
+const OemCasesPage = lazy(() => import("./pages/oem/OemCases"));
+
+// Landing Pages
+const LandingOemPage = lazy(() => import("./pages/landing/LandingOem"));
+const LandingMarketEntryPage = lazy(() => import("./pages/landing/LandingMarketEntry"));
+const LandingDistributorPage = lazy(() => import("./pages/landing/LandingDistributor"));
+
+// Other Pages
 const AccessoriesPage = lazy(() => import("./pages/Accessories"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 const HomeThankYou = lazy(() => import("./pages/HomeThankYou"));
@@ -55,36 +64,36 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* Products */}
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/products/lines" element={<ProductLinesPage />} />
-            <Route path="/products/compare" element={<ProductComparePage />} />
-            <Route path="/products/:productId" element={<ProductDetailPage />} />
-            {/* Solutions */}
-            <Route path="/solutions" element={<SolutionsPage />} />
-            <Route path="/solutions/distributors" element={<SolutionsDistributorsPage />} />
-            <Route path="/solutions/auto-brands" element={<SolutionsAutoBrandsPage />} />
-            <Route path="/solutions/integrators" element={<SolutionsIntegratorsPage />} />
-            <Route path="/solutions/market-needs" element={<SolutionsMarketNeedsPage />} />
-            {/* OEM/ODM */}
-            <Route path="/oem-odm" element={<OemOdmPage />} />
-            <Route path="/oem-odm/capabilities" element={<OemCapabilitiesPage />} />
-            <Route path="/oem-odm/certifications" element={<OemCertificationsPage />} />
-            <Route path="/oem-odm/cases" element={<OemCasesPage />} />
-            {/* Landing Pages */}
-            <Route path="/landing/oem" element={<LandingOemPage />} />
-            <Route path="/landing/market-entry" element={<LandingMarketEntryPage />} />
-            <Route path="/landing/distributor" element={<LandingDistributorPage />} />
-            {/* Accessories */}
-            <Route path="/accessories" element={<AccessoriesPage />} />
-            {/* Contact */}
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/thank-you" element={<HomeThankYou />} />
-            {/* Catch-all */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              {/* Products */}
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/products/lines" element={<ProductLinesPage />} />
+              <Route path="/products/compare" element={<ProductComparePage />} />
+              <Route path="/products/:productId" element={<ProductDetailPage />} />
+              {/* Solutions */}
+              <Route path="/solutions" element={<SolutionsPage />} />
+              <Route path="/solutions/distributors" element={<SolutionsDistributorsPage />} />
+              <Route path="/solutions/auto-brands" element={<SolutionsAutoBrandsPage />} />
+              <Route path="/solutions/integrators" element={<SolutionsIntegratorsPage />} />
+              <Route path="/solutions/market-needs" element={<SolutionsMarketNeedsPage />} />
+              {/* OEM/ODM */}
+              <Route path="/oem-odm" element={<OemOdmPage />} />
+              <Route path="/oem-odm/capabilities" element={<OemCapabilitiesPage />} />
+              <Route path="/oem-odm/certifications" element={<OemCertificationsPage />} />
+              <Route path="/oem-odm/cases" element={<OemCasesPage />} />
+              {/* Landing Pages */}
+              <Route path="/landing/oem" element={<LandingOemPage />} />
+              <Route path="/landing/market-entry" element={<LandingMarketEntryPage />} />
+              <Route path="/landing/distributor" element={<LandingDistributorPage />} />
+              {/* Accessories */}
+              <Route path="/accessories" element={<AccessoriesPage />} />
+              {/* Contact */}
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/thank-you" element={<HomeThankYou />} />
+              {/* Catch-all */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </Suspense>
         </BrowserRouter>
       </TooltipProvider>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Factory, Cpu, Palette, Clock, Shield, Users } from "lucide-react";
 import oemFactoryImg from "@/assets/decorative/oem-factory-800.webp";
@@ -29,11 +29,21 @@ const process = [
 const LandingOemPage = () => {
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title="OEM Partnership - Custom Car Infotainment Manufacturing"
         description="Partner with TEYES for OEM car infotainment. Proven hardware platforms, full branding, 6-12 month launch, ISO-certified manufacturing, and dedicated engineering support."
         keywords="OEM car infotainment, custom manufacturing, white-label head unit, automotive OEM partner"
-        canonicalPath="/partners/oem"
+        path="/landing/oem"
+        noindex={true}
+        howTo={{
+          name: "How to Launch Your Own Car Infotainment Line with TEYES OEM",
+          steps: [
+            { name: "Initial Discussion", text: "Share your requirements, target market, and product goals with our OEM team." },
+            { name: "Solution Design", text: "We propose a tailored hardware and software approach based on your needs." },
+            { name: "Sample Development", text: "Prototype development and validation to ensure specifications are met." },
+            { name: "Production Launch", text: "Scale manufacturing begins with rigorous quality control at every stage." },
+          ],
+        }}
       />
       {/* Hero - Full Height with Image */}
       <section className="min-h-[90vh] flex items-center relative overflow-hidden">

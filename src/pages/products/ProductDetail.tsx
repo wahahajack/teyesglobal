@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Star } from "lucide-react";
 import { getProductById, products } from "@/data/products";
@@ -36,11 +36,11 @@ const ProductDetailPage = () => {
 
   return (
     <Layout>
-      <SEOHead
+      <SEO
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
-        canonicalPath={`/products/${product.id}`}
+        path={`/products/${product.id}`}
         ogType="product"
         productData={{
           name: product.name,

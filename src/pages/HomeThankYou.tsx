@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { CheckCircle, ArrowRight } from "lucide-react";
@@ -7,10 +7,11 @@ import { CheckCircle, ArrowRight } from "lucide-react";
 const HomeThankYou = () => {
     return (
         <Layout>
-            <SEOHead
+            <SEO
                 title="Thank You | TEYES Global"
                 description="Thank you for contacting TEYES. We have received your message and will get back to you shortly."
-                canonicalPath="/thank-you"
+                path="/thank-you"
+                noindex={true}
             />
             <section className="py-32 bg-gradient-to-b from-card to-background min-h-[60vh] flex items-center">
                 <div className="container-wide">

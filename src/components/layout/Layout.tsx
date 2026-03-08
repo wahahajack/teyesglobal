@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { WhatsAppFloat } from "../WhatsAppFloat";
+import { WhatsAppFloat } from "../common/WhatsAppFloat";
 
 interface LayoutProps {
   children: ReactNode;

@@ -35,7 +35,7 @@ ul {
 }
 
 /* Utilities */
-/* Global full-width layout container */
+/* FIXED: Width increased to 1536px to match original design */
 .container {
     width: 100%;
     max-width: none;

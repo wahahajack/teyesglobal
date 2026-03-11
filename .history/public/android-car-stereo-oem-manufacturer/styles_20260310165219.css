@@ -6,9 +6,7 @@
     --text: #f8fafc;
     --muted: #94a3b8;
     --border: rgba(148, 163, 184, .22);
-    --ok: #25D366;
-    --container-max: 1400px;
-    --container-pad: clamp(16px, 2vw, 32px)
+    --ok: #25D366
 }
 
 [data-theme="light"] {
@@ -44,9 +42,9 @@ a {
 
 .container {
     width: 100%;
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-pad)
+    max-width: none;
+    margin: 0;
+    padding: 0 22px
 }
 
 .section {

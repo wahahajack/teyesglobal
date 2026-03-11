@@ -153,18 +153,25 @@
     window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }
 
+  emailInput?.addEventListener('invalid', () => {
+    if (emailInput.validity.valueMissing) {
+      emailInput.setCustomValidity('Business email is required.');
+      return;
+    }
+    if (emailInput.validity.typeMismatch) {
+      emailInput.setCustomValidity('Please enter a valid business email, for example name@company.com.');
+      return;
+    }
+    emailInput.setCustomValidity('Please enter a valid business email.');
+  });
+
   emailInput?.addEventListener('input', () => {
-    clearFieldError(emailInput, emailFieldError);
+    emailInput.setCustomValidity('');
     errMsg.hidden = true;
   });
 
   countryInput?.addEventListener('input', () => {
-    clearFieldError(countryInput, countryFieldError);
-    errMsg.hidden = true;
-  });
-
-  form?.querySelector('select[name="estimated_quantity"]')?.addEventListener('change', () => {
-    clearFieldError(form.estimated_quantity, quantityFieldError);
+    countryInput.setCustomValidity('');
     errMsg.hidden = true;
   });
 
@@ -172,9 +179,6 @@
     e.preventDefault();
     if (!form) return;
 
-    clearFieldError(emailInput, emailFieldError);
-    clearFieldError(countryInput, countryFieldError);
-    clearFieldError(form.estimated_quantity, quantityFieldError);
     errMsg.hidden = true;
     okMsg.hidden = true;
 
@@ -186,27 +190,25 @@
     const estimatedQuantity = form.estimated_quantity?.value?.trim();
     const emailField = form.user_email;
 
-    let hasErrors = false;
-    if (!email) {
-      showFieldError(emailField, emailFieldError, 'Business email is required.');
-      hasErrors = true;
-    } else if (!emailField?.validity.valid) {
-      showFieldError(emailField, emailFieldError, 'Please enter a valid business email, e.g. name@company.com');
-      hasErrors = true;
+    if (!email || !country || !estimatedQuantity) {
+      errMsg.textContent = 'Please fill in all required fields.';
+      errMsg.hidden = false;
+      return;
     }
-    if (!country) {
-      showFieldError(countryInput, countryFieldError, 'Country is required.');
-      hasErrors = true;
+
+    if (!emailField?.checkValidity()) {
+      emailField.reportValidity();
+      errMsg.textContent = 'Please enter a valid business email format.';
+      errMsg.hidden = false;
+      return;
     }
-    if (!estimatedQuantity) {
-      showFieldError(form.estimated_quantity, quantityFieldError, 'Please select an option.');
-      hasErrors = true;
-    }
-    if (hasErrors) return;
 
     const normalizedCountry = country.toLowerCase();
     if (!countrySet.has(normalizedCountry)) {
-      showFieldError(countryInput, countryFieldError, 'Please choose a country from the list.');
+      countryInput?.setCustomValidity('Please select a country from the list.');
+      countryInput?.reportValidity();
+      errMsg.textContent = 'Please choose a country from the dropdown list.';
+      errMsg.hidden = false;
       return;
     }
 

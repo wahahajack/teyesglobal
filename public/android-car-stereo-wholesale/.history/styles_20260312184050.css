@@ -155,7 +155,7 @@ h2 {
     min-height: 96vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at 12% 8%, rgba(60, 131, 246, .18), transparent 40%), linear-gradient(90deg, rgba(5, 12, 26, .98) 0%, rgba(4, 10, 22, .95) 48%, rgba(3, 8, 19, .9) 100%)
+    background: radial-gradient(circle at 10% 0, rgba(60, 131, 246, .15), transparent 50%)
 }
 
 .hero-grid {
@@ -166,26 +166,26 @@ h2 {
 }
 
 .hero-grid> :first-child {
-    max-width: 700px
+    max-width: 680px
 }
 
 .pill {
     display: inline-block;
-    padding: 7px 14px;
+    padding: 6px 12px;
     border-radius: 999px;
     color: var(--brand);
     border: 1px solid color-mix(in srgb, var(--brand) 40%, transparent);
     font-size: 11px;
-    letter-spacing: .14em;
+    letter-spacing: .12em;
     text-transform: uppercase
 }
 
 .hero-from {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
-    letter-spacing: .1em;
+    letter-spacing: .08em;
     text-transform: uppercase;
-    margin: 14px 0 12px
+    margin: 10px 0
 }
 
 .hero-from strong {
@@ -194,16 +194,13 @@ h2 {
 
 h1 {
     font-size: clamp(34px, 6vw, 64px);
-    margin: 0 0 18px;
-    max-width: 12ch;
-    text-wrap: balance
+    margin: 0 0 12px
 }
 
 .hero-sub {
-    font-size: 20px;
+    font-size: 19px;
     color: var(--muted);
-    max-width: 34ch;
-    margin: 0 0 28px
+    margin: 0 0 24px
 }
 
 .hero-actions {
@@ -240,51 +237,33 @@ h1 {
     border-radius: 18px;
     padding: 18px;
     width: 100%;
-    max-width: 700px;
-    justify-self: end;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, .28)
-}
-
-.hero-card::before {
-    content: "";
-    position: absolute;
-    inset: -20% auto auto -12%;
-    width: 240px;
-    height: 240px;
-    border-radius: 999px;
-    background: radial-gradient(circle, rgba(60, 131, 246, .22) 0%, rgba(60, 131, 246, 0) 72%);
-    z-index: -1;
-    pointer-events: none
+    justify-self: end
 }
 
 .hero-media {
     aspect-ratio: 16/9;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--border);
-    background: #060c18
+    border: 1px solid var(--border)
 }
 
 .hero-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: .88
+    opacity: .82
 }
 
 .chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 12px
+    margin-top: 10px
 }
 
 .chips span {
     font-size: 11px;
-    padding: 5px 10px;
+    padding: 4px 10px;
     border-radius: 999px;
     color: var(--brand);
     border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
@@ -807,125 +786,14 @@ body.lightbox-open {
 
 @media (min-width:1440px) {
 
-    .section {
-        padding: 104px 0
-    }
-
-    .section>.container,
-    .section .container {
-        width: 100%
-    }
-
-    .hero-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(620px, 760px);
-        gap: clamp(44px, 5vw, 96px)
-    }
-
-    .hero-grid> :first-child {
-        padding-right: 8px
-    }
-
-    h1 {
-        font-size: clamp(56px, 4.4vw, 82px)
-    }
-
-    .hero-sub {
-        font-size: 22px
-    }
-
-    .hero-card {
-        padding: 20px 20px 18px;
-        border-radius: 22px
-    }
-
-    .hero-media {
-        border-radius: 16px
-    }
-
-    .chips {
-        gap: 10px
-    }
-
-    .chips span {
-        font-size: 11px;
-        letter-spacing: .01em
-    }
-
     .profit-grid,
-    .three-col,
-    .comparison-grid {
+    .three-col {
         gap: 20px
     }
 
     .card,
     .card-lite {
         padding: 24px
-    }
-
-    .card h3,
-    .card-lite h4 {
-        font-size: 24px
-    }
-
-    .card ul,
-    .card-lite ul {
-        font-size: 15px;
-        gap: 9px
-    }
-
-    .comparison-sub {
-        margin-bottom: 36px;
-        font-size: clamp(14px, .95vw, 18px)
-    }
-
-    .formula {
-        margin-top: 24px;
-        padding: 24px 28px
-    }
-
-    .faq {
-        max-width: 980px
-    }
-
-    .faq details {
-        padding: 18px 20px
-    }
-
-    .form-wrap {
-        max-width: 860px
-    }
-}
-
-@media (min-width:1800px) {
-
-    :root {
-        --container-max: 1600px;
-    }
-
-    .hero-grid {
-        grid-template-columns: minmax(0, 1fr) 780px;
-        gap: 88px
-    }
-
-    .hero-grid> :first-child {
-        max-width: 760px
-    }
-
-    h1 {
-        font-size: 84px
-    }
-
-    .profit-grid,
-    .three-col,
-    .comparison-grid {
-        gap: 24px
-    }
-
-    .card,
-    .card-lite,
-    .comp-list,
-    .comp-header {
-        font-size: inherit
     }
 }
 

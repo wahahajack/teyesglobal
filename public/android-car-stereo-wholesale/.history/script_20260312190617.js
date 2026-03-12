@@ -57,22 +57,6 @@
     if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
   };
 
-  const withTimeout = (promise, timeoutMs, timeoutMessage) => new Promise((resolve, reject) => {
-    const timeoutId = window.setTimeout(() => {
-      reject(new Error(timeoutMessage));
-    }, timeoutMs);
-
-    promise
-      .then((value) => {
-        window.clearTimeout(timeoutId);
-        resolve(value);
-      })
-      .catch((error) => {
-        window.clearTimeout(timeoutId);
-        reject(error);
-      });
-  });
-
   const initTheme = () => {
     const saved = localStorage.getItem('theme');
     root.setAttribute('data-theme', saved || 'dark');
@@ -262,7 +246,7 @@
     if (hasErrors) return;
 
     try {
-      await withTimeout(ensureEmailJs(), 7000, 'EmailJS load timeout');
+      await ensureEmailJs();
     } catch (error) {
       errMsg.textContent = 'Service temporarily unavailable. Please contact info@teyesauto.com or use WhatsApp.';
       errMsg.hidden = false;
@@ -273,11 +257,7 @@
     submitBtn.textContent = 'Sending...';
 
     try {
-      await withTimeout(
-        window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form),
-        12000,
-        'Email send timeout'
-      );
+      await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
       const currentParams = new URLSearchParams(window.location.search);
       const tracked = new URLSearchParams();
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach((key) => {

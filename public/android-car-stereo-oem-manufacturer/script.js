@@ -17,6 +17,7 @@
     const SUBMIT_COOLDOWN_MS = 15000;
     const LAST_SUBMIT_KEY = 'teyes_last_submit_ts';
     const GTM_ID = 'GTM-MSPH5TMK';
+    const GTM_IDLE_DELAY_MS = 2500;
     const formInitTs = Date.now();
     let analyticsLoadPromise;
     let hasTrackedFormStart = false;
@@ -73,6 +74,7 @@
     ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
         window.addEventListener(eventName, primeAnalytics, { once: true, passive: true });
     });
+    window.setTimeout(primeAnalytics, GTM_IDLE_DELAY_MS);
 
     const initMobileStickyCta = () => {
         if (!heroPricingBtn || !thumbCta) return;

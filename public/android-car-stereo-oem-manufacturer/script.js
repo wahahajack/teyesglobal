@@ -331,7 +331,7 @@
         try {
             await loadEmailJs();
         } catch (error) {
-            errMsg.textContent = 'Service temporarily unavailable. Please contact info@teyesauto.com or use WhatsApp.';
+            errMsg.textContent = 'Service is temporarily unavailable. Please try again, or contact info@teyesauto.com / WhatsApp.';
             errMsg.hidden = false;
             return;
         }
@@ -365,13 +365,9 @@
             });
             tracked.set('lead', '1');
             const query = tracked.toString();
-            okMsg.textContent = 'Request received. Redirecting...';
-            okMsg.hidden = false;
-            setTimeout(() => {
-                window.location.href = `./thank-you.html${query ? `?${query}` : ''}`;
-            }, 600);
+            window.location.href = `./thank-you.html${query ? `?${query}` : ''}`;
         } catch (error) {
-            errMsg.textContent = 'Failed to send. Contact: info@teyesauto.com';
+            errMsg.textContent = 'Submission failed. Please try again, or contact info@teyesauto.com / WhatsApp.';
             errMsg.hidden = false;
         } finally {
             submitBtn.disabled = false;

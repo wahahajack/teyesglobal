@@ -16,8 +16,15 @@
     const MIN_FORM_FILL_MS = 2500;
     const SUBMIT_COOLDOWN_MS = 15000;
     const LAST_SUBMIT_KEY = 'teyes_last_submit_ts';
+    const GTM_ID = 'GTM-MSPH5TMK';
     const formInitTs = Date.now();
+    let analyticsLoadPromise;
     let hasTrackedFormStart = false;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+        window.dataLayer.push(arguments);
+    };
 
     if (formTsField) {
         formTsField.value = String(formInitTs);
@@ -41,6 +48,31 @@
     };
 
     themeBtn?.addEventListener('click', toggleTheme);
+
+    const loadAnalytics = () => {
+        if (analyticsLoadPromise) return analyticsLoadPromise;
+
+        analyticsLoadPromise = new Promise((resolve, reject) => {
+            window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+            script.onload = resolve;
+            script.onerror = () => reject(new Error('Failed to load GTM'));
+            document.head.appendChild(script);
+        });
+
+        return analyticsLoadPromise;
+    };
+
+    const primeAnalytics = () => {
+        void loadAnalytics().catch(() => undefined);
+    };
+
+    ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
+        window.addEventListener(eventName, primeAnalytics, { once: true, passive: true });
+    });
 
     const initMobileStickyCta = () => {
         if (!heroPricingBtn || !thumbCta) return;

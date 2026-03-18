@@ -1,0 +1,3 @@
+.lh-run/
+__pycache__/
+lighthouse-*.json

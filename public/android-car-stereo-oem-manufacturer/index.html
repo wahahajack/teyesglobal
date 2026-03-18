@@ -18,12 +18,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/android-car-stereo-oem-manufacturer/images/favicon-32x32.png?v=20260308" />
     <link rel="icon" type="image/png" sizes="16x16" href="/android-car-stereo-oem-manufacturer/images/favicon-16x16.png?v=20260308" />
     <link rel="apple-touch-icon" sizes="180x180" href="/android-car-stereo-oem-manufacturer/images/apple-touch-icon.png?v=20260308" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet" />
+    <script>
+        try {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        } catch (error) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    <link rel="preload" as="image"
+        href="/android-car-stereo-oem-manufacturer/images/factory-overview-960.webp"
+        imagesrcset="/android-car-stereo-oem-manufacturer/images/factory-overview-640.webp 640w, /android-car-stereo-oem-manufacturer/images/factory-overview-960.webp 960w, /android-car-stereo-oem-manufacturer/images/factory-overview-1280.webp 1280w"
+        imagesizes="(max-width: 900px) calc(100vw - 48px), 42vw" fetchpriority="high" />
     <link rel="stylesheet" href="./styles.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <!-- Structured Data - Organization & Local Business -->
     <script type="application/ld+json">
@@ -89,16 +95,19 @@
                 </div>
                 <article class="hero-card">
                     <div class="hero-media">
-                        <img src="/android-car-stereo-oem-manufacturer/images/factory%20overview.jpg"
+                        <img src="/android-car-stereo-oem-manufacturer/images/factory-overview-960.webp"
+                            srcset="/android-car-stereo-oem-manufacturer/images/factory-overview-640.webp 640w, /android-car-stereo-oem-manufacturer/images/factory-overview-960.webp 960w, /android-car-stereo-oem-manufacturer/images/factory-overview-1280.webp 1280w"
+                            sizes="(max-width: 900px) calc(100vw - 48px), 42vw"
                             alt="TEYES 50,000㎡ manufacturing facility overview - Shenzhen car stereo production base"
-                            loading="eager" fetchpriority="high" decoding="async" />
+                            width="4032" height="3024" loading="eager" fetchpriority="high" decoding="async" />
                     </div>
                     <div class="hero-product-proof">
                         <div class="proof-text">Flagship Product: CC4 PRO Android Head Unit</div>
                         <div class="hero-product-media">
                             <img src="/android-car-stereo-oem-manufacturer/images/teyes-head-unit-1280.webp"
                                 alt="Android car stereo head unit product sample"
-                                loading="lazy" decoding="async" />
+                                width="1280" height="803" loading="lazy" decoding="async"
+                                sizes="(max-width: 900px) calc(100vw - 64px), 32vw" />
                         </div>
                     </div>
                 </article>
@@ -142,9 +151,11 @@
                             <li>Supports pilot validation and controlled production ramp-up</li>
                         </ul>
                         <div class="visual visual-photo">
-                            <img src="/android-car-stereo-oem-manufacturer/images/factory%20assemble%20line.jpg"
+                            <img src="/android-car-stereo-oem-manufacturer/images/factory-assemble-line-768.webp"
+                                srcset="/android-car-stereo-oem-manufacturer/images/factory-assemble-line-480.webp 480w, /android-car-stereo-oem-manufacturer/images/factory-assemble-line-768.webp 768w, /android-car-stereo-oem-manufacturer/images/factory-assemble-line-960.webp 960w"
+                                sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1400px) 30vw, 420px"
                                 alt="Factory assembly line for in-vehicle infotainment manufacturing" loading="lazy"
-                                decoding="async" />
+                                decoding="async" width="4032" height="3024" fetchpriority="low" />
                         </div>
                     </article>
 
@@ -157,9 +168,11 @@
                             <li>Aligned with international certification requirements</li>
                         </ul>
                         <div class="visual visual-photo">
-                            <img src="/android-car-stereo-oem-manufacturer/images/factory%20QC%20test%20line.jpg"
+                            <img src="/android-car-stereo-oem-manufacturer/images/factory-qc-test-line-768.webp"
+                                srcset="/android-car-stereo-oem-manufacturer/images/factory-qc-test-line-480.webp 480w, /android-car-stereo-oem-manufacturer/images/factory-qc-test-line-768.webp 768w, /android-car-stereo-oem-manufacturer/images/factory-qc-test-line-960.webp 960w"
+                                sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1400px) 30vw, 420px"
                                 alt="Quality control inspection line in manufacturing workshop" loading="lazy"
-                                decoding="async" />
+                                decoding="async" width="4032" height="3024" fetchpriority="low" />
                         </div>
                     </article>
 
@@ -172,9 +185,11 @@
                             <li>Supports ongoing quality improvement in production</li>
                         </ul>
                         <div class="visual visual-photo">
-                            <img src="/android-car-stereo-oem-manufacturer/images/factory%20aging%20room.jpg"
+                            <img src="/android-car-stereo-oem-manufacturer/images/factory-aging-room-768.webp"
+                                srcset="/android-car-stereo-oem-manufacturer/images/factory-aging-room-480.webp 480w, /android-car-stereo-oem-manufacturer/images/factory-aging-room-768.webp 768w, /android-car-stereo-oem-manufacturer/images/factory-aging-room-960.webp 960w"
+                                sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1400px) 30vw, 420px"
                                 alt="Aging and reliability testing room for product validation" loading="lazy"
-                                decoding="async" />
+                                decoding="async" width="4032" height="3024" fetchpriority="low" />
                         </div>
                     </article>
                 </div>
@@ -191,19 +206,19 @@
 
                 <div class="cert-thumbs">
                     <a class="cert-thumb" href="/android-car-stereo-oem-manufacturer/images/TEYES-IATF-16949.webp" target="_blank" rel="noopener" title="View IATF 16949 Certificate">
-                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-IATF-16949.webp" alt="TEYES IATF 16949 Certification document" loading="lazy" decoding="async" />
+                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-IATF-16949.webp" alt="TEYES IATF 16949 Certification document" width="583" height="821" loading="lazy" decoding="async" />
                         <span class="cert-thumb-label">IATF 16949</span>
                     </a>
                     <a class="cert-thumb" href="/android-car-stereo-oem-manufacturer/images/TEYES-ISO-9001.webp" target="_blank" rel="noopener" title="View ISO 9001 Certificate">
-                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-ISO-9001.webp" alt="TEYES ISO 9001 Certification document" loading="lazy" decoding="async" />
+                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-ISO-9001.webp" alt="TEYES ISO 9001 Certification document" width="579" height="817" loading="lazy" decoding="async" />
                         <span class="cert-thumb-label">ISO 9001</span>
                     </a>
                     <a class="cert-thumb" href="/android-car-stereo-oem-manufacturer/images/TEYES-FCC.webp" target="_blank" rel="noopener" title="View FCC Certificate">
-                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-FCC.webp" alt="TEYES FCC Certification document" loading="lazy" decoding="async" />
+                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-FCC.webp" alt="TEYES FCC Certification document" width="516" height="747" loading="lazy" decoding="async" />
                         <span class="cert-thumb-label">FCC</span>
                     </a>
                     <a class="cert-thumb" href="/android-car-stereo-oem-manufacturer/images/TEYES-CE.webp" target="_blank" rel="noopener" title="View CE Certificate">
-                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-CE.webp" alt="TEYES CE Certification document" loading="lazy" decoding="async" />
+                        <img src="/android-car-stereo-oem-manufacturer/images/TEYES-CE.webp" alt="TEYES CE Certification document" width="554" height="787" loading="lazy" decoding="async" />
                         <span class="cert-thumb-label">CE</span>
                     </a>
                 </div>
@@ -598,7 +613,7 @@
         <a href="#contact" class="primary">Quote</a>
     </div>
 
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
 </body>
 
 </html>

@@ -33,11 +33,6 @@
         if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
     };
 
-    const initTheme = () => {
-        const saved = localStorage.getItem('theme');
-        root.setAttribute('data-theme', saved || 'dark');
-    };
-
     const toggleTheme = () => {
         const current = root.getAttribute('data-theme') || 'dark';
         const next = current === 'dark' ? 'light' : 'dark';
@@ -45,7 +40,6 @@
         localStorage.setItem('theme', next);
     };
 
-    initTheme();
     themeBtn?.addEventListener('click', toggleTheme);
 
     const initMobileStickyCta = () => {
@@ -156,10 +150,41 @@
     const EMAILJS_PUBLIC_KEY = 'r4hPxgrdEnnONhc9E';
     const EMAILJS_SERVICE_ID = 'service_p161z11';
     const EMAILJS_TEMPLATE_ID = 'template_at1z02w';
+    const EMAILJS_SRC = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    let emailJsLoadPromise;
 
-    if (window.emailjs) {
+    const initEmailJs = () => {
+        if (!window.emailjs || window.emailjs.__teyesInitialized) return;
         window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    }
+        window.emailjs.__teyesInitialized = true;
+    };
+
+    const loadEmailJs = async () => {
+        if (window.emailjs) {
+            initEmailJs();
+            return window.emailjs;
+        }
+
+        if (!emailJsLoadPromise) {
+            emailJsLoadPromise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = EMAILJS_SRC;
+                script.async = true;
+                script.onload = () => {
+                    initEmailJs();
+                    resolve(window.emailjs);
+                };
+                script.onerror = () => reject(new Error('Failed to load EmailJS'));
+                document.head.appendChild(script);
+            });
+        }
+
+        return emailJsLoadPromise;
+    };
+
+    const primeEmailJs = () => {
+        void loadEmailJs().catch(() => undefined);
+    };
 
     const trackFormStart = () => {
         if (hasTrackedFormStart) return;
@@ -176,6 +201,8 @@
     form?.addEventListener('focusin', trackFormStart, { once: true });
     form?.addEventListener('input', trackFormStart, { once: true });
     form?.addEventListener('change', trackFormStart, { once: true });
+    form?.addEventListener('focusin', primeEmailJs, { once: true });
+    form?.addEventListener('pointerdown', primeEmailJs, { once: true });
 
     emailInput?.addEventListener('input', () => {
         clearFieldError(emailInput, emailFieldError);
@@ -267,7 +294,9 @@
             return;
         }
 
-        if (!window.emailjs) {
+        try {
+            await loadEmailJs();
+        } catch (error) {
             errMsg.textContent = 'Service temporarily unavailable. Please contact info@teyesauto.com or use WhatsApp.';
             errMsg.hidden = false;
             return;

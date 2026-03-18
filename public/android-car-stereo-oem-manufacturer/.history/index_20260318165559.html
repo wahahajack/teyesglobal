@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <!-- Structured Data - Organization & Local Business -->
     <script type="application/ld+json">
@@ -50,11 +50,6 @@
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH5TMK" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <header class="nav">
         <div class="container nav-inner">
             <a href="#hero" class="logo-link" aria-label="TEYES Home">
@@ -82,9 +77,10 @@
                     <span class="pill">✓ Real Manufacturing — Not Trading</span>
                     <p class="hero-from">Established <strong>2008</strong> · Shenzhen, China · ISO 9001 & IATF 16949</p>
                     <h1>Android Car Stereo Manufacturing — Direct From Factory</h1>
-                    <p class="hero-sub">Factory manufacturer of Android car stereo head units. We combine structured production workflow, quality checkpoints, and scalable output from pilot runs to mass production.</p>
+                    <p class="hero-sub">Factory-first manufacturing partner for in-vehicle infotainment: structured process, quality checkpoints, and scalable production from pilot runs to mass production.</p>
                     <div class="hero-actions">
                         <a id="hero-pricing-cta" href="#contact" class="btn btn-primary">Get Manufacturing Quote</a>
+                        <a href="#capabilities" class="btn btn-outline">View Capabilities ↓</a>
                     </div>
                 </div>
                 <article class="hero-card">
@@ -93,13 +89,8 @@
                             alt="TEYES 50,000㎡ manufacturing facility overview - Shenzhen car stereo production base"
                             loading="eager" fetchpriority="high" decoding="async" />
                     </div>
-                    <div class="hero-product-proof">
-                        <div class="proof-text">Flagship Product: CC4 PRO Android Head Unit</div>
-                        <div class="hero-product-media">
-                            <img src="./images/teyes-head-unit-1280.webp"
-                                alt="Android car stereo head unit product sample"
-                                loading="lazy" decoding="async" />
-                        </div>
+                    <div class="chips">
+                        <span>50,000㎡ Factory</span><span>8 SMT Lines</span><span>ISO/IATF Certified</span><span>Mass Production Ready</span><span>Factory Audit Support</span><span>Global Compliance</span>
                     </div>
                 </article>
             </div>
@@ -115,31 +106,31 @@
 
                 <div class="factory-stats">
                     <div class="stat-item">
-                        <div class="stat-val">Engineering</div>
-                        <div class="stat-label">Platform & Product Integration</div>
+                        <div class="stat-val">Hardware</div>
+                        <div class="stat-label">Platform-based Development</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-val">Manufacturing</div>
-                        <div class="stat-label">SMT, Test, and Mass Production</div>
+                        <div class="stat-val">Scale</div>
+                        <div class="stat-label">Sample to Mass Production</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-val">Quality</div>
-                        <div class="stat-label">In-process & Final Inspection</div>
+                        <div class="stat-label">ISO-based Quality System</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-val">Delivery</div>
-                        <div class="stat-label">Project Execution & Compliance</div>
+                        <div class="stat-val">Support</div>
+                        <div class="stat-label">Engineering Project Support</div>
                     </div>
                 </div>
 
                 <div class="profit-grid">
                     <article class="card">
-                        <small>Manufacturing Engineering</small>
-                        <h3>SMT Production and System Integration</h3>
+                        <small>Hardware Platforms</small>
+                        <h3>Standardized Platforms, Faster Customization</h3>
                         <ul>
-                            <li>PCB processing, electronic integration, and functional build workflow</li>
-                            <li>Process fixture control and standardized production instructions</li>
-                            <li>Supports pilot validation and controlled production ramp-up</li>
+                            <li>Platform-based architecture to reduce development risk</li>
+                            <li>Support for branding, software, and feature customization</li>
+                            <li>Suitable for distributor and regional market programs</li>
                         </ul>
                         <div class="visual visual-photo">
                             <img src="./images/factory%20assemble%20line.jpg"
@@ -149,8 +140,23 @@
                     </article>
 
                     <article class="card">
-                        <small>Quality Engineering</small>
-                        <h3>In-process Verification and Final Release Control</h3>
+                        <small>Manufacturing Scale</small>
+                        <h3>From Prototype to Stable Mass Production</h3>
+                        <ul>
+                            <li>Production workflow supports pilot runs and ramp-up</li>
+                            <li>Consistent process control across production stages</li>
+                            <li>Capacity planning based on project schedule and demand</li>
+                        </ul>
+                        <div class="visual visual-photo">
+                            <img src="./images/factory%20aging%20room.jpg"
+                                alt="Aging and reliability testing room for product validation" loading="lazy"
+                                decoding="async" />
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <small>Quality Systems</small>
+                        <h3>Quality-Oriented Manufacturing Control</h3>
                         <ul>
                             <li>Incoming, in-process, and final quality checkpoints</li>
                             <li>Traceable process records for project review</li>
@@ -159,21 +165,6 @@
                         <div class="visual visual-photo">
                             <img src="./images/factory%20QC%20test%20line.jpg"
                                 alt="Quality control inspection line in manufacturing workshop" loading="lazy"
-                                decoding="async" />
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <small>Reliability Validation</small>
-                        <h3>Burn-in Testing and Environmental Screening</h3>
-                        <ul>
-                            <li>Burn-in and environmental validation before shipment</li>
-                            <li>Test records used for release decision and trace review</li>
-                            <li>Supports ongoing quality improvement in production</li>
-                        </ul>
-                        <div class="visual visual-photo">
-                            <img src="./images/factory%20aging%20room.jpg"
-                                alt="Aging and reliability testing room for product validation" loading="lazy"
                                 decoding="async" />
                         </div>
                     </article>
@@ -189,35 +180,48 @@
                 <h2 class="center">Certifications & Compliance Support</h2>
                 <p class="center comparison-sub">Real certification documents are available for project review and customer audits.</p>
 
-                <div class="cert-thumbs">
-                    <a class="cert-thumb" href="./images/TEYES-IATF-16949.webp" target="_blank" rel="noopener" title="View IATF 16949 Certificate">
-                        <img src="./images/TEYES-IATF-16949.webp" alt="TEYES IATF 16949 Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">IATF 16949</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-ISO-9001.webp" target="_blank" rel="noopener" title="View ISO 9001 Certificate">
-                        <img src="./images/TEYES-ISO-9001.webp" alt="TEYES ISO 9001 Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">ISO 9001</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-FCC.webp" target="_blank" rel="noopener" title="View FCC Certificate">
-                        <img src="./images/TEYES-FCC.webp" alt="TEYES FCC Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">FCC</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-CE.webp" target="_blank" rel="noopener" title="View CE Certificate">
-                        <img src="./images/TEYES-CE.webp" alt="TEYES CE Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">CE</span>
-                    </a>
-                </div>
-                <div class="cert-also">
-                    <p class="cert-also-label">Additional certifications already held:</p>
-                    <div class="cert-badges">
-                        <span class="cert-badge">RoHS</span>
-                        <span class="cert-badge">NBTC / BIS / WPC</span>
-                        <span class="cert-badge">EAC</span>
-                        <span class="cert-badge">GSMA</span>
-                        <span class="cert-badge">ANATEL</span>
-                        <span class="cert-badge">NOM</span>
+                <div class="cert-section">
+                    <div class="cert-image">
+                        <img src="./images/certification-wall.png"
+                            alt="Certification wall and compliance documents for manufacturing" loading="lazy"
+                            decoding="async" />
                     </div>
-                    <p class="cert-note">For market-specific requirements not listed above, we can coordinate local certification testing and documentation based on your destination market and product model.</p>
+                    <div class="cert-list">
+                        <h3>Commonly Requested Documents</h3>
+                        <div class="cert-badges">
+                            <span class="cert-badge">IATF 16949</span>
+                            <span class="cert-badge">ISO 9001</span>
+                            <span class="cert-badge">CE / EMC / RED</span>
+                            <span class="cert-badge">FCC SDoC</span>
+                            <span class="cert-badge">RoHS</span>
+                            <span class="cert-badge">NBTC / BIS / WPC</span>
+                            <span class="cert-badge">EAC</span>
+                            <span class="cert-badge">GSMA</span>
+                        </div>
+                        <p class="cert-note">Support documents for specific markets can be prepared based on product model and destination country.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+         SECTION 4: OUR PROCESS
+         ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt" id="production">
+            <div class="container">
+                <h2 class="center">Our Process</h2>
+                <p class="center comparison-sub">A practical workflow designed to reduce risk and move projects to production efficiently.</p>
+
+                <div class="quality-flow">
+                    <div class="flow-step"><span class="flow-num">01</span><span class="flow-name">Requirement Discussion</span><span class="flow-desc">Business goals and technical needs</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">02</span><span class="flow-name">Solution Proposal</span><span class="flow-desc">Platform and timeline planning</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">03</span><span class="flow-name">Sample & Validation</span><span class="flow-desc">Prototype and test verification</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">04</span><span class="flow-name">Mass Production</span><span class="flow-desc">Controlled manufacturing execution</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">05</span><span class="flow-name">Long-term Support</span><span class="flow-desc">Ongoing update and service</span></div>
                 </div>
             </div>
         </section>
@@ -349,7 +353,7 @@
                             <span class="field-error" id="email-field-error" hidden></span>
                         </label>
                         <label>Country <span class="required-star" aria-hidden="true">*</span>
-                            <input name="country" list="country-list" placeholder="type or search country" autocomplete="country-name" required />
+                            <input name="country" list="country-list" placeholder="Type to search country" autocomplete="country-name" required />
                             <span class="field-error" id="country-field-error" hidden></span>
                         </label>
                         <label>I'm Interested In <span class="required-star" aria-hidden="true">*</span>
@@ -566,7 +570,6 @@
                     </datalist>
 
                     <button type="submit" id="form-btn" class="btn btn-primary submit-btn">Request Quote</button>
-                        <input type="hidden" name="form_ts" id="form-ts" value="" />
                     <label class="hp-field" aria-hidden="true">Leave this blank<input name="website" tabindex="-1"
                             autocomplete="off" /></label>
                     <p id="form-error" class="msg error" role="alert" aria-live="assertive" hidden>Failed to send.

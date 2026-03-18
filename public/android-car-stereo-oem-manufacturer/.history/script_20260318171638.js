@@ -7,21 +7,13 @@
     const submitBtn = document.getElementById('form-btn');
     const errMsg = document.getElementById('form-error');
     const okMsg = document.getElementById('form-success');
-    const formTsField = document.getElementById('form-ts');
     const emailInput = form?.querySelector('input[name="user_email"]');
     const countryInput = form?.querySelector('input[name="country"]');
+    const countryOptions = Array.from(document.querySelectorAll('#country-list option')).map((option) => option.value);
+    const countrySet = new Set(countryOptions.map((value) => value.toLowerCase()));
     const emailFieldError = document.getElementById('email-field-error');
     const countryFieldError = document.getElementById('country-field-error');
     const quantityFieldError = document.getElementById('quantity-field-error');
-    const MIN_FORM_FILL_MS = 2500;
-    const SUBMIT_COOLDOWN_MS = 15000;
-    const LAST_SUBMIT_KEY = 'teyes_last_submit_ts';
-    const formInitTs = Date.now();
-    let hasTrackedFormStart = false;
-
-    if (formTsField) {
-        formTsField.value = String(formInitTs);
-    }
 
     const showFieldError = (input, errorEl, msg) => {
         input?.classList.add('is-invalid');
@@ -161,22 +153,6 @@
         window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     }
 
-    const trackFormStart = () => {
-        if (hasTrackedFormStart) return;
-        hasTrackedFormStart = true;
-        if (window.dataLayer) {
-            dataLayer.push({
-                'event': 'form_start',
-                'form_name': 'manufacturing_quote',
-                'form_location': 'manufacturing_landing_page'
-            });
-        }
-    };
-
-    form?.addEventListener('focusin', trackFormStart, { once: true });
-    form?.addEventListener('input', trackFormStart, { once: true });
-    form?.addEventListener('change', trackFormStart, { once: true });
-
     emailInput?.addEventListener('input', () => {
         clearFieldError(emailInput, emailFieldError);
         errMsg.hidden = true;
@@ -198,14 +174,14 @@
 
         // GTM tracking
         if (window.gtag) {
-            gtag('event', 'form_submit_attempt', {
+            gtag('event', 'form_submission', {
                 'event_category': 'engagement',
                 'event_label': 'manufacturing_quote_request'
             });
         }
         if (window.dataLayer) {
             dataLayer.push({
-                'event': 'form_submit_attempt',
+                'event': 'form_start',
                 'form_name': 'manufacturing_quote',
                 'form_location': 'manufacturing_landing_page'
             });
@@ -219,21 +195,6 @@
 
         const honeypot = form.website?.value?.trim();
         if (honeypot) return;
-
-        const now = Date.now();
-        const startedAt = Number(form.form_ts?.value) || formInitTs;
-        if (now - startedAt < MIN_FORM_FILL_MS) {
-            errMsg.textContent = 'Please review your details and try again.';
-            errMsg.hidden = false;
-            return;
-        }
-
-        const lastSubmitTs = Number(localStorage.getItem(LAST_SUBMIT_KEY) || 0);
-        if (lastSubmitTs && now - lastSubmitTs < SUBMIT_COOLDOWN_MS) {
-            errMsg.textContent = 'Please wait a few seconds before submitting again.';
-            errMsg.hidden = false;
-            return;
-        }
 
         const email = form.user_email?.value?.trim();
         const country = form.country?.value?.trim();
@@ -258,6 +219,7 @@
         }
         if (hasErrors) return;
 
+        const normalizedCountry = country.toLowerCase().trim();
         // Allow any country name input - don't restrict to predefined list
         // This allows for flexibility while still collecting the data
         const isValidCountry = country.length >= 2;
@@ -278,7 +240,6 @@
 
         try {
             await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
-            localStorage.setItem(LAST_SUBMIT_KEY, String(Date.now()));
             
             // GTM conversion tracking
             if (window.gtag) {

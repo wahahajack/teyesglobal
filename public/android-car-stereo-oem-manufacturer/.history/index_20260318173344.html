@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <!-- Structured Data - Organization & Local Business -->
     <script type="application/ld+json">
@@ -50,11 +50,6 @@
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH5TMK" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <header class="nav">
         <div class="container nav-inner">
             <a href="#hero" class="logo-link" aria-label="TEYES Home">
@@ -189,35 +184,48 @@
                 <h2 class="center">Certifications & Compliance Support</h2>
                 <p class="center comparison-sub">Real certification documents are available for project review and customer audits.</p>
 
-                <div class="cert-thumbs">
-                    <a class="cert-thumb" href="./images/TEYES-IATF-16949.webp" target="_blank" rel="noopener" title="View IATF 16949 Certificate">
-                        <img src="./images/TEYES-IATF-16949.webp" alt="TEYES IATF 16949 Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">IATF 16949</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-ISO-9001.webp" target="_blank" rel="noopener" title="View ISO 9001 Certificate">
-                        <img src="./images/TEYES-ISO-9001.webp" alt="TEYES ISO 9001 Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">ISO 9001</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-FCC.webp" target="_blank" rel="noopener" title="View FCC Certificate">
-                        <img src="./images/TEYES-FCC.webp" alt="TEYES FCC Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">FCC</span>
-                    </a>
-                    <a class="cert-thumb" href="./images/TEYES-CE.webp" target="_blank" rel="noopener" title="View CE Certificate">
-                        <img src="./images/TEYES-CE.webp" alt="TEYES CE Certification document" loading="lazy" decoding="async" />
-                        <span class="cert-thumb-label">CE</span>
-                    </a>
-                </div>
-                <div class="cert-also">
-                    <p class="cert-also-label">Additional certifications already held:</p>
-                    <div class="cert-badges">
-                        <span class="cert-badge">RoHS</span>
-                        <span class="cert-badge">NBTC / BIS / WPC</span>
-                        <span class="cert-badge">EAC</span>
-                        <span class="cert-badge">GSMA</span>
-                        <span class="cert-badge">ANATEL</span>
-                        <span class="cert-badge">NOM</span>
+                <div class="cert-section">
+                    <div class="cert-image">
+                        <img src="./images/certification-wall.png"
+                            alt="Certification wall and compliance documents for manufacturing" loading="lazy"
+                            decoding="async" />
                     </div>
-                    <p class="cert-note">For market-specific requirements not listed above, we can coordinate local certification testing and documentation based on your destination market and product model.</p>
+                    <div class="cert-list">
+                        <h3>Commonly Requested Documents</h3>
+                        <div class="cert-badges">
+                            <span class="cert-badge">IATF 16949</span>
+                            <span class="cert-badge">ISO 9001</span>
+                            <span class="cert-badge">CE / EMC / RED</span>
+                            <span class="cert-badge">FCC SDoC</span>
+                            <span class="cert-badge">RoHS</span>
+                            <span class="cert-badge">NBTC / BIS / WPC</span>
+                            <span class="cert-badge">EAC</span>
+                            <span class="cert-badge">GSMA</span>
+                        </div>
+                        <p class="cert-note">Support documents for specific markets can be prepared based on product model and destination country.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+         SECTION 4: OUR PROCESS
+         ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt" id="production">
+            <div class="container">
+                <h2 class="center">Our Process</h2>
+                <p class="center comparison-sub">A practical workflow designed to reduce risk and move projects to production efficiently.</p>
+
+                <div class="quality-flow">
+                    <div class="flow-step"><span class="flow-num">01</span><span class="flow-name">Requirement Discussion</span><span class="flow-desc">Business goals and technical needs</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">02</span><span class="flow-name">Solution Proposal</span><span class="flow-desc">Platform and timeline planning</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">03</span><span class="flow-name">Sample & Validation</span><span class="flow-desc">Prototype and test verification</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">04</span><span class="flow-name">Mass Production</span><span class="flow-desc">Controlled manufacturing execution</span></div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"><span class="flow-num">05</span><span class="flow-name">Long-term Support</span><span class="flow-desc">Ongoing update and service</span></div>
                 </div>
             </div>
         </section>
@@ -349,7 +357,7 @@
                             <span class="field-error" id="email-field-error" hidden></span>
                         </label>
                         <label>Country <span class="required-star" aria-hidden="true">*</span>
-                            <input name="country" list="country-list" placeholder="type or search country" autocomplete="country-name" required />
+                            <input name="country" list="country-list" placeholder="Type to search country" autocomplete="country-name" required />
                             <span class="field-error" id="country-field-error" hidden></span>
                         </label>
                         <label>I'm Interested In <span class="required-star" aria-hidden="true">*</span>
@@ -566,7 +574,6 @@
                     </datalist>
 
                     <button type="submit" id="form-btn" class="btn btn-primary submit-btn">Request Quote</button>
-                        <input type="hidden" name="form_ts" id="form-ts" value="" />
                     <label class="hp-field" aria-hidden="true">Leave this blank<input name="website" tabindex="-1"
                             autocomplete="off" /></label>
                     <p id="form-error" class="msg error" role="alert" aria-live="assertive" hidden>Failed to send.

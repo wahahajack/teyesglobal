@@ -17,7 +17,7 @@
     const SUBMIT_COOLDOWN_MS = 15000;
     const LAST_SUBMIT_KEY = 'teyes_last_submit_ts';
     const GTM_ID = 'GTM-MSPH5TMK';
-    const GTM_IDLE_DELAY_MS = 5000;
+    const GTM_IDLE_DELAY_MS = 2500;
     const formInitTs = Date.now();
     let analyticsLoadPromise;
     let hasTrackedFormStart = false;
@@ -74,18 +74,7 @@
     ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
         window.addEventListener(eventName, primeAnalytics, { once: true, passive: true });
     });
-
-    if ('requestIdleCallback' in window) {
-        window.addEventListener('load', () => {
-            window.requestIdleCallback(() => {
-                window.setTimeout(primeAnalytics, GTM_IDLE_DELAY_MS);
-            }, { timeout: 8000 });
-        }, { once: true });
-    } else {
-        window.addEventListener('load', () => {
-            window.setTimeout(primeAnalytics, GTM_IDLE_DELAY_MS);
-        }, { once: true });
-    }
+    window.setTimeout(primeAnalytics, GTM_IDLE_DELAY_MS);
 
     const initMobileStickyCta = () => {
         if (!heroPricingBtn || !thumbCta) return;
@@ -190,11 +179,7 @@
         });
     };
 
-    if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(initImageLightbox, { timeout: 2500 });
-    } else {
-        window.setTimeout(initImageLightbox, 1200);
-    }
+    initImageLightbox();
 
     const EMAILJS_PUBLIC_KEY = 'r4hPxgrdEnnONhc9E';
     const EMAILJS_SERVICE_ID = 'service_p161z11';

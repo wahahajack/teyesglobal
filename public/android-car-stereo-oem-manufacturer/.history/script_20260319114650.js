@@ -371,7 +371,7 @@
             errMsg.hidden = false;
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Get Pricing & MOQ';
+            submitBtn.textContent = 'Get Factory Pricing';
         }
     });
 })();

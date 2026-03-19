@@ -1,6 +1,5 @@
 :root {
     --brand: #3C83F6;
-    --brand-strong: #1d4ed8;
     --bg: #070a13;
     --bg-alt: #0b111e;
     --card: #111827;
@@ -141,7 +140,7 @@ h2 {
     height: 40px;
     padding: 0 18px;
     border-radius: 10px;
-    background: var(--brand-strong);
+    background: var(--brand);
     color: #fff;
     font-weight: 700;
     font-size: 13px;
@@ -153,7 +152,7 @@ h2 {
 
 .top-cta:hover {
     transform: translateY(-1px);
-    box-shadow: 0 14px 28px color-mix(in srgb, var(--brand-strong) 32%, transparent);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--brand) 32%, transparent);
     filter: brightness(1.04)
 }
 
@@ -280,13 +279,13 @@ h1 {
 }
 
 .btn-primary {
-    background: var(--brand-strong);
+    background: var(--brand);
     color: #fff
 }
 
 .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 12px 24px color-mix(in srgb, var(--brand-strong) 30%, transparent);
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--brand) 30%, transparent);
     filter: brightness(1.04)
 }
 
@@ -578,7 +577,7 @@ h1 {
     font-size: 15px
 }
 
-.card-lite h3 {
+.card-lite h4 {
     margin: 0 0 16px;
     font-size: 20px
 }
@@ -1486,9 +1485,9 @@ body.lightbox-open {
     font-weight: 700;
     letter-spacing: .06em;
     text-transform: uppercase;
-    color: #ffffff;
-    border: 1px solid color-mix(in srgb, var(--brand-strong) 40%, transparent);
-    background: color-mix(in srgb, var(--brand-strong) 78%, #0f172a 22%);
+    color: var(--brand);
+    border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+    background: color-mix(in srgb, var(--brand) 10%, transparent);
     margin-bottom: 10px
 }
 

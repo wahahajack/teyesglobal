@@ -61,7 +61,7 @@ function Counter({ value, suffix = "" }: { value: string; suffix?: string }) {
 }
 
 const trustItems = [
-  { icon: Globe, value: "32", label: "Active Countries", suffix: "" },
+  { icon: Globe, value: "100", label: "Countries Sold", suffix: "+" },
   { icon: Users, value: "5", label: "Million Users", suffix: "M+" },
   { icon: CheckCircle, value: "0.4", label: "Defect Rate", suffix: "%" },
   { icon: Shield, value: "100", label: "Margin Protection", suffix: "%" },

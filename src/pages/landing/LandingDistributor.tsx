@@ -116,8 +116,8 @@ const LandingDistributorPage = () => {
                   />
                 </picture>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 to-transparent">
-                  <p className="text-emerald-400 text-sm font-medium">Global Network</p>
-                  <p className="text-foreground font-semibold">500+ Distribution Partners Worldwide</p>
+                  <p className="text-emerald-400 text-sm font-medium">Global Network: 100+ Countries Sold</p>
+                  <p className="text-foreground font-semibold">Exclusive Agents in 24+ Countries</p>
                 </div>
               </div>
             </div>

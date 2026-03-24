@@ -792,6 +792,22 @@
 
             try {
                 await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'form_submit_success',
+                    form_name: 'distributor_application',
+                    form_location: 'distributor_landing_page',
+                    lead_type: form.intent?.value === 'catalog' ? 'catalog_request' : 'distributor_application',
+                    value: 1,
+                    event_category: 'conversion'
+                });
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', 'generate_lead', {
+                        form_name: 'distributor_application',
+                        form_location: 'distributor_landing_page',
+                        lead_type: form.intent?.value === 'catalog' ? 'catalog_request' : 'distributor_application'
+                    });
+                }
                 const currentParams = new URLSearchParams(window.location.search);
                 const tracked = new URLSearchParams();
                 ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(key => {

@@ -323,6 +323,22 @@
         12000,
         'Email send timeout'
       );
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'form_submit_success',
+        form_name: 'wholesale_quote',
+        form_location: 'wholesale_landing_page',
+        lead_type: 'wholesale_inquiry',
+        value: 1,
+        event_category: 'conversion'
+      });
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          form_name: 'wholesale_quote',
+          form_location: 'wholesale_landing_page',
+          lead_type: 'wholesale_inquiry'
+        });
+      }
       const currentParams = new URLSearchParams(window.location.search);
       const tracked = new URLSearchParams();
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach((key) => {

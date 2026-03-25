@@ -357,7 +357,7 @@
       errMsg.hidden = false;
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Get 2026 Wholesale Pricing';
+      submitBtn.textContent = 'Request Wholesale Pricing';
     }
   });
 })();

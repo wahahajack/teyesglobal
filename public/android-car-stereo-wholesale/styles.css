@@ -44,6 +44,10 @@ body {
     line-height: 1.6
 }
 
+html {
+    scroll-behavior: smooth
+}
+
 a {
     text-decoration: none;
     color: inherit
@@ -280,11 +284,27 @@ h1 {
     opacity: .88
 }
 
+.anchor-target,
+.card[id],
+.section[id] {
+    scroll-margin-top: 104px
+}
+
 .chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 12px
+}
+
+.anchor-target {
+    position: relative;
+    top: -104px;
+    display: block;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+    visibility: hidden
 }
 
 .chips span {
@@ -310,6 +330,46 @@ h1 {
 
 [data-theme="light"] .chips span {
     background: color-mix(in srgb, var(--brand) 14%, #ffffff)
+}
+
+.sitelink-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 720px
+}
+
+.sitelink-chip {
+    min-height: 52px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, var(--brand) 28%, var(--border));
+    background: color-mix(in srgb, var(--brand) 12%, transparent);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    transition: transform .18s ease, border-color .18s ease, background-color .18s ease
+}
+
+.sitelink-chip:hover,
+.sitelink-chip:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--brand) 52%, transparent);
+    background: color-mix(in srgb, var(--brand) 18%, transparent)
+}
+
+.sitelink-chip:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--brand) 70%, #ffffff);
+    outline-offset: 2px
+}
+
+[data-theme="light"] .sitelink-chip {
+    background: #ffffff;
+    border-color: rgba(29, 78, 216, .18)
 }
 
 .profit-equation {
@@ -951,6 +1011,10 @@ body.lightbox-open {
         grid-template-columns: 1fr
     }
 
+    .sitelink-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
     .top-cta {
         display: none
     }
@@ -982,6 +1046,16 @@ body.lightbox-open {
 
     .hero-actions {
         justify-content: flex-end
+    }
+
+    .sitelink-nav {
+        grid-template-columns: 1fr;
+        margin-top: 16px
+    }
+
+    .sitelink-chip {
+        min-height: 48px;
+        font-size: 14px
     }
 
     .thumb-cta {

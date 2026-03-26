@@ -5,7 +5,6 @@
   const heroPricingBtn = document.getElementById('hero-pricing-cta');
   const thumbCta = document.querySelector('.thumb-cta');
   const form = document.getElementById('wholesale-form');
-  const sitelinkLinks = document.querySelectorAll('[data-sitelink]');
   const submitBtn = document.getElementById('form-btn');
   const errMsg = document.getElementById('form-error');
   const okMsg = document.getElementById('form-success');
@@ -98,31 +97,6 @@
 
   initTheme();
   themeBtn?.addEventListener('click', toggleTheme);
-
-  sitelinkLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      const sitelinkId = link.dataset.sitelink || 'unknown';
-      const sitelinkTarget = link.getAttribute('href') || '';
-      const sitelinkLabel = link.textContent?.trim() || sitelinkId;
-
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'sitelink_click',
-        sitelink_id: sitelinkId,
-        sitelink_label: sitelinkLabel,
-        sitelink_target: sitelinkTarget,
-        event_category: 'engagement'
-      });
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'select_content', {
-          content_type: 'sitelink',
-          content_id: sitelinkId,
-          item_name: sitelinkLabel
-        });
-      }
-    });
-  });
 
   const initMobileStickyCta = () => {
     if (!heroPricingBtn || !thumbCta || stickyCtaInitialized || !mobileMedia.matches) return;

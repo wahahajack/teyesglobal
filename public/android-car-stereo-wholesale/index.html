@@ -6,10 +6,20 @@
   var host=w.location&&w.location.hostname||'';
   var isLocal=host==='localhost'||host==='127.0.0.1'||host==='::1';
   if(isLocal){return;}
+  var started=false;
+  var loadGtm=function(){
+  if(started){return;}
+  started=true;
   w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  };
+  if('requestIdleCallback'in w){requestIdleCallback(loadGtm,{timeout:2000});}
+  else{w.setTimeout(loadGtm,2000);}
+  ['pointerdown','touchstart','keydown','scroll'].forEach(function(evt){
+  w.addEventListener(evt,loadGtm,{once:true,passive:true});
+  });
   })(window,document,'script','dataLayer','GTM-MSPH5TMK');</script>
   <!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
@@ -26,12 +36,12 @@
       } catch (error) {}
     })();
   </script>
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png?v=20260306a" />
-  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png?v=20260306a" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png?v=20260306a" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/android-car-stereo-wholesale/images/favicon-32x32.png?v=20260306a" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/android-car-stereo-wholesale/images/favicon-16x16.png?v=20260306a" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/android-car-stereo-wholesale/images/apple-touch-icon.png?v=20260306a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="./images/teyes-head-unit-hero-960.avif" imagesrcset="./images/teyes-head-unit-hero-640.avif 640w, ./images/teyes-head-unit-hero-960.avif 960w, ./images/teyes-head-unit-hero-1280.avif 1280w" imagesizes="(max-width: 980px) 100vw, 45vw" />
+  <link rel="preload" as="image" href="/android-car-stereo-wholesale/images/teyes-head-unit-hero-960.avif" imagesrcset="/android-car-stereo-wholesale/images/teyes-head-unit-hero-640.avif 640w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-960.avif 960w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-1280.avif 1280w" imagesizes="(max-width: 980px) 100vw, 45vw" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
@@ -45,7 +55,7 @@
   <header class="nav">
     <div class="container nav-inner">
       <a href="#hero" class="logo-link" aria-label="TEYES Home">
-        <img class="logo" src="./images/main-logo.webp" alt="TEYES" width="150" height="28" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='./images/main-logo.png';return;}this.style.display='none';this.nextElementSibling.style.display='inline-block';" />
+        <img class="logo" src="/android-car-stereo-wholesale/images/main-logo.webp" alt="TEYES" width="150" height="28" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='/android-car-stereo-wholesale/images/main-logo.png';return;}this.style.display='none';this.nextElementSibling.style.display='inline-block';" />
         <span class="logo-fallback" aria-hidden="true">TEYES</span>
       </a>
       <div class="nav-actions">
@@ -73,29 +83,21 @@
           <div class="chips">
             <span>MOQ 10 units</span><span>Mixed models allowed</span><span>Most models in stock</span>
           </div>
-          <nav class="sitelink-nav" aria-label="Wholesale quick links">
-            <a href="#premium-wholesale" class="sitelink-chip" data-sitelink="premium_wholesale">Premium Wholesale</a>
-            <a href="#higher-retail-positioning" class="sitelink-chip" data-sitelink="higher_retail_positioning">Higher Retail Positioning</a>
-            <a href="#quality-control" class="sitelink-chip" data-sitelink="quality_control">Quality Control</a>
-            <a href="#trial-order" class="sitelink-chip" data-sitelink="trial_order">Trial Order From 10 Units</a>
-            <a href="#stable-support" class="sitelink-chip" data-sitelink="stable_support">Stable System &amp; Support</a>
-            <a href="#request-pricing" class="sitelink-chip" data-sitelink="request_pricing">Request Pricing</a>
-          </nav>
         </div>
         <article class="hero-card">
           <div class="hero-media">
             <picture>
               <source
                 type="image/avif"
-                srcset="./images/teyes-head-unit-hero-640.avif 640w, ./images/teyes-head-unit-hero-960.avif 960w, ./images/teyes-head-unit-hero-1280.avif 1280w"
+                srcset="/android-car-stereo-wholesale/images/teyes-head-unit-hero-640.avif 640w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-960.avif 960w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-1280.avif 1280w"
                 sizes="(max-width: 980px) 100vw, 45vw"
               />
               <source
                 type="image/webp"
-                srcset="./images/teyes-head-unit-hero-640.webp 640w, ./images/teyes-head-unit-hero-960.webp 960w, ./images/teyes-head-unit-hero-1280.webp 1280w"
+                srcset="/android-car-stereo-wholesale/images/teyes-head-unit-hero-640.webp 640w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-960.webp 960w, /android-car-stereo-wholesale/images/teyes-head-unit-hero-1280.webp 1280w"
                 sizes="(max-width: 980px) 100vw, 45vw"
               />
-              <img src="./images/teyes-head-unit-hero-960.webp" alt="TEYES premium head unit" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" />
+              <img src="/android-car-stereo-wholesale/images/teyes-head-unit-hero-960.webp" alt="TEYES premium head unit" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" />
             </picture>
           </div>
         </article>
@@ -121,11 +123,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/premium-ui-showcase-640.webp?v=20260304 640w, ./images/premium-ui-showcase-960.webp?v=20260304 960w, ./images/premium-ui-showcase-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/premium-ui-showcase-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/premium-ui-showcase-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/premium-ui-showcase-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/premium-ui-showcase-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/premium-ui-showcase-960.webp?v=20260304"
                   alt="Premium in-car UI close-up"
                   loading="lazy"
                   decoding="async"
@@ -148,11 +150,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/qc-inspection-line-640.webp?v=20260304 640w, ./images/qc-inspection-line-960.webp?v=20260304 960w, ./images/qc-inspection-line-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/qc-inspection-line-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/qc-inspection-line-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/qc-inspection-line-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/qc-inspection-line-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/qc-inspection-line-960.webp?v=20260304"
                   alt="Real quality inspection scene"
                   loading="lazy"
                   decoding="async"
@@ -175,11 +177,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/warehouse-inventory-pallets-640.webp?v=20260304 640w, ./images/warehouse-inventory-pallets-960.webp?v=20260304 960w, ./images/warehouse-inventory-pallets-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/warehouse-inventory-pallets-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/warehouse-inventory-pallets-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/warehouse-inventory-pallets-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/warehouse-inventory-pallets-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/warehouse-inventory-pallets-960.webp?v=20260304"
                   alt="Warehouse in-stock inventory"
                   loading="lazy"
                   decoding="async"
@@ -242,11 +244,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/chipset-performance-visual-640.webp?v=20260304 640w, ./images/chipset-performance-visual-960.webp?v=20260304 960w, ./images/chipset-performance-visual-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/chipset-performance-visual-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/chipset-performance-visual-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/chipset-performance-visual-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/chipset-performance-visual-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/chipset-performance-visual-960.webp?v=20260304"
                   alt="System performance testing scene"
                   loading="lazy"
                   decoding="async"
@@ -261,11 +263,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/thermal-design-dual-fan-640.webp?v=20260304 640w, ./images/thermal-design-dual-fan-960.webp?v=20260304 960w, ./images/thermal-design-dual-fan-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/thermal-design-dual-fan-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/thermal-design-dual-fan-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/thermal-design-dual-fan-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/thermal-design-dual-fan-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/thermal-design-dual-fan-960.webp?v=20260304"
                   alt="Quality control process on site"
                   loading="lazy"
                   decoding="async"
@@ -280,11 +282,11 @@
               <picture>
                 <source
                   type="image/webp"
-                  srcset="./images/technical-support-dashboard-640.webp?v=20260304 640w, ./images/technical-support-dashboard-960.webp?v=20260304 960w, ./images/technical-support-dashboard-1280.webp?v=20260304 1280w"
+                  srcset="/android-car-stereo-wholesale/images/technical-support-dashboard-640.webp?v=20260304 640w, /android-car-stereo-wholesale/images/technical-support-dashboard-960.webp?v=20260304 960w, /android-car-stereo-wholesale/images/technical-support-dashboard-1280.webp?v=20260304 1280w"
                   sizes="(max-width: 980px) 100vw, 33vw"
                 />
                 <img
-                  src="./images/technical-support-dashboard-960.webp?v=20260304"
+                  src="/android-car-stereo-wholesale/images/technical-support-dashboard-960.webp?v=20260304"
                   alt="Firmware and remote support service"
                   loading="lazy"
                   decoding="async"

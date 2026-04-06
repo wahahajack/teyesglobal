@@ -51,7 +51,7 @@ export const SEO = ({
     faq,
     howTo,
 }: SEOProps) => {
-    const baseUrl = 'https://teyesauto.com';
+    const baseUrl = 'https://teyesglobal.com';
     const fullUrl = `${baseUrl}${path}`;
     const fullTitle = title.includes('TEYES') ? title : `${title} | TEYES`;
     const imageUrl = image

@@ -6,9 +6,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
+const distDir = path.join(rootDir, 'dist');
 const productsFile = path.join(rootDir, 'src/data/products.ts');
 
-const baseUrl = 'https://teyesauto.com';
+const baseUrl = 'https://teyesglobal.com';
 
 const staticPages = [
   { path: '', source: 'src/pages/Index.tsx', priority: '1.0' },
@@ -94,5 +95,15 @@ const xml = [
   '',
 ].join('\n');
 
-fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml);
-console.log('Sitemap generated successfully!');
+const outputDirs = [publicDir];
+
+// Keep dist in sync for build pipelines that generate the sitemap after Vite copies public assets.
+if (fs.existsSync(distDir)) {
+  outputDirs.push(distDir);
+}
+
+for (const outputDir of outputDirs) {
+  fs.writeFileSync(path.join(outputDir, 'sitemap.xml'), xml);
+}
+
+console.log(`Sitemap generated successfully in: ${outputDirs.join(', ')}`);

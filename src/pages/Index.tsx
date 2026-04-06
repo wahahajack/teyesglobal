@@ -14,8 +14,8 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "Corporation",
     "name": "TEYES",
-    "url": "https://teyesauto.com",
-    "logo": "https://teyesauto.com/logo.webp",
+    "url": "https://teyesglobal.com",
+    "logo": "https://teyesglobal.com/logo.webp",
     "description": "Global leader in automotive infotainment systems, offering advanced Android head units, 360° cameras, and smart driving solutions for the aftermarket.",
     "foundingDate": "2011",
     "numberOfEmployees": {

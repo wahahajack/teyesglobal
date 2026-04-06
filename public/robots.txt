@@ -25,7 +25,9 @@ Disallow: /teyes-android-car-stereo-distributor/data/
 # Do not index audit logs, raw source snapshots, or JSON reports.
 Disallow: /*lh-*.json$
 Disallow: /*lighthouse-*.json$
+Disallow: /*raw_html$
+Disallow: /*raw_html/$
 Disallow: /*raw_html.html$
 Disallow: /*preview-*.png$
 
-Sitemap: https://teyesauto.com/sitemap.xml
+Sitemap: https://teyesglobal.com/sitemap.xml

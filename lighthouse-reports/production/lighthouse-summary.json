@@ -1,0 +1,30 @@
+﻿[
+    {
+        "mode":  "mobile",
+        "jsonPath":  "D:\\Users\\46679\\Documents\\GitHub\\teyesglobal\\lighthouse-reports\\production\\lighthouse-mobile.report.json",
+        "htmlPath":  "D:\\Users\\46679\\Documents\\GitHub\\teyesglobal\\lighthouse-reports\\production\\lighthouse-mobile.report.html",
+        "performance":  92,
+        "accessibility":  98,
+        "bestPractices":  77,
+        "seo":  100,
+        "fcp":  "2.3 s",
+        "lcp":  "2.4 s",
+        "tbt":  "110 ms",
+        "cls":  "0.038",
+        "speedIndex":  "4.0 s"
+    },
+    {
+        "mode":  "desktop",
+        "jsonPath":  "D:\\Users\\46679\\Documents\\GitHub\\teyesglobal\\lighthouse-reports\\production\\lighthouse-desktop.report.json",
+        "htmlPath":  "D:\\Users\\46679\\Documents\\GitHub\\teyesglobal\\lighthouse-reports\\production\\lighthouse-desktop.report.html",
+        "performance":  93,
+        "accessibility":  98,
+        "bestPractices":  77,
+        "seo":  100,
+        "fcp":  "1.0 s",
+        "lcp":  "1.5 s",
+        "tbt":  "0 ms",
+        "cls":  "0.05",
+        "speedIndex":  "1.1 s"
+    }
+]

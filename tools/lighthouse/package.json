@@ -1,0 +1,12 @@
+{
+  "name": "teyesglobal-lighthouse-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Reusable Lighthouse runner for local and remote projects",
+  "scripts": {
+    "lighthouse": "lighthouse --help"
+  },
+  "dependencies": {
+    "lighthouse": "^13.0.1"
+  }
+}

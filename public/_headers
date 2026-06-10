@@ -20,6 +20,34 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
+# Prevent utility and diagnostics pages from being indexed even if they are deployed.
+/thank-you
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-oem-manufacturer/thank-you
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-oem-manufacturer/thank-you.html
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-wholesale/thank-you
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-wholesale/thank-you.html
+  X-Robots-Tag: noindex, nofollow
+/teyes-android-car-stereo-distributor/thank-you
+  X-Robots-Tag: noindex, nofollow
+/teyes-android-car-stereo-distributor/thank-you.html
+  X-Robots-Tag: noindex, nofollow
+/teyes-android-car-stereo-distributor/thank-you-catalog
+  X-Robots-Tag: noindex, nofollow
+/teyes-android-car-stereo-distributor/thank-you-catalog.html
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-wholesale/lighthouse-report
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-wholesale/lighthouse-report.html
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-oem-manufacturer/raw_html
+  X-Robots-Tag: noindex, nofollow
+/android-car-stereo-oem-manufacturer/raw_html.html
+  X-Robots-Tag: noindex, nofollow
+
 # Service worker
 /sw.js
   Cache-Control: public, max-age=0, must-revalidate

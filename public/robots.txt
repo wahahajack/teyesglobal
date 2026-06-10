@@ -3,9 +3,13 @@ Allow: /
 
 # Do not index conversion completion pages.
 Disallow: /thank-you
+Disallow: /android-car-stereo-oem-manufacturer/thank-you
 Disallow: /android-car-stereo-oem-manufacturer/thank-you.html
+Disallow: /android-car-stereo-wholesale/thank-you
 Disallow: /android-car-stereo-wholesale/thank-you.html
+Disallow: /teyes-android-car-stereo-distributor/thank-you
 Disallow: /teyes-android-car-stereo-distributor/thank-you.html
+Disallow: /teyes-android-car-stereo-distributor/thank-you-catalog
 Disallow: /teyes-android-car-stereo-distributor/thank-you-catalog.html
 
 # Do not index local history, diagnostics, or generated audit artifacts.
@@ -23,6 +27,10 @@ Disallow: /teyes-android-car-stereo-distributor/api/
 Disallow: /teyes-android-car-stereo-distributor/data/
 
 # Do not index audit logs, raw source snapshots, or JSON reports.
+Disallow: /android-car-stereo-wholesale/lighthouse-report
+Disallow: /android-car-stereo-wholesale/lighthouse-report.html
+Disallow: /android-car-stereo-oem-manufacturer/raw_html
+Disallow: /android-car-stereo-oem-manufacturer/raw_html.html
 Disallow: /*lh-*.json$
 Disallow: /*lighthouse-*.json$
 Disallow: /*raw_html$

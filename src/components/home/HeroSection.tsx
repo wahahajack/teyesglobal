@@ -16,26 +16,26 @@ import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
 
 const entryPoints = [
   {
-    id: "brand",
+    id: "distributor",
     icon: Building2,
-    label: "Explore TEYES Products",
-    description: "Browse our proven infotainment lineup",
-    href: "/products",
+    label: "Distributor Program",
+    description: "Wholesale pricing, trial orders, and channel support",
+    href: "/solutions/distributors",
     color: "from-primary to-blue-400",
   },
   {
-    id: "oem-capabilities",
+    id: "compare-models",
     icon: Cpu,
-    label: "OEM / ODM Capabilities",
-    description: "Learn about manufacturing & engineering",
-    href: "/oem-odm",
+    label: "Compare Models",
+    description: "Find the right product mix for your market",
+    href: "/products/compare",
     color: "from-accent to-cyan-400",
   },
   {
     id: "oem-project",
     icon: Globe,
     label: "Start an OEM Project",
-    description: "Discuss your cooperation needs",
+    description: "Discuss white-label or custom cooperation needs",
     href: "/contact?intent=oem",
     color: "from-emerald-500 to-teal-400",
   },
@@ -85,22 +85,26 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
-              <span className="text-gradient">Built for Global Markets</span>
+              <span className="text-gradient">Premium Android Head Units for Global Distributors</span>
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide">
               OEM-ready · Multi-market proven · Localization-friendly
             </p>
 
+            <p className="text-sm md:text-base text-muted-foreground max-w-xl">
+              Build a profitable car infotainment product line with flagship, mainstream, and entry-level TEYES platforms for installers, retailers, and wholesale channels.
+            </p>
+
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products">
-                  Explore Products
+                <Link to="/contact?intent=wholesale">
+                  Get Wholesale Pricing & Trial Plan
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/products/compare">Compare Models for Your Market</Link>
               </Button>
             </div>
 

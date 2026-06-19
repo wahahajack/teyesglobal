@@ -3,18 +3,36 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Package, TrendingUp, Users, Headphones } from "lucide-react";
+import { ArrowRight, Check, Package, TrendingUp, Users, Headphones, Boxes, ShieldCheck } from "lucide-react";
+
+const quickStart = [
+  {
+    icon: Boxes,
+    title: "Mixed-model Trial Orders",
+    description: "Test flagship, mainstream, and entry-level TEYES models before committing to a deeper market program.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Higher Retail Positioning",
+    description: "Build a stronger product ladder instead of competing only with low-price generic Android units.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Dealer Support Package",
+    description: "Use product specs, images, comparison guidance, and technical support to reduce sales and installation friction.",
+  },
+];
 
 const benefits = [
   {
     icon: Package,
     title: "Proven Product Portfolio",
-    description: "Access to a complete range of infotainment products with proven market success across 100+ countries.",
+    description: "Access a complete infotainment lineup covering premium, mainstream, and entry-level market needs.",
   },
   {
     icon: TrendingUp,
-    title: "Competitive Margins",
-    description: "Wholesale pricing structures designed to ensure healthy margins for your distribution business.",
+    title: "Channel-friendly Margins",
+    description: "Wholesale pricing structures designed to support healthy distributor and dealer profitability.",
   },
   {
     icon: Users,
@@ -24,7 +42,7 @@ const benefits = [
   {
     icon: Headphones,
     title: "Dedicated Support",
-    description: "Account managers and technical support to help you succeed in your market.",
+    description: "Account managers and technical support to help with product selection, installation questions, and after-sales communication.",
   },
 ];
 
@@ -56,7 +74,7 @@ const partnershipLevels = [
     description: "Premium partnership for key markets",
     features: [
       "Everything in Preferred tier",
-      "Exclusive territory rights",
+      "Territory discussion for qualified markets",
       "Custom product options",
       "Joint business planning",
       "Executive-level engagement",
@@ -64,24 +82,84 @@ const partnershipLevels = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Who can apply to become a TEYES distributor?",
+    answer: "TEYES distributor cooperation is suitable for automotive electronics distributors, car audio installers, retail chains, online sellers, and regional aftermarket partners.",
+  },
+  {
+    question: "Can distributors test more than one model in the first order?",
+    answer: "Yes. TEYES supports product mix discussions so partners can test flagship, mainstream, and entry-level models according to local market demand.",
+  },
+  {
+    question: "What support can distributors receive?",
+    answer: "Support can include product specifications, images, videos, comparison guidance, account management, and technical support for product selection and after-sales communication.",
+  },
+];
+
 const SolutionsDistributorsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Distributor Partnership - Wholesale Car Infotainment"
-        description="Become a TEYES distributor. Access proven products, competitive wholesale pricing, marketing support, and dedicated account management across 100+ markets."
-        keywords="car infotainment distributor, wholesale head unit, TEYES partner, distribution partnership"
+        title="Android Head Unit Distributor Program - TEYES Wholesale Partnership"
+        description="Apply for TEYES wholesale pricing and distributor cooperation. Build a premium Android head unit product line with mixed-model trial orders, dealer support, and OEM/ODM options."
+        keywords="android head unit distributor, car stereo wholesale, wholesale android car stereo, TEYES distributor, car infotainment supplier"
         path="/solutions/distributors"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/solutions" },
+          { label: "For Distributors" },
+        ]}
+        faq={faqs}
       />
       <ContextHeader
         title="Solutions for Distributors"
-        description="Partner with TEYES to access premium products, competitive pricing, and comprehensive support."
+        description="Sell higher, reduce return pressure, and build a stronger Android head unit product ladder for your market."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Solutions", href: "/solutions" },
           { label: "For Distributors" },
         ]}
       />
+
+      {/* Quick Start Value */}
+      <section className="py-16 bg-background">
+        <div className="container-wide">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="section-title mb-4">Build a TEYES Product Line Without Heavy Guesswork</h2>
+            <p className="section-subtitle mx-auto">
+              Start with the right product mix for your channel, then scale with stronger pricing, support, and market positioning.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {quickStart.map((item) => (
+              <div key={item.title} className="p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <item.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm">{item.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 mt-10">
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/contact?intent=wholesale">
+                Apply for Wholesale Pricing
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="hero-outline" size="lg" asChild>
+              <Link to="/products/compare">Compare Models</Link>
+            </Button>
+            <Button variant="ghost" size="lg" asChild>
+              <Link to="/solutions/market-needs">View Market Needs</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Benefits */}
       <section className="py-20 bg-background">
@@ -149,19 +227,38 @@ const SolutionsDistributorsPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Distributor FAQ */}
       <section className="py-20 bg-background">
+        <div className="container-wide max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="section-title mb-4">Distributor FAQ</h2>
+            <p className="section-subtitle mx-auto">
+              Quick answers before you apply for TEYES wholesale cooperation.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="p-6 rounded-xl bg-card border border-border/50">
+                <h3 className="font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground text-sm">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-card">
         <div className="container-wide text-center">
           <h2 className="text-2xl font-display font-bold mb-4">
-            Ready to Start?
+            Ready to Build Your TEYES Product Line?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Contact us to discuss partnership opportunities and find the right 
-            level for your business.
+            Share your market, channel, and target product range. We will help you review the best wholesale starting plan.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
-              Contact Sales
+            <Link to="/contact?intent=wholesale">
+              Apply for Wholesale Pricing
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

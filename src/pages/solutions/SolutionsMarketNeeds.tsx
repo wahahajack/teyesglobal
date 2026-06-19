@@ -15,6 +15,8 @@ const marketTypes = [
       "Competitive pricing positioning",
       "Simple installation focus",
     ],
+    risk: "Price competition and unclear differentiation",
+    support: "Clear model positioning, accessory bundles, and after-sales boundaries",
   },
   {
     title: "Premium Upgrade Markets",
@@ -25,6 +27,8 @@ const marketTypes = [
       "Quality and reliability messaging",
       "Premium positioning",
     ],
+    risk: "Higher expectations for installation, audio, camera, and support",
+    support: "Model comparison, demo videos, installation support, and technical FAQ",
   },
   {
     title: "Emerging Markets",
@@ -35,6 +39,8 @@ const marketTypes = [
       "Local language support",
       "Partner development focus",
     ],
+    risk: "Unclear first-order product mix and inventory pressure",
+    support: "Mixed-model trial order and market-specific product ladder",
   },
   {
     title: "Mature Markets",
@@ -45,6 +51,8 @@ const marketTypes = [
       "Brand recognition leverage",
       "Service excellence",
     ],
+    risk: "Strong brand comparison and higher customer support demands",
+    support: "Premium positioning, comparison sheets, dealer assets, and case proof",
   },
 ];
 
@@ -71,14 +79,31 @@ const supportServices = [
   },
 ];
 
+const faqs = [
+  {
+    question: "How should a distributor choose TEYES models for a new market?",
+    answer: "Start by matching the product ladder to the local channel: CC4 Pro and CC3 2K for premium installers, CC3 2K and CC4 for mainstream markets, and X1 Pro or CC4L for price-sensitive channels.",
+  },
+  {
+    question: "Can TEYES help with market-specific product positioning?",
+    answer: "Yes. TEYES can help partners review target channels, price bands, product mix, accessories, and technical support needs before starting a distributor program.",
+  },
+];
+
 const SolutionsMarketNeedsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Market Entry Solutions - Regional Strategy Support"
-        description="Market entry support for car infotainment distribution. Market analysis, product positioning, compliance guidance, and partner network access."
-        keywords="market entry strategy, regional distribution, compliance support, emerging markets, infotainment distribution"
+        title="Android Head Unit Market Entry & Product Mix Guide"
+        description="Choose the right TEYES Android head unit product mix for premium, mainstream, emerging, mature, and price-sensitive markets."
+        keywords="android head unit market entry, car stereo distributor product mix, TEYES market strategy, infotainment distribution, premium android head unit"
         path="/solutions/market-needs"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/solutions" },
+          { label: "By Market Needs" },
+        ]}
+        faq={faqs}
       />
       <ContextHeader
         title="Solutions by Market Needs"
@@ -96,7 +121,7 @@ const SolutionsMarketNeedsPage = () => {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-title mb-4">Market Types We Support</h2>
             <p className="section-subtitle mx-auto">
-              Experience across diverse market conditions and customer segments.
+              Different markets need different product ladders. Use this guide to match TEYES models with your local channel and customer expectations.
             </p>
           </div>
 
@@ -120,7 +145,7 @@ const SolutionsMarketNeedsPage = () => {
                   </div>
                 </div>
 
-                <div>
+                <div className="mb-6">
                   <p className="text-sm text-muted-foreground mb-2">Key Strategies:</p>
                   <ul className="space-y-2">
                     {market.strategies.map((strategy) => (
@@ -131,8 +156,68 @@ const SolutionsMarketNeedsPage = () => {
                     ))}
                   </ul>
                 </div>
+
+                <div className="grid gap-3 text-sm">
+                  <div className="rounded-lg bg-background/60 p-4 border border-border/40">
+                    <span className="font-medium">Main risk: </span>
+                    <span className="text-muted-foreground">{market.risk}</span>
+                  </div>
+                  <div className="rounded-lg bg-background/60 p-4 border border-border/40">
+                    <span className="font-medium">Support needed: </span>
+                    <span className="text-muted-foreground">{market.support}</span>
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 mt-10">
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/contact?intent=market">
+                Get Product Mix Recommendation
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="hero-outline" size="lg" asChild>
+              <Link to="/products/compare">Compare Models</Link>
+            </Button>
+            <Button variant="ghost" size="lg" asChild>
+              <Link to="/solutions/distributors">Distributor Program</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Mix Summary */}
+      <section className="py-20 bg-card">
+        <div className="container-wide">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="section-title mb-4">Quick Product Mix Reference</h2>
+            <p className="section-subtitle mx-auto">
+              A simple starting point for distributors before building a full country-level launch plan.
+            </p>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[800px] rounded-xl overflow-hidden">
+              <thead className="bg-background">
+                <tr>
+                  <th className="text-left p-4 border-b border-border/50">Market Type</th>
+                  <th className="text-left p-4 border-b border-border/50">Recommended Models</th>
+                  <th className="text-left p-4 border-b border-border/50">Main Risk</th>
+                  <th className="text-left p-4 border-b border-border/50">Support Needed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {marketTypes.map((market) => (
+                  <tr key={market.title} className="bg-background/40">
+                    <td className="p-4 border-b border-border/30 font-medium">{market.title}</td>
+                    <td className="p-4 border-b border-border/30">{market.products.join(" / ")}</td>
+                    <td className="p-4 border-b border-border/30 text-muted-foreground">{market.risk}</td>
+                    <td className="p-4 border-b border-border/30 text-muted-foreground">{market.support}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -143,7 +228,7 @@ const SolutionsMarketNeedsPage = () => {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-title mb-4">Market Entry Support</h2>
             <p className="section-subtitle mx-auto">
-              We don't just sell products â€?we help you succeed in your market.
+              We do not just sell products â€” we help you succeed in your market.
             </p>
           </div>
 
@@ -164,6 +249,23 @@ const SolutionsMarketNeedsPage = () => {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-20 bg-background">
+        <div className="container-wide max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="section-title mb-4">Market Needs FAQ</h2>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="p-6 rounded-xl bg-card border border-border/50">
+                <h3 className="font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground text-sm">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 bg-background">
         <div className="container-wide text-center">
@@ -171,11 +273,10 @@ const SolutionsMarketNeedsPage = () => {
             Let's Discuss Your Market Strategy
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Share your target market and goals. We'll provide insights and 
-            recommendations based on our global experience.
+            Share your target market and goals. We will provide insights and recommendations based on our global experience.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact?intent=market">
               Get Market Advice
               <ArrowRight className="h-4 w-4" />
             </Link>

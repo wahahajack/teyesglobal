@@ -37,6 +37,44 @@ const compareSpecs = [
   "Android Auto",
 ];
 
+const marketRecommendations = [
+  {
+    market: "Premium installers and high-end retailers",
+    models: "CC4 Pro / CC3 2K",
+    reason: "Best fit when customers care about performance, display quality, audio, camera integration, and premium positioning.",
+  },
+  {
+    market: "Mainstream distributors",
+    models: "CC3 2K / CC4",
+    reason: "Balanced product ladder for customers who want strong features without only selling the flagship price point.",
+  },
+  {
+    market: "Price-sensitive channels",
+    models: "X1 Pro / CC4L",
+    reason: "Lower entry barrier for wholesale channels that need Android Auto, CarPlay, and core infotainment functions.",
+  },
+  {
+    market: "First trial order",
+    models: "CC4 Pro + CC3 2K + X1 Pro",
+    reason: "Tests premium, mainstream, and entry-level demand before expanding stock depth.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Which TEYES model is best for premium installers?",
+    answer: "CC4 Pro and CC3 2K are the strongest starting points for premium installers because they support stronger performance, display, audio, and camera positioning.",
+  },
+  {
+    question: "Which TEYES models should a distributor test first?",
+    answer: "A mixed trial with CC4 Pro, CC3 2K, and X1 Pro helps test premium, mainstream, and entry-level demand in one market.",
+  },
+  {
+    question: "Is the comparison page only for technical specs?",
+    answer: "No. It should also help distributors decide which models fit their channel, market maturity, price band, and after-sales support capability.",
+  },
+];
+
 const ProductComparePage = () => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([
     "cc4-pro",
@@ -78,20 +116,72 @@ const ProductComparePage = () => {
   return (
     <Layout>
       <SEO
-        title="Compare Car Head Units - CC4 Pro vs CC3 2K vs X1 Pro"
-        description="Compare TEYES car infotainment models side-by-side. Compare CPU, display, audio, cameras, and connectivity features across CC4 Pro, CC3 2K, and X1 Pro."
-        keywords="compare car head units, CC4 Pro vs CC3 2K, android head unit comparison, infotainment specs"
+        title="Compare TEYES Android Head Units for Your Market"
+        description="Compare TEYES Android head units by specs, channel fit, market type, product ladder, and trial-order strategy for distributors and installers."
+        keywords="compare android head units, CC4 Pro vs CC3 2K, TEYES model comparison, android car stereo wholesale, distributor product mix"
         path="/products/compare"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products", href: "/products" },
+          { label: "Compare" },
+        ]}
+        faq={faqs}
       />
       <ContextHeader
         title="Compare Models"
-        description="Compare specifications side-by-side to find the best product for your market."
+        description="Compare specifications side-by-side and choose the best product mix for your market."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products", href: "/products" },
           { label: "Compare" },
         ]}
       />
+
+      {/* Recommendation Table */}
+      <section className="py-16 bg-background">
+        <div className="container-wide">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="section-title mb-4">Which TEYES Model Should You Choose?</h2>
+            <p className="section-subtitle mx-auto">
+              Use the comparison below to match each product line with your channel, customer expectations, and first-order strategy.
+            </p>
+          </div>
+          <div className="overflow-x-auto mb-10">
+            <table className="w-full min-w-[800px]">
+              <thead>
+                <tr className="bg-card">
+                  <th className="text-left p-4 border-b border-border/50">Market / Channel</th>
+                  <th className="text-left p-4 border-b border-border/50">Recommended Models</th>
+                  <th className="text-left p-4 border-b border-border/50">Why</th>
+                </tr>
+              </thead>
+              <tbody>
+                {marketRecommendations.map((item) => (
+                  <tr key={item.market}>
+                    <td className="p-4 border-b border-border/30 font-medium">{item.market}</td>
+                    <td className="p-4 border-b border-border/30 text-primary">{item.models}</td>
+                    <td className="p-4 border-b border-border/30 text-muted-foreground">{item.reason}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/contact?intent=product-mix">
+                Get Product Mix Recommendation
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="hero-outline" size="lg" asChild>
+              <Link to="/solutions/distributors">Distributor Program</Link>
+            </Button>
+            <Button variant="ghost" size="lg" asChild>
+              <Link to="/solutions/market-needs">Market Needs Guide</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Comparison Table */}
       <section className="py-16 bg-background">
@@ -206,19 +296,35 @@ const ProductComparePage = () => {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-16 bg-background">
+        <div className="container-wide max-w-4xl">
+          <div className="text-center mb-10">
+            <h2 className="section-title mb-4">Model Selection FAQ</h2>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="p-6 rounded-xl bg-card border border-border/50">
+                <h3 className="font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground text-sm">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="py-16 bg-card">
         <div className="container-wide text-center">
           <h2 className="text-2xl font-display font-bold mb-4">
-            Ready to Make a Decision?
+            Need Help Choosing a Product Mix?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Contact our team to discuss pricing, volume discounts, and 
-            partnership opportunities.
+            Contact our team to discuss your country, channels, price bands, volume expectations, and partnership opportunities.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
-              Get a Quote
+            <Link to="/contact?intent=product-mix">
+              Get a Product Mix Recommendation
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

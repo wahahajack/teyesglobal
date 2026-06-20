@@ -41,15 +41,15 @@ const marketRecommendations = [
   {
     market: "Premium installers and high-end retailers",
     models: "CC4 Pro / CC3 2K",
-    reason: "Best fit when customers care about performance, display quality, audio, camera integration, and premium positioning.",
+    reason: "Best fit when customers care about Android head unit performance, display quality, audio, camera integration, and premium positioning.",
   },
   {
-    market: "Mainstream distributors",
+    market: "Mainstream car stereo distributors",
     models: "CC3 2K / CC4",
-    reason: "Balanced product ladder for customers who want strong features without only selling the flagship price point.",
+    reason: "Balanced product ladder for distributors who need strong car radio and Android player features without only selling the flagship price point.",
   },
   {
-    market: "Price-sensitive channels",
+    market: "Price-sensitive car audio channels",
     models: "X1 Pro / CC4L",
     reason: "Lower entry barrier for wholesale channels that need Android Auto, CarPlay, and core infotainment functions.",
   },
@@ -63,15 +63,19 @@ const marketRecommendations = [
 const faqs = [
   {
     question: "Which TEYES model is best for premium installers?",
-    answer: "CC4 Pro and CC3 2K are the strongest starting points for premium installers because they support stronger performance, display, audio, and camera positioning.",
+    answer: "CC4 Pro and CC3 2K are the strongest starting points for premium installers because they support stronger Android head unit performance, display, audio, and camera positioning.",
+  },
+  {
+    question: "What if I am searching for TEYES CC3 or a TEYES Android player?",
+    answer: "Use this comparison page to compare current TEYES Android car stereo platforms, including CC3 2K, CC4 Pro, CC4, CC4L, and X1 Pro, then choose the right head unit model for your market.",
   },
   {
     question: "Which TEYES models should a distributor test first?",
-    answer: "A mixed trial with CC4 Pro, CC3 2K, and X1 Pro helps test premium, mainstream, and entry-level demand in one market.",
+    answer: "A mixed trial with CC4 Pro, CC3 2K, and X1 Pro helps test premium, mainstream, and entry-level head unit and car stereo demand in one market.",
   },
   {
     question: "Is the comparison page only for technical specs?",
-    answer: "No. It should also help distributors decide which models fit their channel, market maturity, price band, and after-sales support capability.",
+    answer: "No. It should also help distributors decide which Android head unit, car stereo, or car radio model fits their channel, market maturity, price band, and after-sales support capability.",
   },
 ];
 
@@ -116,9 +120,9 @@ const ProductComparePage = () => {
   return (
     <Layout>
       <SEO
-        title="Compare TEYES Android Head Units for Your Market"
-        description="Compare TEYES Android head units by specs, channel fit, market type, product ladder, and trial-order strategy for distributors and installers."
-        keywords="compare android head units, CC4 Pro vs CC3 2K, TEYES model comparison, android car stereo wholesale, distributor product mix"
+        title="Compare TEYES Android Car Stereos, Head Units & Car Radios"
+        description="Compare TEYES CC4 Pro, CC3 2K, CC4, CC4L, X1 Pro, and other Android head unit and car stereo models by performance, display, audio, camera support, and market fit."
+        keywords="compare android head units, TEYES CC3, TEYES android player, CC4 Pro vs CC3 2K, TEYES model comparison, android car stereo wholesale, car radio comparison, distributor product mix"
         path="/products/compare"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -128,8 +132,8 @@ const ProductComparePage = () => {
         faq={faqs}
       />
       <ContextHeader
-        title="Compare Models"
-        description="Compare specifications side-by-side and choose the best product mix for your market."
+        title="Compare TEYES Head Unit & Car Stereo Models"
+        description="Compare specifications side-by-side and choose the best Android car stereo and head unit product mix for your market."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products", href: "/products" },
@@ -137,13 +141,23 @@ const ProductComparePage = () => {
         ]}
       />
 
-      {/* Recommendation Table */}
+      <section className="py-16 bg-background">
+        <div className="container-wide">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="section-title mb-4">Looking for TEYES CC3 or a TEYES Android Player?</h2>
+            <p className="section-subtitle mx-auto">
+              Compare current TEYES Android head unit and car stereo platforms, including CC3 2K, CC4 Pro, CC4, CC4L, and X1 Pro, to choose the right model for your market.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 bg-background">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="section-title mb-4">Which TEYES Model Should You Choose?</h2>
             <p className="section-subtitle mx-auto">
-              Use the comparison below to match each product line with your channel, customer expectations, and first-order strategy.
+              Use the comparison below to match each head unit and car stereo product line with your channel, customer expectations, and first-order strategy.
             </p>
           </div>
           <div className="overflow-x-auto mb-10">
@@ -183,12 +197,10 @@ const ProductComparePage = () => {
         </div>
       </section>
 
-      {/* Comparison Table */}
       <section className="py-16 bg-background">
         <div className="container-wide">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[800px]">
-              {/* Product Headers */}
               <thead>
                 <tr>
                   <th className="text-left p-4 border-b border-border/50 w-48">
@@ -196,7 +208,6 @@ const ProductComparePage = () => {
                   </th>
                   {comparedProducts.map((product) => (
                     <th key={product!.id} className="p-4 border-b border-border/50 relative">
-                      {/* Remove button */}
                       {selectedProducts.length > 2 && (
                         <button
                           onClick={() => removeProduct(product!.id)}
@@ -228,7 +239,6 @@ const ProductComparePage = () => {
                       </div>
                     </th>
                   ))}
-                  {/* Add Product Column */}
                   {availableToAdd.length > 0 && selectedProducts.length < 5 && (
                     <th className="p-4 border-b border-border/50 min-w-[200px]">
                       <div className="flex flex-col items-center gap-4">
@@ -261,7 +271,6 @@ const ProductComparePage = () => {
                 </tr>
               </thead>
 
-              {/* Specs Body */}
               <tbody>
                 {compareSpecs.map((spec, index) => (
                   <tr
@@ -279,7 +288,6 @@ const ProductComparePage = () => {
                         {renderValue(getSpecValue(product!, spec))}
                       </td>
                     ))}
-                    {/* Empty cell for add column */}
                     {availableToAdd.length > 0 && selectedProducts.length < 5 && (
                       <td className="p-4 border-b border-border/30"></td>
                     )}
@@ -289,14 +297,12 @@ const ProductComparePage = () => {
             </table>
           </div>
 
-          {/* Helper text */}
           <p className="text-sm text-muted-foreground mt-6 text-center">
             Compare up to 5 models. Click the × to remove a model, or use the dropdown to add more.
           </p>
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="py-16 bg-background">
         <div className="container-wide max-w-4xl">
           <div className="text-center mb-10">
@@ -313,11 +319,10 @@ const ProductComparePage = () => {
         </div>
       </section>
 
-      {/* Bottom CTA */}
       <section className="py-16 bg-card">
         <div className="container-wide text-center">
           <h2 className="text-2xl font-display font-bold mb-4">
-            Need Help Choosing a Product Mix?
+            Need Help Choosing a Head Unit Product Mix?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
             Contact our team to discuss your country, channels, price bands, volume expectations, and partnership opportunities.

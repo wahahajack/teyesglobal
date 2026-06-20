@@ -19,7 +19,7 @@ const entryPoints = [
     id: "distributor",
     icon: Building2,
     label: "Distributor Program",
-    description: "Wholesale pricing, trial orders, and channel support",
+    description: "Car stereo wholesale, trial orders, and channel support",
     href: "/solutions/distributors",
     color: "from-primary to-blue-400",
   },
@@ -27,7 +27,7 @@ const entryPoints = [
     id: "compare-models",
     icon: Cpu,
     label: "Compare Models",
-    description: "Find the right product mix for your market",
+    description: "Find the right head unit product mix for your market",
     href: "/products/compare",
     color: "from-accent to-cyan-400",
   },
@@ -35,7 +35,7 @@ const entryPoints = [
     id: "oem-project",
     icon: Globe,
     label: "Start an OEM Project",
-    description: "Discuss white-label or custom cooperation needs",
+    description: "Discuss car radio OEM/ODM or white-label needs",
     href: "/contact?intent=oem",
     color: "from-emerald-500 to-teal-400",
   },
@@ -44,7 +44,6 @@ const entryPoints = [
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background">
-      {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <picture>
           <source
@@ -71,13 +70,10 @@ export function HeroSection() {
         <div className="hero-overlay absolute inset-0" />
       </div>
 
-      {/* Glow Effect */}
       <div className="hero-glow" />
 
-      {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
-          {/* Left: Text Content */}
           <div className="space-y-4 md:space-y-6 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
               <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
@@ -85,7 +81,7 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
-              <span className="text-gradient">Premium Android Head Units for Global Distributors</span>
+              <span className="text-gradient">Premium Android Car Stereos & Head Units for Global Distributors</span>
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide">
@@ -93,7 +89,7 @@ export function HeroSection() {
             </p>
 
             <p className="text-sm md:text-base text-muted-foreground max-w-xl">
-              Build a profitable car infotainment product line with flagship, mainstream, and entry-level TEYES platforms for installers, retailers, and wholesale channels.
+              TEYES helps car stereo distributors, car radio suppliers, installers, retailers, and wholesale car audio channels build a profitable Android head unit and infotainment product line.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">
@@ -104,19 +100,15 @@ export function HeroSection() {
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products/compare">Compare Models for Your Market</Link>
+                <Link to="/products/compare">Compare Head Unit Models</Link>
               </Button>
             </div>
-
           </div>
 
-          {/* Right: Product Image */}
           <div className="relative animate-fade-in-up delay-200">
             <div className="relative">
-              {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
 
-              {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
                 <picture>
                   <source
@@ -141,11 +133,10 @@ export function HeroSection() {
                   />
                 </picture>
 
-                {/* Image Overlay with Product Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
+                      <p className="text-primary text-sm font-medium mb-1">Flagship Head Unit</p>
                       <h3 className="text-2xl font-bold text-foreground">CC4 Pro</h3>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
@@ -159,7 +150,6 @@ export function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating Badge */}
               <div className="absolute -top-4 -right-4 px-4 py-2 bg-gold text-gold-foreground rounded-full text-sm font-bold shadow-lg animate-float">
                 Flagship Model
               </div>
@@ -167,7 +157,6 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Three Entry Points - Full Width */}
         <div className="mt-6 md:mt-8">
           <p className="text-muted-foreground text-xs uppercase tracking-wider mb-2 md:mb-3">
             Choose your path
@@ -196,10 +185,8 @@ export function HeroSection() {
             ))}
           </div>
         </div>
-
       </div>
 
-      {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );

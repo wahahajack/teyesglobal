@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
+
+const ThemeToggle = lazy(() =>
+  import("@/components/ui/theme-toggle").then((module) => ({ default: module.ThemeToggle }))
+);
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -40,7 +43,18 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const updateIsDesktop = () => setIsDesktop(mediaQuery.matches);
+
+    updateIsDesktop();
+    mediaQuery.addEventListener("change", updateIsDesktop);
+
+    return () => mediaQuery.removeEventListener("change", updateIsDesktop);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
@@ -115,7 +129,11 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex lg:items-center lg:gap-4">
-            <ThemeToggle />
+            {isDesktop && (
+              <Suspense fallback={null}>
+                <ThemeToggle />
+              </Suspense>
+            )}
             <Button variant="hero" size="lg" asChild>
               <Link to="/contact">Get in Touch</Link>
             </Button>
@@ -123,7 +141,6 @@ export function Header() {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center gap-2">
-            <ThemeToggle />
             <button
               type="button"
               className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"

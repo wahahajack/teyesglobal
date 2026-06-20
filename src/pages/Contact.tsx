@@ -11,6 +11,7 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
+import { delayForConversionDispatch, pushFormSubmitSuccess } from "@/lib/tracking";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_kzddimj";
@@ -133,6 +134,12 @@ const ContactPage = () => {
       );
 
       if (result.status === 200) {
+        pushFormSubmitSuccess("contact_page", {
+          inquiry_type: formData.inquiryType || "General",
+          country: formData.country || user_country || "Unknown",
+          has_company: Boolean(formData.company.trim()),
+        });
+        await delayForConversionDispatch(300);
         navigate("/thank-you");
       } else {
         throw new Error("Failed to send message via EmailJS");
@@ -171,7 +178,7 @@ const ContactPage = () => {
       />
       <ContextHeader
         title="Contact Us"
-        description="Whether you're interested in distribution, OEM partnership, or have questions �?we're here to help."
+        description="Whether you're interested in distribution, OEM partnership, or have questions â€?we're here to help."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" },

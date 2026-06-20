@@ -1,14 +1,32 @@
+import { Suspense, lazy } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { HeroSection } from "@/components/home/HeroSection";
-import { OfficialPortalSection } from "@/components/home/OfficialPortalSection";
-import { TrustSection } from "@/components/home/TrustSection";
-import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
-import { ProductsSection } from "@/components/home/ProductsSection";
-import { OemCtaSection } from "@/components/home/OemCtaSection";
-import { PartnersSection } from "@/components/home/PartnersSection";
-import { HomeFaqSection } from "@/components/home/HomeFaqSection";
-import { FinalCtaSection } from "@/components/home/FinalCtaSection";
+
+const OfficialPortalSection = lazy(() =>
+  import("@/components/home/OfficialPortalSection").then((module) => ({ default: module.OfficialPortalSection }))
+);
+const TrustSection = lazy(() =>
+  import("@/components/home/TrustSection").then((module) => ({ default: module.TrustSection }))
+);
+const CapabilitiesSection = lazy(() =>
+  import("@/components/home/CapabilitiesSection").then((module) => ({ default: module.CapabilitiesSection }))
+);
+const ProductsSection = lazy(() =>
+  import("@/components/home/ProductsSection").then((module) => ({ default: module.ProductsSection }))
+);
+const OemCtaSection = lazy(() =>
+  import("@/components/home/OemCtaSection").then((module) => ({ default: module.OemCtaSection }))
+);
+const PartnersSection = lazy(() =>
+  import("@/components/home/PartnersSection").then((module) => ({ default: module.PartnersSection }))
+);
+const HomeFaqSection = lazy(() =>
+  import("@/components/home/HomeFaqSection").then((module) => ({ default: module.HomeFaqSection }))
+);
+const FinalCtaSection = lazy(() =>
+  import("@/components/home/FinalCtaSection").then((module) => ({ default: module.FinalCtaSection }))
+);
 
 const Index = () => {
   const schema = JSON.stringify({
@@ -83,14 +101,16 @@ const Index = () => {
         faq={faq}
       />
       <HeroSection />
-      <OfficialPortalSection />
-      <TrustSection />
-      <CapabilitiesSection />
-      <ProductsSection />
-      <OemCtaSection />
-      <PartnersSection />
-      <HomeFaqSection />
-      <FinalCtaSection />
+      <Suspense fallback={null}>
+        <OfficialPortalSection />
+        <TrustSection />
+        <CapabilitiesSection />
+        <ProductsSection />
+        <OemCtaSection />
+        <PartnersSection />
+        <HomeFaqSection />
+        <FinalCtaSection />
+      </Suspense>
     </Layout>
   );
 };

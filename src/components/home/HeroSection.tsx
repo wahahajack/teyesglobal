@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Cpu, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg400 from "@/assets/hero-bg-400.webp";
 import heroBg800 from "@/assets/hero-bg-800.webp";
 import heroBg1200 from "@/assets/hero-bg-1200.webp";
-import heroBg400Avif from "@/assets/hero-bg-400.avif";
 import heroBg800Avif from "@/assets/hero-bg-800.avif";
 import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
 import cc4Pro400 from "@/assets/products/cc4-pro-hero-400.webp";
@@ -44,27 +42,21 @@ const entryPoints = [
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
+      {/* Decorative background: responsive but deliberately low priority. */}
+      <div className="absolute inset-0" aria-hidden="true">
         <picture>
-          <source
-            type="image/avif"
-            srcSet={`${heroBg400Avif} 400w, ${heroBg800Avif} 800w, ${heroBg1200Avif} 1200w`}
-            sizes="100vw"
-          />
-          <source
-            type="image/webp"
-            srcSet={`${heroBg400} 400w, ${heroBg800} 800w, ${heroBg1200} 1200w`}
-            sizes="100vw"
-          />
+          <source media="(max-width: 768px)" type="image/avif" srcSet={heroBg800Avif} />
+          <source media="(max-width: 768px)" type="image/webp" srcSet={heroBg800} />
+          <source media="(min-width: 769px)" type="image/avif" srcSet={heroBg1200Avif} />
+          <source media="(min-width: 769px)" type="image/webp" srcSet={heroBg1200} />
           <img
-            src={heroBg800}
-            alt="Car interior"
-            className="w-full h-full object-cover opacity-30"
-            width={1920}
-            height={1080}
+            src={heroBg1200}
+            alt=""
+            className="w-full h-full object-cover opacity-25 md:opacity-30"
+            width={1200}
+            height={686}
             loading="eager"
-            fetchPriority="high"
+            fetchPriority="low"
             decoding="async"
           />
         </picture>
@@ -78,9 +70,9 @@ export function HeroSection() {
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-8 lg:gap-12 items-center">
           {/* Left: Text Content */}
-          <div className="space-y-4 md:space-y-6 animate-fade-in-up">
+          <div className="space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
-              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary" />
               Trusted by 100+ Markets Worldwide
             </div>
 
@@ -108,30 +100,26 @@ export function HeroSection() {
           </div>
 
           {/* Right: Product Image */}
-          <div className="relative animate-fade-in-up delay-200 max-w-[520px] xl:max-w-[560px] w-full mx-auto lg:ml-auto">
+          <div className="relative max-w-[520px] xl:max-w-[560px] w-full mx-auto lg:ml-auto">
             <div className="relative">
               {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-accent/15 to-transparent rounded-3xl blur-3xl transform scale-105" />
 
               {/* Product Image */}
-              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
+              <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
                 <picture>
-                  <source
-                    type="image/avif"
-                    srcSet={`${cc4Pro400Avif} 400w, ${cc4Pro800Avif} 800w, ${cc4Pro1200Avif} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 560px"
-                  />
-                  <source
-                    type="image/webp"
-                    srcSet={`${cc4Pro400} 400w, ${cc4Pro800} 800w, ${cc4Pro1200} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 560px"
-                  />
+                  <source media="(max-width: 480px)" type="image/avif" srcSet={cc4Pro400Avif} />
+                  <source media="(max-width: 480px)" type="image/webp" srcSet={cc4Pro400} />
+                  <source media="(max-width: 768px)" type="image/avif" srcSet={cc4Pro800Avif} />
+                  <source media="(max-width: 768px)" type="image/webp" srcSet={cc4Pro800} />
+                  <source media="(min-width: 769px)" type="image/avif" srcSet={cc4Pro1200Avif} />
+                  <source media="(min-width: 769px)" type="image/webp" srcSet={cc4Pro1200} />
                   <img
                     src={cc4Pro800}
                     alt="TEYES CC4 Pro - Flagship Android Head Unit"
                     className="w-full h-auto"
                     width={800}
-                    height={600}
+                    height={800}
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
@@ -157,7 +145,7 @@ export function HeroSection() {
               </div>
 
               {/* Floating Badge */}
-              <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-gold text-gold-foreground rounded-full text-xs font-bold shadow-lg animate-float">
+              <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-gold text-gold-foreground rounded-full text-xs font-bold shadow-lg">
                 Flagship Model
               </div>
             </div>

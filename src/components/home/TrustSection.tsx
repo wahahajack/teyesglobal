@@ -1,60 +1,9 @@
-import { useRef, useEffect, useState } from "react";
 import { Globe, Users, CheckCircle, Shield } from "lucide-react";
 
-// Performance-friendly counter component
 function Counter({ value, suffix = "" }: { value: string; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  // Parse value to number
-  const targetValue = parseFloat(value.replace(/[^0-9.]/g, ""));
-  const isFloat = value.includes(".");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    const start = 0;
-    const duration = 1500; // 1.5s
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Easing function: easeOutExpo
-      const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-
-      setCount(easedProgress * targetValue);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [hasStarted, targetValue]);
-
   return (
-    <div ref={elementRef} className="stat-value text-4xl font-display font-bold">
-      {isFloat ? count.toFixed(1) : Math.floor(count)}
+    <div className="stat-value text-4xl font-display font-bold">
+      {value}
       {suffix}
     </div>
   );

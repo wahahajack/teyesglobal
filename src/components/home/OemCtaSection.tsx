@@ -27,7 +27,7 @@ export function OemCtaSection() {
                 Building Your Own Product Line?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Start with TEYES OEM / ODM Solutions. We help you bring competitive 
+                Start with TEYES OEM / ODM Solutions. We help you bring competitive
                 infotainment products to market faster.
               </p>
 
@@ -39,7 +39,7 @@ export function OemCtaSection() {
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="xl" asChild>
-                  <Link to="/landing/oem">View OEM Landing Page</Link>
+                  <Link to="/contact?intent=oem">Discuss OEM / ODM Project</Link>
                 </Button>
               </div>
             </div>

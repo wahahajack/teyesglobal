@@ -7,17 +7,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Suspense, lazy } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Critical path - load immediately
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-// Products
 const ProductsPage = lazy(() => import("./pages/products/Products"));
 const ProductLinesPage = lazy(() => import("./pages/products/ProductLines"));
 const ProductDetailPage = lazy(() => import("./pages/products/ProductDetail"));
 const ProductComparePage = lazy(() => import("./pages/products/ProductCompare"));
 
-// Solutions
 const SolutionsPage = lazy(() => import("./pages/solutions/Solutions"));
 const SolutionsDistributorsPage = lazy(() => import("./pages/solutions/SolutionsDistributors"));
 const SolutionsAutoBrandsPage = lazy(() => import("./pages/solutions/SolutionsAutoBrands"));
@@ -25,22 +22,19 @@ const SolutionsIntegratorsPage = lazy(() => import("./pages/solutions/SolutionsI
 const SolutionsMarketNeedsPage = lazy(() => import("./pages/solutions/SolutionsMarketNeeds"));
 const SolutionsEuropeDistributorsPage = lazy(() => import("./pages/solutions/SolutionsEuropeDistributors"));
 
-// Resources
+const ResourcesPage = lazy(() => import("./pages/resources/Resources"));
 const ChinaCarAudioManufacturersGuide = lazy(() => import("./pages/resources/ChinaCarAudioManufacturersGuide"));
 const AndroidCarStereoWholesaleGuide = lazy(() => import("./pages/resources/AndroidCarStereoWholesaleGuide"));
 
-// OEM/ODM
 const OemOdmPage = lazy(() => import("./pages/oem/OemOdm"));
 const OemCapabilitiesPage = lazy(() => import("./pages/oem/OemCapabilities"));
 const OemCertificationsPage = lazy(() => import("./pages/oem/OemCertifications"));
 const OemCasesPage = lazy(() => import("./pages/oem/OemCases"));
 
-// Landing Pages
 const LandingOemPage = lazy(() => import("./pages/landing/LandingOem"));
 const LandingMarketEntryPage = lazy(() => import("./pages/landing/LandingMarketEntry"));
 const LandingDistributorPage = lazy(() => import("./pages/landing/LandingDistributor"));
 
-// Other Pages
 const AccessoriesPage = lazy(() => import("./pages/Accessories"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 const HomeThankYou = lazy(() => import("./pages/HomeThankYou"));
@@ -79,6 +73,7 @@ const App = () => (
               <Route path="/solutions/integrators" element={<SolutionsIntegratorsPage />} />
               <Route path="/solutions/market-needs" element={<SolutionsMarketNeedsPage />} />
               <Route path="/solutions/europe-distributors" element={<SolutionsEuropeDistributorsPage />} />
+              <Route path="/resources" element={<ResourcesPage />} />
               <Route path="/resources/china-car-audio-manufacturers-guide" element={<ChinaCarAudioManufacturersGuide />} />
               <Route path="/resources/android-car-stereo-wholesale-guide" element={<AndroidCarStereoWholesaleGuide />} />
               <Route path="/oem-odm" element={<OemOdmPage />} />

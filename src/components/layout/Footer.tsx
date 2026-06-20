@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react";
+import { Linkedin, Youtube, Facebook } from "lucide-react";
 
 const footerLinks = {
   products: [
@@ -13,6 +13,11 @@ const footerLinks = {
     { name: "For Auto Brands", href: "/solutions/auto-brands" },
     { name: "For Integrators", href: "/solutions/integrators" },
     { name: "Market Solutions", href: "/solutions/market-needs" },
+  ],
+  resources: [
+    { name: "Resources", href: "/resources" },
+    { name: "Wholesale Buying Guide", href: "/resources/android-car-stereo-wholesale-guide" },
+    { name: "China Manufacturer Guide", href: "/resources/china-car-audio-manufacturers-guide" },
   ],
   company: [
     { name: "OEM / ODM", href: "/oem-odm" },
@@ -32,8 +37,7 @@ export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand Column */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
               <img
@@ -50,16 +54,12 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Products */}
           <div>
             <h3 className="text-foreground font-semibold mb-4">Products</h3>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -67,16 +67,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Solutions */}
           <div>
             <h3 className="text-foreground font-semibold mb-4">Solutions</h3>
             <ul className="space-y-3">
               {footerLinks.solutions.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -84,16 +80,25 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
+          <div>
+            <h3 className="text-foreground font-semibold mb-4">Resources</h3>
+            <ul className="space-y-3">
+              {footerLinks.resources.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div>
             <h3 className="text-foreground font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -102,7 +107,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} TEYES. All rights reserved.

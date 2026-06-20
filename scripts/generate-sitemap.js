@@ -22,6 +22,7 @@ const staticPages = [
   { path: '/solutions/integrators', source: 'src/pages/solutions/SolutionsIntegrators.tsx', priority: '0.8' },
   { path: '/solutions/market-needs', source: 'src/pages/solutions/SolutionsMarketNeeds.tsx', priority: '0.8' },
   { path: '/solutions/europe-distributors', source: 'src/pages/solutions/SolutionsEuropeDistributors.tsx', priority: '0.8' },
+  { path: '/resources', source: 'src/pages/resources/Resources.tsx', priority: '0.8' },
   { path: '/resources/china-car-audio-manufacturers-guide', source: 'src/pages/resources/ChinaCarAudioManufacturersGuide.tsx', priority: '0.7' },
   { path: '/resources/android-car-stereo-wholesale-guide', source: 'src/pages/resources/AndroidCarStereoWholesaleGuide.tsx', priority: '0.7' },
   { path: '/oem-odm', source: 'src/pages/oem/OemOdm.tsx', priority: '0.8' },
@@ -67,20 +68,14 @@ function getProductIds() {
   let match;
 
   while ((match = idRegex.exec(productsContent)) !== null) {
-    if (match[1]) {
-      ids.add(match[1]);
-    }
+    if (match[1]) ids.add(match[1]);
   }
 
   return Array.from(ids);
 }
 
 const staticEntries = staticPages.map((page) =>
-  createUrlEntry(
-    `${baseUrl}${page.path}`,
-    getIsoDate(path.join(rootDir, page.source)),
-    page.priority
-  )
+  createUrlEntry(`${baseUrl}${page.path}`, getIsoDate(path.join(rootDir, page.source)), page.priority)
 );
 
 const productLastMod = getIsoDate(productsFile);
@@ -98,10 +93,7 @@ const xml = [
 ].join('\n');
 
 const outputDirs = [publicDir];
-
-if (fs.existsSync(distDir)) {
-  outputDirs.push(distDir);
-}
+if (fs.existsSync(distDir)) outputDirs.push(distDir);
 
 for (const outputDir of outputDirs) {
   fs.writeFileSync(path.join(outputDir, 'sitemap.xml'), xml);

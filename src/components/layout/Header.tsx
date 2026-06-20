@@ -27,6 +27,15 @@ const navigation = [
     ],
   },
   {
+    name: "Resources",
+    href: "/resources",
+    children: [
+      { name: "Resources Hub", href: "/resources" },
+      { name: "Wholesale Buying Guide", href: "/resources/android-car-stereo-wholesale-guide" },
+      { name: "China Manufacturer Guide", href: "/resources/china-car-audio-manufacturers-guide" },
+    ],
+  },
+  {
     name: "OEM / ODM",
     href: "/oem-odm",
     children: [
@@ -51,7 +60,6 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <nav className="container-wide" aria-label="Global">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Link to="/" className="site-logo-link flex items-center">
             <img
               src="/main-logo.webp"
@@ -66,13 +74,9 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:gap-1">
             {navigation.map((item) => (
-              <div
-                key={item.name}
-                className="relative group"
-              >
+              <div key={item.name} className="relative group">
                 <Link
                   to={item.href}
                   className={cn(
@@ -81,22 +85,14 @@ export function Header() {
                       ? "text-foreground bg-secondary/50"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
                   )}
-                  onClick={(e) => {
-                    if (item.children && item.href === "#") {
-                      e.preventDefault();
-                    }
-                  }}
                 >
                   {item.name}
-                  {item.children && (
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-                  )}
+                  {item.children && <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />}
                 </Link>
 
-                {/* Dropdown - Using group-hover for stable visibility */}
                 {item.children && (
                   <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="w-56 rounded-xl bg-card border border-border shadow-xl py-2">
+                    <div className="w-64 rounded-xl bg-card border border-border shadow-xl py-2">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
@@ -113,7 +109,6 @@ export function Header() {
             ))}
           </div>
 
-          {/* CTA Button */}
           <div className="hidden lg:flex lg:items-center lg:gap-4">
             <ThemeToggle />
             <Button variant="hero" size="lg" asChild>
@@ -121,7 +116,6 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
           <div className="lg:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
@@ -130,16 +124,11 @@ export function Header() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Toggle menu</span>
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border/50 animate-fade-in">
             <div className="space-y-1">

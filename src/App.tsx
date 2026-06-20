@@ -1,5 +1,3 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -10,6 +8,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 // Critical path - load immediately
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+
+// Lazy load global feedback UIs. They are not needed for first paint.
+const Toaster = lazy(() =>
+  import("@/components/ui/toaster").then((module) => ({ default: module.Toaster }))
+);
+const Sonner = lazy(() =>
+  import("@/components/ui/sonner").then((module) => ({ default: module.Toaster }))
+);
 
 // Lazy load non-critical pages for better mobile performance
 // Products
@@ -60,8 +66,6 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
             <Routes>
@@ -94,6 +98,10 @@ const App = () => (
               {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+          </Suspense>
+          <Suspense fallback={null}>
+            <Toaster />
+            <Sonner />
           </Suspense>
         </BrowserRouter>
       </TooltipProvider>

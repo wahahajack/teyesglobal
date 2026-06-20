@@ -7,11 +7,23 @@ import { ArrowRight, Target, TrendingUp, Shield, Users } from "lucide-react";
 
 const marketTypes = [
   {
+    title: "Europe / EU Distributor Markets",
+    description: "Markets where TEYES Europe, regional compliance, DAB+, language support, and premium installer expectations matter.",
+    products: ["CC4 Pro", "CC3 2K", "CC4L"],
+    strategies: [
+      "Emphasize premium Android head unit positioning",
+      "Prepare DAB+ and regional accessory bundles",
+      "Support dealer comparison and installation materials",
+    ],
+    risk: "Higher expectations for compliance, fitment, installation support, and local sales materials",
+    support: "Europe-specific product mix, dealer assets, compatibility notes, and compliance documentation on request",
+  },
+  {
     title: "Entry-Level Aftermarket",
     description: "Price-sensitive markets where value is the primary purchasing driver.",
     products: ["X1 Pro", "CC4L"],
     strategies: [
-      "Focus on essential features",
+      "Focus on essential car stereo features",
       "Competitive pricing positioning",
       "Simple installation focus",
     ],
@@ -20,7 +32,7 @@ const marketTypes = [
   },
   {
     title: "Premium Upgrade Markets",
-    description: "Markets where customers seek feature-rich upgrades for their vehicles.",
+    description: "Markets where customers seek feature-rich Android head unit and car infotainment upgrades for their vehicles.",
     products: ["CC4 Pro", "CC3 2K"],
     strategies: [
       "Emphasize advanced features",
@@ -32,7 +44,7 @@ const marketTypes = [
   },
   {
     title: "Emerging Markets",
-    description: "Growing markets with increasing demand for infotainment solutions.",
+    description: "Growing markets with increasing demand for Android car stereo and infotainment solutions.",
     products: ["CC3 2K", "CC4", "X1 Pro"],
     strategies: [
       "Scalable product range",
@@ -44,7 +56,7 @@ const marketTypes = [
   },
   {
     title: "Mature Markets",
-    description: "Established markets with sophisticated customer expectations.",
+    description: "Established markets with sophisticated car audio and head unit customer expectations.",
     products: ["CC4 Pro", "CC3 2K"],
     strategies: [
       "Feature differentiation",
@@ -65,7 +77,7 @@ const supportServices = [
   {
     icon: TrendingUp,
     title: "Product Positioning",
-    description: "Recommendations on which products to offer and how to position them.",
+    description: "Recommendations on which head unit and car stereo models to offer and how to position them.",
   },
   {
     icon: Shield,
@@ -82,11 +94,15 @@ const supportServices = [
 const faqs = [
   {
     question: "How should a distributor choose TEYES models for a new market?",
-    answer: "Start by matching the product ladder to the local channel: CC4 Pro and CC3 2K for premium installers, CC3 2K and CC4 for mainstream markets, and X1 Pro or CC4L for price-sensitive channels.",
+    answer: "Start by matching the product ladder to the local channel: CC4 Pro and CC3 2K for premium installers, CC3 2K and CC4 for mainstream markets, and X1 Pro or CC4L for price-sensitive car stereo and head unit channels.",
+  },
+  {
+    question: "Does TEYES support Europe distributor needs?",
+    answer: "Yes. TEYES can help Europe-focused partners review product mix, DAB+ accessory needs, language expectations, compliance documentation, and premium installer positioning.",
   },
   {
     question: "Can TEYES help with market-specific product positioning?",
-    answer: "Yes. TEYES can help partners review target channels, price bands, product mix, accessories, and technical support needs before starting a distributor program.",
+    answer: "Yes. TEYES can help partners review target channels, price bands, head unit product mix, accessories, and technical support needs before starting a distributor program.",
   },
 ];
 
@@ -94,9 +110,9 @@ const SolutionsMarketNeedsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Android Head Unit Market Entry & Product Mix Guide"
-        description="Choose the right TEYES Android head unit product mix for premium, mainstream, emerging, mature, and price-sensitive markets."
-        keywords="android head unit market entry, car stereo distributor product mix, TEYES market strategy, infotainment distribution, premium android head unit"
+        title="Car Audio Market Entry & Android Head Unit Product Mix Guide"
+        description="Choose the right TEYES Android car stereo and head unit product mix for Europe, emerging markets, premium installers, price-sensitive channels, and car audio distributors."
+        keywords="android head unit market entry, car audio market entry, car stereo distributor product mix, TEYES Europe, TEYES EU, infotainment distribution, premium android head unit"
         path="/solutions/market-needs"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -106,7 +122,7 @@ const SolutionsMarketNeedsPage = () => {
         faq={faqs}
       />
       <ContextHeader
-        title="Solutions by Market Needs"
+        title="Car Audio Market Needs & Head Unit Product Mix"
         description="Product strategies and configurations adapted to your specific market conditions."
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -115,13 +131,12 @@ const SolutionsMarketNeedsPage = () => {
         ]}
       />
 
-      {/* Market Types */}
       <section className="py-20 bg-background">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-title mb-4">Market Types We Support</h2>
             <p className="section-subtitle mx-auto">
-              Different markets need different product ladders. Use this guide to match TEYES models with your local channel and customer expectations.
+              Different markets need different product ladders. Use this guide to match TEYES Android head unit, car stereo, and car radio models with your local channel and customer expectations.
             </p>
           </div>
 
@@ -179,16 +194,15 @@ const SolutionsMarketNeedsPage = () => {
               </Link>
             </Button>
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/products/compare">Compare Models</Link>
+              <Link to="/products/compare">Compare Head Unit Models</Link>
             </Button>
             <Button variant="ghost" size="lg" asChild>
-              <Link to="/solutions/distributors">Distributor Program</Link>
+              <Link to="/solutions/europe-distributors">Europe Distributor Support</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Product Mix Summary */}
       <section className="py-20 bg-card">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -222,13 +236,12 @@ const SolutionsMarketNeedsPage = () => {
         </div>
       </section>
 
-      {/* Support Services */}
       <section className="py-20 bg-card">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="section-title mb-4">Market Entry Support</h2>
             <p className="section-subtitle mx-auto">
-              We do not just sell products — we help you succeed in your market.
+              We do not just sell products — we help car audio distributors and head unit partners succeed in their market.
             </p>
           </div>
 
@@ -249,7 +262,6 @@ const SolutionsMarketNeedsPage = () => {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="py-20 bg-background">
         <div className="container-wide max-w-4xl">
           <div className="text-center mb-12">
@@ -266,14 +278,13 @@ const SolutionsMarketNeedsPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 bg-background">
         <div className="container-wide text-center">
           <h2 className="text-2xl font-display font-bold mb-4">
             Let's Discuss Your Market Strategy
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Share your target market and goals. We will provide insights and recommendations based on our global experience.
+            Share your target market and goals. We will provide insights and recommendations based on our global car audio and head unit distribution experience.
           </p>
           <Button variant="hero" size="lg" asChild>
             <Link to="/contact?intent=market">

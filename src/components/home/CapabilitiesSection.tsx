@@ -3,27 +3,27 @@ import { Cpu, Wrench, Boxes, Headphones } from "lucide-react";
 const capabilities = [
   {
     icon: Cpu,
-    title: "Hardware + Software Integration",
+    title: "Android Head Unit Platform",
     description:
-      "Complete infotainment platforms combining cutting-edge hardware with optimized software ecosystems.",
+      "TEYES combines Android infotainment hardware, UI, audio, camera, connectivity, and vehicle integration into market-ready product platforms.",
   },
   {
     icon: Boxes,
-    title: "Scalable Manufacturing",
+    title: "Wholesale Product Planning",
     description:
-      "From prototype to mass production, our facilities support orders of any scale with consistent quality.",
+      "Build a product ladder from entry-level to flagship models, with accessories and trial-order planning for your market.",
   },
   {
     icon: Wrench,
-    title: "Market-Ready Platforms",
+    title: "Localization & Vehicle Adaptation",
     description:
-      "Pre-validated product platforms that reduce time-to-market and minimize development risk.",
+      "Support for different market needs, languages, accessories, vehicle-fitment scenarios, and regional selling strategies.",
   },
   {
     icon: Headphones,
-    title: "Dedicated Support",
+    title: "Distributor & After-sales Support",
     description:
-      "Technical and commercial support throughout the product lifecycle, from planning to after-sales.",
+      "Product comparison materials, technical support, accessory guidance, and cooperation support for long-term channel development.",
   },
 ];
 
@@ -40,8 +40,8 @@ export function CapabilitiesSection() {
             What Makes TEYES a Long-term Partner
           </h2>
           <p className="section-subtitle mt-4">
-            We don't just sell products — we provide complete infotainment solutions 
-            that help your business grow.
+            We don't just sell products — we help partners build Android car stereo and
+            smart infotainment product lines for different market positions.
           </p>
         </div>
 

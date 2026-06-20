@@ -4,20 +4,20 @@ import { ArrowRight, Building2, Car, Settings } from "lucide-react";
 const partners = [
   {
     icon: Building2,
-    title: "Distributors",
-    description: "Access a proven product portfolio with competitive margins and reliable supply.",
+    title: "Distributors & Wholesalers",
+    description: "Access a proven Android car stereo portfolio with competitive margins and reliable supply.",
     href: "/solutions/distributors",
   },
   {
     icon: Car,
-    title: "Auto Brands",
-    description: "White-label and co-branded infotainment solutions tailored to your specifications.",
+    title: "Private Label & Auto Brands",
+    description: "White-label and co-branded infotainment solutions tailored to your market strategy.",
     href: "/solutions/auto-brands",
   },
   {
     icon: Settings,
-    title: "System Integrators",
-    description: "Flexible hardware platforms with open APIs for custom integrations.",
+    title: "Installers & System Integrators",
+    description: "Flexible product platforms, accessories, and integration support for professional channels.",
     href: "/solutions/integrators",
   },
 ];
@@ -30,7 +30,7 @@ export function PartnersSection() {
           <p className="text-primary font-medium mb-2">Partnership Models</p>
           <h2 className="section-title">Who We Work With</h2>
           <p className="section-subtitle mt-4 mx-auto">
-            We support different business models and partnership structures 
+            We support different business models and partnership structures
             to match your market strategy.
           </p>
         </div>

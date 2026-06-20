@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Cpu, Globe } from "lucide-react";
+import { ArrowRight, Building2, Cpu, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg400 from "@/assets/hero-bg-400.webp";
 import heroBg800 from "@/assets/hero-bg-800.webp";
@@ -16,27 +16,27 @@ import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
 
 const entryPoints = [
   {
-    id: "brand",
+    id: "products-compare",
     icon: Building2,
-    label: "Explore TEYES Products",
-    description: "Browse our proven infotainment lineup",
-    href: "/products",
+    label: "Product Lines & Model Comparison",
+    description: "Compare flagship, mainstream, and entry-level models",
+    href: "/products/compare",
     color: "from-primary to-blue-400",
   },
   {
     id: "oem-capabilities",
     icon: Cpu,
-    label: "OEM / ODM Capabilities",
-    description: "Learn about manufacturing & engineering",
+    label: "OEM / ODM & Private Label",
+    description: "Learn about manufacturing, branding, and project support",
     href: "/oem-odm",
     color: "from-accent to-cyan-400",
   },
   {
-    id: "oem-project",
-    icon: Globe,
-    label: "Start an OEM Project",
-    description: "Discuss your cooperation needs",
-    href: "/contact?intent=oem",
+    id: "distributor-cooperation",
+    icon: Handshake,
+    label: "Distributor / Wholesale Cooperation",
+    description: "Explore product-line planning and market support",
+    href: "/solutions/distributors",
     color: "from-emerald-500 to-teal-400",
   },
 ];
@@ -85,22 +85,23 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
-              <span className="text-gradient">Built for Global Markets</span>
+              <span className="text-gradient">TEYES Global Smart Infotainment Solutions</span>
             </h1>
 
-            <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide">
-              OEM-ready · Multi-market proven · Localization-friendly
+            <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
+              Android head units, car stereo systems, accessories, distributor cooperation,
+              and OEM/ODM solutions for global markets.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
                 <Link to="/products">
-                  Explore Products
+                  Explore Product Lines
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/contact">Contact TEYES</Link>
               </Button>
             </div>
 

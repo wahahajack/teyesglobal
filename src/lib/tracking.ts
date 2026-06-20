@@ -125,8 +125,25 @@ export function pushFormSubmitSuccess(formName: string, extra?: Record<string, u
   loadGtmNow();
 }
 
+export function pushContactEmailClick(email: string, extra?: Record<string, unknown>) {
+  window.dataLayer = window.dataLayer || [];
+
+  window.dataLayer.push({
+    event: "contact_email_click",
+    contact_method: "email",
+    email,
+    page_location: window.location.href,
+    page_path: window.location.pathname,
+    ...getStoredAdParams(),
+    ...extra,
+  });
+
+  // Email click is a micro-conversion; wake GTM so mail-client handoff is not missed.
+  loadGtmNow();
+}
+
 export function delayForConversionDispatch(timeout = 300) {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     window.setTimeout(resolve, timeout);
   });
 }

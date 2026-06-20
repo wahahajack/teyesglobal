@@ -8,69 +8,50 @@ import { ArrowRight, Check, Cpu, Palette, Code, Factory, Wrench, TestTube } from
 const capabilities = [
   {
     icon: Cpu,
-    title: "Hardware Customization",
-    description: "Modify hardware specifications, add interfaces, or develop custom PCB layouts.",
-    features: [
-      "Custom interface configurations",
-      "Screen size and resolution options",
-      "Memory and storage customization",
-      "Connector and harness adaptation",
-    ],
+    title: "Head Unit Hardware Customization",
+    description: "Modify Android car stereo hardware specifications, add interfaces, or develop custom PCB layouts.",
+    features: ["Custom interface configurations", "Screen size and resolution options", "Memory and storage customization", "Connector and harness adaptation"],
   },
   {
     icon: Palette,
-    title: "Branding & UI",
-    description: "Complete visual customization to match your brand identity.",
-    features: [
-      "Boot logo and animations",
-      "Custom UI themes and colors",
-      "Branded packaging design",
-      "Custom accessory design",
-    ],
+    title: "Car Radio Branding & UI",
+    description: "Complete visual customization to match your car audio or automotive electronics brand identity.",
+    features: ["Boot logo and animations", "Custom UI themes and colors", "Branded packaging design", "Custom accessory design"],
   },
   {
     icon: Code,
-    title: "Software Development",
-    description: "Custom software features and integrations for your specific needs.",
-    features: [
-      "Custom Android applications",
-      "Third-party integrations",
-      "Firmware modifications",
-      "Feature development",
-    ],
+    title: "Software & Firmware Development",
+    description: "Custom Android car radio software features, app integrations, and firmware support for your market.",
+    features: ["Custom Android applications", "Third-party integrations", "Firmware modifications", "Feature development"],
   },
   {
     icon: Factory,
-    title: "Manufacturing",
-    description: "Scalable production with consistent quality and on-time delivery.",
-    features: [
-      "Prototype development",
-      "Pilot production runs",
-      "Mass production scaling",
-      "Quality control systems",
-    ],
+    title: "Car Stereo Manufacturing",
+    description: "Scalable production for Android head units and car infotainment systems with consistent quality and on-time delivery.",
+    features: ["Prototype development", "Pilot production runs", "Mass production scaling", "Quality control systems"],
   },
   {
     icon: Wrench,
     title: "Engineering Support",
-    description: "Dedicated technical resources throughout your project lifecycle.",
-    features: [
-      "Project management",
-      "Technical consultation",
-      "Design reviews",
-      "Testing support",
-    ],
+    description: "Dedicated technical resources throughout your Android head unit project lifecycle.",
+    features: ["Project management", "Technical consultation", "Design reviews", "Testing support"],
   },
   {
     icon: TestTube,
     title: "Testing & Validation",
-    description: "Comprehensive testing to ensure product quality and compliance.",
-    features: [
-      "Environmental testing",
-      "EMC compliance testing",
-      "Reliability testing",
-      "Performance validation",
-    ],
+    description: "Comprehensive testing to support product quality, reliability, and regional compliance needs.",
+    features: ["Environmental testing", "EMC compliance testing", "Reliability testing", "Performance validation"],
+  },
+];
+
+const faqs = [
+  {
+    question: "What OEM/ODM capabilities does TEYES offer for Android head units?",
+    answer: "TEYES supports Android head unit and car stereo OEM/ODM projects covering hardware configuration, UI branding, firmware support, app integration, accessory planning, testing, and production.",
+  },
+  {
+    question: "Can TEYES support car radio factory projects for global brands?",
+    answer: "Yes. TEYES can support global brands and distributors looking for Android car radio factory capabilities, white-label cooperation, and market-specific product customization.",
   },
 ];
 
@@ -78,26 +59,28 @@ const OemCapabilitiesPage = () => {
   return (
     <Layout>
       <SEO
-        title="OEM/ODM Capabilities - Hardware, Software & Manufacturing"
-        description="Full-spectrum OEM/ODM capabilities: hardware customization, branding, software development, manufacturing, engineering support, and testing services."
-        keywords="OEM capabilities, hardware customization, custom branding, software development, automotive manufacturing"
+        title="Android Car Radio OEM/ODM Capabilities | TEYES Head Unit Factory Support"
+        description="Explore TEYES OEM/ODM capabilities for Android car radios, car stereos, and head unit systems, including hardware customization, UI branding, firmware support, testing, and production."
+        keywords="Android car radio OEM ODM, head unit factory, car stereo manufacturing, car radio factory, hardware customization, custom branding, software development, automotive manufacturing"
         path="/oem-odm/capabilities"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "OEM / ODM", href: "/oem-odm" },
+          { label: "Capabilities" },
+        ]}
+        faq={faqs}
       />
       <ContextHeader
-        title="Full-Spectrum OEM/ODM Capabilities"
-        description="From minor customizations to ground-up product development, we have the capabilities to support your project."
+        title="Android Car Radio & Head Unit OEM/ODM Capabilities"
+        description="From minor customizations to full product development, TEYES supports Android car stereo and head unit projects for brands, distributors, and automotive electronics partners."
         backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
       />
 
-      {/* Capabilities Grid */}
       <section className="py-20 bg-background">
         <div className="container-wide">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {capabilities.map((cap) => (
-              <div
-                key={cap.title}
-                className="rounded-2xl bg-card border border-border/50 p-8 hover:border-primary/30 transition-colors"
-              >
+              <div key={cap.title} className="rounded-2xl bg-card border border-border/50 p-8 hover:border-primary/30 transition-colors">
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                   <cap.icon className="h-7 w-7 text-primary" />
                 </div>
@@ -117,17 +100,12 @@ const OemCapabilitiesPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20 bg-card">
         <div className="container-wide text-center">
-          <h2 className="text-2xl font-display font-bold mb-4">
-            Have a Project in Mind?
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Let's discuss your requirements and find the right approach for your project.
-          </p>
+          <h2 className="text-2xl font-display font-bold mb-4">Have an Android Head Unit Project in Mind?</h2>
+          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">Let's discuss your car radio factory, car stereo OEM/ODM, or white-label head unit requirements and find the right approach for your project.</p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact?intent=oem">
               Start a Conversation
               <ArrowRight className="h-4 w-4" />
             </Link>

@@ -16,7 +16,7 @@ const productSeries = [
     id: "flagship",
     name: "Flagship Series",
     tagline: "CC4 Pro",
-    description: "Leading performance with 6nm CPU, 12TOPS NPU, and premium DTS audio.",
+    description: "Premium Android head unit positioning for mature markets, flagship installers, and high-margin upgrade channels.",
     image: cc4ProImg,
     badge: "NEW",
     features: ["8-Core 6nm CPU", "12TOPS AI NPU", "7.1 Channel Audio", "360° Camera"],
@@ -26,7 +26,7 @@ const productSeries = [
     id: "advanced",
     name: "Advanced Series",
     tagline: "CC3 2K",
-    description: "Best-selling performance and value for demanding users.",
+    description: "Mainstream distributor model for balanced performance, strong feature value, and wider market demand.",
     image: cc3Img,
     badge: "BESTSELLER",
     features: ["8-Core 12nm CPU", "2K Display", "5.1 Channel Audio", "4 Cameras"],
@@ -36,7 +36,7 @@ const productSeries = [
     id: "entry",
     name: "Entry Series",
     tagline: "X1 Pro",
-    description: "Reliable and affordable entry point for every market.",
+    description: "Reliable entry-level choice for price-sensitive channels, trial markets, and volume-focused product ladders.",
     image: x1ProImg,
     badge: null,
     features: ["Quad-Core CPU", "HD Display", "Apple CarPlay", "Android Auto"],
@@ -50,10 +50,14 @@ export function ProductsSection() {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <p className="text-primary font-medium mb-2">Product Matrix</p>
+            <p className="text-primary font-medium mb-2">Product Ladder</p>
             <h2 className="section-title">
-              For Partners Who Know What They're Looking For
+              TEYES Android Head Unit Product Ladder
             </h2>
+            <p className="section-subtitle mt-4 max-w-3xl">
+              Choose flagship, mainstream, or entry-level Android car stereo models for different
+              markets, channels, and customer budgets.
+            </p>
           </div>
           <Button variant="hero-outline" asChild>
             <Link to="/products">

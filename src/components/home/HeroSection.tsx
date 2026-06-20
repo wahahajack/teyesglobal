@@ -76,7 +76,7 @@ export function HeroSection() {
 
       {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
+        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-8 lg:gap-12 items-center">
           {/* Left: Text Content */}
           <div className="space-y-4 md:space-y-6 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
@@ -108,10 +108,10 @@ export function HeroSection() {
           </div>
 
           {/* Right: Product Image */}
-          <div className="relative animate-fade-in-up delay-200">
+          <div className="relative animate-fade-in-up delay-200 max-w-[520px] xl:max-w-[560px] w-full mx-auto lg:ml-auto">
             <div className="relative">
               {/* Glow behind image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-accent/20 to-transparent rounded-3xl blur-3xl transform scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-accent/15 to-transparent rounded-3xl blur-3xl transform scale-105" />
 
               {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl animate-float-slow">
@@ -119,12 +119,12 @@ export function HeroSection() {
                   <source
                     type="image/avif"
                     srcSet={`${cc4Pro400Avif} 400w, ${cc4Pro800Avif} 800w, ${cc4Pro1200Avif} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 800px"
+                    sizes="(max-width: 768px) 90vw, 560px"
                   />
                   <source
                     type="image/webp"
                     srcSet={`${cc4Pro400} 400w, ${cc4Pro800} 800w, ${cc4Pro1200} 1200w`}
-                    sizes="(max-width: 768px) 90vw, 800px"
+                    sizes="(max-width: 768px) 90vw, 560px"
                   />
                   <img
                     src={cc4Pro800}
@@ -139,11 +139,11 @@ export function HeroSection() {
                 </picture>
 
                 {/* Image Overlay with Product Info */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
-                  <div className="flex items-end justify-between">
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
+                  <div className="flex items-end justify-between gap-4">
                     <div>
                       <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
-                      <h3 className="text-2xl font-bold text-foreground">CC4 Pro</h3>
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground">CC4 Pro</h3>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
                     <Button variant="hero" size="sm" asChild>
@@ -157,7 +157,7 @@ export function HeroSection() {
               </div>
 
               {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 px-4 py-2 bg-gold text-gold-foreground rounded-full text-sm font-bold shadow-lg animate-float">
+              <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-gold text-gold-foreground rounded-full text-xs font-bold shadow-lg animate-float">
                 Flagship Model
               </div>
             </div>

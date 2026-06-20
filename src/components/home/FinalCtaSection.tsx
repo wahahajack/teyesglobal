@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 export function FinalCtaSection() {
   return (
@@ -24,16 +24,32 @@ export function FinalCtaSection() {
             Let's Talk About Your Market or Project
           </h2>
           <p className="text-xl text-muted-foreground mb-10">
-            Whether you're expanding into a new market, sourcing products, or exploring 
+            Whether you're expanding into a new market, sourcing products, or exploring
             OEM collaboration — we're ready to discuss how TEYES can support your goals.
           </p>
 
-          <Button variant="hero" size="xl" asChild>
-            <Link to="/contact">
-              Contact TEYES
-              <MessageCircle className="h-5 w-5" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/contact?intent=distributor">
+                Get Wholesale Pricing & Trial Plan
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="hero-outline" size="xl" asChild>
+              <Link to="/contact?intent=oem">
+                Discuss OEM / ODM Project
+                <MessageCircle className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+
+          <Link
+            to="/products/compare"
+            className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+          >
+            Compare TEYES Models
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

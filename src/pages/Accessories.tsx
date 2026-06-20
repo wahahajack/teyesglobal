@@ -3,24 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Camera,
-  Gauge,
-  Cable,
-  Mic,
-  Radio,
-  Monitor,
-  Car,
-  Cpu,
-  Volume2,
-  Boxes,
-  ShieldCheck,
-  Wrench,
-  LucideIcon,
-} from "lucide-react";
+import { ArrowRight, Camera, Gauge, Cable, Mic, Radio, Monitor, Car, Cpu, Volume2, Boxes, ShieldCheck, Wrench, LucideIcon } from "lucide-react";
 
-// Import accessory images
 import tpmsSystem from "@/assets/accessories/tpms-system.webp";
 import obd2Adapter from "@/assets/accessories/obd2-adapter.webp";
 import dvrDashcam from "@/assets/accessories/dvr-dashcam-800.webp";
@@ -58,22 +42,12 @@ type ImageVariants = { avif?: string; webp?: string; srcSetWebp?: string; srcSet
 const productImages: Record<string, string | ImageVariants> = {
   tpms: tpmsSystem,
   obd2: obd2Adapter,
-  "dvr-dash-camera": {
-    webp: dvrDashcam,
-    avif: dvrDashcam800Avif,
-    srcSetWebp: `${dvrDashcam400} 400w, ${dvrDashcam} 800w, ${dvrDashcam1200} 1200w`,
-    srcSetAvif: `${dvrDashcam400Avif} 400w, ${dvrDashcam800Avif} 800w, ${dvrDashcam1200Avif} 1200w`,
-  },
+  "dvr-dash-camera": { webp: dvrDashcam, avif: dvrDashcam800Avif, srcSetWebp: `${dvrDashcam400} 400w, ${dvrDashcam} 800w, ${dvrDashcam1200} 1200w`, srcSetAvif: `${dvrDashcam400Avif} 400w, ${dvrDashcam800Avif} 800w, ${dvrDashcam1200Avif} 1200w` },
   "sony-backup-camera": sonyBackupCamera,
   "rear-view-camera-hs": rearViewCameraHs,
   "dab-adapter": dabAdapter,
   "line-out-rca": rcaCable,
-  "360-camera-cc3": {
-    webp: cc3360Camera,
-    avif: cc3360Camera800Avif,
-    srcSetWebp: `${cc3360Camera400} 400w, ${cc3360Camera} 800w, ${cc3360Camera1200} 1200w`,
-    srcSetAvif: `${cc3360Camera400Avif} 400w, ${cc3360Camera800Avif} 800w, ${cc3360Camera1200Avif} 1200w`,
-  },
+  "360-camera-cc3": { webp: cc3360Camera, avif: cc3360Camera800Avif, srcSetWebp: `${cc3360Camera400} 400w, ${cc3360Camera} 800w, ${cc3360Camera1200} 1200w`, srcSetAvif: `${cc3360Camera400Avif} 400w, ${cc3360Camera800Avif} 800w, ${cc3360Camera1200Avif} 1200w` },
   "cc4-front-camera": cc4FrontCamera,
   "cc4-rear-camera": cc4RearCamera,
   "360-camera-luxone": luxone360Camera,
@@ -89,16 +63,7 @@ const productImages: Record<string, string | ImageVariants> = {
   "voice-control": voiceControl,
 };
 
-interface AccessoryProduct {
-  id: string;
-  category: string;
-  name: string;
-  description: string;
-  price: string;
-  compat: string;
-  reviews: number;
-  icon: LucideIcon;
-}
+interface AccessoryProduct { id: string; category: string; name: string; description: string; price: string; compat: string; reviews: number; icon: LucideIcon; }
 
 const accessoryProducts: AccessoryProduct[] = [
   { id: "360-camera-cc3", category: "Camera Systems", name: "CC3 360° Camera System", description: "3D 360° surround view camera with 4 HD cameras for seamless bird's-eye visibility.", price: "from $100", compat: "CC3, CC3 2K", reviews: 220, icon: Camera },
@@ -125,226 +90,45 @@ const accessoryProducts: AccessoryProduct[] = [
 ];
 
 const categories = [...new Set(accessoryProducts.map((p) => p.category))];
-
 const supportHighlights = [
-  { icon: Boxes, title: "Accessory Upsell Range", description: "Use cameras, TPMS, audio, and installation add-ons to build higher-value order combinations." },
+  { icon: Boxes, title: "Car Radio Parts Range", description: "Use cameras, TPMS, audio, and installation add-ons to build higher-value Android head unit order combinations." },
   { icon: Wrench, title: "Installation-ready Selection", description: "Match accessories with real fitment, visibility, and installation use cases before building your starter mix." },
   { icon: ShieldCheck, title: "Channel-friendly Support", description: "Support distributors and installers with clearer accessory positioning, bundle logic, and recommendation flows." },
 ];
-
 const bundleRecommendations = [
-  {
-    title: "Premium Upgrade Bundle",
-    idealFor: "Premium installers and advanced upgrade projects",
-    includes: ["360° Camera System", "Dash Camera DVR", "CC4 Digital Microphone", "Line Out RCA Cable"],
-    reason: "A strong bundle for customers who want immersive visibility, better audio expansion, and a more complete premium upgrade story.",
-  },
-  {
-    title: "Safety & Visibility Bundle",
-    idealFor: "Mainstream retail and family vehicle upgrades",
-    includes: ["Backup Camera", "Parking Sensors", "TPMS", "Dash Camera DVR"],
-    reason: "Focuses on daily driving confidence and raises ticket value without making the offer too complex.",
-  },
-  {
-    title: "Essential Starter Bundle",
-    idealFor: "First trial orders and price-sensitive channels",
-    includes: ["OBD II Adapter", "External Microphone", "Power Filter", "Screen Protector"],
-    reason: "Low-barrier accessories that are easy to explain, easy to stock, and useful across a wide range of TEYES units.",
-  },
+  { title: "Premium Head Unit Upgrade Bundle", idealFor: "Premium installers and advanced upgrade projects", includes: ["360° Camera System", "Dash Camera DVR", "CC4 Digital Microphone", "Line Out RCA Cable"], reason: "A strong bundle for customers who want immersive visibility, better audio expansion, and a more complete premium car stereo upgrade story." },
+  { title: "Safety & Visibility Bundle", idealFor: "Mainstream retail and family vehicle upgrades", includes: ["Backup Camera", "Parking Sensors", "TPMS", "Dash Camera DVR"], reason: "Focuses on daily driving confidence and raises ticket value without making the offer too complex." },
+  { title: "Essential Car Radio Parts Bundle", idealFor: "First trial orders and price-sensitive channels", includes: ["OBD II Adapter", "External Microphone", "Power Filter", "Screen Protector"], reason: "Low-barrier accessories that are easy to explain, easy to stock, and useful across a wide range of TEYES head units." },
 ];
-
 const accessoryFaqs = [
-  {
-    question: "Which accessories should a distributor test first?",
-    answer: "A practical starter mix usually begins with backup or 360° cameras, TPMS, OBD II adapters, microphones, and installation accessories because they fit multiple sales channels and are easier to explain to end customers.",
-  },
-  {
-    question: "Are all accessories compatible with every TEYES model?",
-    answer: "No. Some accessories work across most TEYES units, while others are specific to certain product lines such as CC4 Pro, CC3 2K, or LUX ONE. Always confirm compatibility before building a sales bundle.",
-  },
-  {
-    question: "Can TEYES help recommend accessories for different markets?",
-    answer: "Yes. TEYES can help partners choose accessory bundles based on target price band, installation complexity, visibility needs, and the types of vehicles or channels they serve.",
-  },
+  { question: "Which car radio parts should a distributor test first?", answer: "A practical starter mix usually begins with backup or 360° cameras, TPMS, OBD II adapters, microphones, and installation accessories because they fit multiple sales channels and are easier to explain to end customers." },
+  { question: "Are all accessories compatible with every TEYES head unit?", answer: "No. Some car radio parts and accessories work across most TEYES units, while others are specific to product lines such as CC4 Pro, CC3 2K, or LUX ONE. Always confirm compatibility before building a sales bundle." },
+  { question: "Can TEYES help recommend accessories for wholesale car audio channels?", answer: "Yes. TEYES can help partners choose accessory bundles based on target price band, installation complexity, visibility needs, and the types of vehicles or channels they serve." },
 ];
 
 const AccessoryCard = ({ product }: { product: AccessoryProduct }) => {
   const image = productImages[product.id];
   const IconComponent = product.icon;
-
   return (
     <div className="group rounded-2xl bg-card border border-border/50 overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
       <div className="aspect-square bg-gradient-to-br from-secondary/50 to-card flex items-center justify-center relative overflow-hidden">
-        {image ? (
-          typeof image === "string" ? (
-            <img src={image} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-          ) : (
-            <picture>
-              {image.avif && <source type="image/avif" srcSet={image.srcSetAvif} sizes="(max-width: 768px) 45vw, 200px" />}
-              {image.webp && <source type="image/webp" srcSet={image.srcSetWebp} sizes="(max-width: 768px) 45vw, 200px" />}
-              <img src={image.webp || ""} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-            </picture>
-          )
-        ) : (
-          <IconComponent className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />
-        )}
+        {image ? (typeof image === "string" ? <img src={image} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" /> : <picture>{image.avif && <source type="image/avif" srcSet={image.srcSetAvif} sizes="(max-width: 768px) 45vw, 200px" />}{image.webp && <source type="image/webp" srcSet={image.srcSetWebp} sizes="(max-width: 768px) 45vw, 200px" />}<img src={image.webp || ""} alt={product.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" /></picture>) : <IconComponent className="h-16 w-16 text-muted-foreground/30 transition-transform duration-300 group-hover:scale-110" />}
       </div>
-
-      <div className="p-4">
-        <h3 className="font-semibold text-foreground mb-1 line-clamp-2 min-h-[2.5rem]">{product.name}</h3>
-        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 min-h-[2.5rem]">{product.description}</p>
-        <div className="text-xs">
-          <span className="text-muted-foreground">{product.compat}</span>
-        </div>
-      </div>
+      <div className="p-4"><h3 className="font-semibold text-foreground mb-1 line-clamp-2 min-h-[2.5rem]">{product.name}</h3><p className="text-sm text-muted-foreground mb-3 line-clamp-2 min-h-[2.5rem]">{product.description}</p><div className="text-xs"><span className="text-muted-foreground">{product.compat}</span></div></div>
     </div>
   );
 };
 
-const AccessoriesPage = () => {
-  return (
-    <Layout>
-      <SEO
-        title="TEYES Accessories for Android Head Unit Distributors"
-        description="Explore TEYES accessories for distributors and installers, including 360° camera systems, dash cameras, TPMS, OBD II adapters, audio accessories, and installation tools."
-        keywords="TEYES accessories, android head unit accessories, 360 camera system, dash camera DVR, TPMS, OBD2 adapter, distributor accessories"
-        path="/accessories"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Products", href: "/products" },
-          { label: "Accessories" },
-        ]}
-        faq={accessoryFaqs}
-      />
-      <ContextHeader
-        title="Smart Accessories"
-        description="Official TEYES accessories for cameras, monitoring, audio, connectivity, and installation-ready upgrades."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Products", href: "/products" },
-          { label: "Accessories" },
-        ]}
-      />
-
-      <section className="py-16 bg-background">
-        <div className="container-wide">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="section-title mb-4">Accessories That Help Distributors Sell a More Complete Upgrade</h2>
-            <p className="section-subtitle mx-auto">
-              Accessories are not just add-ons. They help improve product positioning, raise average order value, and give installers more complete upgrade packages.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {supportHighlights.map((item) => (
-              <div key={item.title} className="rounded-xl bg-card border border-border/50 p-6">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <item.icon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 mt-10">
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/contact?intent=accessories">
-                Get Accessory Recommendations
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/solutions/distributors">Distributor Program</Link>
-            </Button>
-            <Button variant="ghost" size="lg" asChild>
-              <Link to="/products/compare">Compare Models</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-card">
-        <div className="container-wide">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="section-title mb-4">Recommended Accessory Bundles</h2>
-            <p className="section-subtitle mx-auto">Use these bundle ideas as a starting point for different channels and market needs.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {bundleRecommendations.map((bundle) => (
-              <div key={bundle.title} className="rounded-2xl bg-background border border-border/50 p-6">
-                <h3 className="text-lg font-semibold mb-2">{bundle.title}</h3>
-                <p className="text-sm text-primary mb-4">Ideal for: {bundle.idealFor}</p>
-                <ul className="space-y-2 mb-4 text-sm text-muted-foreground">
-                  {bundle.includes.map((item) => (
-                    <li key={item} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-sm text-muted-foreground">{bundle.reason}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-background">
-        <div className="container-wide">
-          {categories.map((category) => (
-            <div key={category} className="mb-16 last:mb-0">
-              <h2 className="text-2xl font-display font-bold mb-8 text-foreground">{category}</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {accessoryProducts
-                  .filter((p) => p.category === category)
-                  .map((product) => (
-                    <AccessoryCard key={product.id} product={product} />
-                  ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-20 bg-card">
-        <div className="container-wide max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">Accessories FAQ</h2>
-            <p className="section-subtitle mx-auto">Quick answers for distributors and installers planning a better accessory lineup.</p>
-          </div>
-          <div className="space-y-4">
-            {accessoryFaqs.map((faq) => (
-              <div key={faq.question} className="p-6 rounded-xl bg-background border border-border/50">
-                <h3 className="font-semibold mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground text-sm">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-background">
-        <div className="container-wide text-center">
-          <h2 className="text-2xl font-display font-bold mb-4">Need Help Finding the Right Accessories?</h2>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Share your product line, market, and installation scenario. We will recommend the accessory mix that fits your TEYES head unit offering.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/contact?intent=accessories">
-                Get Recommendations
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/solutions/market-needs">View Market Needs</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-    </Layout>
-  );
-};
+const AccessoriesPage = () => (
+  <Layout>
+    <SEO title="TEYES Car Radio Parts & Head Unit Accessories for Distributors" description="Explore TEYES car radio parts and Android head unit accessories for distributors and installers, including 360 cameras, DVR, TPMS, OBD II, microphones, cables, and installation tools." keywords="TEYES accessories, car radio parts suppliers, android head unit accessories, car audio accessories, 360 camera system, dash camera DVR, TPMS, OBD2 adapter" path="/accessories" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: "Accessories" }]} faq={accessoryFaqs} />
+    <ContextHeader title="Smart Accessories" description="Car radio parts and Android head unit accessories for distributors, installers, and wholesale car audio channels." breadcrumbs={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: "Accessories" }]} />
+    <section className="py-16 bg-background"><div className="container-wide"><div className="text-center max-w-3xl mx-auto mb-12"><h2 className="section-title mb-4">Car Radio Parts That Help Distributors Sell a More Complete Head Unit Upgrade</h2><p className="section-subtitle mx-auto">Accessories are not just add-ons. They help improve product positioning, raise average order value, and give installers more complete Android car stereo upgrade packages.</p></div><div className="grid md:grid-cols-3 gap-6">{supportHighlights.map((item) => (<div key={item.title} className="rounded-xl bg-card border border-border/50 p-6"><div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4"><item.icon className="h-6 w-6 text-primary" /></div><h3 className="text-lg font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.description}</p></div>))}</div><div className="flex flex-wrap justify-center gap-3 mt-10"><Button variant="hero" size="lg" asChild><Link to="/contact?intent=accessories">Get Accessory Recommendations<ArrowRight className="h-4 w-4" /></Link></Button><Button variant="hero-outline" size="lg" asChild><Link to="/solutions/distributors">Distributor Program</Link></Button><Button variant="ghost" size="lg" asChild><Link to="/products/compare">Compare Head Unit Models</Link></Button></div></div></section>
+    <section className="py-20 bg-card"><div className="container-wide"><div className="text-center max-w-3xl mx-auto mb-12"><h2 className="section-title mb-4">Recommended Accessory Bundles</h2><p className="section-subtitle mx-auto">Use these bundle ideas as a starting point for different wholesale car audio channels and market needs.</p></div><div className="grid md:grid-cols-3 gap-6">{bundleRecommendations.map((bundle) => (<div key={bundle.title} className="rounded-2xl bg-background border border-border/50 p-6"><h3 className="text-lg font-semibold mb-2">{bundle.title}</h3><p className="text-sm text-primary mb-4">Ideal for: {bundle.idealFor}</p><ul className="space-y-2 mb-4 text-sm text-muted-foreground">{bundle.includes.map((item) => (<li key={item} className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" /><span>{item}</span></li>))}</ul><p className="text-sm text-muted-foreground">{bundle.reason}</p></div>))}</div></div></section>
+    <section className="py-20 bg-background"><div className="container-wide">{categories.map((category) => (<div key={category} className="mb-16 last:mb-0"><h2 className="text-2xl font-display font-bold mb-8 text-foreground">{category}</h2><div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">{accessoryProducts.filter((p) => p.category === category).map((product) => (<AccessoryCard key={product.id} product={product} />))}</div></div>))}</div></section>
+    <section className="py-20 bg-card"><div className="container-wide max-w-4xl"><div className="text-center mb-12"><h2 className="section-title mb-4">Accessories FAQ</h2><p className="section-subtitle mx-auto">Quick answers for distributors and installers planning a better car radio parts and accessory lineup.</p></div><div className="space-y-4">{accessoryFaqs.map((faq) => (<div key={faq.question} className="p-6 rounded-xl bg-background border border-border/50"><h3 className="font-semibold mb-2">{faq.question}</h3><p className="text-muted-foreground text-sm">{faq.answer}</p></div>))}</div></div></section>
+    <section className="py-20 bg-background"><div className="container-wide text-center"><h2 className="text-2xl font-display font-bold mb-4">Need Help Finding the Right Accessories?</h2><p className="text-muted-foreground mb-8 max-w-xl mx-auto">Share your product line, market, and installation scenario. We will recommend the accessory mix that fits your TEYES Android head unit and car stereo offering.</p><div className="flex flex-wrap justify-center gap-3"><Button variant="hero" size="lg" asChild><Link to="/contact?intent=accessories">Get Recommendations<ArrowRight className="h-4 w-4" /></Link></Button><Button variant="hero-outline" size="lg" asChild><Link to="/solutions/market-needs">View Market Needs</Link></Button></div></div></section>
+  </Layout>
+);
 
 export default AccessoriesPage;

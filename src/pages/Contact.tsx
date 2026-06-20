@@ -178,7 +178,7 @@ const ContactPage = () => {
       />
       <ContextHeader
         title="Contact Us"
-        description="Whether you're interested in distribution, OEM partnership, or have questions â€?we're here to help."
+        description="Whether you are interested in distribution, OEM partnership, or have questions, we are here to help."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Contact" },

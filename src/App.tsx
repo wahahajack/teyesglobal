@@ -11,7 +11,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-// Lazy load non-critical pages for better mobile performance
 // Products
 const ProductsPage = lazy(() => import("./pages/products/Products"));
 const ProductLinesPage = lazy(() => import("./pages/products/ProductLines"));
@@ -24,6 +23,11 @@ const SolutionsDistributorsPage = lazy(() => import("./pages/solutions/Solutions
 const SolutionsAutoBrandsPage = lazy(() => import("./pages/solutions/SolutionsAutoBrands"));
 const SolutionsIntegratorsPage = lazy(() => import("./pages/solutions/SolutionsIntegrators"));
 const SolutionsMarketNeedsPage = lazy(() => import("./pages/solutions/SolutionsMarketNeeds"));
+const SolutionsEuropeDistributorsPage = lazy(() => import("./pages/solutions/SolutionsEuropeDistributors"));
+
+// Resources
+const ChinaCarAudioManufacturersGuide = lazy(() => import("./pages/resources/ChinaCarAudioManufacturersGuide"));
+const AndroidCarStereoWholesaleGuide = lazy(() => import("./pages/resources/AndroidCarStereoWholesaleGuide"));
 
 // OEM/ODM
 const OemOdmPage = lazy(() => import("./pages/oem/OemOdm"));
@@ -41,7 +45,6 @@ const AccessoriesPage = lazy(() => import("./pages/Accessories"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 const HomeThankYou = lazy(() => import("./pages/HomeThankYou"));
 
-// Minimal loading fallback
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
@@ -66,32 +69,28 @@ const App = () => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
-              {/* Products */}
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/products/lines" element={<ProductLinesPage />} />
               <Route path="/products/compare" element={<ProductComparePage />} />
               <Route path="/products/:productId" element={<ProductDetailPage />} />
-              {/* Solutions */}
               <Route path="/solutions" element={<SolutionsPage />} />
               <Route path="/solutions/distributors" element={<SolutionsDistributorsPage />} />
               <Route path="/solutions/auto-brands" element={<SolutionsAutoBrandsPage />} />
               <Route path="/solutions/integrators" element={<SolutionsIntegratorsPage />} />
               <Route path="/solutions/market-needs" element={<SolutionsMarketNeedsPage />} />
-              {/* OEM/ODM */}
+              <Route path="/solutions/europe-distributors" element={<SolutionsEuropeDistributorsPage />} />
+              <Route path="/resources/china-car-audio-manufacturers-guide" element={<ChinaCarAudioManufacturersGuide />} />
+              <Route path="/resources/android-car-stereo-wholesale-guide" element={<AndroidCarStereoWholesaleGuide />} />
               <Route path="/oem-odm" element={<OemOdmPage />} />
               <Route path="/oem-odm/capabilities" element={<OemCapabilitiesPage />} />
               <Route path="/oem-odm/certifications" element={<OemCertificationsPage />} />
               <Route path="/oem-odm/cases" element={<OemCasesPage />} />
-              {/* Landing Pages */}
               <Route path="/landing/oem" element={<LandingOemPage />} />
               <Route path="/landing/market-entry" element={<LandingMarketEntryPage />} />
               <Route path="/landing/distributor" element={<LandingDistributorPage />} />
-              {/* Accessories */}
               <Route path="/accessories" element={<AccessoriesPage />} />
-              {/* Contact */}
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/thank-you" element={<HomeThankYou />} />
-              {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

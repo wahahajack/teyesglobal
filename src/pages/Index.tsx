@@ -16,7 +16,7 @@ const Index = () => {
     "name": "TEYES",
     "url": "https://teyesglobal.com",
     "logo": "https://teyesglobal.com/logo.webp",
-    "description": "Global leader in automotive infotainment systems, offering advanced Android head units, 360° cameras, and smart driving solutions for the aftermarket.",
+    "description": "TEYES provides Android car stereos, car radios, head units, car infotainment systems, accessories, and OEM/ODM cooperation for global distributors, installers, retailers, and automotive brands.",
     "foundingDate": "2011",
     "numberOfEmployees": {
       "@type": "QuantitativeValue",
@@ -27,10 +27,14 @@ const Index = () => {
       "name": "Global (100+ markets)"
     },
     "knowsAbout": [
-      "Car Infotainment Systems",
       "Android Head Units",
+      "Android Car Stereos",
+      "Car Radio Systems",
+      "Car Infotainment Systems",
+      "Automotive Aftermarket Distribution",
       "OEM/ODM Manufacturing",
-      "Automotive Aftermarket Solutions"
+      "Vehicle Camera Systems",
+      "Dealer Support"
     ],
     "sameAs": [
       "https://www.facebook.com/teyesglobal",
@@ -47,10 +51,22 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="TEYES - Smart Infotainment Solutions for Global Markets"
-        description="Global Smart Infotainment Solutions for the Automotive Aftermarket. OEM/ODM partner trusted by distributors across 100+ markets."
+        title="TEYES Android Car Stereo & Head Unit Supplier for Distributors"
+        description="TEYES supplies premium Android car stereos, car radios, head units, accessories, and OEM/ODM infotainment solutions for global distributors, installers, retailers, and automotive brands."
+        keywords="TEYES, Android head unit, Android car stereo, car radio supplier, car stereo supplier, car infotainment supplier, wholesale car audio, OEM ODM car radio"
         path="/"
         schema={schema}
+        breadcrumbs={[{ label: "Home", href: "/" }]}
+        faq={[
+          {
+            question: "Who is TEYES Global for?",
+            answer: "TEYES Global is built for distributors, installers, retailers, system integrators, and automotive brands looking for Android head units, Android car stereos, car radios, and OEM/ODM infotainment cooperation.",
+          },
+          {
+            question: "Can TEYES support distributor product selection?",
+            answer: "Yes. TEYES offers a product ladder from flagship to entry-level head unit and car stereo models so partners can build a product mix for premium, mainstream, and price-sensitive markets.",
+          },
+        ]}
       />
       <HeroSection />
       <TrustSection />

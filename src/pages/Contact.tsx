@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
@@ -11,7 +11,7 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
-import { delayForConversionDispatch, pushFormSubmitSuccess } from "@/lib/tracking";
+import { delayForConversionDispatch, pushContactEmailClick, pushFormSubmitSuccess } from "@/lib/tracking";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_kzddimj";
@@ -54,6 +54,17 @@ const ContactPage = () => {
     inquiryType: "",
     message: "",
   });
+
+  const handleEmailClick = (emailHref: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    pushContactEmailClick("info@teyesauto.com", {
+      link_location: "contact_page_contact_info",
+    });
+
+    window.setTimeout(() => {
+      window.location.href = emailHref;
+    }, 250);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -324,6 +335,7 @@ const ContactPage = () => {
                         {info.href ? (
                           <a
                             href={info.href}
+                            onClick={info.label === "Email" ? handleEmailClick(info.href) : undefined}
                             target={info.label === "WhatsApp" ? "_blank" : undefined}
                             rel={info.label === "WhatsApp" ? "noopener noreferrer" : undefined}
                             className="font-medium hover:text-primary transition-colors"

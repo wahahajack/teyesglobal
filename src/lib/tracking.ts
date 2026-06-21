@@ -11,6 +11,8 @@ const AD_PARAM_KEYS = [
   "utm_term",
 ] as const;
 
+const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
+
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -76,23 +78,40 @@ export function loadGtmNow() {
 }
 
 export function loadGtmWhenIdle() {
-  const scheduleInject = () => {
+  const schedulePassiveLoad = () => {
     if (window.__teyesGtmLoaded) return;
 
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(injectGtm, { timeout: 3000 });
-      return;
-    }
+    const loadFromInteraction = () => {
+      cleanupInteractionListeners();
+      loadGtmNow();
+    };
 
-    window.__teyesGtmLoadTimer = window.setTimeout(injectGtm, 1800);
+    const cleanupInteractionListeners = () => {
+      GTM_INTERACTION_EVENTS.forEach((eventName) => {
+        window.removeEventListener(eventName, loadFromInteraction);
+      });
+    };
+
+    GTM_INTERACTION_EVENTS.forEach((eventName) => {
+      window.addEventListener(eventName, loadFromInteraction, {
+        once: true,
+        passive: true,
+      });
+    });
+
+    // Passive pageview tracking can wait. Conversion events still call loadGtmNow() immediately.
+    window.__teyesGtmLoadTimer = window.setTimeout(() => {
+      cleanupInteractionListeners();
+      injectGtm();
+    }, 6000);
   };
 
   if (document.readyState === "complete") {
-    scheduleInject();
+    schedulePassiveLoad();
     return;
   }
 
-  window.addEventListener("load", scheduleInject, { once: true });
+  window.addEventListener("load", schedulePassiveLoad, { once: true });
 }
 
 export function getStoredAdParams() {

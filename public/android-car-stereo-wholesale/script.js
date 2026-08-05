@@ -332,16 +332,9 @@
         value: 1,
         event_category: 'conversion'
       });
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', {
-          form_name: 'wholesale_quote',
-          form_location: 'wholesale_landing_page',
-          lead_type: 'wholesale_inquiry'
-        });
-      }
       const currentParams = new URLSearchParams(window.location.search);
       const tracked = new URLSearchParams();
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach((key) => {
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach((key) => {
         const value = currentParams.get(key);
         if (value) tracked.set(key, value);
       });

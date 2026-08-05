@@ -97,7 +97,7 @@
             Instant Response
         </div>
         <a href="https://wa.me/8618594023375?text=Hi%2C%20I%27m%20interested%20in%20exploring%20distributor%20opportunities%20in%20my%20market."
-            id="mobile-whatsapp-cta" onclick="trackWhatsAppClick()" class="btn-electric"
+            id="mobile-whatsapp-cta" class="btn-electric"
             style="width: 55%; padding: 0.8rem 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path
@@ -652,36 +652,6 @@
             window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
         }
 
-        // Google Ads WhatsApp Click Tracking
-        // 请将 'AW-XXXXXXXXX/XXXXXXXXXXXX' 替换为您的实际Google Ads转化ID
-        function trackWhatsAppClick() {
-            // Google Ads gtag.js 转化追踪
-            if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXX', // TODO: 替换为实际转化ID
-                    'event_callback': function () {
-                        console.log('WhatsApp click conversion tracked');
-                    }
-                });
-            }
-
-            // Google Analytics 4 事件追踪 (用于数据分析)
-            if (typeof gtag === 'function') {
-                gtag('event', 'whatsapp_click', {
-                    'event_category': 'engagement',
-                    'event_label': 'mobile_sticky_cta',
-                    'value': 1
-                });
-            }
-
-            // 如果使用旧版 Google Analytics (analytics.js)
-            if (typeof ga === 'function') {
-                ga('send', 'event', 'WhatsApp', 'click', 'mobile_sticky_cta');
-            }
-
-            console.log('WhatsApp CTA clicked - tracking sent');
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             if (window.gsap && window.ScrollTrigger) {
                 gsap.registerPlugin(ScrollTrigger);
@@ -801,24 +771,19 @@
                     value: 1,
                     event_category: 'conversion'
                 });
-                if (typeof window.gtag === 'function') {
-                    window.gtag('event', 'generate_lead', {
-                        form_name: 'distributor_application',
-                        form_location: 'distributor_landing_page',
-                        lead_type: form.intent?.value === 'catalog' ? 'catalog_request' : 'distributor_application'
-                    });
-                }
                 const currentParams = new URLSearchParams(window.location.search);
                 const tracked = new URLSearchParams();
-                ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(key => {
+                ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach(key => {
                     const value = currentParams.get(key);
                     if (value) tracked.set(key, value);
                 });
                 tracked.set('lead', '1');
                 const query = tracked.toString();
                 showToast('Application received. Redirecting...', false);
+                const isCatalog = form.intent?.value === 'catalog';
+                const thankYouPage = isCatalog ? 'thank-you-catalog.html' : 'thank-you.html';
                 setTimeout(() => {
-                    window.location.href = `thank-you.html${query ? '?' + query : ''}`;
+                    window.location.href = `${thankYouPage}${query ? '?' + query : ''}`;
                 }, 600);
             } catch (err) {
                 showToast('Failed to send. Contact: info@teyesauto.com', true);

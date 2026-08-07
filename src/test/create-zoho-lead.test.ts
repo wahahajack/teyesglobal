@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { createZohoLeadHandler, type ZohoEnvironment } from "./create-zoho-lead";
+import { createZohoLeadHandler, type ZohoEnvironment } from "../../netlify/functions/create-zoho-lead";
 
 const validEnv: ZohoEnvironment = {
   ZOHO_CLIENT_ID: "test-client-id",

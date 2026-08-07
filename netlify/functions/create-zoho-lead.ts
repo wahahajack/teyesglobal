@@ -97,3 +97,5 @@ export function createZohoLeadHandler(env: ZohoEnvironment, fetchImpl: typeof fe
 
 const readZohoEnvironment = (): ZohoEnvironment => ({ ZOHO_CLIENT_ID: process.env.ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET: process.env.ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN: process.env.ZOHO_REFRESH_TOKEN, ZOHO_ACCOUNTS_BASE_URL: process.env.ZOHO_ACCOUNTS_BASE_URL, ZOHO_API_BASE_URL: process.env.ZOHO_API_BASE_URL });
 export default function handler(request: Request): Promise<Response> { return createZohoLeadHandler(readZohoEnvironment())(request); }
+
+export const config = { path: "/api/zoho-lead" };

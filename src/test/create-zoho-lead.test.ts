@@ -40,7 +40,16 @@ describe("createZohoLeadHandler", () => {
       .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))
       .mockResolvedValueOnce(new Response(JSON.stringify({ data: [{ status: "error" }] }), { status: 201, headers: { "Content-Type": "application/json" } }));
 
-    expect((await post(validPayload, validEnv, fetchMock)).status).toBe(502);
+    const response = await post(validPayload, validEnv, fetchMock);
+    expect(response.status).toBe(502);
+    expect(await response.json()).toEqual({ error: "upstream_error", code: "unknown" });
+  });
+  it("仅返回 Zoho 的安全错误代码和字段名", async () => {
+    const fetchMock = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ data: [{ status: "error", code: "INVALID_DATA", details: { api_name: "Lead_Source" } }] }), { status: 201, headers: { "Content-Type": "application/json" } }));
+
+    expect(await (await post(validPayload, validEnv, fetchMock)).json()).toEqual({ error: "upstream_error", code: "INVALID_DATA", field: "Lead_Source" });
   });
   it("Zoho 凭据缺失时不泄露配置值", async () => {
     const text = await (await post(validPayload, {}, vi.fn())).text();

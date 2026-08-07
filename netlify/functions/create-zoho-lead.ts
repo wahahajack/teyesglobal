@@ -84,8 +84,12 @@ export function createZohoLeadHandler(env: ZohoEnvironment, fetchImpl: typeof fe
       if (typeof token.access_token !== "string" || !token.access_token) return json(502, { error: "upstream_error" });
       const leadResponse = await fetchImpl(`${env.ZOHO_API_BASE_URL!.replace(/\/$/, "")}/crm/v2/Leads`, { method: "POST", headers: { Authorization: `Zoho-oauthtoken ${token.access_token}`, "Content-Type": "application/json" }, body: JSON.stringify({ data: [toZohoLead(payload)] }) });
       if (!leadResponse.ok) return json(502, { error: "upstream_error" });
-      const leadBody = await leadResponse.json() as { data?: Array<{ status?: unknown }> };
-      return leadBody.data?.[0]?.status === "success" ? json(201, { ok: true }) : json(502, { error: "upstream_error" });
+      const leadBody = await leadResponse.json() as { data?: Array<{ status?: unknown; code?: unknown; details?: { api_name?: unknown } }> };
+      const result = leadBody.data?.[0];
+      if (result?.status === "success") return json(201, { ok: true });
+      const code = typeof result?.code === "string" ? result.code : "unknown";
+      const field = typeof result?.details?.api_name === "string" ? result.details.api_name : undefined;
+      return json(502, { error: "upstream_error", code, ...(field ? { field } : {}) });
     } catch { return json(502, { error: "upstream_error" }); }
   };
 }

@@ -9,6 +9,7 @@ const AD_PARAM_KEYS = [
   "utm_campaign",
   "utm_content",
   "utm_term",
+  "fbclid",
 ] as const;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
@@ -43,6 +44,7 @@ export function initDataLayer() {
 
 export function persistAdParams() {
   const params = new URLSearchParams(window.location.search);
+  const hasAdParam = AD_PARAM_KEYS.some((key) => Boolean(params.get(key)));
 
   AD_PARAM_KEYS.forEach((key) => {
     const value = params.get(key);
@@ -50,6 +52,15 @@ export function persistAdParams() {
       safeSessionSet(key, value);
     }
   });
+
+  if (hasAdParam) {
+    if (!safeSessionGet("landing_page")) {
+      safeSessionSet("landing_page", window.location.href);
+    }
+    if (!safeSessionGet("referrer") && document.referrer) {
+      safeSessionSet("referrer", document.referrer);
+    }
+  }
 }
 
 function injectGtm() {
@@ -124,6 +135,9 @@ export function getStoredAdParams() {
     utm_campaign: safeSessionGet("utm_campaign"),
     utm_content: safeSessionGet("utm_content"),
     utm_term: safeSessionGet("utm_term"),
+    fbclid: safeSessionGet("fbclid"),
+    landing_page: safeSessionGet("landing_page"),
+    referrer: safeSessionGet("referrer"),
   };
 }
 

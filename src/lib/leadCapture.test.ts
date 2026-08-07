@@ -86,7 +86,7 @@ describe("submitZohoLead", () => {
     await submitZohoLead(validPayload);
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "/.netlify/functions/create-zoho-lead",
+      "/api/zoho-lead",
       expect.objectContaining({
         method: "POST",
         keepalive: true,

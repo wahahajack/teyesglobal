@@ -61,7 +61,7 @@ export function buildAttribution(): LeadAttribution {
 export async function submitZohoLead(
   payload: LeadCapturePayload,
 ): Promise<void> {
-  const response = await fetch("/.netlify/functions/create-zoho-lead", {
+  const response = await fetch("/api/zoho-lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

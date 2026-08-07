@@ -29,6 +29,7 @@ it("从表单和 sessionStorage 构造统一 payload", async () => {
   await client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" });
 
   const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(fetchMock.mock.calls[0][0]).toBe("/api/zoho-lead");
   expect(body).toMatchObject({
     source: "wholesale_quote", email: "buyer@example.com", company: "Buyer Auto", country: "Brazil",
     attribution: { gclid: "click-123", landing_page: "https://example.com/landing" },

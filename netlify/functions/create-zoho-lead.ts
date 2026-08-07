@@ -51,7 +51,7 @@ function toZohoLead(payload: LeadPayload) {
   const { attribution } = payload;
   return {
     Last_Name: payload.fullName || payload.email.split("@")[0], Company: payload.company || "Not provided", Email: payload.email.toLowerCase(),
-    Country: payload.country, Description: payload.message, Lead_Source: "Website",
+    Country: payload.country, Description: payload.message, Lead_Source: "Web Download",
     [ZOHO_FIELDS.gclid]: attribution.gclid, [ZOHO_FIELDS.gbraid]: attribution.gbraid, [ZOHO_FIELDS.wbraid]: attribution.wbraid,
     [ZOHO_FIELDS.utmSource]: attribution.utm_source, [ZOHO_FIELDS.utmMedium]: attribution.utm_medium, [ZOHO_FIELDS.utmCampaign]: attribution.utm_campaign,
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,

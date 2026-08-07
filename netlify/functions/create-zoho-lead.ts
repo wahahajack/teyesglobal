@@ -7,7 +7,7 @@ export interface ZohoEnvironment {
 }
 
 export const ZOHO_FIELDS = {
-  gclid: "GCLID", gbraid: "GBRAID", wbraid: "WBRAID", utmSource: "UTM_Source",
+  gclid: "Google_Click_ID", gbraid: "GBRAID", wbraid: "WBRAID", utmSource: "UTM_Source",
   utmMedium: "UTM_Medium", utmCampaign: "UTM_Campaign", utmContent: "UTM_Content",
   utmTerm: "UTM_Term", fbclid: "FBCLID", leadForm: "Lead_Form",
   inquiryType: "Inquiry_Type", estimatedQuantity: "Estimated_Quantity",

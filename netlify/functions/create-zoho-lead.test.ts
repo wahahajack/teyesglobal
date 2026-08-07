@@ -33,7 +33,7 @@ describe("createZohoLeadHandler", () => {
   it("把网站来源和归因字段映射到 Zoho Lead", async () => {
     const fetchMock = mockZohoTokenAndCreate(); const response = await post(validPayload, validEnv, fetchMock);
     expect(response.status).toBe(201);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Website", GCLID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Website", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page" });
   });
   it("Zoho 凭据缺失时不泄露配置值", async () => {
     const text = await (await post(validPayload, {}, vi.fn())).text();

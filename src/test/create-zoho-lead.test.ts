@@ -35,6 +35,13 @@ describe("createZohoLeadHandler", () => {
     expect(response.status).toBe(201);
     expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Website", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page" });
   });
+  it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
+    const fetchMock = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ data: [{ status: "error" }] }), { status: 201, headers: { "Content-Type": "application/json" } }));
+
+    expect((await post(validPayload, validEnv, fetchMock)).status).toBe(502);
+  });
   it("Zoho 凭据缺失时不泄露配置值", async () => {
     const text = await (await post(validPayload, {}, vi.fn())).text();
     expect(text).not.toContain("ZOHO_CLIENT_SECRET"); expect(text).not.toContain("test-client-secret");

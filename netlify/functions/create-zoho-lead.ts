@@ -83,7 +83,9 @@ export function createZohoLeadHandler(env: ZohoEnvironment, fetchImpl: typeof fe
       const token = await tokenResponse.json() as { access_token?: unknown };
       if (typeof token.access_token !== "string" || !token.access_token) return json(502, { error: "upstream_error" });
       const leadResponse = await fetchImpl(`${env.ZOHO_API_BASE_URL!.replace(/\/$/, "")}/crm/v2/Leads`, { method: "POST", headers: { Authorization: `Zoho-oauthtoken ${token.access_token}`, "Content-Type": "application/json" }, body: JSON.stringify({ data: [toZohoLead(payload)] }) });
-      return leadResponse.ok ? json(201, { ok: true }) : json(502, { error: "upstream_error" });
+      if (!leadResponse.ok) return json(502, { error: "upstream_error" });
+      const leadBody = await leadResponse.json() as { data?: Array<{ status?: unknown }> };
+      return leadBody.data?.[0]?.status === "success" ? json(201, { ok: true }) : json(502, { error: "upstream_error" });
     } catch { return json(502, { error: "upstream_error" }); }
   };
 }

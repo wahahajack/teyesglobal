@@ -345,6 +345,12 @@
                 value: 1,
                 event_category: "conversion",
               }));
+          if (window.TeyesLeadCapture) {
+            void window.TeyesLeadCapture.capture(a, {
+              source: "manufacturing_quote",
+              inquiryType: "OEM / ODM Inquiry",
+            }).catch((error) => console.error("Zoho lead capture failed", error));
+          }
           const e = new URLSearchParams(window.location.search),
             t = new URLSearchParams();
           ([

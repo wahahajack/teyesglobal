@@ -332,6 +332,12 @@
         value: 1,
         event_category: 'conversion'
       });
+      if (window.TeyesLeadCapture) {
+        void window.TeyesLeadCapture.capture(form, {
+          source: 'wholesale_quote',
+          inquiryType: 'Wholesale Inquiry'
+        }).catch((error) => console.error('Zoho lead capture failed', error));
+      }
       const currentParams = new URLSearchParams(window.location.search);
       const tracked = new URLSearchParams();
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach((key) => {

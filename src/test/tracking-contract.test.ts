@@ -98,3 +98,38 @@ describe("tracking contract: 参数数组与跳转契约", () => {
     expect(content).toContain("thank-you-catalog.html");
   });
 });
+
+describe("tracking contract: 静态页面 Lead capture", () => {
+  const leadCapturePages = [
+    "android-car-stereo-wholesale/index.html",
+    "android-car-stereo-oem-manufacturer/index.html",
+  ];
+  for (const rel of leadCapturePages) {
+    it(`${rel} 加载共享 lead capture 客户端`, () => {
+      expect(readFileSync(join(PUBLIC_DIR, rel), "utf8")).toContain("/lead-capture.js");
+    });
+  }
+  it("Wholesale 保留原转化事件并在成功分支调用 capture", () => {
+    const source = readFileSync(join(PUBLIC_DIR, "android-car-stereo-wholesale/script.js"), "utf8");
+    expect(source).toContain("event: 'form_submit_success'");
+    expect(source).toContain("form_name: 'wholesale_quote'");
+    expect(source).toContain("TeyesLeadCapture.capture");
+    expect(source).toContain("./thank-you.html");
+  });
+  it("OEM 保留原转化事件并在成功分支调用 capture", () => {
+    const source = readFileSync(join(PUBLIC_DIR, "android-car-stereo-oem-manufacturer/script.js"), "utf8");
+    expect(source).toContain('event: "form_submit_success"');
+    expect(source).toContain('form_name: "manufacturing_quote"');
+    expect(source).toContain("TeyesLeadCapture.capture");
+    expect(source).toContain("/android-car-stereo-oem-manufacturer/thank-you.html");
+  });
+
+  it("Distributor 页面加载共享客户端并保留动态感谢页", () => {
+    const source = readFileSync(join(PUBLIC_DIR, "teyes-android-car-stereo-distributor/index.html"), "utf8");
+    expect(source).toContain("/lead-capture.js");
+    expect(source).toContain("TeyesLeadCapture.capture");
+    expect(source).toContain("thank-you-catalog.html");
+    expect(source).toContain("thank-you.html");
+    expect(source).toContain("event: 'form_submit_success'");
+  });
+});

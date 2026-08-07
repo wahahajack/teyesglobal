@@ -642,7 +642,8 @@
         </div>
     </div>
 
-    <script>
+     <script src="/lead-capture.js"></script>
+     <script>
         // EmailJS configuration (same as wholesale page)
         const EMAILJS_PUBLIC_KEY = 'qqyCnA4nzk57_gF6N';
         const EMAILJS_SERVICE_ID = 'service_kzddimj';
@@ -760,17 +761,24 @@
             btn.disabled = true;
             if (btnText) btnText.textContent = 'Sending...';
 
-            try {
-                await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
-                window.dataLayer = window.dataLayer || [];
+             try {
+                 await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+                 const isCatalog = form.intent?.value === 'catalog';
+                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                     event: 'form_submit_success',
                     form_name: 'distributor_application',
                     form_location: 'distributor_landing_page',
                     lead_type: form.intent?.value === 'catalog' ? 'catalog_request' : 'distributor_application',
                     value: 1,
-                    event_category: 'conversion'
-                });
+                     event_category: 'conversion'
+                 });
+                 if (window.TeyesLeadCapture) {
+                     void window.TeyesLeadCapture.capture(form, {
+                         source: isCatalog ? 'catalog_request' : 'distributor_application',
+                         inquiryType: isCatalog ? 'Catalog Request' : 'Distributor Application',
+                     }).catch((error) => console.error('Zoho lead capture failed', error));
+                 }
                 const currentParams = new URLSearchParams(window.location.search);
                 const tracked = new URLSearchParams();
                 ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach(key => {
@@ -780,8 +788,7 @@
                 tracked.set('lead', '1');
                 const query = tracked.toString();
                 showToast('Application received. Redirecting...', false);
-                const isCatalog = form.intent?.value === 'catalog';
-                const thankYouPage = isCatalog ? 'thank-you-catalog.html' : 'thank-you.html';
+                 const thankYouPage = isCatalog ? 'thank-you-catalog.html' : 'thank-you.html';
                 setTimeout(() => {
                     window.location.href = `${thankYouPage}${query ? '?' + query : ''}`;
                 }, 600);

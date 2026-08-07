@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 import { delayForConversionDispatch, pushContactEmailClick, pushFormSubmitSuccess } from "@/lib/tracking";
+import { buildAttribution, submitZohoLead, type LeadCapturePayload } from "@/lib/leadCapture";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_kzddimj";
@@ -53,6 +54,7 @@ const ContactPage = () => {
     country: "",
     inquiryType: "",
     message: "",
+    website: "",
   });
 
   const handleEmailClick = (emailHref: string) => (event: MouseEvent<HTMLAnchorElement>) => {
@@ -150,6 +152,23 @@ const ContactPage = () => {
           country: formData.country || user_country || "Unknown",
           has_company: Boolean(formData.company.trim()),
         });
+        const leadPayload: LeadCapturePayload = {
+          source: "contact_page",
+          fullName: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          country: (formData.country || user_country || "").trim(),
+          inquiryType: formData.inquiryType || "General",
+          message: formData.message.trim(),
+          estimatedQuantity: "",
+          businessModel: "",
+          submittedAt: new Date().toISOString(),
+          website: formData.website.trim(),
+          attribution: buildAttribution(),
+        };
+        void submitZohoLead(leadPayload).catch((error) => {
+          console.error("Zoho lead capture failed", error);
+        });
         await delayForConversionDispatch(300);
         navigate("/thank-you");
       } else {
@@ -206,6 +225,17 @@ const ContactPage = () => {
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="absolute left-[-10000px]" aria-hidden="true">
+                    <Label htmlFor="website">Leave this field blank</Label>
+                    <Input
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={(event) => handleChange("website", event.target.value)}
+                    />
+                  </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>

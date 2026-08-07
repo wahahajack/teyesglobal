@@ -1,0 +1,36 @@
+import { afterEach, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+const scriptPath = join(__dirname, "..", "..", "public", "lead-capture.js");
+
+afterEach(() => {
+  sessionStorage.clear();
+  document.body.innerHTML = "";
+  delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
+  vi.unstubAllGlobals();
+});
+
+it("从表单和 sessionStorage 构造统一 payload", async () => {
+  document.body.innerHTML = `
+    <form id="lead">
+      <input name="user_email" value="buyer@example.com">
+      <input name="company_name" value="Buyer Auto">
+      <input name="country" value="Brazil">
+    </form>
+  `;
+  sessionStorage.setItem("gclid", "click-123");
+  sessionStorage.setItem("landing_page", "https://example.com/landing");
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  window.eval(readFileSync(scriptPath, "utf8"));
+  const client = (window as Window & { TeyesLeadCapture: { capture: (form: HTMLFormElement, options: unknown) => Promise<void> } }).TeyesLeadCapture;
+  await client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" });
+
+  const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(body).toMatchObject({
+    source: "wholesale_quote", email: "buyer@example.com", company: "Buyer Auto", country: "Brazil",
+    attribution: { gclid: "click-123", landing_page: "https://example.com/landing" },
+  });
+});

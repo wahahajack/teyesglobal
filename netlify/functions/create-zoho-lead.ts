@@ -49,6 +49,7 @@ function normalizePayload(input: unknown): LeadPayload | null {
 
 function toZohoLead(payload: LeadPayload) {
   const { attribution } = payload;
+  const submittedAt = new Date(payload.submittedAt).toISOString().replace(/\.\d{3}Z$/, "+00:00");
   return {
     Last_Name: payload.fullName || payload.email.split("@")[0], Company: payload.company || "Not provided", Email: payload.email.toLowerCase(),
     Country: payload.country, Description: payload.message, Lead_Source: "Web Download",
@@ -57,7 +58,7 @@ function toZohoLead(payload: LeadPayload) {
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,
     [ZOHO_FIELDS.leadForm]: payload.source, [ZOHO_FIELDS.inquiryType]: payload.inquiryType, [ZOHO_FIELDS.estimatedQuantity]: payload.estimatedQuantity,
     [ZOHO_FIELDS.businessModel]: payload.businessModel, [ZOHO_FIELDS.landingPage]: attribution.landing_page, [ZOHO_FIELDS.referrer]: attribution.referrer,
-    [ZOHO_FIELDS.submittedAt]: payload.submittedAt,
+    [ZOHO_FIELDS.submittedAt]: submittedAt,
   };
 }
 

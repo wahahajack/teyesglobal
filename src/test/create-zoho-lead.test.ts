@@ -33,7 +33,7 @@ describe("createZohoLeadHandler", () => {
   it("把网站来源和归因字段映射到 Zoho Lead", async () => {
     const fetchMock = mockZohoTokenAndCreate(); const response = await post(validPayload, validEnv, fetchMock);
     expect(response.status).toBe(201);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
   });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()

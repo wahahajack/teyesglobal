@@ -16,4 +16,13 @@ describe("prerender build contract", () => {
       buildCommand.indexOf("node scripts/prerender.mjs"),
     );
   });
+
+  it("uses the CI-safe Chrome shared-memory flag", () => {
+    const prerenderScript = fs.readFileSync(
+      path.resolve(process.cwd(), "scripts/prerender.mjs"),
+      "utf8",
+    );
+
+    expect(prerenderScript).toContain("--disable-dev-shm-usage");
+  });
 });

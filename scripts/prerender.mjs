@@ -129,7 +129,12 @@ async function main() {
 
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--disable-gpu', '--no-sandbox', '--disable-software-rasterizer'],
+    args: [
+      '--disable-gpu',
+      '--no-sandbox',
+      '--disable-software-rasterizer',
+      '--disable-dev-shm-usage',
+    ],
   });
 
   let failures = 0;

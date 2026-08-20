@@ -13,14 +13,14 @@ const ProductLinesPage = () => {
         title="Product Lines - Flagship, Advanced & Entry Series"
         description="Explore TEYES infotainment product lines. Flagship CC4 Pro with AI NPU, Advanced CC3 2K bestseller, and Entry series for value markets. Compare features and specs."
         keywords="TEYES product lines, flagship series, advanced series, entry series, CC4 Pro, CC3 2K, X1 Pro"
-        path="/products/lines"
+        path="/products/lines/"
       />
       <ContextHeader
         title="Product Lines"
         description="Explore TEYES infotainment series designed for different market tiers."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Products", href: "/products" },
+          { label: "Products", href: "/products/" },
           { label: "Product Lines" },
         ]}
       />
@@ -61,7 +61,7 @@ const ProductLinesPage = () => {
                 {seriesProducts.map((product) => (
                   <Link
                     key={product.id}
-                    to={`/products/${product.id}`}
+                    to={`/products/${product.id}/`}
                     className="group bg-background rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 relative"
                   >
                     {product.badge && (
@@ -127,13 +127,13 @@ const ProductLinesPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" asChild>
-              <Link to="/products/compare">
+              <Link to="/products/compare/">
                 Compare Models
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
             <Button variant="hero-outline" asChild>
-              <Link to="/contact">Talk to Sales</Link>
+              <Link to="/contact/">Talk to Sales</Link>
             </Button>
           </div>
         </div>

@@ -60,19 +60,19 @@ const subPages = [
   {
     title: "Capabilities",
     description: "Explore our full range of OEM/ODM capabilities",
-    href: "/oem-odm/capabilities",
+    href: "/oem-odm/capabilities/",
     icon: Factory,
   },
   {
     title: "Certifications",
     description: "Quality standards and industry certifications",
-    href: "/oem-odm/certifications",
+    href: "/oem-odm/certifications/",
     icon: FileCheck,
   },
   {
     title: "Project Cases",
     description: "Success stories from our OEM/ODM partnerships",
-    href: "/oem-odm/cases",
+    href: "/oem-odm/cases/",
     icon: Briefcase,
   },
 ];
@@ -84,7 +84,7 @@ const OemOdmPage = () => {
         title="OEM/ODM Services - Car Infotainment Manufacturing Partner"
         description="TEYES OEM/ODM services for car infotainment systems. Custom hardware, branding, software development, and scalable manufacturing with ISO certifications."
         keywords="OEM car infotainment, ODM manufacturing, custom head unit, white-label, automotive electronics"
-        path="/oem-odm"
+        path="/oem-odm/"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "OEM / ODM" },
@@ -215,7 +215,7 @@ const OemOdmPage = () => {
             product development goals.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Request OEM Consultation
               <ArrowRight className="h-4 w-4" />
             </Link>

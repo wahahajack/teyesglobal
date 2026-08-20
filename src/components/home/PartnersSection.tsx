@@ -6,19 +6,19 @@ const partners = [
     icon: Building2,
     title: "Distributors & Wholesalers",
     description: "Access a proven Android car stereo portfolio with competitive margins and reliable supply.",
-    href: "/solutions/distributors",
+    href: "/solutions/distributors/",
   },
   {
     icon: Car,
     title: "Private Label & Auto Brands",
     description: "White-label and co-branded infotainment solutions tailored to your market strategy.",
-    href: "/solutions/auto-brands",
+    href: "/solutions/auto-brands/",
   },
   {
     icon: Settings,
     title: "Installers & System Integrators",
     description: "Flexible product platforms, accessories, and integration support for professional channels.",
-    href: "/solutions/integrators",
+    href: "/solutions/integrators/",
   },
 ];
 

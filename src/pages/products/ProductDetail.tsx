@@ -15,7 +15,7 @@ const ProductDetailPage = () => {
         <div className="container-wide py-32 text-center">
           <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
           <Button variant="hero-outline" asChild>
-            <Link to="/products">
+            <Link to="/products/">
               <ArrowLeft className="h-4 w-4" />
               Back to Products
             </Link>
@@ -40,7 +40,7 @@ const ProductDetailPage = () => {
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
-        path={`/products/${product.id}`}
+        path={`/products/${product.id}/`}
         ogType="product"
         productData={{
           name: product.name,
@@ -52,11 +52,11 @@ const ProductDetailPage = () => {
       <div className="py-4 bg-card border-b border-border/50">
         <div className="container-wide">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link to="/products" className="hover:text-foreground transition-colors">
+            <Link to="/products/" className="hover:text-foreground transition-colors">
               Products
             </Link>
             <span>/</span>
-            <Link to="/products/lines" className="hover:text-foreground transition-colors">
+            <Link to="/products/lines/" className="hover:text-foreground transition-colors">
               {product.seriesName}
             </Link>
             <span>/</span>
@@ -127,13 +127,13 @@ const ProductDetailPage = () => {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="hero" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link to="/contact/">
                     Request Quote
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="lg" asChild>
-                  <Link to="/products/compare">Compare Models</Link>
+                  <Link to="/products/compare/">Compare Models</Link>
                 </Button>
               </div>
             </div>
@@ -176,7 +176,7 @@ const ProductDetailPage = () => {
               {relatedProducts.map((rp) => (
                 <Link
                   key={rp.id}
-                  to={`/products/${rp.id}`}
+                  to={`/products/${rp.id}/`}
                   className="group flex gap-6 p-6 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all"
                 >
                   <div className="w-32 h-32 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0 overflow-hidden">

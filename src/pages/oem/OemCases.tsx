@@ -71,12 +71,12 @@ const OemCasesPage = () => {
         title="OEM/ODM Project Cases - Success Stories"
         description="Real OEM/ODM success stories: European white-label partnerships, Middle East regional customization, fleet management integration, and private label programs."
         keywords="OEM case study, ODM success story, white-label partnership, fleet management, private label"
-        path="/oem-odm/cases"
+        path="/oem-odm/cases/"
       />
       <ContextHeader
         title="Project Success Stories"
         description="Real examples of how we've helped partners achieve their goals through OEM/ODM collaboration."
-        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm/" }}
       />
 
       {/* Project Cases */}
@@ -155,7 +155,7 @@ const OemCasesPage = () => {
             Let's discuss how we can help you achieve similar results.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Start Your Project
               <ArrowRight className="h-4 w-4" />
             </Link>

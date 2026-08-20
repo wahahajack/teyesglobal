@@ -81,14 +81,14 @@ const ProductComparePage = () => {
         title="Compare Car Head Units - CC4 Pro vs CC3 2K vs X1 Pro"
         description="Compare TEYES car infotainment models side-by-side. Compare CPU, display, audio, cameras, and connectivity features across CC4 Pro, CC3 2K, and X1 Pro."
         keywords="compare car head units, CC4 Pro vs CC3 2K, android head unit comparison, infotainment specs"
-        path="/products/compare"
+        path="/products/compare/"
       />
       <ContextHeader
         title="Compare Models"
         description="Compare specifications side-by-side to find the best product for your market."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Products", href: "/products" },
+          { label: "Products", href: "/products/" },
           { label: "Compare" },
         ]}
       />
@@ -131,7 +131,7 @@ const ProductComparePage = () => {
                           <h3 className="text-lg font-semibold">{product!.name}</h3>
                         </div>
                         <Button variant="hero-outline" size="sm" asChild>
-                          <Link to={`/products/${product!.id}`}>
+                          <Link to={`/products/${product!.id}/`}>
                             View Details
                           </Link>
                         </Button>
@@ -217,7 +217,7 @@ const ProductComparePage = () => {
             partnership opportunities.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Get a Quote
               <ArrowRight className="h-4 w-4" />
             </Link>

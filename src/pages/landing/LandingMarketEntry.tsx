@@ -38,7 +38,7 @@ const LandingMarketEntryPage = () => {
         title="Market Entry Support - Global Infotainment Distribution"
         description="Enter new markets with TEYES support. Market analysis, product positioning, compliance guidance, and local partner connections for car infotainment distribution."
         keywords="market entry support, global distribution, emerging markets, car infotainment expansion"
-        path="/landing/market-entry"
+        path="/landing/market-entry/"
         noindex={true}
       />
       {/* Hero with Background Image */}
@@ -82,13 +82,13 @@ const LandingMarketEntryPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="hero" size="xl" asChild>
-                  <Link to="/contact">
+                  <Link to="/contact/">
                     Discuss Your Market
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="xl" asChild>
-                  <Link to="/solutions/market-needs">View Market Solutions</Link>
+                  <Link to="/solutions/market-needs/">View Market Solutions</Link>
                 </Button>
               </div>
             </div>
@@ -179,7 +179,7 @@ const LandingMarketEntryPage = () => {
             Share your market goals and we'll provide insights based on our global experience.
           </p>
           <Button variant="hero" size="xl" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Get Market Consultation
               <ArrowRight className="h-5 w-5" />
             </Link>

@@ -33,7 +33,7 @@ const HomeThankYou = () => {
                                 </Link>
                             </Button>
                             <Button variant="outline" size="lg" asChild>
-                                <Link to="/products" className="flex items-center gap-2">
+                                <Link to="/products/" className="flex items-center gap-2">
                                     View Our Products
                                     <ArrowRight className="h-4 w-4" />
                                 </Link>

@@ -54,14 +54,14 @@ const SolutionsIntegratorsPage = () => {
         title="System Integrator Solutions - APIs & Development Tools"
         description="Build on TEYES hardware with open APIs, SDKs, and development tools. Fleet management, telematics, custom applications, and hardware interfaces."
         keywords="system integrator, open API, car infotainment SDK, fleet management integration, telematics"
-        path="/solutions/integrators"
+        path="/solutions/integrators/"
       />
       <ContextHeader
         title="Solutions for System Integrators"
         description="Build on our proven hardware platforms with open APIs and comprehensive development tools."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Solutions", href: "/solutions" },
+          { label: "Solutions", href: "/solutions/" },
           { label: "For Integrators" },
         ]}
       />
@@ -128,7 +128,7 @@ const SolutionsIntegratorsPage = () => {
             and get access to developer resources.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Talk to Engineering
               <ArrowRight className="h-4 w-4" />
             </Link>

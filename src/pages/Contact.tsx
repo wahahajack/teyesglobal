@@ -204,7 +204,7 @@ const ContactPage = () => {
         title="Contact Us - Partnership & Product Inquiries"
         description="Contact TEYES for distribution partnerships, OEM/ODM inquiries, product information, or technical support. Our team responds within 24-48 hours."
         keywords="contact TEYES, car infotainment distributor, OEM inquiry, partnership, technical support"
-        path="/contact"
+        path="/contact/"
       />
       <ContextHeader
         title="Contact Us"

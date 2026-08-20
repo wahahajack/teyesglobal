@@ -5,25 +5,25 @@ const portalLinks = [
   {
     title: "Product Lines & Model Comparison",
     description: "Compare TEYES Android head unit models by market position, performance level, and channel role.",
-    href: "/products/compare",
+    href: "/products/compare/",
     icon: Layers3,
   },
   {
     title: "Distributor Cooperation",
     description: "Explore wholesale cooperation, product-line planning, and support for regional car audio channels.",
-    href: "/solutions/distributors",
+    href: "/solutions/distributors/",
     icon: Handshake,
   },
   {
     title: "Accessories Ecosystem",
     description: "View cameras, TPMS, OBD, DAB+, installation accessories, and add-on products for higher basket value.",
-    href: "/accessories",
+    href: "/accessories/",
     icon: Boxes,
   },
   {
     title: "Market Needs",
     description: "Match flagship, mainstream, and entry-level models to different regional market strategies.",
-    href: "/solutions/market-needs",
+    href: "/solutions/market-needs/",
     icon: Globe2,
   },
 ];

@@ -362,14 +362,14 @@ const AccessoriesPage = () => {
         title="Car Head Unit Accessories - Cameras, TPMS & Audio"
         description="TEYES official accessories: 360Â° camera systems, dash cameras, TPMS, OBD2 adapters, screen protectors, microphones and installation kits for all TEYES head units."
         keywords="TEYES accessories, 360 camera system, dash camera DVR, backup camera, TPMS, OBD2, screen protector"
-        path="/accessories"
+        path="/accessories/"
       />
       <ContextHeader
         title="Smart Accessories"
-        description="Official TEYES accessories â€?cameras, sensors, audio, and installation kits for professional upgrades."
+        description="Official TEYES accessories ï¿½?cameras, sensors, audio, and installation kits for professional upgrades."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Products", href: "/products" },
+          { label: "Products", href: "/products/" },
           { label: "Accessories" },
         ]}
       />
@@ -401,11 +401,11 @@ const AccessoriesPage = () => {
             Need Help Finding the Right Accessories?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Contact us with your vehicle and unit details â€?we'll recommend 
+            Contact us with your vehicle and unit details ï¿½?we'll recommend
             the complete accessory package for your installation.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Get Recommendations
               <ArrowRight className="h-4 w-4" />
             </Link>

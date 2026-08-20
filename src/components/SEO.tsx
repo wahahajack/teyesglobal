@@ -37,6 +37,18 @@ interface SEOProps {
     howTo?: { name: string; steps: HowToStep[] };
 }
 
+const toCanonicalPath = (routePath: string) => {
+    const suffixStart = routePath.search(/[?#]/);
+    const pathname = suffixStart === -1 ? routePath : routePath.slice(0, suffixStart);
+    const suffix = suffixStart === -1 ? '' : routePath.slice(suffixStart);
+
+    if (pathname === '/' || pathname.endsWith('/')) {
+        return routePath;
+    }
+
+    return `${pathname}/${suffix}`;
+};
+
 export const SEO = ({
     title,
     description,
@@ -52,7 +64,7 @@ export const SEO = ({
     howTo,
 }: SEOProps) => {
     const baseUrl = 'https://teyesglobal.com';
-    const fullUrl = `${baseUrl}${path}`;
+    const fullUrl = `${baseUrl}${toCanonicalPath(path)}`;
     const fullTitle = title.includes('TEYES') ? title : `${title} | TEYES`;
     const imageUrl = image
         ? image.startsWith('http')
@@ -83,7 +95,7 @@ export const SEO = ({
                 '@type': 'ListItem',
                 position: index + 1,
                 name: item.label,
-                ...(item.href ? { item: `${baseUrl}${item.href}` } : {}),
+                ...(item.href ? { item: `${baseUrl}${toCanonicalPath(item.href)}` } : {}),
             })),
         })
         : null;

@@ -11,7 +11,7 @@ const solutionCategories = [
     title: "For Distributors",
     description: "Access proven products with competitive margins and reliable supply chain support",
     icon: Building2,
-    href: "/solutions/distributors",
+    href: "/solutions/distributors/",
     color: "from-primary to-accent",
     benefits: [
       "Competitive wholesale pricing",
@@ -25,7 +25,7 @@ const solutionCategories = [
     title: "For Auto Brands",
     description: "White-label and co-branded infotainment solutions tailored to your specifications",
     icon: Car,
-    href: "/solutions/auto-brands",
+    href: "/solutions/auto-brands/",
     color: "from-emerald-500 to-teal-400",
     benefits: [
       "Custom branding options",
@@ -39,7 +39,7 @@ const solutionCategories = [
     title: "For System Integrators",
     description: "Flexible hardware platforms with open APIs for custom integrations",
     icon: Settings,
-    href: "/solutions/integrators",
+    href: "/solutions/integrators/",
     color: "from-amber-500 to-orange-400",
     benefits: [
       "Open API documentation",
@@ -53,7 +53,7 @@ const solutionCategories = [
     title: "By Market Needs",
     description: "Solutions tailored to specific market conditions and customer requirements",
     icon: Globe,
-    href: "/solutions/market-needs",
+    href: "/solutions/market-needs/",
     color: "from-violet-500 to-purple-400",
     benefits: [
       "Market entry consulting",
@@ -71,7 +71,7 @@ const SolutionsPage = () => {
         title="Partnership Solutions - Distributors, Auto Brands & Integrators"
         description="TEYES partnership solutions for distributors, auto brands, and system integrators. OEM/ODM services, white-label options, and market entry support for 100+ markets."
         keywords="TEYES solutions, car infotainment distributor, OEM partnership, ODM services, white-label, system integrator"
-        path="/solutions"
+        path="/solutions/"
       />
       <ContextHeader
         title="Solutions"
@@ -140,7 +140,7 @@ const SolutionsPage = () => {
             your business goals and market position.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Talk to Our Team
               <ArrowRight className="h-4 w-4" />
             </Link>

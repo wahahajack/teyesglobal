@@ -33,13 +33,13 @@ export function OemCtaSection() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="xl" asChild>
-                  <Link to="/oem-odm">
+                  <Link to="/oem-odm/">
                     Explore OEM / ODM
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="xl" asChild>
-                  <Link to="/contact?intent=oem">Discuss OEM / ODM Project</Link>
+                  <Link to="/contact/?intent=oem">Discuss OEM / ODM Project</Link>
                 </Button>
               </div>
             </div>

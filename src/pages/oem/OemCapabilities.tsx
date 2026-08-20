@@ -81,12 +81,12 @@ const OemCapabilitiesPage = () => {
         title="OEM/ODM Capabilities - Hardware, Software & Manufacturing"
         description="Full-spectrum OEM/ODM capabilities: hardware customization, branding, software development, manufacturing, engineering support, and testing services."
         keywords="OEM capabilities, hardware customization, custom branding, software development, automotive manufacturing"
-        path="/oem-odm/capabilities"
+        path="/oem-odm/capabilities/"
       />
       <ContextHeader
         title="Full-Spectrum OEM/ODM Capabilities"
         description="From minor customizations to ground-up product development, we have the capabilities to support your project."
-        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm/" }}
       />
 
       {/* Capabilities Grid */}
@@ -127,7 +127,7 @@ const OemCapabilitiesPage = () => {
             Let's discuss your requirements and find the right approach for your project.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Start a Conversation
               <ArrowRight className="h-4 w-4" />
             </Link>

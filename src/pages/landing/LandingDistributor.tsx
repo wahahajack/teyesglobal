@@ -39,7 +39,7 @@ const LandingDistributorPage = () => {
         title="Become a Distributor - Car Infotainment Partnership"
         description="Join TEYES distributor network. Access proven car infotainment products, competitive margins, marketing support, and growth opportunities in 100+ global markets."
         keywords="car infotainment distributor, become a distributor, TEYES partnership, wholesale car stereo"
-        path="/landing/distributor"
+        path="/landing/distributor/"
         noindex={true}
       />
       {/* Hero with Background Image */}
@@ -83,13 +83,13 @@ const LandingDistributorPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="hero" size="xl" asChild>
-                  <Link to="/contact">
+                  <Link to="/contact/">
                     Apply to Become a Distributor
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="xl" asChild>
-                  <Link to="/products">View Product Catalog</Link>
+                  <Link to="/products/">View Product Catalog</Link>
                 </Button>
               </div>
             </div>
@@ -177,7 +177,7 @@ const LandingDistributorPage = () => {
             Fill out the application form and our partnership team will be in touch within 48 hours.
           </p>
           <Button variant="hero" size="xl" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Apply Now
               <ArrowRight className="h-5 w-5" />
             </Link>

@@ -3,22 +3,22 @@ import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react";
 
 const footerLinks = {
   products: [
-    { name: "Flagship Series", href: "/products/lines#flagship" },
-    { name: "Advanced Series", href: "/products/lines#advanced" },
-    { name: "Entry Series", href: "/products/lines#entry" },
-    { name: "Accessories", href: "/accessories" },
+    { name: "Flagship Series", href: "/products/lines/#flagship" },
+    { name: "Advanced Series", href: "/products/lines/#advanced" },
+    { name: "Entry Series", href: "/products/lines/#entry" },
+    { name: "Accessories", href: "/accessories/" },
   ],
   solutions: [
-    { name: "For Distributors", href: "/solutions/distributors" },
-    { name: "For Auto Brands", href: "/solutions/auto-brands" },
-    { name: "For Integrators", href: "/solutions/integrators" },
-    { name: "Market Solutions", href: "/solutions/market-needs" },
+    { name: "For Distributors", href: "/solutions/distributors/" },
+    { name: "For Auto Brands", href: "/solutions/auto-brands/" },
+    { name: "For Integrators", href: "/solutions/integrators/" },
+    { name: "Market Solutions", href: "/solutions/market-needs/" },
   ],
   company: [
-    { name: "OEM / ODM", href: "/oem-odm" },
-    { name: "Certifications", href: "/oem-odm/certifications" },
-    { name: "Project Cases", href: "/oem-odm/cases" },
-    { name: "Contact", href: "/contact" },
+    { name: "OEM / ODM", href: "/oem-odm/" },
+    { name: "Certifications", href: "/oem-odm/certifications/" },
+    { name: "Project Cases", href: "/oem-odm/cases/" },
+    { name: "Contact", href: "/contact/" },
   ],
 };
 

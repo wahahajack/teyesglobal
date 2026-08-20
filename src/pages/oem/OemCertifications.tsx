@@ -69,12 +69,12 @@ const OemCertificationsPage = () => {
         title="Certifications & Quality Standards - ISO, CE, FCC, E-Mark"
         description="TEYES quality certifications: ISO 9001, IATF 16949, CE, FCC, RoHS, E-Mark, and regional certifications. 100% inspection and complete traceability."
         keywords="ISO certification, IATF 16949, CE marking, FCC, RoHS, E-Mark, automotive quality"
-        path="/oem-odm/certifications"
+        path="/oem-odm/certifications/"
       />
       <ContextHeader
         title="Certifications & Quality Standards"
         description="Industry-recognized certifications and rigorous testing standards backing our commitment to quality."
-        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm" }}
+        backLink={{ label: "Back to OEM / ODM", href: "/oem-odm/" }}
       />
 
       {/* Quality Features */}
@@ -141,7 +141,7 @@ const OemCertificationsPage = () => {
             We can support additional certifications based on your target market requirements.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Discuss Requirements
               <ArrowRight className="h-4 w-4" />
             </Link>

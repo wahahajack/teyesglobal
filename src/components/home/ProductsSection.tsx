@@ -20,7 +20,7 @@ const productSeries = [
     image: cc4ProImg,
     badge: "NEW",
     features: ["8-Core 6nm CPU", "12TOPS AI NPU", "7.1 Channel Audio", "360° Camera"],
-    href: "/products/lines#flagship",
+    href: "/products/lines/#flagship",
   },
   {
     id: "advanced",
@@ -30,7 +30,7 @@ const productSeries = [
     image: cc3Img,
     badge: "BESTSELLER",
     features: ["8-Core 12nm CPU", "2K Display", "5.1 Channel Audio", "4 Cameras"],
-    href: "/products/lines#advanced",
+    href: "/products/lines/#advanced",
   },
   {
     id: "entry",
@@ -40,7 +40,7 @@ const productSeries = [
     image: x1ProImg,
     badge: null,
     features: ["Quad-Core CPU", "HD Display", "Apple CarPlay", "Android Auto"],
-    href: "/products/lines#entry",
+    href: "/products/lines/#entry",
   },
 ];
 
@@ -60,7 +60,7 @@ export function ProductsSection() {
             </p>
           </div>
           <Button variant="hero-outline" asChild>
-            <Link to="/products">
+            <Link to="/products/">
               View All Products
               <ArrowRight className="h-4 w-4" />
             </Link>

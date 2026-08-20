@@ -68,14 +68,14 @@ const SolutionsAutoBrandsPage = () => {
         title="Auto Brand Solutions - White-Label Car Infotainment"
         description="White-label and co-branded infotainment solutions for auto brands. Custom branding, exclusive models, fast time-to-market, and quality assurance."
         keywords="white-label car infotainment, co-branded head unit, automotive brand partnership, custom car stereo"
-        path="/solutions/auto-brands"
+        path="/solutions/auto-brands/"
       />
       <ContextHeader
         title="Solutions for Auto Brands"
         description="Launch your own infotainment line without R&D complexity. We provide the technology, you own the brand."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Solutions", href: "/solutions" },
+          { label: "Solutions", href: "/solutions/" },
           { label: "For Auto Brands" },
         ]}
       />
@@ -152,7 +152,7 @@ const SolutionsAutoBrandsPage = () => {
             Share your vision and we'll show you how TEYES can bring it to life.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Start the Conversation
               <ArrowRight className="h-4 w-4" />
             </Link>

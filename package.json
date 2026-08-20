@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && npm run generate-sitemap && node scripts/inline-css.js && node scripts/prune-deploy-assets.js",
+    "build": "npm run generate-sitemap && vite build && node scripts/prerender.mjs && npm run generate-sitemap && node scripts/inline-css.js && node scripts/prune-deploy-assets.js",
     "build:dev": "vite build --mode development",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
@@ -88,6 +88,7 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19",
+    "puppeteer": "21.11.0",
     "vitest": "^3.2.4"
   }
 }

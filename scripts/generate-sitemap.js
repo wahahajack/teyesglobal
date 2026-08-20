@@ -75,7 +75,7 @@ function getProductIds() {
 
 const staticEntries = staticPages.map((page) =>
   createUrlEntry(
-    `${baseUrl}${page.path}`,
+    `${baseUrl}${page.path || '/'}`,
     getIsoDate(path.join(rootDir, page.source)),
     page.priority
   )

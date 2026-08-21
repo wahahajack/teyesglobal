@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { loadGtmWhenIdle } from "@/lib/tracking";
+import { loadGtmNow, loadGtmWhenIdle } from "@/lib/tracking";
 
 const GTM_SCRIPT_SELECTOR = 'script[src*="googletagmanager.com/gtm.js"]';
 
@@ -14,6 +14,8 @@ describe("GTM loading timing", () => {
   });
 
   afterEach(() => {
+    document.querySelectorAll(GTM_SCRIPT_SELECTOR).forEach((script) => script.remove());
+    window.history.replaceState({}, "", "/");
     vi.useRealTimers();
   });
 
@@ -35,5 +37,13 @@ describe("GTM loading timing", () => {
     vi.advanceTimersByTime(1);
     expect(document.querySelector(GTM_SCRIPT_SELECTOR)).toBeInTheDocument();
   });
-});
 
+  it("injects GTM only once when preview and an explicit wake-up overlap", () => {
+    window.history.replaceState({}, "", "/?gtm_preview=env-1");
+
+    loadGtmWhenIdle();
+    loadGtmNow();
+
+    expect(document.querySelectorAll(GTM_SCRIPT_SELECTOR)).toHaveLength(1);
+  });
+});

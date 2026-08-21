@@ -35,8 +35,14 @@ const validPayload: LeadCapturePayload = {
 
 afterEach(() => {
   sessionStorage.clear();
+  localStorage.clear();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
   history.replaceState({}, "", "/");
+  Object.defineProperty(document, "referrer", {
+    configurable: true,
+    value: "",
+  });
 });
 
 describe("lead capture attribution", () => {
@@ -58,12 +64,70 @@ describe("lead capture attribution", () => {
   });
 
   it("后续页面不会覆盖初始落地页", () => {
-    sessionStorage.setItem("landing_page", "https://example.com/first");
+    history.replaceState({}, "", "/first");
+    persistAdParams();
+    sessionStorage.clear();
     history.replaceState({}, "", "/contact");
 
     persistAdParams();
 
-    expect(getStoredAdParams().landing_page).toBe("https://example.com/first");
+    expect(getStoredAdParams().landing_page).toContain("/first");
+  });
+
+  it("新会话从持久化存储恢复广告归因", () => {
+    history.replaceState({}, "", "/landing?gclid=test-click&utm_source=google");
+    persistAdParams();
+    sessionStorage.clear();
+    history.replaceState({}, "", "/contact");
+
+    expect(getStoredAdParams()).toMatchObject({
+      gclid: "test-click",
+      utm_source: "google",
+      landing_page: expect.stringContaining("/landing?gclid=test-click"),
+    });
+  });
+
+  it("九十天后忽略过期的持久化归因", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime("2026-08-21T00:00:00Z");
+    history.replaceState({}, "", "/landing?gclid=expired-click");
+    persistAdParams();
+    expect(localStorage.length).toBe(1);
+    sessionStorage.clear();
+
+    vi.advanceTimersByTime(90 * 24 * 60 * 60 * 1000 + 1);
+
+    expect(getStoredAdParams().gclid).toBeNull();
+  });
+
+  it("直接访问也记录首次落地页和 referrer", () => {
+    history.replaceState({}, "", "/direct-entry");
+    Object.defineProperty(document, "referrer", {
+      configurable: true,
+      value: "https://example.org/article",
+    });
+
+    persistAdParams();
+
+    expect(getStoredAdParams()).toMatchObject({
+      landing_page: expect.stringContaining("/direct-entry"),
+      referrer: "https://example.org/article",
+    });
+  });
+
+  it("首次 referrer 为空时不会被后续站内跳转覆盖", () => {
+    history.replaceState({}, "", "/first");
+    persistAdParams();
+    sessionStorage.clear();
+    history.replaceState({}, "", "/contact");
+    Object.defineProperty(document, "referrer", {
+      configurable: true,
+      value: "https://example.com/first",
+    });
+
+    persistAdParams();
+
+    expect(getStoredAdParams().referrer).toBe("");
   });
 
   it("构造的归因使用空字符串而非空值", () => {

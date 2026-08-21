@@ -3,43 +3,27 @@ import { readFileSync, existsSync, statSync, mkdirSync, writeFileSync } from 'no
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer';
+import { rootDir, getAllRoutes, toCanonicalUrl } from './routes.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'dist');
 
 // Keep Chrome lookup inside the project (matches .puppeteerrc.cjs) so the
 // build works without a user-level cache and on CI.
 process.env.PUPPETEER_CACHE_DIR = path.join(rootDir, '.puppeteer-cache');
 
-// Static routes to prerender. Keep in sync with scripts/generate-sitemap.js.
-const STATIC_ROUTES = [
-  '/',
-  '/products',
-  '/products/lines',
-  '/products/compare',
-  '/solutions',
-  '/solutions/distributors',
-  '/solutions/auto-brands',
-  '/solutions/integrators',
-  '/solutions/market-needs',
-  '/oem-odm',
-  '/oem-odm/capabilities',
-  '/oem-odm/certifications',
-  '/oem-odm/cases',
-  '/landing/oem',
-  '/landing/market-entry',
-  '/landing/distributor',
-  '/accessories',
-  '/contact',
-];
+const routes = getAllRoutes();
 
-function getProductRoutes() {
-  const source = readFileSync(path.join(rootDir, 'src/data/products.ts'), 'utf8');
-  return [...source.matchAll(/id:\s*"([^"]+)"/g)].map((m) => `/products/${m[1]}`);
-}
-
-const routes = [...STATIC_ROUTES, ...getProductRoutes()];
+// Snapshot the pristine SPA shell BEFORE any route is rendered.
+//
+// Why: rendering "/" overwrites dist/index.html with the prerendered homepage.
+// If the local server kept reading dist/index.html from disk as the SPA
+// fallback, every later route would boot from a document that already contains
+// the full homepage DOM and homepage <head> meta. The "content is ready" check
+// below would then pass instantly on stale homepage content, and a slow lazy
+// chunk could get the homepage (content + canonical) silently captured into a
+// subpage file. Serving this in-memory shellHtml snapshot for all client-route
+// requests removes that race entirely.
+const shellHtml = readFileSync(path.join(distDir, 'index.html'));
 
 const MIME = {
   '.html': 'text/html',
@@ -67,10 +51,22 @@ function startServer() {
   return new Promise((resolve) => {
     const server = createServer((req, res) => {
       const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
-      let filePath = path.join(distDir, urlPath === '/' ? 'index.html' : urlPath);
-      if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
-        filePath = path.join(distDir, 'index.html'); // SPA fallback for client routes
+
+      if (urlPath === '/' || urlPath === '/index.html') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(shellHtml);
+        return;
       }
+
+      const filePath = path.join(distDir, urlPath);
+      if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
+        // SPA fallback for client routes: always the pristine shell snapshot,
+        // never the (possibly already prerendered) dist/index.html on disk.
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(shellHtml);
+        return;
+      }
+
       try {
         const body = readFileSync(filePath);
         res.writeHead(200, { 'Content-Type': contentType(filePath) });
@@ -82,6 +78,37 @@ function startServer() {
     });
     server.listen(0, '127.0.0.1', () => resolve(server));
   });
+}
+
+// Fail the build if a captured page does not carry its own SEO head state.
+// This is the safety net for the exact incident class this branch fixes:
+// a subpage silently shipping the homepage's canonical/title.
+function assertSeo(route, html) {
+  const canonicalTags = html.match(/<link[^>]*rel="canonical"[^>]*>/g) || [];
+  if (canonicalTags.length !== 1) {
+    throw new Error(`expected exactly 1 canonical tag, found ${canonicalTags.length}`);
+  }
+
+  const href = (canonicalTags[0].match(/href="([^"]+)"/) || [])[1];
+  const expected = toCanonicalUrl(route);
+  if (href !== expected) {
+    throw new Error(`canonical mismatch: got ${href}, expected ${expected}`);
+  }
+
+  const titleTags = html.match(/<title[^>]*>/g) || [];
+  if (titleTags.length !== 1) {
+    throw new Error(`expected exactly 1 <title>, found ${titleTags.length}`);
+  }
+
+  const titleText = (html.match(/<title[^>]*>([^<]*)<\/title>/) || [])[1] || '';
+  if (!titleText.trim()) {
+    throw new Error('captured <title> is empty');
+  }
+
+  const descriptionTags = html.match(/<meta[^>]*name="description"[^>]*>/g) || [];
+  if (descriptionTags.length !== 1) {
+    throw new Error(`expected exactly 1 meta description, found ${descriptionTags.length}`);
+  }
 }
 
 async function renderRoute(browser, baseUrl, route) {
@@ -98,7 +125,9 @@ async function renderRoute(browser, baseUrl, route) {
 
     await page.goto(`${baseUrl}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-    // Wait for the React app to render real content (not just the lazy-loading skeleton).
+    // Wait for the React app to render real content (not just the lazy-loading
+    // skeleton). The shell served for client routes has an empty #root, so this
+    // condition can only be satisfied by the target route actually rendering.
     await page.waitForFunction(
       () => {
         const root = document.querySelector('#root');
@@ -107,10 +136,27 @@ async function renderRoute(browser, baseUrl, route) {
       { timeout: 30000 }
     );
 
-    // Small settle so react-helmet-async head updates are applied before capture.
+    // The route's own canonical appearing in <head> is the signal that
+    // react-helmet-async has applied this page's meta (not the shell's, and not
+    // a previous page's). Waiting on it closes the settle-time race for lazy
+    // routes on slow CI machines.
+    const expectedCanonical = toCanonicalUrl(route);
+    await page.waitForFunction(
+      (expected) => {
+        const link = document.querySelector('link[rel="canonical"]');
+        return !!link && link.getAttribute('href') === expected;
+      },
+      { timeout: 30000 },
+      expectedCanonical
+    );
+
+    // Small settle so remaining react-helmet-async head updates (og/twitter,
+    // JSON-LD) are applied before capture.
     await new Promise((r) => setTimeout(r, 500));
 
     const html = await page.content();
+    assertSeo(route, html);
+
     const relRoute = route === '/' ? '' : route.replace(/^\//, '');
     const outDir = path.join(distDir, relRoute);
     mkdirSync(outDir, { recursive: true });

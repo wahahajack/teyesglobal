@@ -11,9 +11,24 @@ const AD_PARAM_KEYS = [
   "utm_term",
   "fbclid",
 ] as const;
+const STORED_ATTRIBUTION_KEYS = [
+  ...AD_PARAM_KEYS,
+  "landing_page",
+  "referrer",
+] as const;
+const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
+const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
 const GTM_IDLE_DELAY_MS = 4000;
+
+type AttributionKey = (typeof STORED_ATTRIBUTION_KEYS)[number];
+type AttributionValues = Partial<Record<AttributionKey, string>>;
+
+interface DurableAttribution {
+  expiresAt: number;
+  values: AttributionValues;
+}
 
 declare global {
   interface Window {
@@ -39,29 +54,104 @@ function safeSessionGet(key: string) {
   }
 }
 
+function removeDurableAttribution() {
+  try {
+    localStorage.removeItem(ATTRIBUTION_STORAGE_KEY);
+  } catch {
+    // Storage can be unavailable in some privacy modes.
+  }
+}
+
+function readDurableAttribution(): DurableAttribution | null {
+  try {
+    const raw = localStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+    if (!raw) return null;
+
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") {
+      removeDurableAttribution();
+      return null;
+    }
+
+    const candidate = parsed as { expiresAt?: unknown; values?: unknown };
+    if (
+      typeof candidate.expiresAt !== "number" ||
+      !Number.isFinite(candidate.expiresAt) ||
+      candidate.expiresAt <= Date.now() ||
+      !candidate.values ||
+      typeof candidate.values !== "object" ||
+      Array.isArray(candidate.values)
+    ) {
+      removeDurableAttribution();
+      return null;
+    }
+
+    const source = candidate.values as Record<string, unknown>;
+    const values: AttributionValues = {};
+    STORED_ATTRIBUTION_KEYS.forEach((key) => {
+      if (typeof source[key] === "string") {
+        values[key] = source[key];
+      }
+    });
+
+    return { expiresAt: candidate.expiresAt, values };
+  } catch {
+    removeDurableAttribution();
+    return null;
+  }
+}
+
+function writeDurableAttribution(values: AttributionValues) {
+  try {
+    localStorage.setItem(
+      ATTRIBUTION_STORAGE_KEY,
+      JSON.stringify({
+        expiresAt: Date.now() + ATTRIBUTION_TTL_MS,
+        values,
+      } satisfies DurableAttribution),
+    );
+  } catch {
+    // Durable attribution is best-effort and must not break the page.
+  }
+}
+
+function readStoredValue(key: AttributionKey, durable: AttributionValues) {
+  return safeSessionGet(key) ?? durable[key] ?? null;
+}
+
+function hasStoredValue(key: AttributionKey, durable: AttributionValues) {
+  return safeSessionGet(key) !== null ||
+    Object.prototype.hasOwnProperty.call(durable, key);
+}
+
 export function initDataLayer() {
   window.dataLayer = window.dataLayer || [];
 }
 
 export function persistAdParams() {
   const params = new URLSearchParams(window.location.search);
-  const hasAdParam = AD_PARAM_KEYS.some((key) => Boolean(params.get(key)));
+  const durable = readDurableAttribution()?.values ?? {};
 
   AD_PARAM_KEYS.forEach((key) => {
     const value = params.get(key);
     if (value) {
       safeSessionSet(key, value);
+      durable[key] = value;
     }
   });
 
-  if (hasAdParam) {
-    if (!safeSessionGet("landing_page")) {
-      safeSessionSet("landing_page", window.location.href);
-    }
-    if (!safeSessionGet("referrer") && document.referrer) {
+  if (!hasStoredValue("landing_page", durable)) {
+    safeSessionSet("landing_page", window.location.href);
+    durable.landing_page = window.location.href;
+  }
+  if (!hasStoredValue("referrer", durable)) {
+    if (document.referrer) {
       safeSessionSet("referrer", document.referrer);
     }
+    durable.referrer = document.referrer;
   }
+
+  writeDurableAttribution(durable);
 }
 
 function injectGtm() {
@@ -139,18 +229,20 @@ export function loadGtmWhenIdle() {
 }
 
 export function getStoredAdParams() {
+  const durable = readDurableAttribution()?.values ?? {};
+
   return {
-    gclid: safeSessionGet("gclid"),
-    gbraid: safeSessionGet("gbraid"),
-    wbraid: safeSessionGet("wbraid"),
-    utm_source: safeSessionGet("utm_source"),
-    utm_medium: safeSessionGet("utm_medium"),
-    utm_campaign: safeSessionGet("utm_campaign"),
-    utm_content: safeSessionGet("utm_content"),
-    utm_term: safeSessionGet("utm_term"),
-    fbclid: safeSessionGet("fbclid"),
-    landing_page: safeSessionGet("landing_page"),
-    referrer: safeSessionGet("referrer"),
+    gclid: readStoredValue("gclid", durable),
+    gbraid: readStoredValue("gbraid", durable),
+    wbraid: readStoredValue("wbraid", durable),
+    utm_source: readStoredValue("utm_source", durable),
+    utm_medium: readStoredValue("utm_medium", durable),
+    utm_campaign: readStoredValue("utm_campaign", durable),
+    utm_content: readStoredValue("utm_content", durable),
+    utm_term: readStoredValue("utm_term", durable),
+    fbclid: readStoredValue("fbclid", durable),
+    landing_page: readStoredValue("landing_page", durable),
+    referrer: readStoredValue("referrer", durable),
   };
 }
 

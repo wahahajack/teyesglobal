@@ -137,7 +137,9 @@ export const SEO = ({
             <title>{fullTitle}</title>
             <meta name="description" content={description} />
             <link rel="canonical" href={fullUrl} />
-            {noindex && <meta name="robots" content="noindex, nofollow" />}
+            {/* Single source of truth for robots — the hardcoded tag was removed
+                from index.html so noindex pages never ship two robots metas. */}
+            <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
             {keywords && <meta name="keywords" content={keywords} />}
 
             {/* Open Graph / Facebook */}

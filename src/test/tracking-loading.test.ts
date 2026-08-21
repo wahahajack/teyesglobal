@@ -26,10 +26,10 @@ describe("GTM loading timing", () => {
     expect(window.dataLayer?.[0]).toMatchObject({ event: "gtm.js" });
   });
 
-  it("loads GTM after two seconds for normal traffic", () => {
+  it("loads GTM after four seconds for normal traffic", () => {
     loadGtmWhenIdle();
 
-    vi.advanceTimersByTime(1999);
+    vi.advanceTimersByTime(3999);
     expect(document.querySelector(GTM_SCRIPT_SELECTOR)).not.toBeInTheDocument();
 
     vi.advanceTimersByTime(1);

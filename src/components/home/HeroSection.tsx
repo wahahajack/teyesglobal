@@ -18,7 +18,7 @@ const entryPoints = [
     icon: Building2,
     label: "Product Lines & Model Comparison",
     description: "Compare flagship, mainstream, and entry-level models",
-    href: "/products/compare",
+    href: "/products/compare/",
     color: "from-primary to-blue-400",
   },
   {
@@ -26,7 +26,7 @@ const entryPoints = [
     icon: Cpu,
     label: "OEM / ODM & Private Label",
     description: "Learn about manufacturing, branding, and project support",
-    href: "/oem-odm",
+    href: "/oem-odm/",
     color: "from-accent to-cyan-400",
   },
   {
@@ -34,7 +34,7 @@ const entryPoints = [
     icon: Handshake,
     label: "Distributor / Wholesale Cooperation",
     description: "Explore product-line planning and market support",
-    href: "/solutions/distributors",
+    href: "/solutions/distributors/",
     color: "from-emerald-500 to-teal-400",
   },
 ];
@@ -87,13 +87,13 @@ export function HeroSection() {
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products">
+                <Link to="/products/">
                   Explore Product Lines
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/contact">Contact TEYES</Link>
+                <Link to="/contact/">Contact TEYES</Link>
               </Button>
             </div>
 
@@ -135,7 +135,7 @@ export function HeroSection() {
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
                     <Button variant="hero" size="sm" asChild>
-                      <Link to="/products/cc4-pro">
+                      <Link to="/products/cc4-pro/">
                         View Details
                         <ArrowRight className="h-4 w-4" />
                       </Link>

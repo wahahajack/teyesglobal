@@ -72,7 +72,7 @@ const ProductsPage = () => {
         title="Car Infotainment Products - Android Head Units"
         description="Browse TEYES car infotainment products. From flagship CC4 Pro to entry-level solutions. Android head units with CarPlay, Android Auto, 2K displays, and premium audio."
         keywords="TEYES products, car head unit, android car stereo, CC4 Pro, CC3 2K, CarPlay, Android Auto"
-        path="/products"
+        path="/products/"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products" },
@@ -96,7 +96,7 @@ const ProductsPage = () => {
             {[flagshipProducts[0], advancedProducts[0], entryProducts[0]].filter(Boolean).map((product) => (
               <Link
                 key={product.id}
-                to={`/products/${product.id}`}
+                to={`/products/${product.id}/`}
                 className="group bg-background rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300"
               >
                 {product.badge && (
@@ -152,7 +152,7 @@ const ProductsPage = () => {
                   <p className="text-muted-foreground">{info.description}</p>
                 </div>
                 <Button variant="hero-outline" size="sm" asChild>
-                  <Link to={`/products/lines#${key}`}>View All</Link>
+                  <Link to={`/products/lines/#${key}`}>View All</Link>
                 </Button>
               </div>
 
@@ -160,7 +160,7 @@ const ProductsPage = () => {
                 {seriesProducts.slice(0, 3).map((product) => (
                   <Link
                     key={product.id}
-                    to={`/products/${product.id}`}
+                    to={`/products/${product.id}/`}
                     className="group flex gap-4 p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 transition-all"
                   >
                     <div className="w-24 h-24 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0 overflow-hidden">

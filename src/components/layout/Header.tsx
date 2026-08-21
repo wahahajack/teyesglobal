@@ -12,33 +12,33 @@ const navigation = [
   { name: "Home", href: "/" },
   {
     name: "Products",
-    href: "/products",
+    href: "/products/",
     children: [
-      { name: "Product Lines", href: "/products/lines" },
-      { name: "Compare Models", href: "/products/compare" },
-      { name: "Accessories", href: "/accessories" },
+      { name: "Product Lines", href: "/products/lines/" },
+      { name: "Compare Models", href: "/products/compare/" },
+      { name: "Accessories", href: "/accessories/" },
     ],
   },
   {
     name: "Solutions",
-    href: "/solutions",
+    href: "/solutions/",
     children: [
-      { name: "For Distributors", href: "/solutions/distributors" },
-      { name: "For Auto Brands", href: "/solutions/auto-brands" },
-      { name: "For System Integrators", href: "/solutions/integrators" },
-      { name: "By Market Needs", href: "/solutions/market-needs" },
+      { name: "For Distributors", href: "/solutions/distributors/" },
+      { name: "For Auto Brands", href: "/solutions/auto-brands/" },
+      { name: "For System Integrators", href: "/solutions/integrators/" },
+      { name: "By Market Needs", href: "/solutions/market-needs/" },
     ],
   },
   {
     name: "OEM / ODM",
-    href: "/oem-odm",
+    href: "/oem-odm/",
     children: [
-      { name: "Capabilities", href: "/oem-odm/capabilities" },
-      { name: "Certifications", href: "/oem-odm/certifications" },
-      { name: "Project Cases", href: "/oem-odm/cases" },
+      { name: "Capabilities", href: "/oem-odm/capabilities/" },
+      { name: "Certifications", href: "/oem-odm/certifications/" },
+      { name: "Project Cases", href: "/oem-odm/cases/" },
     ],
   },
-  { name: "Contact", href: "/contact" },
+  { name: "Contact", href: "/contact/" },
 ];
 
 export function Header() {
@@ -135,7 +135,7 @@ export function Header() {
               </Suspense>
             )}
             <Button variant="hero" size="lg" asChild>
-              <Link to="/contact">Get in Touch</Link>
+              <Link to="/contact/">Get in Touch</Link>
             </Button>
           </div>
 
@@ -195,7 +195,7 @@ export function Header() {
             </div>
             <div className="mt-4 px-4">
               <Button variant="hero" size="lg" className="w-full" asChild>
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/contact/" onClick={() => setMobileMenuOpen(false)}>
                   Get in Touch
                 </Link>
               </Button>

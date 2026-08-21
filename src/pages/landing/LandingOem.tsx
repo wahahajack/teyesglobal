@@ -33,7 +33,7 @@ const LandingOemPage = () => {
         title="OEM Partnership - Custom Car Infotainment Manufacturing"
         description="Partner with TEYES for OEM car infotainment. Proven hardware platforms, full branding, 6-12 month launch, ISO-certified manufacturing, and dedicated engineering support."
         keywords="OEM car infotainment, custom manufacturing, white-label head unit, automotive OEM partner"
-        path="/landing/oem"
+        path="/landing/oem/"
         noindex={true}
         howTo={{
           name: "How to Launch Your Own Car Infotainment Line with TEYES OEM",
@@ -96,13 +96,13 @@ const LandingOemPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="hero" size="xl" asChild>
-                  <Link to="/contact">
+                  <Link to="/contact/">
                     Request OEM Consultation
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
                 <Button variant="hero-outline" size="xl" asChild>
-                  <Link to="/oem-odm">Learn About Our Capabilities</Link>
+                  <Link to="/oem-odm/">Learn About Our Capabilities</Link>
                 </Button>
               </div>
             </div>
@@ -191,7 +191,7 @@ const LandingOemPage = () => {
             No obligation discussion. Let's explore how TEYES can support your product development goals.
           </p>
           <Button variant="hero" size="xl" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Contact Our OEM Team
               <ArrowRight className="h-5 w-5" />
             </Link>

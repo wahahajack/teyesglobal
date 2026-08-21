@@ -13,6 +13,7 @@ const AD_PARAM_KEYS = [
 ] as const;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
+const GTM_IDLE_DELAY_MS = 4000;
 
 declare global {
   interface Window {
@@ -88,6 +89,12 @@ export function loadGtmNow() {
   injectGtm();
 }
 
+function isGtmPreview() {
+  const params = new URLSearchParams(window.location.search);
+
+  return params.has("gtm_debug") || params.has("gtm_auth") || params.has("gtm_preview");
+}
+
 export function loadGtmWhenIdle() {
   const schedulePassiveLoad = () => {
     if (window.__teyesGtmLoaded) return;
@@ -110,12 +117,18 @@ export function loadGtmWhenIdle() {
       });
     });
 
-    // Passive pageview tracking can wait. Conversion events still call loadGtmNow() immediately.
+    // Preview sessions must load immediately so Tag Assistant can connect.
+    // Normal pageview tracking waits briefly; conversion events still call loadGtmNow() immediately.
     window.__teyesGtmLoadTimer = window.setTimeout(() => {
       cleanupInteractionListeners();
       injectGtm();
-    }, 6000);
+    }, GTM_IDLE_DELAY_MS);
   };
+
+  if (isGtmPreview()) {
+    loadGtmNow();
+    return;
+  }
 
   if (document.readyState === "complete") {
     schedulePassiveLoad();
@@ -180,3 +193,4 @@ export function delayForConversionDispatch(timeout = 300) {
     window.setTimeout(resolve, timeout);
   });
 }
+

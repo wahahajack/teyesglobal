@@ -30,13 +30,13 @@ export function FinalCtaSection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="xl" asChild>
-              <Link to="/contact?intent=distributor">
+              <Link to="/contact/?intent=distributor">
                 Get Wholesale Pricing & Trial Plan
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
             <Button variant="hero-outline" size="xl" asChild>
-              <Link to="/contact?intent=oem">
+              <Link to="/contact/?intent=oem">
                 Discuss OEM / ODM Project
                 <MessageCircle className="h-5 w-5" />
               </Link>
@@ -44,7 +44,7 @@ export function FinalCtaSection() {
           </div>
 
           <Link
-            to="/products/compare"
+            to="/products/compare/"
             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
           >
             Compare TEYES Models

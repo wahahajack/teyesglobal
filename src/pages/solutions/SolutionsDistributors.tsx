@@ -71,14 +71,14 @@ const SolutionsDistributorsPage = () => {
         title="Distributor Partnership - Wholesale Car Infotainment"
         description="Become a TEYES distributor. Access proven products, competitive wholesale pricing, marketing support, and dedicated account management across 100+ markets."
         keywords="car infotainment distributor, wholesale head unit, TEYES partner, distribution partnership"
-        path="/solutions/distributors"
+        path="/solutions/distributors/"
       />
       <ContextHeader
         title="Solutions for Distributors"
         description="Partner with TEYES to access premium products, competitive pricing, and comprehensive support."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Solutions", href: "/solutions" },
+          { label: "Solutions", href: "/solutions/" },
           { label: "For Distributors" },
         ]}
       />
@@ -160,7 +160,7 @@ const SolutionsDistributorsPage = () => {
             level for your business.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link to="/contact/">
               Contact Sales
               <ArrowRight className="h-4 w-4" />
             </Link>

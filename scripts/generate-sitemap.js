@@ -57,6 +57,14 @@ function createUrlEntry(loc, lastmod, priority) {
   ].join('\n');
 }
 
+function toCanonicalPath(routePath) {
+  if (!routePath) {
+    return '/';
+  }
+
+  return routePath.endsWith('/') ? routePath : `${routePath}/`;
+}
+
 function getProductIds() {
   // Read and regex-parse TS data so the script works without a TS runtime.
   const productsContent = fs.readFileSync(productsFile, 'utf8');
@@ -75,7 +83,7 @@ function getProductIds() {
 
 const staticEntries = staticPages.map((page) =>
   createUrlEntry(
-    `${baseUrl}${page.path}`,
+    `${baseUrl}${toCanonicalPath(page.path)}`,
     getIsoDate(path.join(rootDir, page.source)),
     page.priority
   )
@@ -83,7 +91,7 @@ const staticEntries = staticPages.map((page) =>
 
 const productLastMod = getIsoDate(productsFile);
 const productEntries = getProductIds().map((id) =>
-  createUrlEntry(`${baseUrl}/products/${id}`, productLastMod, '0.9')
+  createUrlEntry(`${baseUrl}/products/${id}/`, productLastMod, '0.9')
 );
 
 const xml = [

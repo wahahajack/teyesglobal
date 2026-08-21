@@ -13,7 +13,7 @@ const AD_PARAM_KEYS = [
 ] as const;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
-const GTM_IDLE_DELAY_MS = 2000;
+const GTM_IDLE_DELAY_MS = 4000;
 
 declare global {
   interface Window {

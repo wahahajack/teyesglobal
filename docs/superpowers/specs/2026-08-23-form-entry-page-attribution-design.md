@@ -9,7 +9,7 @@ Keep the customer-selected inquiry type unchanged while storing both the form th
 - Preserve `Inquiry_Type` as the value selected by the visitor.
 - Preserve the existing `Lead_Form` source values such as `contact_page`, `manufacturing_quote`, and `distributor_application`.
 - Preserve paid-attribution fields, including `Initial_Landing_Page`, GCLID, GBRAID, WBRAID, and UTM values.
-- Add a Zoho Lead field named `Form_Entry_Page` that stores a same-origin path and query string, never a full external referrer.
+- Add a Zoho Lead single-line field named `Form_Entry_Page` that stores a same-origin path and query string, never a full external referrer, capped at 255 characters.
 
 ## Data Model
 
@@ -36,7 +36,7 @@ The Contact page does not read `intent` to choose an inquiry type. Query paramet
 ## Server and Zoho Flow
 
 1. The Netlify handler accepts `formEntryPage` as an optional string.
-2. It normalizes the value to a maximum-length same-origin path and query string, or an empty value for malformed input.
+2. It normalizes the value to a same-origin path and query string capped at 255 characters, or an empty value for malformed input.
 3. It writes the value only to the new Zoho `Form_Entry_Page` field.
 4. Existing payload validation, honeypot handling, per-record Zoho status inspection, and error responses remain unchanged.
 

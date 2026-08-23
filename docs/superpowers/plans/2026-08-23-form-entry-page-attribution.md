@@ -13,7 +13,7 @@
 - `Inquiry_Type` remains a visitor-controlled form value; do not prefill it from `intent`.
 - `Lead_Form` remains one of the existing source values.
 - `Initial_Landing_Page`, GCLID, GBRAID, WBRAID, UTM values, and referrer retain their existing meanings.
-- Store only a same-origin path and query string in `Form_Entry_Page`; do not store external referrers or personal data.
+- Store only a same-origin path and query string of at most 255 characters in `Form_Entry_Page`; do not store external referrers or personal data.
 - Do not deploy, publish, or change Zoho schema without a separate explicit approval.
 
 ---
@@ -138,7 +138,7 @@ Expected: the mapping assertion fails because `Form_Entry_Page` is absent.
 
 - [ ] **Step 3: Implement minimal server mapping**
 
-Add `formEntryPage: "Form_Entry_Page"` to `ZOHO_FIELDS`. Add `formEntryPage` to `LeadPayload`, normalize it with the existing `text` helper and the `attributionValue` length limit, and map it to `[ZOHO_FIELDS.formEntryPage]` in `toZohoLead`. Do not alter the `Initial_Landing_Page` mapping.
+Add `formEntryPage: "Form_Entry_Page"` to `ZOHO_FIELDS`. Add a dedicated 255-character `formEntryPage` limit to `LIMITS`, normalize it to a same-origin path and query string, and map it to `[ZOHO_FIELDS.formEntryPage]` in `toZohoLead`. Do not alter the `Initial_Landing_Page` mapping.
 
 - [ ] **Step 4: Run the focused test and confirm GREEN**
 

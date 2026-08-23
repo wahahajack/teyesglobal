@@ -35,6 +35,26 @@ describe("createZohoLeadHandler", () => {
     expect(response.status).toBe(201);
     expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Form_Entry_Page: "/products/cc4-pro/?source=test", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
   });
+  it("同源 formEntryPage 只映射路径和查询参数", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://deploy-preview.example.netlify.app/products/cc4-pro/?source=trusted#form" }, validEnv, fetchMock);
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("/products/cc4-pro/?source=trusted");
+  });
+  it("外部绝对 formEntryPage 映射为空", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://attacker.example/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+  });
+  it("协议相对 formEntryPage 映射为空", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "//deploy-preview.example.netlify.app/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+  });
+  it("格式错误的 formEntryPage 映射为空", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "http://[::1" }, validEnv, fetchMock);
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+  });
+  it("缺少可选 formEntryPage 时映射为空", async () => {
+    const { formEntryPage, ...payloadWithoutFormEntryPage } = validPayload; const fetchMock = mockZohoTokenAndCreate(); await post(payloadWithoutFormEntryPage, validEnv, fetchMock);
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+  });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))

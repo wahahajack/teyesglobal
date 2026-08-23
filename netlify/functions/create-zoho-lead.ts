@@ -30,8 +30,16 @@ interface LeadPayload {
 const json = (status: number, body: Record<string, unknown>, headers?: HeadersInit) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", ...headers } });
 const text = (value: unknown, limit: number) => typeof value === "string" ? value.trim().slice(0, limit) : "";
+const formEntryPage = (value: unknown, origin: string) => {
+  const candidate = text(value, LIMITS.attributionValue);
+  if (!candidate || candidate.startsWith("//")) return "";
+  try {
+    const url = new URL(candidate, origin);
+    return url.origin === origin ? `${url.pathname}${url.search}` : "";
+  } catch { return ""; }
+};
 
-function normalizePayload(input: unknown): LeadPayload | null {
+function normalizePayload(input: unknown, origin: string): LeadPayload | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
   const body = input as Record<string, unknown>;
   const attributionInput = body.attribution;
@@ -42,7 +50,7 @@ function normalizePayload(input: unknown): LeadPayload | null {
     source: text(body.source, 100), fullName: text(body.fullName, LIMITS.fullName), email: text(body.email, LIMITS.email),
     company: text(body.company, LIMITS.company), country: text(body.country, LIMITS.country), inquiryType: text(body.inquiryType, LIMITS.inquiryType),
     message: text(body.message, LIMITS.message), estimatedQuantity: text(body.estimatedQuantity, LIMITS.estimatedQuantity), businessModel: text(body.businessModel, LIMITS.businessModel),
-    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), formEntryPage: text(body.formEntryPage, LIMITS.attributionValue), attribution,
+    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), formEntryPage: formEntryPage(body.formEntryPage, origin), attribution,
   };
   return SOURCES.has(payload.source) && EMAIL_RE.test(payload.email) && !Number.isNaN(Date.parse(payload.submittedAt)) ? payload : null;
 }
@@ -68,12 +76,13 @@ export function createZohoLeadHandler(env: ZohoEnvironment, fetchImpl: typeof fe
   return async (request: Request): Promise<Response> => {
     if (request.method !== "POST") return json(405, { error: "method_not_allowed" }, { Allow: "POST" });
     if (!request.headers.get("Content-Type")?.includes("application/json")) return json(400, { error: "invalid_request" });
+    const requestOrigin = new URL(request.url).origin;
     const origin = request.headers.get("Origin");
-    if (origin && origin !== new URL(request.url).origin) return json(403, { error: "origin_not_allowed" });
+    if (origin && origin !== requestOrigin) return json(403, { error: "origin_not_allowed" });
     let body: unknown;
     try { body = await request.json(); } catch { return json(400, { error: "invalid_request" }); }
     if (body && typeof body === "object" && !Array.isArray(body) && text((body as Record<string, unknown>).website, 2048)) return json(202, { ok: true });
-    const payload = normalizePayload(body);
+    const payload = normalizePayload(body, requestOrigin);
     if (!payload) return json(400, { error: "invalid_request" });
     if (!configured(env)) return json(500, { error: "configuration_error" });
     try {

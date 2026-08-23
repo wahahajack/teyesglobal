@@ -11,7 +11,7 @@ export const ZOHO_FIELDS = {
   utmMedium: "UTM_Medium", utmCampaign: "UTM_Campaign", utmContent: "UTM_Content",
   utmTerm: "UTM_Term", fbclid: "FBCLID", leadForm: "Lead_Form",
   inquiryType: "Inquiry_Type", estimatedQuantity: "Estimated_Quantity",
-  businessModel: "Business_Model", landingPage: "Initial_Landing_Page",
+  businessModel: "Business_Model", formEntryPage: "Form_Entry_Page", landingPage: "Initial_Landing_Page",
   referrer: "Initial_Referrer", submittedAt: "Website_Submitted_At",
 } as const;
 
@@ -24,7 +24,7 @@ type Attribution = Record<(typeof ATTRIBUTION_KEYS)[number], string>;
 interface LeadPayload {
   source: string; fullName: string; email: string; company: string; country: string;
   inquiryType: string; message: string; estimatedQuantity: string; businessModel: string;
-  submittedAt: string; website: string; attribution: Attribution;
+  submittedAt: string; website: string; formEntryPage: string; attribution: Attribution;
 }
 
 const json = (status: number, body: Record<string, unknown>, headers?: HeadersInit) =>
@@ -42,7 +42,7 @@ function normalizePayload(input: unknown): LeadPayload | null {
     source: text(body.source, 100), fullName: text(body.fullName, LIMITS.fullName), email: text(body.email, LIMITS.email),
     company: text(body.company, LIMITS.company), country: text(body.country, LIMITS.country), inquiryType: text(body.inquiryType, LIMITS.inquiryType),
     message: text(body.message, LIMITS.message), estimatedQuantity: text(body.estimatedQuantity, LIMITS.estimatedQuantity), businessModel: text(body.businessModel, LIMITS.businessModel),
-    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), attribution,
+    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), formEntryPage: text(body.formEntryPage, LIMITS.attributionValue), attribution,
   };
   return SOURCES.has(payload.source) && EMAIL_RE.test(payload.email) && !Number.isNaN(Date.parse(payload.submittedAt)) ? payload : null;
 }
@@ -57,7 +57,7 @@ function toZohoLead(payload: LeadPayload) {
     [ZOHO_FIELDS.utmSource]: attribution.utm_source, [ZOHO_FIELDS.utmMedium]: attribution.utm_medium, [ZOHO_FIELDS.utmCampaign]: attribution.utm_campaign,
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,
     [ZOHO_FIELDS.leadForm]: payload.source, [ZOHO_FIELDS.inquiryType]: payload.inquiryType, [ZOHO_FIELDS.estimatedQuantity]: payload.estimatedQuantity,
-    [ZOHO_FIELDS.businessModel]: payload.businessModel, [ZOHO_FIELDS.landingPage]: attribution.landing_page, [ZOHO_FIELDS.referrer]: attribution.referrer,
+    [ZOHO_FIELDS.businessModel]: payload.businessModel, [ZOHO_FIELDS.formEntryPage]: payload.formEntryPage, [ZOHO_FIELDS.landingPage]: attribution.landing_page, [ZOHO_FIELDS.referrer]: attribution.referrer,
     [ZOHO_FIELDS.submittedAt]: submittedAt,
   };
 }

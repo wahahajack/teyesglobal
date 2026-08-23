@@ -24,7 +24,6 @@ const validPayload: LeadCapturePayload = {
   businessModel: "",
   submittedAt: "2026-08-07T10:00:00.000Z",
   website: "",
-  formEntryPage: "",
   attribution: {
     gclid: "",
     gbraid: "",
@@ -103,6 +102,25 @@ describe("lead capture attribution", () => {
 });
 
 describe("submitZohoLead", () => {
+  it("accepts a caller payload without formEntryPage and sends the captured entry page", async () => {
+    history.replaceState({}, "", "/products/cc4-pro/?source=test");
+    installContactEntryTracking();
+    document.body.innerHTML = '<a href="/contact/">Contact</a>';
+    const link = document.querySelector("a")!;
+    link.addEventListener("click", (event) => event.preventDefault());
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 201 })));
+
+    await submitZohoLead(validPayload);
+
+    expect(fetch).toHaveBeenCalledWith(
+      "/api/zoho-lead",
+      expect.objectContaining({
+        body: expect.stringContaining('"formEntryPage":"/products/cc4-pro/?source=test"'),
+      }),
+    );
+  });
+
   it("使用同源端点和 keepalive", async () => {
     const fetchMock = vi.fn().mockResolvedValue(
       new Response(JSON.stringify({ ok: true }), { status: 201 }),

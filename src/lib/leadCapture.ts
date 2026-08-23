@@ -36,7 +36,7 @@ export interface LeadCapturePayload {
   businessModel: string;
   submittedAt: string;
   website: string;
-  formEntryPage: string;
+  formEntryPage?: string;
   attribution: LeadAttribution;
 }
 

@@ -35,3 +35,29 @@ it("从表单和 sessionStorage 构造统一 payload", async () => {
     attribution: { gclid: "click-123", landing_page: "https://example.com/landing" },
   });
 });
+
+it("优先使用 form_entry_page，并在缺失时回退到当前页面", async () => {
+  document.body.innerHTML = `
+    <form id="lead">
+      <input name="user_email" value="buyer@example.com">
+    </form>
+  `;
+  window.history.replaceState({}, "", "/products/cc4-pro/?variant=blue");
+  sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  window.eval(readFileSync(scriptPath, "utf8"));
+  const client = (window as Window & { TeyesLeadCapture: { capture: (form: HTMLFormElement, options: unknown) => Promise<void> } }).TeyesLeadCapture;
+  await client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" });
+
+  const firstBody = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(firstBody.formEntryPage).toBe("/products/cc4-pro/");
+
+  sessionStorage.clear();
+  fetchMock.mockClear();
+  await client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" });
+
+  const secondBody = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(secondBody.formEntryPage).toBe("/products/cc4-pro/?variant=blue");
+});

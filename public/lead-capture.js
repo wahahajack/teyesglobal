@@ -9,7 +9,11 @@
   const writeStorage = (key, value) => {
     try { window.sessionStorage.setItem(key, value); } catch { /* storage must not break forms */ }
   };
+  const removeStorage = (key) => {
+    try { window.sessionStorage.removeItem(key); } catch { /* storage must not break forms */ }
+  };
   const value = (formData, name) => String(formData.get(name) || "").trim();
+  const currentPath = () => window.location.pathname + window.location.search;
 
   function persistAttribution() {
     const params = new URLSearchParams(window.location.search);
@@ -36,6 +40,7 @@
       message: value(formData, "message"),
       estimatedQuantity: value(formData, "estimated_quantity"),
       businessModel: value(formData, "business_model"),
+      formEntryPage: readStorage("form_entry_page") || currentPath(),
       submittedAt: new Date().toISOString(),
       website: value(formData, "website"),
       attribution,
@@ -45,6 +50,7 @@
       body: JSON.stringify(payload), keepalive: true,
     }).then((response) => {
       if (!response.ok) throw new Error("Zoho lead capture failed");
+      removeStorage("form_entry_page");
     });
   }
 

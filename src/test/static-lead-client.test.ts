@@ -61,3 +61,58 @@ it("优先使用 form_entry_page，并在缺失时回退到当前页面", async 
   const secondBody = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
   expect(secondBody.formEntryPage).toBe("/products/cc4-pro/?variant=blue");
 });
+
+it("成功提交后清除 form_entry_page", async () => {
+  document.body.innerHTML = `
+    <form id="lead">
+      <input name="user_email" value="buyer@example.com">
+    </form>
+  `;
+  sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  window.eval(readFileSync(scriptPath, "utf8"));
+  const client = (window as Window & { TeyesLeadCapture: { capture: (form: HTMLFormElement, options: unknown) => Promise<void> } }).TeyesLeadCapture;
+  await client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" });
+
+  expect(sessionStorage.getItem("form_entry_page")).toBeNull();
+});
+
+it("非 OK 响应时保留 form_entry_page", async () => {
+  document.body.innerHTML = `
+    <form id="lead">
+      <input name="user_email" value="buyer@example.com">
+    </form>
+  `;
+  sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 500 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  window.eval(readFileSync(scriptPath, "utf8"));
+  const client = (window as Window & { TeyesLeadCapture: { capture: (form: HTMLFormElement, options: unknown) => Promise<void> } }).TeyesLeadCapture;
+
+  await expect(client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" }))
+    .rejects.toThrow("Zoho lead capture failed");
+
+  expect(sessionStorage.getItem("form_entry_page")).toBe("/products/cc4-pro/");
+});
+
+it("capture 被拒绝时保留 form_entry_page", async () => {
+  document.body.innerHTML = `
+    <form id="lead">
+      <input name="user_email" value="buyer@example.com">
+    </form>
+  `;
+  sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+  const fetchMock = vi.fn().mockRejectedValue(new Error("network down"));
+  vi.stubGlobal("fetch", fetchMock);
+
+  window.eval(readFileSync(scriptPath, "utf8"));
+  const client = (window as Window & { TeyesLeadCapture: { capture: (form: HTMLFormElement, options: unknown) => Promise<void> } }).TeyesLeadCapture;
+
+  await expect(client.capture(document.querySelector<HTMLFormElement>("#lead")!, { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" }))
+    .rejects.toThrow("network down");
+
+  expect(sessionStorage.getItem("form_entry_page")).toBe("/products/cc4-pro/");
+});

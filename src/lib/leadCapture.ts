@@ -1,4 +1,4 @@
-import { getStoredAdParams } from "@/lib/tracking";
+import { clearFormEntryPage, getFormEntryPage, getStoredAdParams } from "@/lib/tracking";
 
 export const LEAD_SOURCES = [
   "contact_page",
@@ -36,6 +36,7 @@ export interface LeadCapturePayload {
   businessModel: string;
   submittedAt: string;
   website: string;
+  formEntryPage: string;
   attribution: LeadAttribution;
 }
 
@@ -61,14 +62,17 @@ export function buildAttribution(): LeadAttribution {
 export async function submitZohoLead(
   payload: LeadCapturePayload,
 ): Promise<void> {
+  const leadPayload = { ...payload, formEntryPage: getFormEntryPage() };
   const response = await fetch("/api/zoho-lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(leadPayload),
     keepalive: true,
   });
 
   if (!response.ok) {
     throw new Error(`Zoho lead request failed with ${response.status}`);
   }
+
+  clearFormEntryPage();
 }

@@ -1,4 +1,5 @@
 const GTM_ID = "GTM-MSPH5TMK";
+const FORM_ENTRY_PAGE_KEY = "form_entry_page";
 
 const AD_PARAM_KEYS = [
   "gclid",
@@ -35,6 +36,41 @@ function safeSessionGet(key: string) {
     return sessionStorage.getItem(key);
   } catch {
     return null;
+  }
+}
+
+function getCurrentPath() {
+  return window.location.pathname + window.location.search;
+}
+
+let contactEntryTrackingInstalled = false;
+
+export function installContactEntryTracking() {
+  if (contactEntryTrackingInstalled) return;
+
+  contactEntryTrackingInstalled = true;
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link) return;
+
+    const destination = new URL(link.getAttribute("href")!, window.location.origin);
+    if (destination.origin === window.location.origin && destination.pathname === "/contact/") {
+      safeSessionSet(FORM_ENTRY_PAGE_KEY, getCurrentPath());
+    }
+  });
+}
+
+export function getFormEntryPage() {
+  return safeSessionGet(FORM_ENTRY_PAGE_KEY) || getCurrentPath();
+}
+
+export function clearFormEntryPage() {
+  try {
+    sessionStorage.removeItem(FORM_ENTRY_PAGE_KEY);
+  } catch {
+    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
   }
 }
 

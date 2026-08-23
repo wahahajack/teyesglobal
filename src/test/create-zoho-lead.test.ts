@@ -39,6 +39,16 @@ describe("createZohoLeadHandler", () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://deploy-preview.example.netlify.app/products/cc4-pro/?source=trusted#form" }, validEnv, fetchMock);
     expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("/products/cc4-pro/?source=trusted");
   });
+  it("同源 formEntryPage 超过 255 字符时会截断且只保留路径和查询", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    const longQuery = `source=${"x".repeat(260)}`;
+    await post({ ...validPayload, formEntryPage: `https://deploy-preview.example.netlify.app/products/cc4-pro/?${longQuery}#form` }, validEnv, fetchMock);
+    const value = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page as string;
+    expect(value.length).toBeLessThanOrEqual(255);
+    expect(value.startsWith("/products/cc4-pro/?source=")).toBe(true);
+    expect(value).not.toContain("https://");
+    expect(value).not.toContain("#");
+  });
   it("外部绝对 formEntryPage 映射为空", async () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://attacker.example/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
     expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");

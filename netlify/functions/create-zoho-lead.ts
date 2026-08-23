@@ -17,7 +17,7 @@ export const ZOHO_FIELDS = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SOURCES = new Set(["contact_page", "wholesale_quote", "manufacturing_quote", "distributor_application", "catalog_request"]);
-const LIMITS = { fullName: 100, email: 254, company: 150, country: 100, inquiryType: 100, message: 4000, estimatedQuantity: 100, businessModel: 100, attributionValue: 2048 } as const;
+const LIMITS = { fullName: 100, email: 254, company: 150, country: 100, inquiryType: 100, message: 4000, estimatedQuantity: 100, businessModel: 100, attributionValue: 2048, formEntryPage: 255 } as const;
 const ATTRIBUTION_KEYS = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "landing_page", "referrer"] as const;
 
 type Attribution = Record<(typeof ATTRIBUTION_KEYS)[number], string>;
@@ -35,7 +35,7 @@ const formEntryPage = (value: unknown, origin: string) => {
   if (!candidate || candidate.startsWith("//")) return "";
   try {
     const url = new URL(candidate, origin);
-    return url.origin === origin ? `${url.pathname}${url.search}` : "";
+    return url.origin === origin ? `${url.pathname}${url.search}`.slice(0, LIMITS.formEntryPage) : "";
   } catch { return ""; }
 };
 

@@ -151,7 +151,7 @@ export function installContactEntryTracking() {
     if (destination.origin === window.location.origin && FORM_ENTRY_TARGET_PATHS.has(destination.pathname)) {
       safeSessionSet(FORM_ENTRY_PAGE_KEY, getCurrentPath());
     }
-  });
+  }, { capture: true });
 }
 
 export function getFormEntryPage() {

@@ -71,6 +71,20 @@ describe("lead capture attribution", () => {
     expect(getFormEntryPage()).toBe("/products/cc4-pro/?source=test");
   });
 
+  it("captures the source page when navigation starts during the link click", () => {
+    history.replaceState({}, "", "/landing/oem/?source=test");
+    installContactEntryTracking();
+    document.body.innerHTML = '<a href="/contact/">Contact</a>';
+    const link = document.querySelector("a")!;
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      history.replaceState({}, "", "/contact/");
+    });
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(getFormEntryPage()).toBe("/landing/oem/?source=test");
+  });
+
   it.each(formTargetRoutes)(
     "records the current page before a same-site form CTA navigation to %s",
     (targetRoute) => {

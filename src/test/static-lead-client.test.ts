@@ -207,7 +207,7 @@ it.each([
   ["wa.me", "https://wa.me/placeholder?phone=synthetic&message=ignored", "wa.me"],
   ["api.whatsapp.com", "https://api.whatsapp.com/send?phone=synthetic&message=ignored", "api.whatsapp.com"],
   ["web.whatsapp.com", "https://web.whatsapp.com/send?phone=synthetic&message=ignored", "web.whatsapp.com"],
-  ["whatsapp:", "whatsapp://send?phone=synthetic&message=ignored", "send"],
+  ["whatsapp:", "whatsapp://send?phone=synthetic&message=ignored", "whatsapp"],
 ])("records an exact approved event for %s", (_name, href, destinationHost) => {
   sessionStorage.clear();
   history.replaceState({}, "", "/static-whatsapp/");

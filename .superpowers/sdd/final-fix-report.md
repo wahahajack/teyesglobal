@@ -34,3 +34,10 @@ Applied the final-review fixes for the Page Journey/WhatsApp attribution branch.
 ## Concerns / evidence boundary
 
 These checks establish local code, test, and development-build behavior only. No GTM Preview, production deployment, GA4 DebugView, external form submission, or Zoho receipt was performed.
+
+## Final review follow-up
+
+- TDD RED: after changing both React and static tests to expect the safe `whatsapp` protocol constant, each focused suite failed only for the previous `destination_host: "send"` result.
+- TDD GREEN: `npm test -- src/lib/leadCapture.test.ts` passed 31/31 and `npm test -- src/test/static-lead-client.test.ts` passed 17/17.
+- For `whatsapp:` links, both clients now emit `destination_host: "whatsapp"`; HTTPS events continue to emit only the allowlisted WhatsApp host. Protocol URLs cannot leak a phone-like or arbitrary hostname.
+- Removed the two Markdown trailing-space instances in the design document. Post-commit `git diff --check 6871c0d..HEAD` passed.

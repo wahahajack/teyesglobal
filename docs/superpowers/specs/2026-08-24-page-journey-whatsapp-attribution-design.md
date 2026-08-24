@@ -1,7 +1,7 @@
 # Page Journey and WhatsApp Attribution Design
 
-**Date:** 2026-08-24  
-**Status:** Design only; no production code, GTM container, or deployment changes are included in this document.  
+**Date:** 2026-08-24
+**Status:** Design only; no production code, GTM container, or deployment changes are included in this document.
 **Scope:** TEYES React SPA, existing static lead pages, Netlify Zoho lead endpoint, and the GTM/GA4 handoff.
 
 ## Goal

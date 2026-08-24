@@ -184,6 +184,7 @@
       const destinationHost = destination.hostname.toLowerCase();
       const isWhatsappLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
       if (!isWhatsappLink) return;
+      const eventDestinationHost = destination.protocol === "whatsapp:" ? "whatsapp" : destinationHost;
 
       const entries = boundJourneyEntries(readPageJourneyEntries());
       const path = normalizeJourneyPath(window.location.pathname) || "/";
@@ -202,7 +203,7 @@
         page_journey: stored.journey,
         wa_click_path: clickPath,
         link_location: normalizeLinkLocation(link.getAttribute("data-wa-location")),
-        destination_host: destinationHost || destination.protocol.replace(":", ""),
+        destination_host: eventDestinationHost,
       });
     }, { capture: true });
   };

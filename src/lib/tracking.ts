@@ -346,6 +346,7 @@ export function installPageJourneyTracking() {
     const destinationHost = destination.hostname.toLowerCase();
     const isWhatsAppLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
     if (!isWhatsAppLink) return;
+    const eventDestinationHost = destination.protocol === "whatsapp:" ? "whatsapp" : destinationHost;
 
     const journey = formatJourney(boundJourneyEntries(readPageJourneyEntries()));
     const path = normalizeJourneyPath(window.location.pathname) || "/";
@@ -372,7 +373,7 @@ export function installPageJourneyTracking() {
       page_journey: stored.journey,
       wa_click_path: clickPath,
       link_location: linkLocation,
-      destination_host: destinationHost || destination.protocol.replace(":", ""),
+      destination_host: eventDestinationHost,
     });
     loadGtmNow();
   }, { capture: true });

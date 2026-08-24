@@ -119,3 +119,59 @@ it("静态落地页不会把后续站内页面记为首次 referrer", async () =
   await client().capture(form(), options);
   expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body)).attribution.referrer).toBe("");
 });
+
+it("records the static-page journey and WA snapshot in the payload", async () => {
+  renderForm();
+  sessionStorage.removeItem("teyes_page_journey_v1");
+  sessionStorage.removeItem("teyes_last_whatsapp_click_v1");
+  history.replaceState({}, "", "/android-car-stereo-oem-manufacturer/");
+  window.eval(staticLeadClient);
+  history.replaceState({}, "", "/android-car-stereo-oem-manufacturer/pricing");
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    '<a data-wa-location="oem_pricing" href="https://wa.me/123?text=ignored">WA</a>',
+  );
+  window.dataLayer = [];
+  document.querySelector("a")!.dispatchEvent(
+    new MouseEvent("click", { bubbles: true, cancelable: true }),
+  );
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  await client().capture(form(), options);
+
+  const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(body).toMatchObject({
+    pageJourney: "/android-car-stereo-oem-manufacturer/ > /android-car-stereo-oem-manufacturer/pricing",
+    whatsappClickPath: "/android-car-stereo-oem-manufacturer/pricing",
+    whatsappClickCount: 1,
+  });
+  expect(window.dataLayer).toContainEqual(expect.objectContaining({
+    event: "whatsapp_click",
+    destination_host: "wa.me",
+    link_location: "oem_pricing",
+  }));
+});
+
+it("retains the static journey snapshot when lead capture fails", async () => {
+  renderForm();
+  sessionStorage.removeItem("teyes_page_journey_v1");
+  sessionStorage.removeItem("teyes_last_whatsapp_click_v1");
+  history.replaceState({}, "", "/android-car-stereo-wholesale/");
+  window.eval(staticLeadClient);
+  history.replaceState({}, "", "/android-car-stereo-wholesale/quote");
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    '<a data-wa-location="wholesale_quote" href="https://wa.me/456">WA</a>',
+  );
+  document.querySelector("a")!.dispatchEvent(
+    new MouseEvent("click", { bubbles: true, cancelable: true }),
+  );
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 500 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  await expect(client().capture(form(), options)).rejects.toThrow("Zoho lead capture failed");
+
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).not.toBeNull();
+  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).not.toBeNull();
+});

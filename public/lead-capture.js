@@ -6,6 +6,10 @@
   const STORED_ATTRIBUTION_KEYS = [...ATTRIBUTION_KEYS, "landing_page", "referrer"];
   const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
   const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+  const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
+  const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
+  const MAX_PAGE_JOURNEY_ENTRIES = 20;
+  const WHATSAPP_HOSTS = new Set(["wa.me", "api.whatsapp.com", "web.whatsapp.com"]);
   const readSession = (key) => {
     try { return window.sessionStorage.getItem(key) || ""; } catch { return ""; }
   };
@@ -61,6 +65,126 @@
   };
   const value = (formData, name) => String(formData.get(name) || "").trim();
   const currentPath = () => window.location.pathname + window.location.search;
+  const normalizeJourneyPath = (value) => {
+    if (typeof value !== "string") return "";
+    const path = value
+      .split("")
+      .filter((character) => {
+        const code = character.charCodeAt(0);
+        return code > 0x1f && code !== 0x7f;
+      })
+      .join("")
+      .trim();
+    if (!path || !path.startsWith("/") || path.startsWith("//")) return "";
+    if (/^(?:https?:|javascript:|data:)/i.test(path)) return "";
+    return path.split("?")[0] || "/";
+  };
+  const readPageJourneyEntries = () => {
+    const raw = readSession(PAGE_JOURNEY_KEY);
+    if (!raw) return [];
+    try {
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES);
+    } catch {
+      return [];
+    }
+  };
+  const recordPageJourneyEntry = () => {
+    const path = normalizeJourneyPath(window.location.pathname);
+    if (!path) return;
+    const entries = readPageJourneyEntries();
+    if (entries[entries.length - 1] === path) return;
+    entries.push(path);
+    writeSession(PAGE_JOURNEY_KEY, JSON.stringify(entries.slice(-MAX_PAGE_JOURNEY_ENTRIES)));
+  };
+  const readWhatsappClick = () => {
+    const raw = readSession(WHATSAPP_CLICK_KEY);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+      const journey = typeof parsed.journey === "string"
+        ? parsed.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES).join(" > ")
+        : "";
+      const path = normalizeJourneyPath(parsed.path);
+      const count = typeof parsed.count === "number" && Number.isFinite(parsed.count)
+        ? Math.max(0, Math.floor(parsed.count))
+        : 0;
+      if (!journey || !path || count < 1) return null;
+      return { journey, path, count };
+    } catch {
+      return null;
+    }
+  };
+  const pageJourneySnapshot = () => {
+    const entries = readPageJourneyEntries();
+    const stored = readWhatsappClick();
+    return {
+      pageJourney: entries.join(" > ") || normalizeJourneyPath(window.location.pathname) || "/",
+      whatsappClickJourney: stored?.journey || "",
+      whatsappClickPath: stored?.path || "",
+      whatsappClickCount: stored?.count || 0,
+    };
+  };
+  const normalizeLinkLocation = (value) => {
+    if (typeof value !== "string") return "unknown";
+    const location = value.trim();
+    return /^[a-z0-9_-]{1,64}$/.test(location) ? location : "unknown";
+  };
+  const installJourneyTracking = () => {
+    if (window.__teyesJourneyTrackingInstalled) return;
+    window.__teyesJourneyTrackingInstalled = true;
+    recordPageJourneyEntry();
+
+    const originalPushState = history.pushState.bind(history);
+    history.pushState = (...args) => {
+      const result = originalPushState(...args);
+      recordPageJourneyEntry();
+      return result;
+    };
+    const originalReplaceState = history.replaceState.bind(history);
+    history.replaceState = (...args) => {
+      const result = originalReplaceState(...args);
+      recordPageJourneyEntry();
+      return result;
+    };
+    window.addEventListener("popstate", recordPageJourneyEntry);
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      const link = event.target.closest("a[href]");
+      if (!link) return;
+
+      let destination;
+      try {
+        destination = new URL(link.getAttribute("href"), window.location.href);
+      } catch {
+        return;
+      }
+      const destinationHost = destination.hostname.toLowerCase();
+      const isWhatsappLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
+      if (!isWhatsappLink) return;
+
+      const entries = readPageJourneyEntries();
+      const path = normalizeJourneyPath(window.location.pathname) || "/";
+      const previous = readWhatsappClick();
+      const stored = {
+        journey: entries.join(" > ") || path,
+        path,
+        count: (previous?.count || 0) + 1,
+      };
+      writeSession(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "whatsapp_click",
+        page_path: path,
+        page_journey: stored.journey,
+        wa_click_path: path,
+        link_location: normalizeLinkLocation(link.getAttribute("data-wa-location")),
+        destination_host: destinationHost || destination.protocol.replace(":", ""),
+      });
+    }, { capture: true });
+  };
 
   function persistAttribution() {
     const params = new URLSearchParams(window.location.search);
@@ -105,6 +229,7 @@
       submittedAt: new Date().toISOString(),
       website: value(formData, "website"),
       attribution,
+      ...pageJourneySnapshot(),
     };
     return fetch("/api/zoho-lead", {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -112,9 +237,12 @@
     }).then((response) => {
       if (!response.ok) throw new Error("Zoho lead capture failed");
       removeSession("form_entry_page");
+      removeSession(PAGE_JOURNEY_KEY);
+      removeSession(WHATSAPP_CLICK_KEY);
     });
   }
 
+  installJourneyTracking();
   persistAttribution();
   window.TeyesLeadCapture = Object.freeze({ capture, persistAttribution });
 })();

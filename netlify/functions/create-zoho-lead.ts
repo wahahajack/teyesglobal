@@ -11,7 +11,7 @@ export const ZOHO_FIELDS = {
   utmMedium: "UTM_Medium", utmCampaign: "UTM_Campaign", utmContent: "UTM_Content",
   utmTerm: "UTM_Term", fbclid: "FBCLID", leadForm: "Lead_Form",
   inquiryType: "Inquiry_Type", estimatedQuantity: "Estimated_Quantity",
-  businessModel: "Business_Model", formEntryPage: "Form_Entry_Page", landingPage: "Initial_Landing_Page",
+  businessModel: "Business_Model", landingPage: "Initial_Landing_Page",
   referrer: "Initial_Referrer", submittedAt: "Website_Submitted_At",
 } as const;
 
@@ -38,6 +38,12 @@ const formEntryPage = (value: unknown, origin: string) => {
     return url.origin === origin ? `${url.pathname}${url.search}`.slice(0, LIMITS.formEntryPage) : "";
   } catch { return ""; }
 };
+const description = (message: string, entryPage: string) => {
+  if (!entryPage) return message;
+  const suffix = `---\nAttribution\nForm Entry Page: ${entryPage}`;
+  const separator = message ? "\n\n" : "";
+  return `${message.slice(0, LIMITS.message - separator.length - suffix.length)}${separator}${suffix}`;
+};
 
 function normalizePayload(input: unknown, origin: string): LeadPayload | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
@@ -60,12 +66,12 @@ function toZohoLead(payload: LeadPayload) {
   const submittedAt = new Date(payload.submittedAt).toISOString().replace(/\.\d{3}Z$/, "+00:00");
   return {
     Last_Name: payload.fullName || payload.email.split("@")[0], Company: payload.company || "Not provided", Email: payload.email.toLowerCase(),
-    Country: payload.country, Description: payload.message, Lead_Source: "Web Download",
+    Country: payload.country, Description: description(payload.message, payload.formEntryPage), Lead_Source: "Web Download",
     [ZOHO_FIELDS.gclid]: attribution.gclid, [ZOHO_FIELDS.gbraid]: attribution.gbraid, [ZOHO_FIELDS.wbraid]: attribution.wbraid,
     [ZOHO_FIELDS.utmSource]: attribution.utm_source, [ZOHO_FIELDS.utmMedium]: attribution.utm_medium, [ZOHO_FIELDS.utmCampaign]: attribution.utm_campaign,
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,
     [ZOHO_FIELDS.leadForm]: payload.source, [ZOHO_FIELDS.inquiryType]: payload.inquiryType, [ZOHO_FIELDS.estimatedQuantity]: payload.estimatedQuantity,
-    [ZOHO_FIELDS.businessModel]: payload.businessModel, [ZOHO_FIELDS.formEntryPage]: payload.formEntryPage, [ZOHO_FIELDS.landingPage]: attribution.landing_page, [ZOHO_FIELDS.referrer]: attribution.referrer,
+    [ZOHO_FIELDS.businessModel]: payload.businessModel, [ZOHO_FIELDS.landingPage]: attribution.landing_page, [ZOHO_FIELDS.referrer]: attribution.referrer,
     [ZOHO_FIELDS.submittedAt]: submittedAt,
   };
 }

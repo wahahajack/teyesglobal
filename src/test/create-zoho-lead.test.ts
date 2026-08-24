@@ -33,37 +33,44 @@ describe("createZohoLeadHandler", () => {
   it("把网站来源和归因字段映射到 Zoho Lead", async () => {
     const fetchMock = mockZohoTokenAndCreate(); const response = await post(validPayload, validEnv, fetchMock);
     expect(response.status).toBe(201);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Form_Entry_Page: "/products/cc4-pro/?source=test", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Description: "Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=test", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).not.toHaveProperty("Form_Entry_Page");
   });
-  it("同源 formEntryPage 只映射路径和查询参数", async () => {
+  it("同源 formEntryPage 会保留描述中的归因块", async () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://deploy-preview.example.netlify.app/products/cc4-pro/?source=trusted#form" }, validEnv, fetchMock);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("/products/cc4-pro/?source=trusted");
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toBe("Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=trusted");
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
-  it("同源 formEntryPage 超过 255 字符时会截断且只保留路径和查询", async () => {
+  it("同源 formEntryPage 超过 4000 字符时会压缩消息并保留归因块", async () => {
     const fetchMock = mockZohoTokenAndCreate();
-    const longQuery = `source=${"x".repeat(260)}`;
-    await post({ ...validPayload, formEntryPage: `https://deploy-preview.example.netlify.app/products/cc4-pro/?${longQuery}#form` }, validEnv, fetchMock);
-    const value = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page as string;
-    expect(value.length).toBeLessThanOrEqual(255);
-    expect(value.startsWith("/products/cc4-pro/?source=")).toBe(true);
-    expect(value).not.toContain("https://");
-    expect(value).not.toContain("#");
+    const longMessage = "m".repeat(4000);
+    await post({ ...validPayload, message: longMessage, formEntryPage: "https://deploy-preview.example.netlify.app/contact/" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description.length).toBe(4000);
+    expect(lead.Description.endsWith("---\nAttribution\nForm Entry Page: /contact/")).toBe(true);
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
-  it("外部绝对 formEntryPage 映射为空", async () => {
+  it("外部绝对 formEntryPage 不写入归因块也不写入 Form_Entry_Page", async () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://attacker.example/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toBe(validPayload.message);
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
   it("协议相对 formEntryPage 映射为空", async () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "//deploy-preview.example.netlify.app/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
   it("格式错误的 formEntryPage 映射为空", async () => {
     const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "http://[::1" }, validEnv, fetchMock);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
   it("缺少可选 formEntryPage 时映射为空", async () => {
     const { formEntryPage, ...payloadWithoutFormEntryPage } = validPayload; const fetchMock = mockZohoTokenAndCreate(); await post(payloadWithoutFormEntryPage, validEnv, fetchMock);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0].Form_Entry_Page).toBe("");
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
   });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()

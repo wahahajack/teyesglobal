@@ -8,11 +8,16 @@ const validEnv: ZohoEnvironment = {
   ZOHO_ACCOUNTS_BASE_URL: "https://accounts.zoho.test",
   ZOHO_API_BASE_URL: "https://www.zohoapis.test",
 };
-const validPayload = { source: "contact_page", fullName: "Jane Doe", email: "jane@example.com", company: "Example Auto", country: "Brazil", inquiryType: "Distribution Partnership", message: "Please send distributor terms.", estimatedQuantity: "", businessModel: "", submittedAt: "2026-08-07T10:00:00.000Z", website: "", attribution: { gclid: "gclid-123", gbraid: "", wbraid: "", utm_source: "google", utm_medium: "cpc", utm_campaign: "distributor_test", utm_content: "", utm_term: "android head unit distributor", fbclid: "", landing_page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", referrer: "https://www.google.com/" } };
+const validPayload = { source: "contact_page", fullName: "Jane Doe", email: "jane@example.com", company: "Example Auto", country: "Brazil", inquiryType: "Distribution Partnership", message: "Please send distributor terms.", estimatedQuantity: "", businessModel: "", submittedAt: "2026-08-07T10:00:00.000Z", website: "", formEntryPage: "/products/cc4-pro/?source=test", attribution: { gclid: "gclid-123", gbraid: "", wbraid: "", utm_source: "google", utm_medium: "cpc", utm_campaign: "distributor_test", utm_content: "", utm_term: "android head unit distributor", fbclid: "", landing_page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", referrer: "https://www.google.com/" } };
 const mockZohoTokenAndCreate = () => vi.fn<typeof fetch>()
   .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))
   .mockResolvedValueOnce(new Response(JSON.stringify({ data: [{ status: "success" }] }), { status: 201, headers: { "Content-Type": "application/json" } }));
 const post = (payload: unknown, env = validEnv, fetchImpl: typeof fetch = vi.fn()) => createZohoLeadHandler(env, fetchImpl)(new Request("https://deploy-preview.example.netlify.app/.netlify/functions/create-zoho-lead", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://deploy-preview.example.netlify.app" }, body: JSON.stringify(payload) }));
+const expectNoEntryAttribution = (lead: Record<string, unknown>) => {
+  expect(lead.Description).toBe(validPayload.message);
+  expect(lead.Description).not.toContain("---\nAttribution\nForm Entry Page:");
+  expect(lead).not.toHaveProperty("Form_Entry_Page");
+};
 
 describe("createZohoLeadHandler", () => {
   it("拒绝非 POST 请求", async () => {
@@ -33,7 +38,43 @@ describe("createZohoLeadHandler", () => {
   it("把网站来源和归因字段映射到 Zoho Lead", async () => {
     const fetchMock = mockZohoTokenAndCreate(); const response = await post(validPayload, validEnv, fetchMock);
     expect(response.status).toBe(201);
-    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Description: "Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=test", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0]).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("同源 formEntryPage 会保留描述中的归因块", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://deploy-preview.example.netlify.app/products/cc4-pro/?source=trusted#form" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toBe("Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=trusted");
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("同源 formEntryPage 会在 4000 字符 Description 内压缩消息并保留归因块", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    const longMessage = "m".repeat(4000);
+    await post({ ...validPayload, message: longMessage, formEntryPage: "https://deploy-preview.example.netlify.app/contact/" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description.length).toBe(4000);
+    expect(lead.Description.endsWith("---\nAttribution\nForm Entry Page: /contact/")).toBe(true);
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("外部绝对 formEntryPage 不写入归因块也不写入 Form_Entry_Page", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "https://attacker.example/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expectNoEntryAttribution(lead);
+  });
+  it("协议相对 formEntryPage 不写入归因块也不写入 Form_Entry_Page", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "//deploy-preview.example.netlify.app/products/cc4-pro/?source=untrusted" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expectNoEntryAttribution(lead);
+  });
+  it("格式错误的 formEntryPage 不写入归因块也不写入 Form_Entry_Page", async () => {
+    const fetchMock = mockZohoTokenAndCreate(); await post({ ...validPayload, formEntryPage: "http://[::1" }, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expectNoEntryAttribution(lead);
+  });
+  it("缺少可选 formEntryPage 时不写入归因块也不写入 Form_Entry_Page", async () => {
+    const { formEntryPage, ...payloadWithoutFormEntryPage } = validPayload; const fetchMock = mockZohoTokenAndCreate(); await post(payloadWithoutFormEntryPage, validEnv, fetchMock);
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expectNoEntryAttribution(lead);
   });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()

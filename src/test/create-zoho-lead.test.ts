@@ -140,6 +140,30 @@ describe("createZohoLeadHandler", () => {
     expect(lead.Description).not.toContain("/route-1/");
     expect(lead.Description).not.toContain("/route-2/");
   });
+  it("按字符预算保留完整的最近路径而不截断半条路径", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    const routes = Array.from(
+      { length: 6 },
+      (_, index) => `/${"x".repeat(210)}-${index + 1}/`,
+    );
+
+    await post({
+      ...validPayload,
+      pageJourney: routes.join(" > "),
+    }, validEnv, fetchMock);
+
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    const line = String(lead.Description)
+      .split("\n")
+      .find((value) => value.startsWith("Page Journey: "));
+    const serialized = line?.replace("Page Journey: ", "") || "";
+    const retained = serialized.split(" > ").filter(Boolean);
+
+    expect(serialized.length).toBeLessThanOrEqual(1024);
+    expect(retained.length).toBeGreaterThan(0);
+    expect(retained.every((route) => routes.includes(route))).toBe(true);
+    expect(retained.at(-1)).toBe(routes.at(-1));
+  });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))

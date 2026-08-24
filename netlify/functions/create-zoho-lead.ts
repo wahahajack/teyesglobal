@@ -53,7 +53,23 @@ const journey = (value: unknown, limit: number) => {
     const code = character.charCodeAt(0);
     return code > 0x1f && code !== 0x7f;
   }).join("").trim();
-  return clean.split(" > ").map(journeyPath).filter(Boolean).slice(-MAX_JOURNEY_ENTRIES).join(" > ").slice(0, limit);
+  const entries = clean
+    .split(" > ")
+    .map(journeyPath)
+    .filter(Boolean)
+    .slice(-MAX_JOURNEY_ENTRIES);
+  const kept: string[] = [];
+  let length = 0;
+
+  for (let index = entries.length - 1; index >= 0; index -= 1) {
+    const entry = entries[index];
+    const separatorLength = kept.length ? 3 : 0;
+    if (length + separatorLength + entry.length > limit) continue;
+    kept.unshift(entry);
+    length += separatorLength + entry.length;
+  }
+
+  return kept.join(" > ");
 };
 const clickCount = (value: unknown) => typeof value === "number" && Number.isFinite(value)
   ? Math.min(Math.max(0, Math.floor(value)), LIMITS.whatsappClickCount)

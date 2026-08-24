@@ -17,14 +17,16 @@ export const ZOHO_FIELDS = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SOURCES = new Set(["contact_page", "wholesale_quote", "manufacturing_quote", "distributor_application", "catalog_request"]);
-const LIMITS = { fullName: 100, email: 254, company: 150, country: 100, inquiryType: 100, message: 4000, estimatedQuantity: 100, businessModel: 100, attributionValue: 2048, formEntryPage: 255 } as const;
+const LIMITS = { fullName: 100, email: 254, company: 150, country: 100, inquiryType: 100, message: 4000, estimatedQuantity: 100, businessModel: 100, attributionValue: 2048, formEntryPage: 255, pageJourney: 1024, whatsappClickJourney: 1024, whatsappClickPath: 255, whatsappClickCount: 1_000_000 } as const;
+const MAX_JOURNEY_ENTRIES = 20;
 const ATTRIBUTION_KEYS = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "landing_page", "referrer"] as const;
 
 type Attribution = Record<(typeof ATTRIBUTION_KEYS)[number], string>;
 interface LeadPayload {
   source: string; fullName: string; email: string; company: string; country: string;
   inquiryType: string; message: string; estimatedQuantity: string; businessModel: string;
-  submittedAt: string; website: string; formEntryPage: string; attribution: Attribution;
+  submittedAt: string; website: string; formEntryPage: string; pageJourney?: string; whatsappClickJourney?: string;
+  whatsappClickPath?: string; whatsappClickCount?: number; attribution: Attribution;
 }
 
 const json = (status: number, body: Record<string, unknown>, headers?: HeadersInit) =>
@@ -38,11 +40,37 @@ const formEntryPage = (value: unknown, origin: string) => {
     return url.origin === origin ? `${url.pathname}${url.search}`.slice(0, LIMITS.formEntryPage) : "";
   } catch { return ""; }
 };
-const description = (message: string, entryPage: string) => {
-  if (!entryPage) return message;
-  const suffix = `---\nAttribution\nForm Entry Page: ${entryPage}`;
+
+const journeyPath = (value: string) => {
+  const path = value.trim();
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return "";
+  if (/^(?:https?:|javascript:|data:)/i.test(path)) return "";
+  return path.split("?")[0] || "/";
+};
+const journey = (value: unknown, limit: number) => {
+  if (typeof value !== "string") return "";
+  const clean = value.split("").filter((character) => {
+    const code = character.charCodeAt(0);
+    return code > 0x1f && code !== 0x7f;
+  }).join("").trim();
+  return clean.split(" > ").map(journeyPath).filter(Boolean).slice(-MAX_JOURNEY_ENTRIES).join(" > ").slice(0, limit);
+};
+const clickCount = (value: unknown) => typeof value === "number" && Number.isFinite(value)
+  ? Math.min(Math.max(0, Math.floor(value)), LIMITS.whatsappClickCount)
+  : 0;
+const description = (message: string, entryPage: string, pageJourney = "", whatsappClickJourney = "", whatsappClickPath = "", whatsappClickCount = 0) => {
+  const suffixLines = [
+    entryPage ? `Form Entry Page: ${entryPage}` : "",
+    pageJourney ? `Page Journey: ${pageJourney}` : "",
+    whatsappClickJourney ? `WA Click Journey: ${whatsappClickJourney}` : "",
+    whatsappClickPath ? `WA Click Path: ${whatsappClickPath}` : "",
+    whatsappClickCount > 0 ? `WA Click Count: ${whatsappClickCount}` : "",
+  ].filter(Boolean);
+  if (!suffixLines.length) return message;
+  const suffix = `---\nAttribution\n${suffixLines.join("\n")}`;
   const separator = message ? "\n\n" : "";
-  return `${message.slice(0, LIMITS.message - separator.length - suffix.length)}${separator}${suffix}`;
+  const availableMessageLength = Math.max(0, LIMITS.message - separator.length - suffix.length);
+  return `${message.slice(0, availableMessageLength)}${separator}${suffix}`.slice(0, LIMITS.message);
 };
 
 function normalizePayload(input: unknown, origin: string): LeadPayload | null {
@@ -56,7 +84,9 @@ function normalizePayload(input: unknown, origin: string): LeadPayload | null {
     source: text(body.source, 100), fullName: text(body.fullName, LIMITS.fullName), email: text(body.email, LIMITS.email),
     company: text(body.company, LIMITS.company), country: text(body.country, LIMITS.country), inquiryType: text(body.inquiryType, LIMITS.inquiryType),
     message: text(body.message, LIMITS.message), estimatedQuantity: text(body.estimatedQuantity, LIMITS.estimatedQuantity), businessModel: text(body.businessModel, LIMITS.businessModel),
-    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), formEntryPage: formEntryPage(body.formEntryPage, origin), attribution,
+    submittedAt: text(body.submittedAt, 100), website: text(body.website, 2048), formEntryPage: formEntryPage(body.formEntryPage, origin),
+    pageJourney: journey(body.pageJourney, LIMITS.pageJourney), whatsappClickJourney: journey(body.whatsappClickJourney, LIMITS.whatsappClickJourney),
+    whatsappClickPath: journey(body.whatsappClickPath, LIMITS.whatsappClickPath), whatsappClickCount: clickCount(body.whatsappClickCount), attribution,
   };
   return SOURCES.has(payload.source) && EMAIL_RE.test(payload.email) && !Number.isNaN(Date.parse(payload.submittedAt)) ? payload : null;
 }
@@ -66,7 +96,7 @@ function toZohoLead(payload: LeadPayload) {
   const submittedAt = new Date(payload.submittedAt).toISOString().replace(/\.\d{3}Z$/, "+00:00");
   return {
     Last_Name: payload.fullName || payload.email.split("@")[0], Company: payload.company || "Not provided", Email: payload.email.toLowerCase(),
-    Country: payload.country, Description: description(payload.message, payload.formEntryPage), Lead_Source: "Web Download",
+    Country: payload.country, Description: description(payload.message, payload.formEntryPage, payload.pageJourney, payload.whatsappClickJourney, payload.whatsappClickPath, payload.whatsappClickCount), Lead_Source: "Web Download",
     [ZOHO_FIELDS.gclid]: attribution.gclid, [ZOHO_FIELDS.gbraid]: attribution.gbraid, [ZOHO_FIELDS.wbraid]: attribution.wbraid,
     [ZOHO_FIELDS.utmSource]: attribution.utm_source, [ZOHO_FIELDS.utmMedium]: attribution.utm_medium, [ZOHO_FIELDS.utmCampaign]: attribution.utm_campaign,
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,

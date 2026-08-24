@@ -76,6 +76,70 @@ describe("createZohoLeadHandler", () => {
     const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
     expectNoEntryAttribution(lead);
   });
+  it("把页面旅程和 WhatsApp 快照按顺序写入标准 Description", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    await post({
+      ...validPayload,
+      pageJourney: "/ > /oem-odm/ > /oem-odm/cases/",
+      whatsappClickJourney: "/ > /oem-odm/ > /oem-odm/cases/",
+      whatsappClickPath: "/oem-odm/cases/",
+      whatsappClickCount: 1,
+    }, validEnv, fetchMock);
+
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toBe([
+      validPayload.message,
+      "",
+      "---",
+      "Attribution",
+      "Form Entry Page: /products/cc4-pro/?source=test",
+      "Page Journey: / > /oem-odm/ > /oem-odm/cases/",
+      "WA Click Journey: / > /oem-odm/ > /oem-odm/cases/",
+      "WA Click Path: /oem-odm/cases/",
+      "WA Click Count: 1",
+    ].join("\n"));
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("在 4000 字符内压缩消息并保留完整旅程归因块", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    await post({
+      ...validPayload,
+      message: "m".repeat(4000),
+      pageJourney: "/ > /oem-odm/ > /oem-odm/cases/",
+      whatsappClickJourney: "/ > /oem-odm/ > /oem-odm/cases/",
+      whatsappClickPath: "/oem-odm/cases/",
+      whatsappClickCount: 1,
+    }, validEnv, fetchMock);
+
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toHaveLength(4000);
+    expect(lead.Description).toContain("Page Journey: / > /oem-odm/ > /oem-odm/cases/");
+    expect(lead.Description).toContain("WA Click Count: 1");
+    expect(lead.Description).toContain("Form Entry Page: /products/cc4-pro/?source=test");
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("丢弃外部和控制字符旅程值且不增加自定义 Zoho 字段", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    await post({
+      ...validPayload,
+      pageJourney: "https://attacker.example\n > /contact/",
+      whatsappClickPath: "//attacker.example/wa",
+    }, validEnv, fetchMock);
+
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).not.toContain("attacker.example");
+    expect(lead).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("将每个旅程限制为最近 20 个相对路径", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    const pageJourney = Array.from({ length: 22 }, (_, index) => `/route-${index + 1}/`).join(" > ");
+    await post({ ...validPayload, pageJourney }, validEnv, fetchMock);
+
+    const lead = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).data[0];
+    expect(lead.Description).toContain("Page Journey: /route-3/ > /route-4/");
+    expect(lead.Description).not.toContain("/route-1/");
+    expect(lead.Description).not.toContain("/route-2/");
+  });
   it("Zoho 在 HTTP 201 中报告逐条失败时返回上游错误", async () => {
     const fetchMock = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } }))

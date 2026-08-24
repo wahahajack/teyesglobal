@@ -326,4 +326,38 @@ describe("submitZohoLead", () => {
     );
     expect(getFormEntryPage()).toBe("/contact/");
   });
+
+  it("sends the latest page and WA snapshot and clears it after success", async () => {
+    clearPageJourney();
+    history.replaceState({}, "", "/oem-odm/cases/");
+    installPageJourneyTracking();
+    document.body.innerHTML =
+      '<a data-wa-location="cases_cta" href="https://wa.me/123">WA</a>';
+    document.querySelector("a")!.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, cancelable: true }),
+    );
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await submitZohoLead(validPayload);
+
+    const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+    expect(body).toMatchObject({
+      pageJourney: "/oem-odm/cases/",
+      whatsappClickJourney: "/oem-odm/cases/",
+      whatsappClickPath: "/oem-odm/cases/",
+      whatsappClickCount: 1,
+    });
+    expect(getPageJourneySnapshot().whatsappClickPath).toBe("");
+  });
+
+  it("keeps the journey when Zoho submission fails", async () => {
+    installPageJourneyTracking();
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 500 })));
+
+    await expect(submitZohoLead(validPayload)).rejects.toThrow(
+      "Zoho lead request failed with 500",
+    );
+    expect(getPageJourneySnapshot().pageJourney).not.toBe("");
+  });
 });

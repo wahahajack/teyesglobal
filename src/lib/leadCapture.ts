@@ -1,4 +1,10 @@
-import { clearFormEntryPage, getFormEntryPage, getStoredAdParams } from "@/lib/tracking";
+import {
+  clearFormEntryPage,
+  clearPageJourney,
+  getFormEntryPage,
+  getPageJourneySnapshot,
+  getStoredAdParams,
+} from "@/lib/tracking";
 
 export const LEAD_SOURCES = [
   "contact_page",
@@ -37,6 +43,10 @@ export interface LeadCapturePayload {
   submittedAt: string;
   website: string;
   formEntryPage?: string;
+  pageJourney?: string;
+  whatsappClickJourney?: string;
+  whatsappClickPath?: string;
+  whatsappClickCount?: number;
   attribution: LeadAttribution;
 }
 
@@ -62,7 +72,11 @@ export function buildAttribution(): LeadAttribution {
 export async function submitZohoLead(
   payload: LeadCapturePayload,
 ): Promise<void> {
-  const leadPayload = { ...payload, formEntryPage: getFormEntryPage() };
+  const leadPayload = {
+    ...payload,
+    formEntryPage: getFormEntryPage(),
+    ...getPageJourneySnapshot(),
+  };
   const response = await fetch("/api/zoho-lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -75,4 +89,5 @@ export async function submitZohoLead(
   }
 
   clearFormEntryPage();
+  clearPageJourney();
 }

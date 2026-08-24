@@ -364,6 +364,7 @@ const ContactPage = () => {
                         <p className="text-sm text-muted-foreground">{info.label}</p>
                         {info.href ? (
                           <a
+                            data-wa-location={info.label === "WhatsApp" ? "contact_info" : undefined}
                             href={info.href}
                             onClick={info.label === "Email" ? handleEmailClick(info.href) : undefined}
                             target={info.label === "WhatsApp" ? "_blank" : undefined}

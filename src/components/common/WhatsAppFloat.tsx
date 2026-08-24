@@ -8,6 +8,7 @@ export function WhatsAppFloat() {
 
     return (
         <a
+            data-wa-location="whatsapp_float"
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"

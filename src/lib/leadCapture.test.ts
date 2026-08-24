@@ -246,6 +246,26 @@ describe("page journey and WhatsApp tracking", () => {
       destination_host: "wa.me",
     }));
   });
+
+  it("bounds unsafe WhatsApp link locations and does not persist them", () => {
+    history.replaceState({}, "", "/oem-odm/cases/");
+    clearPageJourney();
+    window.dataLayer = [];
+    installPageJourneyTracking();
+    document.body.innerHTML =
+      '<a data-wa-location="https://attacker.example/path?x=1" href="https://wa.me/123">WA</a>';
+    const link = document.querySelector("a")!;
+    link.addEventListener("click", (event) => event.preventDefault());
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(window.dataLayer).toContainEqual(expect.objectContaining({
+      event: "whatsapp_click",
+      link_location: "unknown",
+    }));
+    expect(JSON.parse(sessionStorage.getItem("teyes_last_whatsapp_click_v1")!)).not.toHaveProperty(
+      "location",
+    );
+  });
 });
 
 describe("submitZohoLead", () => {

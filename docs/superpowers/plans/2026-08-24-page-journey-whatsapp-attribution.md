@@ -144,7 +144,7 @@ Implement `getCurrentPath()` as the existing pathname plus search behavior used 
 4. add one capture-phase document click listener that resolves the closest anchor, recognizes the four WhatsApp destination forms, snapshots the current journey before bubbling navigation, writes the latest click state, and pushes the `whatsapp_click` object shown in the test;
 5. call `loadGtmNow()` after the `dataLayer` push and never call `preventDefault()`.
 
-`getPageJourneySnapshot()` returns the joined journey, the latest WA snapshot, and a numeric click count. When storage is unavailable, it returns the current path for `pageJourney` and empty WA values. `clearPageJourney()` removes both keys safely. Use a module-level installation guard so `main.tsx` can call it once.
+`getPageJourneySnapshot()` returns the joined journey, the latest WA snapshot, and a numeric click count. When storage is unavailable, it returns the current path for `pageJourney` and empty WA values. `clearPageJourney()` removes both keys safely. Use a module-level installation guard so `main.tsx` can call it once; the guard must also ensure History API wrappers and document listeners are installed only once in tests.
 
 - [ ] **Step 4: Run the focused tests and verify GREEN.**
 
@@ -329,7 +329,7 @@ npm test -- src/test/static-lead-client.test.ts
 
 Expected: FAIL because the standalone script does not currently maintain a journey or emit `whatsapp_click`.
 
-- [ ] **Step 3: Implement the standalone equivalent.** In `public/lead-capture.js`, add safe session helpers, the same two storage keys and 20-entry cap, initial-path recording, the capture-phase WhatsApp listener, and the same event field names. When `capture()` builds its payload, read the snapshot and include the four optional fields. Remove both journey keys only after a successful response; preserve them on failure.
+- [ ] **Step 3: Implement the standalone equivalent.** In `public/lead-capture.js`, add safe session helpers, the same two storage keys and 20-entry cap, initial-path recording, the capture-phase WhatsApp listener, and the same event field names. Guard installation with a window-level boolean (for example, `__teyesJourneyTrackingInstalled`) so repeated `window.eval(staticLeadClient)` calls do not add duplicate document listeners or reset the session state. When `capture()` builds its payload, read the snapshot and include the four optional fields. Remove both journey keys only after a successful response; preserve them on failure.
 
 Add only explicit `data-wa-location` attributes to the actual WhatsApp anchors in the three static page entry files. Use stable values such as `oem_hero`, `wholesale_cta`, `distributor_hero`, and `thank_you_followup`; do not change the href, phone, message, form names, or visible copy.
 

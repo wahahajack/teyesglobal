@@ -2,11 +2,18 @@ import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import "./index.css";
-import { initDataLayer, installContactEntryTracking, loadGtmWhenIdle, persistAdParams } from "./lib/tracking";
+import {
+  initDataLayer,
+  installContactEntryTracking,
+  installPageJourneyTracking,
+  loadGtmWhenIdle,
+  persistAdParams,
+} from "./lib/tracking";
 
 initDataLayer();
 persistAdParams();
 installContactEntryTracking();
+installPageJourneyTracking();
 
 createRoot(document.getElementById("root")!).render(
     <HelmetProvider>

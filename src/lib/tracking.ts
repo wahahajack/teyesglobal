@@ -6,6 +6,14 @@ const FORM_ENTRY_TARGET_PATHS = new Set([
   "/android-car-stereo-wholesale/",
   "/teyes-android-car-stereo-distributor/",
 ]);
+const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
+const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
+const MAX_PAGE_JOURNEY_ENTRIES = 20;
+const WHATSAPP_HOSTS = new Set([
+  "wa.me",
+  "api.whatsapp.com",
+  "web.whatsapp.com",
+]);
 
 const AD_PARAM_KEYS = [
   "gclid",
@@ -37,6 +45,20 @@ interface DurableAttribution {
   values: AttributionValues;
 }
 
+export interface PageJourneySnapshot {
+  pageJourney: string;
+  whatsappClickJourney: string;
+  whatsappClickPath: string;
+  whatsappClickCount: number;
+}
+
+interface StoredWhatsappClick {
+  journey: string;
+  path: string;
+  location: string;
+  count: number;
+}
+
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -58,6 +80,14 @@ function safeSessionGet(key: string) {
     return sessionStorage.getItem(key);
   } catch {
     return null;
+  }
+}
+
+function safeSessionRemove(key: string) {
+  try {
+    sessionStorage.removeItem(key);
+  } catch {
+    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
   }
 }
 
@@ -135,7 +165,92 @@ function getCurrentPath() {
   return window.location.pathname + window.location.search;
 }
 
+function normalizeJourneyPath(value: unknown) {
+  if (typeof value !== "string") return "";
+
+  const path = value
+    .split("")
+    .filter((character) => {
+      const code = character.charCodeAt(0);
+      return code > 0x1f && code !== 0x7f;
+    })
+    .join("")
+    .trim();
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return "";
+  if (/^(?:https?:|javascript:|data:)/i.test(path)) return "";
+  return path.split("?")[0] || "/";
+}
+
+function readPageJourneyEntries() {
+  const raw = safeSessionGet(PAGE_JOURNEY_KEY);
+  if (!raw) return [];
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map(normalizeJourneyPath)
+      .filter((entry): entry is string => Boolean(entry))
+      .slice(-MAX_PAGE_JOURNEY_ENTRIES);
+  } catch {
+    return [];
+  }
+}
+
+function formatJourney(entries: string[]) {
+  return entries.join(" > ");
+}
+
+function readStoredWhatsappClick(): StoredWhatsappClick | null {
+  const raw = safeSessionGet(WHATSAPP_CLICK_KEY);
+  if (!raw) return null;
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+
+    const candidate = parsed as Partial<StoredWhatsappClick>;
+    const journey = typeof candidate.journey === "string"
+      ? formatJourney(candidate.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES))
+      : "";
+    const path = normalizeJourneyPath(candidate.path);
+    const count = typeof candidate.count === "number" && Number.isFinite(candidate.count)
+      ? Math.max(0, Math.floor(candidate.count))
+      : 0;
+
+    if (!journey || !path || count < 1) return null;
+    return {
+      journey,
+      path,
+      location: typeof candidate.location === "string" ? candidate.location : "unknown",
+      count,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function recordPageJourneyEntry() {
+  const path = normalizeJourneyPath(window.location.pathname);
+  if (!path) return;
+
+  const entries = readPageJourneyEntries();
+  if (entries[entries.length - 1] === path) return;
+
+  entries.push(path);
+  try {
+    sessionStorage.setItem(
+      PAGE_JOURNEY_KEY,
+      JSON.stringify(entries.slice(-MAX_PAGE_JOURNEY_ENTRIES)),
+    );
+  } catch {
+    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
+  }
+}
+
 let contactEntryTrackingInstalled = false;
+let pageJourneyTrackingInstalled = false;
 
 export function installContactEntryTracking() {
   if (contactEntryTrackingInstalled) return;
@@ -165,6 +280,92 @@ export function clearFormEntryPage() {
     // Storage can be unavailable in some privacy modes. Tracking must not break the page.
   }
 }
+
+export function installPageJourneyTracking() {
+  if (pageJourneyTrackingInstalled) return;
+
+  pageJourneyTrackingInstalled = true;
+  recordPageJourneyEntry();
+
+  const originalPushState = history.pushState.bind(history);
+  history.pushState = ((...args: Parameters<History["pushState"]>) => {
+    const result = originalPushState(...args);
+    recordPageJourneyEntry();
+    return result;
+  }) as History["pushState"];
+
+  const originalReplaceState = history.replaceState.bind(history);
+  history.replaceState = ((...args: Parameters<History["replaceState"]>) => {
+    const result = originalReplaceState(...args);
+    recordPageJourneyEntry();
+    return result;
+  }) as History["replaceState"];
+
+  window.addEventListener("popstate", recordPageJourneyEntry);
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link) return;
+
+    let destination: URL;
+    try {
+      destination = new URL(link.getAttribute("href")!, window.location.href);
+    } catch {
+      return;
+    }
+
+    const destinationHost = destination.hostname.toLowerCase();
+    const isWhatsAppLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
+    if (!isWhatsAppLink) return;
+
+    const journey = formatJourney(readPageJourneyEntries());
+    const path = normalizeJourneyPath(window.location.pathname) || "/";
+    const previous = readStoredWhatsappClick();
+    const count = (previous?.count ?? 0) + 1;
+    const stored: StoredWhatsappClick = {
+      journey: journey || path,
+      path,
+      location: link.getAttribute("data-wa-location")?.trim() || "unknown",
+      count,
+    };
+
+    try {
+      sessionStorage.setItem(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+    } catch {
+      // Storage can be unavailable in some privacy modes. Tracking must not break the page.
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "whatsapp_click",
+      page_path: path,
+      page_journey: stored.journey,
+      wa_click_path: path,
+      link_location: stored.location,
+      destination_host: destinationHost || destination.protocol.replace(":", ""),
+    });
+    loadGtmNow();
+  }, { capture: true });
+}
+
+export function getPageJourneySnapshot(): PageJourneySnapshot {
+  const entries = readPageJourneyEntries();
+  const stored = readStoredWhatsappClick();
+
+  return {
+    pageJourney: formatJourney(entries) || normalizeJourneyPath(window.location.pathname) || "/",
+    whatsappClickJourney: stored?.journey ?? "",
+    whatsappClickPath: stored?.path ?? "",
+    whatsappClickCount: stored?.count ?? 0,
+  };
+}
+
+export function clearPageJourney() {
+  safeSessionRemove(PAGE_JOURNEY_KEY);
+  safeSessionRemove(WHATSAPP_CLICK_KEY);
+}
+
 export function initDataLayer() {
   window.dataLayer = window.dataLayer || [];
 }

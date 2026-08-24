@@ -6,9 +6,12 @@ import {
 } from "./leadCapture";
 import {
   clearFormEntryPage,
+  clearPageJourney,
   getFormEntryPage,
+  getPageJourneySnapshot,
   getStoredAdParams,
   installContactEntryTracking,
+  installPageJourneyTracking,
   persistAdParams,
 } from "./tracking";
 
@@ -198,6 +201,50 @@ describe("lead capture attribution", () => {
       landing_page: "",
       referrer: "",
     });
+  });
+});
+
+describe("page journey and WhatsApp tracking", () => {
+  it("records an ordered de-duplicated SPA journey", () => {
+    history.replaceState({}, "", "/");
+    clearPageJourney();
+    installPageJourneyTracking();
+    history.pushState({}, "", "/oem-odm/");
+    history.pushState({}, "", "/oem-odm/");
+    history.pushState({}, "", "/oem-odm/cases/");
+
+    expect(getPageJourneySnapshot().pageJourney).toBe(
+      "/ > /oem-odm/ > /oem-odm/cases/",
+    );
+  });
+
+  it("captures the WA source page before navigation changes the URL", () => {
+    history.replaceState({}, "", "/oem-odm/cases/");
+    clearPageJourney();
+    window.dataLayer = [];
+    installPageJourneyTracking();
+    document.body.innerHTML =
+      '<a data-wa-location="cases_cta" href="https://wa.me/123?text=ignored">WA</a>';
+    const link = document.querySelector("a")!;
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      history.replaceState({}, "", "/contact/");
+    });
+
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(getPageJourneySnapshot()).toMatchObject({
+      whatsappClickPath: "/oem-odm/cases/",
+      whatsappClickJourney: "/oem-odm/cases/",
+      whatsappClickCount: 1,
+    });
+    expect(window.dataLayer).toContainEqual(expect.objectContaining({
+      event: "whatsapp_click",
+      page_path: "/oem-odm/cases/",
+      wa_click_path: "/oem-odm/cases/",
+      link_location: "cases_cta",
+      destination_host: "wa.me",
+    }));
   });
 });
 

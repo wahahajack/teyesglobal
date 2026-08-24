@@ -133,3 +133,21 @@ describe("tracking contract: 静态页面 Lead capture", () => {
     expect(source).toContain("event: 'form_submit_success'");
   });
 });
+
+describe("tracking contract: 静态页 WhatsApp 归因标记", () => {
+  const whatsappMarkers = [
+    ["android-car-stereo-wholesale/index.html", "wholesale_cta"],
+    ["android-car-stereo-oem-manufacturer/index.html", "oem_hero"],
+    [
+      "teyes-android-car-stereo-distributor/index.html",
+      "distributor_hero",
+    ],
+  ] as const;
+
+  for (const [rel, location] of whatsappMarkers) {
+    it(`${rel} 提供 data-wa-location=${location}`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain(`data-wa-location="${location}"`);
+    });
+  }
+});

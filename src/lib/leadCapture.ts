@@ -1,8 +1,5 @@
 import {
-  clearFormEntryPage,
-  clearPageJourney,
-  getFormEntryPage,
-  getPageJourneySnapshot,
+  beginSubmissionTracking,
   getStoredAdParams,
 } from "@/lib/tracking";
 
@@ -72,22 +69,25 @@ export function buildAttribution(): LeadAttribution {
 export async function submitZohoLead(
   payload: LeadCapturePayload,
 ): Promise<void> {
+  const tracking = beginSubmissionTracking();
   const leadPayload = {
     ...payload,
-    formEntryPage: getFormEntryPage(),
-    ...getPageJourneySnapshot(),
+    ...tracking.payload,
   };
-  const response = await fetch("/api/zoho-lead", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(leadPayload),
-    keepalive: true,
-  });
 
-  if (!response.ok) {
-    throw new Error(`Zoho lead request failed with ${response.status}`);
+  try {
+    const response = await fetch("/api/zoho-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(leadPayload),
+      keepalive: true,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Zoho lead request failed with ${response.status}`);
+    }
+  } catch (error) {
+    tracking.rollbackIfUnchanged();
+    throw error;
   }
-
-  clearFormEntryPage();
-  clearPageJourney();
 }

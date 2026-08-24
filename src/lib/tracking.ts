@@ -301,6 +301,44 @@ export function getFormEntryPage() {
   return safeSessionGet(FORM_ENTRY_PAGE_KEY) || getCurrentPath();
 }
 
+export interface SubmissionTrackingTransaction {
+  payload: PageJourneySnapshot & { formEntryPage: string };
+  rollbackIfUnchanged: () => void;
+}
+
+export function beginSubmissionTracking(): SubmissionTrackingTransaction {
+  const storedFormEntryPage = safeSessionGet(FORM_ENTRY_PAGE_KEY);
+  const rawPageJourney = safeSessionGet(PAGE_JOURNEY_KEY);
+  const rawWhatsappClick = safeSessionGet(WHATSAPP_CLICK_KEY);
+  const payload = {
+    formEntryPage: storedFormEntryPage || getCurrentPath(),
+    ...getPageJourneySnapshot(),
+  };
+
+  safeSessionRemove(FORM_ENTRY_PAGE_KEY);
+  safeSessionRemove(PAGE_JOURNEY_KEY);
+  safeSessionRemove(WHATSAPP_CLICK_KEY);
+
+  return {
+    payload,
+    rollbackIfUnchanged: () => {
+      if (
+        safeSessionGet(FORM_ENTRY_PAGE_KEY) !== null ||
+        safeSessionGet(PAGE_JOURNEY_KEY) !== null ||
+        safeSessionGet(WHATSAPP_CLICK_KEY) !== null
+      ) {
+        return;
+      }
+
+      if (storedFormEntryPage) {
+        safeSessionSet(FORM_ENTRY_PAGE_KEY, storedFormEntryPage);
+      }
+      if (rawPageJourney) safeSessionSet(PAGE_JOURNEY_KEY, rawPageJourney);
+      if (rawWhatsappClick) safeSessionSet(WHATSAPP_CLICK_KEY, rawWhatsappClick);
+    },
+  };
+}
+
 export function clearFormEntryPage() {
   try {
     sessionStorage.removeItem(FORM_ENTRY_PAGE_KEY);

@@ -42,6 +42,16 @@ const validPayload: LeadCapturePayload = {
   },
 };
 
+function deferred<T>() {
+  let resolve!: (value: T) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+    resolve = resolvePromise;
+    reject = rejectPromise;
+  });
+  return { promise, resolve, reject };
+}
+
 afterEach(() => {
   sessionStorage.clear();
   localStorage.clear();
@@ -427,38 +437,81 @@ describe("submitZohoLead", () => {
     expect(getFormEntryPage()).toBe("/contact/");
   });
 
-  it("sends the latest page and WA snapshot and clears it after success", async () => {
+  it("consumes the submitted snapshot immediately and preserves newer state after a late success", async () => {
     clearPageJourney();
     history.replaceState({}, "", "/oem-odm/cases/");
     installPageJourneyTracking();
     document.body.innerHTML =
       '<a data-wa-location="cases_cta" href="https://wa.me/placeholder">WA</a>';
-    const link = document.querySelector("a")!;
-    link.addEventListener("click", (event) => event.preventDefault());
-    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    document.querySelector("a")!.addEventListener("click", (event) => event.preventDefault());
+    document.querySelector("a")!.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, cancelable: true }),
+    );
+    const response = deferred<Response>();
+    const fetchMock = vi.fn().mockReturnValue(response.promise);
     vi.stubGlobal("fetch", fetchMock);
 
-    await submitZohoLead(validPayload);
+    const submission = submitZohoLead(validPayload);
 
-    const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
-    expect(body).toMatchObject({
+    expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+    expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+
+    history.pushState({}, "", "/thank-you/");
+    document.body.innerHTML =
+      '<a data-wa-location="thank_you_followup" href="https://wa.me/placeholder">WA</a>';
+    document.querySelector("a")!.addEventListener("click", (event) => event.preventDefault());
+    document.querySelector("a")!.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, cancelable: true }),
+    );
+
+    response.resolve(new Response(null, { status: 201 }));
+    await submission;
+
+    const sent = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+    expect(sent).toMatchObject({
       pageJourney: "/oem-odm/cases/",
-      whatsappClickJourney: "/oem-odm/cases/",
       whatsappClickPath: "/oem-odm/cases/",
       whatsappClickCount: 1,
     });
-    expect(getPageJourneySnapshot().whatsappClickPath).toBe("");
+    expect(getPageJourneySnapshot()).toMatchObject({
+      pageJourney: "/thank-you/",
+      whatsappClickPath: "/thank-you/",
+      whatsappClickCount: 1,
+    });
   });
 
-  it("keeps the journey when Zoho submission fails", async () => {
+  it("restores the submitted snapshot after failure when no newer state exists", async () => {
+    clearPageJourney();
+    history.replaceState({}, "", "/contact/");
     installPageJourneyTracking();
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 500 })));
+    const response = deferred<Response>();
+    vi.stubGlobal("fetch", vi.fn().mockReturnValue(response.promise));
 
-    await expect(submitZohoLead(validPayload)).rejects.toThrow(
-      "Zoho lead request failed with 500",
-    );
-    expect(getPageJourneySnapshot().pageJourney).not.toBe("");
+    const submission = submitZohoLead(validPayload);
+    expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+
+    response.resolve(new Response(null, { status: 500 }));
+    await expect(submission).rejects.toThrow("Zoho lead request failed with 500");
+
+    expect(getPageJourneySnapshot().pageJourney).toBe("/contact/");
+  });
+
+  it("does not restore an old snapshot over newer state after a late failure", async () => {
+    clearPageJourney();
+    history.replaceState({}, "", "/oem-odm/");
+    installPageJourneyTracking();
+    sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+    const response = deferred<Response>();
+    vi.stubGlobal("fetch", vi.fn().mockReturnValue(response.promise));
+
+    const submission = submitZohoLead(validPayload);
+    history.pushState({}, "", "/thank-you/");
+
+    response.resolve(new Response(null, { status: 500 }));
+    await expect(submission).rejects.toThrow("Zoho lead request failed with 500");
+
+    expect(getPageJourneySnapshot().pageJourney).toBe("/thank-you/");
+    expect(sessionStorage.getItem("form_entry_page")).toBeNull();
   });
 
   it("bounds serialized journey values before a keepalive request", async () => {

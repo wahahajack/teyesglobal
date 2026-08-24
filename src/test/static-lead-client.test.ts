@@ -6,13 +6,13 @@ const scriptPath = join(__dirname, "..", "..", "public", "lead-capture.js");
 const staticLeadClient = readFileSync(scriptPath, "utf8");
 
 afterEach(() => {
-  sessionStorage.clear();
   localStorage.clear();
   document.body.innerHTML = "";
   delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
   vi.unstubAllGlobals();
   vi.useRealTimers();
   history.replaceState({}, "", "/");
+  sessionStorage.clear();
   Object.defineProperty(document, "referrer", { configurable: true, value: "" });
 });
 
@@ -30,6 +30,16 @@ const renderForm = () => {
   `;
 };
 const options = { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" };
+
+function deferred<T>() {
+  let resolve!: (value: T) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+    resolve = resolvePromise;
+    reject = rejectPromise;
+  });
+  return { promise, resolve, reject };
+}
 
 it("从表单和 sessionStorage 构造统一 payload", async () => {
   renderForm();
@@ -153,27 +163,74 @@ it("records the static-page journey and WA snapshot in the payload", async () =>
   }));
 });
 
-it("retains the static journey snapshot when lead capture fails", async () => {
+it("consumes static attribution before navigation and preserves the next page after late success", async () => {
   renderForm();
-  sessionStorage.removeItem("teyes_page_journey_v1");
-  sessionStorage.removeItem("teyes_last_whatsapp_click_v1");
-  history.replaceState({}, "", "/android-car-stereo-wholesale/");
+  history.replaceState({}, "", "/android-car-stereo-oem-manufacturer/");
   window.eval(staticLeadClient);
-  history.replaceState({}, "", "/android-car-stereo-wholesale/quote");
   document.body.insertAdjacentHTML(
     "beforeend",
-    '<a data-wa-location="wholesale_quote" href="https://wa.me/placeholder">WA</a>',
+    '<a data-wa-location="oem_pricing" href="https://wa.me/placeholder">WA</a>',
   );
-  const link = document.querySelector("a")!;
-  link.addEventListener("click", (event) => event.preventDefault());
-  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 500 }));
+  document.querySelector("a")!.addEventListener("click", (event) => event.preventDefault());
+  document.querySelector("a")!.dispatchEvent(
+    new MouseEvent("click", { bubbles: true, cancelable: true }),
+  );
+  const response = deferred<Response>();
+  const fetchMock = vi.fn().mockReturnValue(response.promise);
   vi.stubGlobal("fetch", fetchMock);
 
-  await expect(client().capture(form(), options)).rejects.toThrow("Zoho lead capture failed");
+  const submission = client().capture(form(), options);
 
-  expect(sessionStorage.getItem("teyes_page_journey_v1")).not.toBeNull();
-  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).not.toBeNull();
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+
+  history.pushState({}, "", "/android-car-stereo-oem-manufacturer/thank-you.html");
+  response.resolve(new Response(null, { status: 201 }));
+  await submission;
+
+  const sent = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(sent.whatsappClickPath).toBe("/android-car-stereo-oem-manufacturer/");
+  expect(
+    JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]"),
+  ).toEqual(["/android-car-stereo-oem-manufacturer/thank-you.html"]);
+});
+
+it("restores a failed static snapshot only when no newer state exists", async () => {
+  renderForm();
+  history.replaceState({}, "", "/android-car-stereo-wholesale/");
+  window.eval(staticLeadClient);
+  sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
+  const response = deferred<Response>();
+  vi.stubGlobal("fetch", vi.fn().mockReturnValue(response.promise));
+
+  const submission = client().capture(form(), options);
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+
+  response.resolve(new Response(null, { status: 500 }));
+  await expect(submission).rejects.toThrow("Zoho lead capture failed");
+
+  expect(
+    JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]"),
+  ).toEqual(["/android-car-stereo-wholesale/"]);
+});
+
+it("does not restore a failed static snapshot over a newer page", async () => {
+  renderForm();
+  history.replaceState({}, "", "/android-car-stereo-wholesale/");
+  window.eval(staticLeadClient);
+  const response = deferred<Response>();
+  vi.stubGlobal("fetch", vi.fn().mockReturnValue(response.promise));
+
+  const submission = client().capture(form(), options);
+  history.pushState({}, "", "/android-car-stereo-wholesale/thank-you.html");
+
+  response.resolve(new Response(null, { status: 500 }));
+  await expect(submission).rejects.toThrow("Zoho lead capture failed");
+
+  expect(
+    JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]"),
+  ).toEqual(["/android-car-stereo-wholesale/thank-you.html"]);
+  expect(sessionStorage.getItem("form_entry_page")).toBeNull();
 });
 
 it("bounds a long static journey without slicing route entries", () => {

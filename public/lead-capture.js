@@ -229,6 +229,34 @@
     writeDurable(durable);
   }
 
+  const beginSubmissionTracking = () => {
+    const storedFormEntryPage = readSession("form_entry_page");
+    const rawPageJourney = readSession(PAGE_JOURNEY_KEY);
+    const rawWhatsappClick = readSession(WHATSAPP_CLICK_KEY);
+    const payload = {
+      formEntryPage: storedFormEntryPage || currentPath(),
+      ...pageJourneySnapshot(),
+    };
+
+    removeSession("form_entry_page");
+    removeSession(PAGE_JOURNEY_KEY);
+    removeSession(WHATSAPP_CLICK_KEY);
+
+    return {
+      payload,
+      rollbackIfUnchanged: () => {
+        if (
+          readSession("form_entry_page") ||
+          readSession(PAGE_JOURNEY_KEY) ||
+          readSession(WHATSAPP_CLICK_KEY)
+        ) return;
+        if (storedFormEntryPage) writeSession("form_entry_page", storedFormEntryPage);
+        if (rawPageJourney) writeSession(PAGE_JOURNEY_KEY, rawPageJourney);
+        if (rawWhatsappClick) writeSession(WHATSAPP_CLICK_KEY, rawWhatsappClick);
+      },
+    };
+  };
+
   function capture(form, options) {
     const formData = new FormData(form);
     const durable = readDurable();
@@ -237,6 +265,7 @@
       referrer: readStorage("referrer", durable),
     };
     ATTRIBUTION_KEYS.forEach((key) => { attribution[key] = readStorage(key, durable); });
+    const tracking = beginSubmissionTracking();
     const payload = {
       source: options.source,
       fullName: value(formData, "contact_name"),
@@ -247,20 +276,19 @@
       message: value(formData, "message"),
       estimatedQuantity: value(formData, "estimated_quantity"),
       businessModel: value(formData, "business_model"),
-      formEntryPage: readSession("form_entry_page") || currentPath(),
       submittedAt: new Date().toISOString(),
       website: value(formData, "website"),
       attribution,
-      ...pageJourneySnapshot(),
+      ...tracking.payload,
     };
     return fetch("/api/zoho-lead", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload), keepalive: true,
     }).then((response) => {
       if (!response.ok) throw new Error("Zoho lead capture failed");
-      removeSession("form_entry_page");
-      removeSession(PAGE_JOURNEY_KEY);
-      removeSession(WHATSAPP_CLICK_KEY);
+    }).catch((error) => {
+      tracking.rollbackIfUnchanged();
+      throw error;
     });
   }
 

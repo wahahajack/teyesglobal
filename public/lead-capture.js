@@ -9,6 +9,8 @@
   const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
   const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
   const MAX_PAGE_JOURNEY_ENTRIES = 20;
+  const MAX_PAGE_JOURNEY_LENGTH = 1024;
+  const MAX_WHATSAPP_CLICK_PATH_LENGTH = 255;
   const WHATSAPP_HOSTS = new Set(["wa.me", "api.whatsapp.com", "web.whatsapp.com"]);
   const readSession = (key) => {
     try { return window.sessionStorage.getItem(key) || ""; } catch { return ""; }
@@ -79,13 +81,30 @@
     if (/^(?:https?:|javascript:|data:)/i.test(path)) return "";
     return path.split("?")[0] || "/";
   };
+  const boundJourneyEntries = (entries, limit = MAX_PAGE_JOURNEY_LENGTH) => {
+    const kept = [];
+    let length = 0;
+    for (let index = entries.length - 1; index >= 0; index -= 1) {
+      const entry = entries[index];
+      const separatorLength = kept.length ? 3 : 0;
+      if (length + separatorLength + entry.length > limit) continue;
+      kept.unshift(entry);
+      length += separatorLength + entry.length;
+    }
+    return kept.slice(-MAX_PAGE_JOURNEY_ENTRIES);
+  };
+  const normalizeWhatsappClickPath = (value) => {
+    const path = normalizeJourneyPath(value);
+    return path && path.length <= MAX_WHATSAPP_CLICK_PATH_LENGTH ? path : "";
+  };
   const readPageJourneyEntries = () => {
     const raw = readSession(PAGE_JOURNEY_KEY);
     if (!raw) return [];
     try {
       const parsed = JSON.parse(raw);
       if (!Array.isArray(parsed)) return [];
-      return parsed.map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES);
+      return parsed.map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES)
+        .filter((entry) => entry.length <= MAX_PAGE_JOURNEY_LENGTH);
     } catch {
       return [];
     }
@@ -96,7 +115,7 @@
     const entries = readPageJourneyEntries();
     if (entries[entries.length - 1] === path) return;
     entries.push(path);
-    writeSession(PAGE_JOURNEY_KEY, JSON.stringify(entries.slice(-MAX_PAGE_JOURNEY_ENTRIES)));
+    writeSession(PAGE_JOURNEY_KEY, JSON.stringify(boundJourneyEntries(entries)));
   };
   const readWhatsappClick = () => {
     const raw = readSession(WHATSAPP_CLICK_KEY);
@@ -105,9 +124,9 @@
       const parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
       const journey = typeof parsed.journey === "string"
-        ? parsed.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES).join(" > ")
+        ? boundJourneyEntries(parsed.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean)).join(" > ")
         : "";
-      const path = normalizeJourneyPath(parsed.path);
+      const path = normalizeWhatsappClickPath(parsed.path);
       const count = typeof parsed.count === "number" && Number.isFinite(parsed.count)
         ? Math.max(0, Math.floor(parsed.count))
         : 0;
@@ -118,10 +137,11 @@
     }
   };
   const pageJourneySnapshot = () => {
-    const entries = readPageJourneyEntries();
+    const entries = boundJourneyEntries(readPageJourneyEntries());
     const stored = readWhatsappClick();
+    const current = normalizeJourneyPath(window.location.pathname) || "/";
     return {
-      pageJourney: entries.join(" > ") || normalizeJourneyPath(window.location.pathname) || "/",
+      pageJourney: entries.join(" > ") || (current.length <= MAX_PAGE_JOURNEY_LENGTH ? current : "/"),
       whatsappClickJourney: stored?.journey || "",
       whatsappClickPath: stored?.path || "",
       whatsappClickCount: stored?.count || 0,
@@ -165,21 +185,22 @@
       const isWhatsappLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
       if (!isWhatsappLink) return;
 
-      const entries = readPageJourneyEntries();
+      const entries = boundJourneyEntries(readPageJourneyEntries());
       const path = normalizeJourneyPath(window.location.pathname) || "/";
+      const clickPath = normalizeWhatsappClickPath(path);
       const previous = readWhatsappClick();
       const stored = {
         journey: entries.join(" > ") || path,
-        path,
+        path: clickPath,
         count: (previous?.count || 0) + 1,
       };
-      writeSession(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      if (clickPath) writeSession(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "whatsapp_click",
         page_path: path,
         page_journey: stored.journey,
-        wa_click_path: path,
+        wa_click_path: clickPath,
         link_location: normalizeLinkLocation(link.getAttribute("data-wa-location")),
         destination_host: destinationHost || destination.protocol.replace(":", ""),
       });

@@ -129,12 +129,12 @@ it("records the static-page journey and WA snapshot in the payload", async () =>
   history.replaceState({}, "", "/android-car-stereo-oem-manufacturer/pricing");
   document.body.insertAdjacentHTML(
     "beforeend",
-    '<a data-wa-location="oem_pricing" href="https://wa.me/123?text=ignored">WA</a>',
+    '<a data-wa-location="oem_pricing" href="https://wa.me/placeholder?text=ignored">WA</a>',
   );
   window.dataLayer = [];
-  document.querySelector("a")!.dispatchEvent(
-    new MouseEvent("click", { bubbles: true, cancelable: true }),
-  );
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
   const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
   vi.stubGlobal("fetch", fetchMock);
 
@@ -162,11 +162,11 @@ it("retains the static journey snapshot when lead capture fails", async () => {
   history.replaceState({}, "", "/android-car-stereo-wholesale/quote");
   document.body.insertAdjacentHTML(
     "beforeend",
-    '<a data-wa-location="wholesale_quote" href="https://wa.me/456">WA</a>',
+    '<a data-wa-location="wholesale_quote" href="https://wa.me/placeholder">WA</a>',
   );
-  document.querySelector("a")!.dispatchEvent(
-    new MouseEvent("click", { bubbles: true, cancelable: true }),
-  );
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
   const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 500 }));
   vi.stubGlobal("fetch", fetchMock);
 
@@ -174,4 +174,110 @@ it("retains the static journey snapshot when lead capture fails", async () => {
 
   expect(sessionStorage.getItem("teyes_page_journey_v1")).not.toBeNull();
   expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).not.toBeNull();
+});
+
+it("bounds a long static journey without slicing route entries", () => {
+  sessionStorage.clear();
+  history.replaceState({}, "", "/static-start/");
+  window.eval(staticLeadClient);
+  for (let index = 0; index < 24; index += 1) {
+    history.pushState({}, "", `/static-${"x".repeat(52)}-${index}/`);
+  }
+
+  const raw = JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]") as string[];
+  const journey = raw.join(" > ");
+  expect(raw.length).toBeLessThanOrEqual(20);
+  expect(journey.length).toBeLessThanOrEqual(1024);
+  expect(raw.every((entry) => /^\/[^>]+\/$/.test(entry))).toBe(true);
+});
+
+it("records a route supplied by popstate", () => {
+  sessionStorage.clear();
+  history.replaceState({}, "", "/static-popstate-start/");
+  window.eval(staticLeadClient);
+  history.pushState({}, "", "/static-popstate-next/");
+  history.replaceState({}, "", "/static-popstate-start/");
+  window.dispatchEvent(new PopStateEvent("popstate"));
+
+  const raw = JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]") as string[];
+  expect(raw).toContain("/static-popstate-start/");
+});
+
+it.each([
+  ["wa.me", "https://wa.me/placeholder?phone=synthetic&message=ignored", "wa.me"],
+  ["api.whatsapp.com", "https://api.whatsapp.com/send?phone=synthetic&message=ignored", "api.whatsapp.com"],
+  ["web.whatsapp.com", "https://web.whatsapp.com/send?phone=synthetic&message=ignored", "web.whatsapp.com"],
+  ["whatsapp:", "whatsapp://send?phone=synthetic&message=ignored", "send"],
+])("records an exact approved event for %s", (_name, href, destinationHost) => {
+  sessionStorage.clear();
+  history.replaceState({}, "", "/static-whatsapp/");
+  window.eval(staticLeadClient);
+  window.dataLayer = [];
+  document.body.innerHTML = `<a data-wa-location="synthetic_cta" href="${href}">WhatsApp</a>`;
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+  expect(window.dataLayer).toEqual([{
+    event: "whatsapp_click",
+    page_path: "/static-whatsapp/",
+    page_journey: "/static-whatsapp/",
+    wa_click_path: "/static-whatsapp/",
+    link_location: "synthetic_cta",
+    destination_host: destinationHost,
+  }]);
+  expect(JSON.stringify(window.dataLayer)).not.toMatch(/href|phone|message|placeholder|ignored|text/);
+});
+
+it("rejects non-WhatsApp static links", () => {
+  sessionStorage.clear();
+  history.replaceState({}, "", "/static-non-whatsapp/");
+  window.eval(staticLeadClient);
+  window.dataLayer = [];
+  document.body.innerHTML = '<a href="https://example.test/placeholder?text=ignored">Other</a>';
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+  expect(window.dataLayer).toEqual([]);
+  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+});
+
+it("survives unavailable static session storage", () => {
+  history.replaceState({}, "", "/static-storage-error/");
+  const getItem = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+    throw new Error("storage disabled");
+  });
+  const setItem = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+    throw new Error("storage disabled");
+  });
+  window.eval(staticLeadClient);
+  document.body.innerHTML = '<a href="https://wa.me/placeholder?text=ignored">WA</a>';
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+
+  expect(() => link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }))).not.toThrow();
+  getItem.mockRestore();
+  setItem.mockRestore();
+});
+
+it("bounds static journey fields before serializing a keepalive request", async () => {
+  sessionStorage.clear();
+  renderForm();
+  history.replaceState({}, "", `/${"y".repeat(300)}/`);
+  window.eval(staticLeadClient);
+  document.body.insertAdjacentHTML("beforeend", '<a href="https://wa.me/placeholder?message=ignored">WA</a>');
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  vi.stubGlobal("fetch", fetchMock);
+
+  await client().capture(form(), options);
+
+  const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(body.pageJourney.length).toBeLessThanOrEqual(1024);
+  expect(body.whatsappClickJourney.length).toBeLessThanOrEqual(1024);
+  expect(body.whatsappClickPath.length).toBeLessThanOrEqual(255);
+  expect(body.whatsappClickPath).toBe("");
 });

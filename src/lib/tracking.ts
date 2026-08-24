@@ -9,6 +9,8 @@ const FORM_ENTRY_TARGET_PATHS = new Set([
 const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
 const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
 const MAX_PAGE_JOURNEY_ENTRIES = 20;
+const MAX_PAGE_JOURNEY_LENGTH = 1024;
+const MAX_WHATSAPP_CLICK_PATH_LENGTH = 255;
 const WHATSAPP_HOSTS = new Set([
   "wa.me",
   "api.whatsapp.com",
@@ -187,6 +189,26 @@ function normalizeWhatsappLinkLocation(value: unknown) {
   return /^[a-z0-9_-]{1,64}$/.test(location) ? location : "unknown";
 }
 
+function boundJourneyEntries(entries: string[], limit = MAX_PAGE_JOURNEY_LENGTH) {
+  const kept: string[] = [];
+  let length = 0;
+
+  for (let index = entries.length - 1; index >= 0; index -= 1) {
+    const entry = entries[index];
+    const separatorLength = kept.length ? 3 : 0;
+    if (length + separatorLength + entry.length > limit) continue;
+    kept.unshift(entry);
+    length += separatorLength + entry.length;
+  }
+
+  return kept.slice(-MAX_PAGE_JOURNEY_ENTRIES);
+}
+
+function normalizeWhatsappClickPath(value: unknown) {
+  const path = normalizeJourneyPath(value);
+  return path && path.length <= MAX_WHATSAPP_CLICK_PATH_LENGTH ? path : "";
+}
+
 function readPageJourneyEntries() {
   const raw = safeSessionGet(PAGE_JOURNEY_KEY);
   if (!raw) return [];
@@ -198,7 +220,8 @@ function readPageJourneyEntries() {
     return parsed
       .map(normalizeJourneyPath)
       .filter((entry): entry is string => Boolean(entry))
-      .slice(-MAX_PAGE_JOURNEY_ENTRIES);
+      .slice(-MAX_PAGE_JOURNEY_ENTRIES)
+      .filter((entry) => entry.length <= MAX_PAGE_JOURNEY_LENGTH);
   } catch {
     return [];
   }
@@ -218,9 +241,9 @@ function readStoredWhatsappClick(): StoredWhatsappClick | null {
 
     const candidate = parsed as Partial<StoredWhatsappClick>;
     const journey = typeof candidate.journey === "string"
-      ? formatJourney(candidate.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean).slice(-MAX_PAGE_JOURNEY_ENTRIES))
+      ? formatJourney(boundJourneyEntries(candidate.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean)))
       : "";
-    const path = normalizeJourneyPath(candidate.path);
+    const path = normalizeWhatsappClickPath(candidate.path);
     const count = typeof candidate.count === "number" && Number.isFinite(candidate.count)
       ? Math.max(0, Math.floor(candidate.count))
       : 0;
@@ -247,7 +270,7 @@ function recordPageJourneyEntry() {
   try {
     sessionStorage.setItem(
       PAGE_JOURNEY_KEY,
-      JSON.stringify(entries.slice(-MAX_PAGE_JOURNEY_ENTRIES)),
+      JSON.stringify(boundJourneyEntries(entries)),
     );
   } catch {
     // Storage can be unavailable in some privacy modes. Tracking must not break the page.
@@ -324,19 +347,20 @@ export function installPageJourneyTracking() {
     const isWhatsAppLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
     if (!isWhatsAppLink) return;
 
-    const journey = formatJourney(readPageJourneyEntries());
+    const journey = formatJourney(boundJourneyEntries(readPageJourneyEntries()));
     const path = normalizeJourneyPath(window.location.pathname) || "/";
+    const clickPath = normalizeWhatsappClickPath(path);
     const previous = readStoredWhatsappClick();
     const count = (previous?.count ?? 0) + 1;
     const stored: StoredWhatsappClick = {
       journey: journey || path,
-      path,
+      path: clickPath,
       count,
     };
     const linkLocation = normalizeWhatsappLinkLocation(link.getAttribute("data-wa-location"));
 
     try {
-      sessionStorage.setItem(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      if (clickPath) sessionStorage.setItem(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
     } catch {
       // Storage can be unavailable in some privacy modes. Tracking must not break the page.
     }
@@ -346,7 +370,7 @@ export function installPageJourneyTracking() {
       event: "whatsapp_click",
       page_path: path,
       page_journey: stored.journey,
-      wa_click_path: path,
+      wa_click_path: clickPath,
       link_location: linkLocation,
       destination_host: destinationHost || destination.protocol.replace(":", ""),
     });
@@ -355,11 +379,12 @@ export function installPageJourneyTracking() {
 }
 
 export function getPageJourneySnapshot(): PageJourneySnapshot {
-  const entries = readPageJourneyEntries();
+  const entries = boundJourneyEntries(readPageJourneyEntries());
   const stored = readStoredWhatsappClick();
+  const currentPath = normalizeJourneyPath(window.location.pathname) || "/";
 
   return {
-    pageJourney: formatJourney(entries) || normalizeJourneyPath(window.location.pathname) || "/",
+    pageJourney: formatJourney(entries) || (currentPath.length <= MAX_PAGE_JOURNEY_LENGTH ? currentPath : "/"),
     whatsappClickJourney: stored?.journey ?? "",
     whatsappClickPath: stored?.path ?? "",
     whatsappClickCount: stored?.count ?? 0,

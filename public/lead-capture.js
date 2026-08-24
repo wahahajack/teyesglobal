@@ -6,6 +6,7 @@
   const STORED_ATTRIBUTION_KEYS = [...ATTRIBUTION_KEYS, "landing_page", "referrer"];
   const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
   const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+  const TRACKING_REVISION_KEY = "teyes_tracking_revision_v1";
   const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
   const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
   const MAX_PAGE_JOURNEY_ENTRIES = 20;
@@ -65,6 +66,16 @@
   const removeSession = (key) => {
     try { window.sessionStorage.removeItem(key); } catch { /* storage must not break forms */ }
   };
+  const readTrackingRevision = () => {
+    const revision = Number(readSession(TRACKING_REVISION_KEY));
+    return Number.isSafeInteger(revision) && revision >= 0 ? revision : 0;
+  };
+  const advanceTrackingRevision = () => {
+    const current = readTrackingRevision();
+    const next = current >= Number.MAX_SAFE_INTEGER ? 1 : current + 1;
+    writeSession(TRACKING_REVISION_KEY, String(next));
+    return next;
+  };
   const value = (formData, name) => String(formData.get(name) || "").trim();
   const currentPath = () => window.location.pathname + window.location.search;
   const normalizeJourneyPath = (value) => {
@@ -116,6 +127,7 @@
     if (entries[entries.length - 1] === path) return;
     entries.push(path);
     writeSession(PAGE_JOURNEY_KEY, JSON.stringify(boundJourneyEntries(entries)));
+    advanceTrackingRevision();
   };
   const readWhatsappClick = () => {
     const raw = readSession(WHATSAPP_CLICK_KEY);
@@ -195,7 +207,10 @@
         path: clickPath,
         count: (previous?.count || 0) + 1,
       };
-      if (clickPath) writeSession(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      if (clickPath) {
+        writeSession(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+        advanceTrackingRevision();
+      }
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "whatsapp_click",
@@ -233,6 +248,7 @@
     const storedFormEntryPage = readSession("form_entry_page");
     const rawPageJourney = readSession(PAGE_JOURNEY_KEY);
     const rawWhatsappClick = readSession(WHATSAPP_CLICK_KEY);
+    const revision = advanceTrackingRevision();
     const payload = {
       formEntryPage: storedFormEntryPage || currentPath(),
       ...pageJourneySnapshot(),
@@ -246,6 +262,7 @@
       payload,
       rollbackIfUnchanged: () => {
         if (
+          readTrackingRevision() !== revision ||
           readSession("form_entry_page") ||
           readSession(PAGE_JOURNEY_KEY) ||
           readSession(WHATSAPP_CLICK_KEY)

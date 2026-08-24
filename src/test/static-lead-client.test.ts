@@ -41,6 +41,16 @@ function deferred<T>() {
   return { promise, resolve, reject };
 }
 
+function recordStaticRaceSnapshot(path: string, location: string) {
+  history.pushState({}, "", path);
+  document.body.innerHTML =
+    `<form id="lead"><input name="user_email" value="buyer@example.com"></form>` +
+    `<a data-wa-location="${location}" href="https://wa.me/placeholder">WA</a>`;
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+}
+
 it("从表单和 sessionStorage 构造统一 payload", async () => {
   renderForm();
   sessionStorage.setItem("gclid", "click-123");
@@ -213,6 +223,82 @@ it("restores a failed static snapshot only when no newer state exists", async ()
     JSON.parse(sessionStorage.getItem("teyes_page_journey_v1") || "[]"),
   ).toEqual(["/android-car-stereo-wholesale/"]);
 });
+
+it("does not let an older failed static submission restore after the newer one succeeds", async () => {
+  history.replaceState({}, "", "/static-race-start/");
+  window.eval(staticLeadClient);
+  recordStaticRaceSnapshot("/static-race-a/", "race_a");
+  const responseA = deferred<Response>();
+  const responseB = deferred<Response>();
+  const fetchMock = vi.fn()
+    .mockReturnValueOnce(responseA.promise)
+    .mockReturnValueOnce(responseB.promise);
+  vi.stubGlobal("fetch", fetchMock);
+
+  const submissionA = client().capture(form(), options);
+  recordStaticRaceSnapshot("/static-race-b/", "race_b");
+  const submissionB = client().capture(form(), options);
+
+  expect(sessionStorage.getItem("form_entry_page")).toBeNull();
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+  expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body)).whatsappClickPath)
+    .toBe("/static-race-a/");
+  expect(JSON.parse(String(fetchMock.mock.calls[1][1]?.body)).whatsappClickPath)
+    .toBe("/static-race-b/");
+
+  responseA.resolve(new Response(null, { status: 500 }));
+  await expect(submissionA).rejects.toThrow("Zoho lead capture failed");
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+
+  responseB.resolve(new Response(null, { status: 201 }));
+  await submissionB;
+  expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+  expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+});
+
+it.each(["older-first", "newer-first"] as const)(
+  "restores only the newest failed static snapshot when responses settle %s",
+  async (order) => {
+    history.replaceState({}, "", "/static-race-start/");
+    window.eval(staticLeadClient);
+    recordStaticRaceSnapshot("/static-race-a/", "race_a");
+    const responseA = deferred<Response>();
+    const responseB = deferred<Response>();
+    vi.stubGlobal("fetch", vi.fn()
+      .mockReturnValueOnce(responseA.promise)
+      .mockReturnValueOnce(responseB.promise));
+
+    const submissionA = client().capture(form(), options);
+    recordStaticRaceSnapshot("/static-race-b/", "race_b");
+    const submissionB = client().capture(form(), options);
+
+    expect(sessionStorage.getItem("form_entry_page")).toBeNull();
+    expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+    expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+
+    if (order === "older-first") {
+      responseA.resolve(new Response(null, { status: 500 }));
+      await expect(submissionA).rejects.toThrow();
+      responseB.resolve(new Response(null, { status: 500 }));
+      await expect(submissionB).rejects.toThrow();
+    } else {
+      responseB.resolve(new Response(null, { status: 500 }));
+      await expect(submissionB).rejects.toThrow();
+      responseA.resolve(new Response(null, { status: 500 }));
+      await expect(submissionA).rejects.toThrow();
+    }
+
+    const rawJourney = JSON.parse(
+      sessionStorage.getItem("teyes_page_journey_v1") || "[]",
+    );
+    expect(rawJourney).toContain("/static-race-b/");
+    expect(rawJourney).not.toContain("/static-race-a/");
+    expect(
+      JSON.parse(sessionStorage.getItem("teyes_last_whatsapp_click_v1") || "{}").path,
+    ).toBe("/static-race-b/");
+  },
+);
 
 it("does not restore a failed static snapshot over a newer page", async () => {
   renderForm();

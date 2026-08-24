@@ -52,6 +52,15 @@ function deferred<T>() {
   return { promise, resolve, reject };
 }
 
+function recordRaceSnapshot(path: string, location: string) {
+  history.pushState({}, "", path);
+  document.body.innerHTML =
+    `<a data-wa-location="${location}" href="https://wa.me/placeholder">WA</a>`;
+  const link = document.querySelector("a")!;
+  link.addEventListener("click", (event) => event.preventDefault());
+  link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+}
+
 afterEach(() => {
   sessionStorage.clear();
   localStorage.clear();
@@ -513,6 +522,74 @@ describe("submitZohoLead", () => {
     expect(getPageJourneySnapshot().pageJourney).toBe("/thank-you/");
     expect(sessionStorage.getItem("form_entry_page")).toBeNull();
   });
+
+  it("does not let an older failed submission restore over a newer successful transaction", async () => {
+    clearPageJourney();
+    installPageJourneyTracking();
+    recordRaceSnapshot("/race-a/", "race_a");
+    const responseA = deferred<Response>();
+    const responseB = deferred<Response>();
+    const fetchMock = vi.fn()
+      .mockReturnValueOnce(responseA.promise)
+      .mockReturnValueOnce(responseB.promise);
+    vi.stubGlobal("fetch", fetchMock);
+
+    const submissionA = submitZohoLead(validPayload);
+    recordRaceSnapshot("/race-b/", "race_b");
+    const submissionB = submitZohoLead(validPayload);
+
+    const bodyA = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+    const bodyB = JSON.parse(String(fetchMock.mock.calls[1][1]?.body));
+    expect(bodyA.whatsappClickPath).toBe("/race-a/");
+    expect(bodyB.whatsappClickPath).toBe("/race-b/");
+
+    responseA.resolve(new Response(null, { status: 500 }));
+    await expect(submissionA).rejects.toThrow("Zoho lead request failed with 500");
+    expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+    expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+
+    responseB.resolve(new Response(null, { status: 201 }));
+    await submissionB;
+    expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
+    expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
+  });
+
+  it.each(["older-first", "newer-first"] as const)(
+    "restores only the newest failed snapshot when concurrent responses settle %s",
+    async (order) => {
+      clearPageJourney();
+      installPageJourneyTracking();
+      recordRaceSnapshot("/race-a/", "race_a");
+      const responseA = deferred<Response>();
+      const responseB = deferred<Response>();
+      vi.stubGlobal("fetch", vi.fn()
+        .mockReturnValueOnce(responseA.promise)
+        .mockReturnValueOnce(responseB.promise));
+
+      const submissionA = submitZohoLead(validPayload);
+      recordRaceSnapshot("/race-b/", "race_b");
+      const submissionB = submitZohoLead(validPayload);
+
+      if (order === "older-first") {
+        responseA.resolve(new Response(null, { status: 500 }));
+        await expect(submissionA).rejects.toThrow();
+        responseB.resolve(new Response(null, { status: 500 }));
+        await expect(submissionB).rejects.toThrow();
+      } else {
+        responseB.resolve(new Response(null, { status: 500 }));
+        await expect(submissionB).rejects.toThrow();
+        responseA.resolve(new Response(null, { status: 500 }));
+        await expect(submissionA).rejects.toThrow();
+      }
+
+      expect(getPageJourneySnapshot()).toMatchObject({
+        whatsappClickPath: "/race-b/",
+        whatsappClickCount: 1,
+      });
+      expect(getPageJourneySnapshot().pageJourney).toContain("/race-b/");
+      expect(getPageJourneySnapshot().pageJourney).not.toContain("/race-a/");
+    },
+  );
 
   it("bounds serialized journey values before a keepalive request", async () => {
     clearPageJourney();

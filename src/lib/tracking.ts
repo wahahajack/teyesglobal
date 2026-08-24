@@ -1,5 +1,6 @@
 const GTM_ID = "GTM-MSPH5TMK";
 const FORM_ENTRY_PAGE_KEY = "form_entry_page";
+const TRACKING_REVISION_KEY = "teyes_tracking_revision_v1";
 const FORM_ENTRY_TARGET_PATHS = new Set([
   "/contact/",
   "/android-car-stereo-oem-manufacturer/",
@@ -90,6 +91,18 @@ function safeSessionRemove(key: string) {
   } catch {
     // Storage can be unavailable in some privacy modes. Tracking must not break the page.
   }
+}
+
+function readTrackingRevision() {
+  const revision = Number(safeSessionGet(TRACKING_REVISION_KEY));
+  return Number.isSafeInteger(revision) && revision >= 0 ? revision : 0;
+}
+
+function advanceTrackingRevision() {
+  const current = readTrackingRevision();
+  const next = current >= Number.MAX_SAFE_INTEGER ? 1 : current + 1;
+  safeSessionSet(TRACKING_REVISION_KEY, String(next));
+  return next;
 }
 
 function removeDurableAttribution() {
@@ -267,14 +280,11 @@ function recordPageJourneyEntry() {
   if (entries[entries.length - 1] === path) return;
 
   entries.push(path);
-  try {
-    sessionStorage.setItem(
-      PAGE_JOURNEY_KEY,
-      JSON.stringify(boundJourneyEntries(entries)),
-    );
-  } catch {
-    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
-  }
+  safeSessionSet(
+    PAGE_JOURNEY_KEY,
+    JSON.stringify(boundJourneyEntries(entries)),
+  );
+  advanceTrackingRevision();
 }
 
 let contactEntryTrackingInstalled = false;
@@ -293,6 +303,7 @@ export function installContactEntryTracking() {
     const destination = new URL(link.getAttribute("href")!, window.location.origin);
     if (destination.origin === window.location.origin && FORM_ENTRY_TARGET_PATHS.has(destination.pathname)) {
       safeSessionSet(FORM_ENTRY_PAGE_KEY, getCurrentPath());
+      advanceTrackingRevision();
     }
   }, { capture: true });
 }
@@ -315,6 +326,7 @@ export function beginSubmissionTracking(): SubmissionTrackingTransaction {
     ...getPageJourneySnapshot(),
   };
 
+  const revision = advanceTrackingRevision();
   safeSessionRemove(FORM_ENTRY_PAGE_KEY);
   safeSessionRemove(PAGE_JOURNEY_KEY);
   safeSessionRemove(WHATSAPP_CLICK_KEY);
@@ -323,6 +335,7 @@ export function beginSubmissionTracking(): SubmissionTrackingTransaction {
     payload,
     rollbackIfUnchanged: () => {
       if (
+        readTrackingRevision() !== revision ||
         safeSessionGet(FORM_ENTRY_PAGE_KEY) !== null ||
         safeSessionGet(PAGE_JOURNEY_KEY) !== null ||
         safeSessionGet(WHATSAPP_CLICK_KEY) !== null
@@ -340,11 +353,8 @@ export function beginSubmissionTracking(): SubmissionTrackingTransaction {
 }
 
 export function clearFormEntryPage() {
-  try {
-    sessionStorage.removeItem(FORM_ENTRY_PAGE_KEY);
-  } catch {
-    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
-  }
+  safeSessionRemove(FORM_ENTRY_PAGE_KEY);
+  advanceTrackingRevision();
 }
 
 export function installPageJourneyTracking() {
@@ -398,10 +408,9 @@ export function installPageJourneyTracking() {
     };
     const linkLocation = normalizeWhatsappLinkLocation(link.getAttribute("data-wa-location"));
 
-    try {
-      if (clickPath) sessionStorage.setItem(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
-    } catch {
-      // Storage can be unavailable in some privacy modes. Tracking must not break the page.
+    if (clickPath) {
+      safeSessionSet(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      advanceTrackingRevision();
     }
 
     window.dataLayer = window.dataLayer || [];
@@ -433,6 +442,7 @@ export function getPageJourneySnapshot(): PageJourneySnapshot {
 export function clearPageJourney() {
   safeSessionRemove(PAGE_JOURNEY_KEY);
   safeSessionRemove(WHATSAPP_CLICK_KEY);
+  advanceTrackingRevision();
 }
 
 export function initDataLayer() {

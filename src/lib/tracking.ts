@@ -1,5 +1,11 @@
 const GTM_ID = "GTM-MSPH5TMK";
 const FORM_ENTRY_PAGE_KEY = "form_entry_page";
+const FORM_ENTRY_TARGET_PATHS = new Set([
+  "/contact/",
+  "/android-car-stereo-oem-manufacturer/",
+  "/android-car-stereo-wholesale/",
+  "/teyes-android-car-stereo-distributor/",
+]);
 
 const AD_PARAM_KEYS = [
   "gclid",
@@ -56,7 +62,7 @@ export function installContactEntryTracking() {
     if (!link) return;
 
     const destination = new URL(link.getAttribute("href")!, window.location.origin);
-    if (destination.origin === window.location.origin && destination.pathname === "/contact/") {
+    if (destination.origin === window.location.origin && FORM_ENTRY_TARGET_PATHS.has(destination.pathname)) {
       safeSessionSet(FORM_ENTRY_PAGE_KEY, getCurrentPath());
     }
   });

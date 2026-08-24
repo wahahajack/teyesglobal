@@ -1,5 +1,7 @@
 # Form Entry Page Attribution Implementation Plan
 
+> **Superseded:** This 2026-08-23 plan has been replaced by [2026-08-24 Free-Edition Form Entry Attribution Implementation Plan](./2026-08-24-free-edition-form-entry-attribution.md). Do not execute any custom-field or CRM schema steps from this older plan.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Store the same-site page that led a visitor into a submitted form without changing the visitor-selected inquiry type, existing form source, or paid-attribution data.

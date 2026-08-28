@@ -549,7 +549,7 @@
             <form id="app-form" novalidate onsubmit="validateAndSubmit(event)">
                 <input type="hidden" id="intent-field" name="intent" value="distributor">
                 <!-- Honeypot anti-spam field -->
-                <input type="text" name="website" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" tabindex="-1" autocomplete="off">
+                <input type="text" name="teyes_leave_blank" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" tabindex="-1" autocomplete="off">
                 <div style="margin-bottom: 1rem;">
                     <label for="comp_name" class="form-label">Company Name</label>
                     <input type="text" id="comp_name" name="company_name" class="form-input" placeholder="* Required" required
@@ -734,9 +734,12 @@
             setTimeout(() => t.remove(), 3000);
         }
 
+        let pendingZohoSubmission = null;
+
         async function validateAndSubmit(e) {
             e.preventDefault();
             const form = document.getElementById('app-form');
+            if (pendingZohoSubmission) return;
             const inputs = form.querySelectorAll('.form-input');
             let isValid = true;
 
@@ -749,20 +752,34 @@
             if (!isValid) return;
 
             // Honeypot check
-            if (form.website && form.website.value.trim()) return;
+            if (form.elements.namedItem('teyes_leave_blank')?.value?.trim()) return;
+
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('submit-btn-text');
 
             if (!window.emailjs) {
                 showToast('Service temporarily unavailable. Please contact info@teyesauto.com or use WhatsApp.', true);
                 return;
             }
-
-            const btn = document.getElementById('submit-btn');
-            const btnText = document.getElementById('submit-btn-text');
             btn.disabled = true;
             if (btnText) btnText.textContent = 'Sending...';
 
+             let emailSent = false;
              try {
+                 const submissionId = window.TeyesLeadCapture &&
+                     typeof window.TeyesLeadCapture.createSubmissionId === 'function'
+                     ? window.TeyesLeadCapture.createSubmissionId()
+                     : crypto.randomUUID();
+                 let submissionInput = form.elements.namedItem('submission_id');
+                 if (!submissionInput) {
+                     submissionInput = document.createElement('input');
+                     submissionInput.type = 'hidden';
+                     submissionInput.name = 'submission_id';
+                     form.appendChild(submissionInput);
+                 }
+                 submissionInput.value = submissionId;
                  await window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+                 emailSent = true;
                  const isCatalog = form.intent?.value === 'catalog';
                  window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
@@ -770,15 +787,10 @@
                     form_name: 'distributor_application',
                     form_location: 'distributor_landing_page',
                     lead_type: form.intent?.value === 'catalog' ? 'catalog_request' : 'distributor_application',
+                    submission_id: submissionId,
                     value: 1,
                      event_category: 'conversion'
                  });
-                 if (window.TeyesLeadCapture) {
-                     void window.TeyesLeadCapture.capture(form, {
-                         source: isCatalog ? 'catalog_request' : 'distributor_application',
-                         inquiryType: isCatalog ? 'Catalog Request' : 'Distributor Application',
-                     }).catch((error) => console.error('Zoho lead capture failed', error));
-                 }
                 const currentParams = new URLSearchParams(window.location.search);
                 const tracked = new URLSearchParams();
                 ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach(key => {
@@ -787,15 +799,29 @@
                 });
                 tracked.set('lead', '1');
                 const query = tracked.toString();
-                showToast('Application received. Redirecting...', false);
                  const thankYouPage = isCatalog ? 'thank-you-catalog.html' : 'thank-you.html';
+                 const redirectUrl = `${thankYouPage}${query ? '?' + query : ''}`;
+                 const options = {
+                     source: isCatalog ? 'catalog_request' : 'distributor_application',
+                     inquiryType: isCatalog ? 'Catalog Request' : 'Distributor Application',
+                     submissionId,
+                 };
+                 pendingZohoSubmission = { options, redirectUrl };
+                 if (!window.TeyesLeadCapture) throw new Error('Lead processing unavailable');
+                 await window.TeyesLeadCapture.capture(form, options);
+                 showToast('Application received. Redirecting...', false);
                 setTimeout(() => {
-                    window.location.href = `${thankYouPage}${query ? '?' + query : ''}`;
+                    window.location.href = redirectUrl;
                 }, 600);
             } catch (err) {
-                showToast('Failed to send. Contact: info@teyesauto.com', true);
-                btn.disabled = false;
-                if (btnText) btnText.textContent = 'Submit Credentials';
+                console.error(emailSent ? 'Zoho lead capture failed' : 'Email submission failed', err);
+                showToast(emailSent
+                    ? 'Your application email was sent successfully. Internal processing is delayed; no further submission is needed.'
+                    : 'Failed to send. Contact: info@teyesauto.com', true);
+                btn.disabled = emailSent;
+                if (btnText) btnText.textContent = emailSent
+                    ? 'Message Sent'
+                    : 'Submit Credentials';
             }
         }
     </script>

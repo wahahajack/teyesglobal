@@ -28,6 +28,7 @@ export interface LeadAttribution {
 }
 
 export interface LeadCapturePayload {
+  submissionId?: string;
   source: LeadSource;
   fullName: string;
   email: string;
@@ -47,7 +48,18 @@ export interface LeadCapturePayload {
   attribution: LeadAttribution;
 }
 
+export interface LeadSubmissionResult {
+  status: "created" | "duplicate";
+  submissionId: string;
+}
+
 const text = (value: string | null | undefined) => value ?? "";
+const LEAD_REQUEST_TIMEOUT_MS = 12_000;
+
+export function createSubmissionId(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(15));
+  return Array.from(bytes, (value) => value.toString(16).padStart(2, "0")).join("");
+}
 
 export function buildAttribution(): LeadAttribution {
   const stored = getStoredAdParams();
@@ -68,12 +80,16 @@ export function buildAttribution(): LeadAttribution {
 
 export async function submitZohoLead(
   payload: LeadCapturePayload,
-): Promise<void> {
+): Promise<LeadSubmissionResult> {
   const tracking = beginSubmissionTracking();
+  const correlationId = payload.submissionId || createSubmissionId();
   const leadPayload = {
     ...payload,
+    submissionId: correlationId,
     ...tracking.payload,
   };
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), LEAD_REQUEST_TIMEOUT_MS);
 
   try {
     const response = await fetch("/api/zoho-lead", {
@@ -81,13 +97,36 @@ export async function submitZohoLead(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(leadPayload),
       keepalive: true,
+      signal: controller.signal,
     });
 
     if (!response.ok) {
       throw new Error(`Zoho lead request failed with ${response.status}`);
     }
+    let result: unknown;
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("Zoho lead request failed: invalid_response");
+    }
+    if (!result || typeof result !== "object") {
+      throw new Error("Zoho lead request failed: invalid_response");
+    }
+    const status = (result as { status?: unknown }).status;
+    if (status !== "created" && status !== "duplicate") {
+      throw new Error(`Zoho lead request failed: ${typeof status === "string" ? status : "invalid_response"}`);
+    }
+    if ((result as { submission_id?: unknown }).submission_id !== correlationId) {
+      throw new Error("Zoho lead request failed: correlation_mismatch");
+    }
+    return { status, submissionId: correlationId };
   } catch (error) {
     tracking.rollbackIfUnchanged();
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error("Zoho lead request timed out");
+    }
     throw error;
+  } finally {
+    window.clearTimeout(timer);
   }
 }

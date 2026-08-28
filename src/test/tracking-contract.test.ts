@@ -132,6 +132,41 @@ describe("tracking contract: 静态页面 Lead capture", () => {
     expect(source).toContain("thank-you.html");
     expect(source).toContain("event: 'form_submit_success'");
   });
+
+  const staticSubmissionFiles = [
+    "android-car-stereo-wholesale/script.js",
+    "android-car-stereo-oem-manufacturer/script.js",
+    "teyes-android-car-stereo-distributor/index.html",
+  ];
+
+  for (const rel of staticSubmissionFiles) {
+    it(`${rel} 等待 Zoho 且复用 submissionId`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain("createSubmissionId()");
+      expect(source).toContain("submission_id: submissionId");
+      expect(source).toContain("await window.TeyesLeadCapture.capture");
+      expect(source).not.toContain("void window.TeyesLeadCapture.capture");
+      expect(source).toContain("pendingZohoSubmission");
+      expect(source).not.toContain("Retry Processing");
+      expect(
+        source.match(/await window\.TeyesLeadCapture\.capture/g) || [],
+      ).toHaveLength(1);
+    });
+  }
+
+  const staticHoneypotFiles = [
+    "android-car-stereo-wholesale/index.html",
+    "android-car-stereo-oem-manufacturer/index.html",
+    "teyes-android-car-stereo-distributor/index.html",
+  ];
+
+  for (const rel of staticHoneypotFiles) {
+    it(`${rel} 使用不易自动填充的 honeypot 名称`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain('name="teyes_leave_blank"');
+      expect(source).not.toContain('name="website"');
+    });
+  }
 });
 
 describe("tracking contract: 静态页 WhatsApp 归因标记", () => {

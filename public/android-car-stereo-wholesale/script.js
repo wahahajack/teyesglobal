@@ -18,6 +18,7 @@
   let emailJsReadyPromise;
   let stickyCtaInitialized = false;
   let emailJsWarmupStarted = false;
+  let pendingZohoSubmission = null;
 
   const initEmailJs = () => {
     if (!window.emailjs || window.emailjs.__teyesReady) return;
@@ -273,6 +274,7 @@
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form) return;
+    if (pendingZohoSubmission) return;
 
     clearFieldError(emailInput, emailFieldError);
     clearFieldError(countryInput, countryFieldError);
@@ -280,7 +282,7 @@
     errMsg.hidden = true;
     okMsg.hidden = true;
 
-    const honeypot = form.website?.value?.trim();
+    const honeypot = form.elements.namedItem('teyes_leave_blank')?.value?.trim();
     if (honeypot) return;
 
     const email = form.user_email?.value?.trim();
@@ -317,27 +319,36 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
+    let emailSent = false;
     try {
+      const submissionId = window.TeyesLeadCapture &&
+        typeof window.TeyesLeadCapture.createSubmissionId === 'function'
+        ? window.TeyesLeadCapture.createSubmissionId()
+        : crypto.randomUUID();
+      let submissionInput = form.elements.namedItem('submission_id');
+      if (!submissionInput) {
+        submissionInput = document.createElement('input');
+        submissionInput.type = 'hidden';
+        submissionInput.name = 'submission_id';
+        form.appendChild(submissionInput);
+      }
+      submissionInput.value = submissionId;
       await withTimeout(
         window.emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form),
         12000,
         'Email send timeout'
       );
+      emailSent = true;
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'form_submit_success',
         form_name: 'wholesale_quote',
         form_location: 'wholesale_landing_page',
         lead_type: 'wholesale_inquiry',
+        submission_id: submissionId,
         value: 1,
         event_category: 'conversion'
       });
-      if (window.TeyesLeadCapture) {
-        void window.TeyesLeadCapture.capture(form, {
-          source: 'wholesale_quote',
-          inquiryType: 'Wholesale Inquiry'
-        }).catch((error) => console.error('Zoho lead capture failed', error));
-      }
       const currentParams = new URLSearchParams(window.location.search);
       const tracked = new URLSearchParams();
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid'].forEach((key) => {
@@ -346,17 +357,31 @@
       });
       tracked.set('lead', '1');
       const query = tracked.toString();
+      const redirectUrl = `./thank-you.html${query ? `?${query}` : ''}`;
+      const options = {
+        source: 'wholesale_quote',
+        inquiryType: 'Wholesale Inquiry',
+        submissionId
+      };
+      pendingZohoSubmission = { options, redirectUrl };
+      if (!window.TeyesLeadCapture) throw new Error('Lead processing unavailable');
+      await window.TeyesLeadCapture.capture(form, options);
       okMsg.textContent = 'Request received. Redirecting...';
       okMsg.hidden = false;
       setTimeout(() => {
-        window.location.href = `./thank-you.html${query ? `?${query}` : ''}`;
+        window.location.href = redirectUrl;
       }, 600);
     } catch (error) {
-      errMsg.textContent = 'Failed to send. Contact: info@teyesauto.com';
+      console.error(emailSent ? 'Zoho lead capture failed' : 'Email submission failed', error);
+      errMsg.textContent = emailSent
+        ? 'Your request email was sent successfully. Internal processing is delayed; no further submission is needed.'
+        : 'Failed to send. Contact: info@teyesauto.com';
       errMsg.hidden = false;
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Request Wholesale Pricing';
+      submitBtn.disabled = emailSent;
+      submitBtn.textContent = emailSent
+        ? 'Message Sent'
+        : 'Request Wholesale Pricing';
     }
   });
 })();

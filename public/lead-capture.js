@@ -12,6 +12,7 @@
   const MAX_PAGE_JOURNEY_ENTRIES = 20;
   const MAX_PAGE_JOURNEY_LENGTH = 1024;
   const MAX_WHATSAPP_CLICK_PATH_LENGTH = 255;
+  const LEAD_REQUEST_TIMEOUT_MS = 12000;
   const WHATSAPP_HOSTS = new Set(["wa.me", "api.whatsapp.com", "web.whatsapp.com"]);
   const readSession = (key) => {
     try { return window.sessionStorage.getItem(key) || ""; } catch { return ""; }
@@ -77,6 +78,10 @@
     return next;
   };
   const value = (formData, name) => String(formData.get(name) || "").trim();
+  const createSubmissionId = () => {
+    const bytes = crypto.getRandomValues(new Uint8Array(15));
+    return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  };
   const currentPath = () => window.location.pathname + window.location.search;
   const normalizeJourneyPath = (value) => {
     if (typeof value !== "string") return "";
@@ -276,6 +281,7 @@
 
   function capture(form, options) {
     const formData = new FormData(form);
+    const correlationId = options.submissionId || value(formData, "submission_id") || createSubmissionId();
     const durable = readDurable();
     const attribution = {
       landing_page: readStorage("landing_page", durable),
@@ -284,6 +290,7 @@
     ATTRIBUTION_KEYS.forEach((key) => { attribution[key] = readStorage(key, durable); });
     const tracking = beginSubmissionTracking();
     const payload = {
+      submissionId: correlationId,
       source: options.source,
       fullName: value(formData, "contact_name"),
       email: value(formData, "user_email"),
@@ -294,22 +301,45 @@
       estimatedQuantity: value(formData, "estimated_quantity"),
       businessModel: value(formData, "business_model"),
       submittedAt: new Date().toISOString(),
-      website: value(formData, "website"),
+      website: value(formData, "teyes_leave_blank") || value(formData, "website"),
       attribution,
       ...tracking.payload,
     };
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), LEAD_REQUEST_TIMEOUT_MS);
     return fetch("/api/zoho-lead", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload), keepalive: true,
+      body: JSON.stringify(payload), keepalive: true, signal: controller.signal,
     }).then((response) => {
       if (!response.ok) throw new Error("Zoho lead capture failed");
+      return response.json().catch(() => {
+        throw new Error("Zoho lead capture failed: invalid_response");
+      });
+    }).then((result) => {
+      const status = result && result.status;
+      if (status !== "created" && status !== "duplicate") {
+        throw new Error(`Zoho lead capture failed: ${status || "invalid_response"}`);
+      }
+      if (result.submission_id !== correlationId) {
+        throw new Error("Zoho lead capture failed: correlation_mismatch");
+      }
+      return { status, submissionId: correlationId };
     }).catch((error) => {
       tracking.rollbackIfUnchanged();
+      if (error instanceof DOMException && error.name === "AbortError") {
+        throw new Error("Zoho lead capture timed out");
+      }
       throw error;
+    }).finally(() => {
+      window.clearTimeout(timer);
     });
   }
 
   installJourneyTracking();
   persistAttribution();
-  window.TeyesLeadCapture = Object.freeze({ capture, persistAttribution });
+  window.TeyesLeadCapture = Object.freeze({
+    capture,
+    createSubmissionId,
+    persistAttribution,
+  });
 })();

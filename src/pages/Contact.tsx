@@ -12,7 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 import { delayForConversionDispatch, pushContactEmailClick, pushFormSubmitSuccess } from "@/lib/tracking";
-import { buildAttribution, submitZohoLead, type LeadCapturePayload } from "@/lib/leadCapture";
+import {
+  buildAttribution,
+  createSubmissionId,
+  submitZohoLead,
+  type LeadCapturePayload,
+} from "@/lib/leadCapture";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_kzddimj";
@@ -47,6 +52,8 @@ const ContactPage = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [pendingLeadPayload, setPendingLeadPayload] =
+    useState<LeadCapturePayload | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,6 +77,8 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (formData.website.trim()) return;
 
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
@@ -109,6 +118,8 @@ const ContactPage = () => {
 
     try {
       let user_country = "Unknown";
+      const submissionId = createSubmissionId();
+      const submittedAt = new Date().toISOString();
 
       try {
         const geoResponse = await fetchWithTimeout("https://ipapi.co/json/");
@@ -134,7 +145,8 @@ const ContactPage = () => {
         country: formData.country || "N/A",
         user_country,
         inquiry_type: formData.inquiryType || "General",
-        user_time: new Date().toISOString(),
+        user_time: submittedAt,
+        submission_id: submissionId,
         message: formData.message,
         to_email: "info@teyesauto.com",
       };
@@ -151,8 +163,10 @@ const ContactPage = () => {
           inquiry_type: formData.inquiryType || "General",
           country: formData.country || user_country || "Unknown",
           has_company: Boolean(formData.company.trim()),
+          submission_id: submissionId,
         });
         const leadPayload: LeadCapturePayload = {
+          submissionId,
           source: "contact_page",
           fullName: formData.name.trim(),
           email: formData.email.trim(),
@@ -162,15 +176,26 @@ const ContactPage = () => {
           message: formData.message.trim(),
           estimatedQuantity: "",
           businessModel: "",
-          submittedAt: new Date().toISOString(),
+          submittedAt,
           website: formData.website.trim(),
           attribution: buildAttribution(),
         };
-        void submitZohoLead(leadPayload).catch((error) => {
+        try {
+          await Promise.all([
+            submitZohoLead(leadPayload),
+            delayForConversionDispatch(300),
+          ]);
+          setPendingLeadPayload(null);
+          navigate("/thank-you");
+        } catch (error) {
+          setPendingLeadPayload(leadPayload);
           console.error("Zoho lead capture failed", error);
-        });
-        await delayForConversionDispatch(300);
-        navigate("/thank-you");
+          toast({
+            title: "Message Sent",
+            description: "Your message was sent successfully. Internal processing is delayed; no further submission is needed.",
+            variant: "destructive",
+          });
+        }
       } else {
         throw new Error("Failed to send message via EmailJS");
       }
@@ -226,10 +251,10 @@ const ContactPage = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="absolute left-[-10000px]" aria-hidden="true">
-                    <Label htmlFor="website">Leave this field blank</Label>
+                    <Label htmlFor="teyes_leave_blank">Leave this field blank</Label>
                     <Input
-                      id="website"
-                      name="website"
+                      id="teyes_leave_blank"
+                      name="teyes_leave_blank"
                       tabIndex={-1}
                       autoComplete="off"
                       value={formData.website}
@@ -325,10 +350,12 @@ const ContactPage = () => {
                     variant="hero"
                     size="lg"
                     className="w-full"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || Boolean(pendingLeadPayload)}
                   >
                     {isSubmitting ? (
                       "Sending..."
+                    ) : pendingLeadPayload ? (
+                      "Message Sent"
                     ) : (
                       <>
                         Send Message

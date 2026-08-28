@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildAttribution,
+  createSubmissionId,
   submitZohoLead,
   type LeadCapturePayload,
 } from "./leadCapture";
@@ -16,6 +17,7 @@ import {
 } from "./tracking";
 
 const validPayload: LeadCapturePayload = {
+  submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
   source: "contact_page",
   fullName: "Jane Doe",
   email: "jane@example.com",
@@ -41,6 +43,12 @@ const validPayload: LeadCapturePayload = {
     referrer: "",
   },
 };
+
+const createdResponse = () => new Response(JSON.stringify({
+  ok: true,
+  status: "created",
+  submission_id: validPayload.submissionId,
+}), { status: 201, headers: { "Content-Type": "application/json" } });
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
@@ -388,6 +396,106 @@ describe("page journey and WhatsApp tracking", () => {
 });
 
 describe("submitZohoLead", () => {
+  it("生成不含 PII 且适配 Zoho Fax 长度的 submissionId", () => {
+    expect(createSubmissionId()).toMatch(/^[0-9a-f]{30}$/);
+  });
+
+  it("发送调用方提供的 submissionId 并返回 created 结果", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      ok: true,
+      status: "created",
+      submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+    }), { status: 201, headers: { "Content-Type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await submitZohoLead({
+      ...validPayload,
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    });
+
+    expect(result).toEqual({
+      status: "created",
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    });
+    expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body))).toMatchObject({
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    });
+  });
+
+  it("拒绝 HTTP 202 的 honeypot_rejected 结果", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      ok: false,
+      status: "honeypot_rejected",
+      submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+    }), { status: 202, headers: { "Content-Type": "application/json" } })));
+
+    await expect(submitZohoLead({
+      ...validPayload,
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    })).rejects.toThrow("honeypot_rejected");
+  });
+
+  it("拒绝与请求不一致的服务端 submission_id", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      ok: true,
+      status: "created",
+      submission_id: "611a318c-078d-4d03-b2d1-e017d4c9c601",
+    }), { status: 201, headers: { "Content-Type": "application/json" } })));
+
+    await expect(submitZohoLead({
+      ...validPayload,
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    })).rejects.toThrow("correlation_mismatch");
+  });
+
+  it("接受服务端 duplicate 结果并返回状态", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      ok: true,
+      status: "duplicate",
+      submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+    }), { status: 200, headers: { "Content-Type": "application/json" } })));
+
+    const result = await submitZohoLead({
+      ...validPayload,
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    });
+
+    expect(result).toEqual({
+      status: "duplicate",
+      submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+    });
+  });
+
+  it("拒绝缺少稳定结果的成功响应", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+      new Response(null, { status: 201 }),
+    ));
+
+    await expect(submitZohoLead(validPayload)).rejects.toThrow(
+      "invalid_response",
+    );
+  });
+
+  it("十二秒后中止 Zoho 请求并恢复追踪快照", async () => {
+    vi.useFakeTimers();
+    history.replaceState({}, "", "/contact/");
+    installPageJourneyTracking();
+    vi.stubGlobal("fetch", vi.fn((_url, init) => new Promise<Response>((_resolve, reject) => {
+      const signal = init?.signal;
+      signal?.addEventListener("abort", () => {
+        reject(new DOMException("aborted", "AbortError"));
+      });
+    })));
+
+    const submission = submitZohoLead(validPayload);
+    const rejected = expect(submission).rejects.toThrow(
+      "Zoho lead request timed out",
+    );
+    await vi.advanceTimersByTimeAsync(12_000);
+    await rejected;
+    expect(getPageJourneySnapshot().pageJourney).toContain("/contact/");
+  });
+
   it("accepts a caller payload without formEntryPage and sends the captured entry page", async () => {
     history.replaceState({}, "", "/products/cc4-pro/?source=test");
     installContactEntryTracking();
@@ -395,7 +503,7 @@ describe("submitZohoLead", () => {
     const link = document.querySelector("a")!;
     link.addEventListener("click", (event) => event.preventDefault());
     link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 201 })));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(createdResponse()));
 
     await submitZohoLead(validPayload);
 
@@ -408,9 +516,7 @@ describe("submitZohoLead", () => {
   });
 
   it("使用同源端点和 keepalive", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response(JSON.stringify({ ok: true }), { status: 201 }),
-    );
+    const fetchMock = vi.fn().mockResolvedValue(createdResponse());
     vi.stubGlobal("fetch", fetchMock);
 
     await submitZohoLead(validPayload);
@@ -433,7 +539,7 @@ describe("submitZohoLead", () => {
     link.addEventListener("click", (event) => event.preventDefault());
     link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
     history.replaceState({}, "", "/contact/");
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 201 })));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(createdResponse()));
 
     await submitZohoLead(validPayload);
 
@@ -473,7 +579,7 @@ describe("submitZohoLead", () => {
       new MouseEvent("click", { bubbles: true, cancelable: true }),
     );
 
-    response.resolve(new Response(null, { status: 201 }));
+    response.resolve(createdResponse());
     await submission;
 
     const sent = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
@@ -548,7 +654,7 @@ describe("submitZohoLead", () => {
     expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
     expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
 
-    responseB.resolve(new Response(null, { status: 201 }));
+    responseB.resolve(createdResponse());
     await submissionB;
     expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
     expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
@@ -599,7 +705,7 @@ describe("submitZohoLead", () => {
     const link = document.querySelector("a")!;
     link.addEventListener("click", (event) => event.preventDefault());
     link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+    const fetchMock = vi.fn().mockResolvedValue(createdResponse());
     vi.stubGlobal("fetch", fetchMock);
 
     await submitZohoLead(validPayload);

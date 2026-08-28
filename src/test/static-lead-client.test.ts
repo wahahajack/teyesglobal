@@ -18,7 +18,13 @@ afterEach(() => {
 
 const form = () => document.querySelector<HTMLFormElement>("#lead")!;
 const client = () => (window as Window & {
-  TeyesLeadCapture: { capture: (target: HTMLFormElement, options: unknown) => Promise<void> };
+  TeyesLeadCapture: {
+    capture: (target: HTMLFormElement, options: unknown) => Promise<{
+      status: string;
+      submissionId: string;
+    }>;
+    createSubmissionId: () => string;
+  };
 }).TeyesLeadCapture;
 const renderForm = () => {
   document.body.innerHTML = `
@@ -29,7 +35,16 @@ const renderForm = () => {
     </form>
   `;
 };
-const options = { source: "wholesale_quote", inquiryType: "Wholesale Inquiry" };
+const options = {
+  source: "wholesale_quote",
+  inquiryType: "Wholesale Inquiry",
+  submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+};
+const createdResponse = () => new Response(JSON.stringify({
+  ok: true,
+  status: "created",
+  submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+}), { status: 201, headers: { "Content-Type": "application/json" } });
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
@@ -55,7 +70,7 @@ it("从表单和 sessionStorage 构造统一 payload", async () => {
   renderForm();
   sessionStorage.setItem("gclid", "click-123");
   sessionStorage.setItem("landing_page", "https://example.com/landing");
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockImplementation(async () => createdResponse());
   vi.stubGlobal("fetch", fetchMock);
   window.eval(staticLeadClient);
   await client().capture(form(), options);
@@ -67,6 +82,108 @@ it("从表单和 sessionStorage 构造统一 payload", async () => {
   });
 });
 
+it("静态客户端生成适配 Zoho Fax 长度的 ID 并复用调用方 submissionId", async () => {
+  renderForm();
+  const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    ok: true,
+    status: "created",
+    submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+  }), { status: 201, headers: { "Content-Type": "application/json" } }));
+  vi.stubGlobal("fetch", fetchMock);
+  window.eval(staticLeadClient);
+
+  expect(client().createSubmissionId()).toMatch(/^[0-9a-f]{30}$/);
+  const result = await client().capture(form(), {
+    ...options,
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  });
+
+  expect(result).toEqual({
+    status: "created",
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  });
+  expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body))).toMatchObject({
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  });
+});
+
+it("静态客户端拒绝 honeypot_rejected 成功状态", async () => {
+  renderForm();
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    ok: false,
+    status: "honeypot_rejected",
+    submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+  }), { status: 202, headers: { "Content-Type": "application/json" } })));
+  window.eval(staticLeadClient);
+
+  await expect(client().capture(form(), {
+    ...options,
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  })).rejects.toThrow("honeypot_rejected");
+});
+
+it("静态客户端拒绝不一致的服务端 submission_id", async () => {
+  renderForm();
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    ok: true,
+    status: "created",
+    submission_id: "611a318c-078d-4d03-b2d1-e017d4c9c601",
+  }), { status: 201, headers: { "Content-Type": "application/json" } })));
+  window.eval(staticLeadClient);
+
+  await expect(client().capture(form(), {
+    ...options,
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  })).rejects.toThrow("correlation_mismatch");
+});
+
+it("静态客户端接受 duplicate 结果", async () => {
+  renderForm();
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    ok: true,
+    status: "duplicate",
+    submission_id: "f3958342-7807-4c87-a4e0-960ac29db721",
+  }), { status: 200, headers: { "Content-Type": "application/json" } })));
+  window.eval(staticLeadClient);
+
+  const result = await client().capture(form(), options);
+  expect(result).toEqual({
+    status: "duplicate",
+    submissionId: "f3958342-7807-4c87-a4e0-960ac29db721",
+  });
+});
+
+it("静态客户端拒绝缺少稳定结果的成功响应", async () => {
+  renderForm();
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(
+    new Response(null, { status: 201 }),
+  ));
+  window.eval(staticLeadClient);
+
+  await expect(client().capture(form(), options)).rejects.toThrow(
+    "invalid_response",
+  );
+});
+
+it("静态客户端十二秒后中止请求", async () => {
+  vi.useFakeTimers();
+  renderForm();
+  vi.stubGlobal("fetch", vi.fn((_url, init) => new Promise<Response>((_resolve, reject) => {
+    const signal = init?.signal;
+    signal?.addEventListener("abort", () => {
+      reject(new DOMException("aborted", "AbortError"));
+    });
+  })));
+  window.eval(staticLeadClient);
+
+  const submission = client().capture(form(), options);
+  const rejected = expect(submission).rejects.toThrow(
+    "Zoho lead capture timed out",
+  );
+  await vi.advanceTimersByTimeAsync(12_000);
+  await rejected;
+});
+
 it("静态落地页在新会话使用持久化归因", async () => {
   renderForm();
   history.replaceState({}, "", "/landing?gclid=static-click&utm_source=google&utm_medium=cpc");
@@ -74,7 +191,7 @@ it("静态落地页在新会话使用持久化归因", async () => {
   sessionStorage.clear();
   delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
   history.replaceState({}, "", "/contact");
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockResolvedValue(createdResponse());
   vi.stubGlobal("fetch", fetchMock);
   window.eval(staticLeadClient);
   await client().capture(form(), options);
@@ -94,7 +211,7 @@ it("静态落地页忽略过期的持久化归因", async () => {
   delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
   vi.advanceTimersByTime(90 * 24 * 60 * 60 * 1000 + 1);
   history.replaceState({}, "", "/contact");
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockResolvedValue(createdResponse());
   vi.stubGlobal("fetch", fetchMock);
   window.eval(staticLeadClient);
   await client().capture(form(), options);
@@ -105,7 +222,7 @@ it("优先使用 form_entry_page，成功后清除并在缺失时回退到当前
   renderForm();
   history.replaceState({}, "", "/products/cc4-pro/?variant=blue");
   sessionStorage.setItem("form_entry_page", "/products/cc4-pro/");
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockImplementation(async () => createdResponse());
   vi.stubGlobal("fetch", fetchMock);
   window.eval(staticLeadClient);
   await client().capture(form(), options);
@@ -133,7 +250,7 @@ it("静态落地页不会把后续站内页面记为首次 referrer", async () =
   delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
   history.replaceState({}, "", "/contact");
   Object.defineProperty(document, "referrer", { configurable: true, value: "https://example.com/first" });
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockResolvedValue(createdResponse());
   vi.stubGlobal("fetch", fetchMock);
   window.eval(staticLeadClient);
   await client().capture(form(), options);
@@ -155,7 +272,7 @@ it("records the static-page journey and WA snapshot in the payload", async () =>
   const link = document.querySelector("a")!;
   link.addEventListener("click", (event) => event.preventDefault());
   link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockResolvedValue(createdResponse());
   vi.stubGlobal("fetch", fetchMock);
 
   await client().capture(form(), options);
@@ -195,7 +312,7 @@ it("consumes static attribution before navigation and preserves the next page af
   expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
 
   history.pushState({}, "", "/android-car-stereo-oem-manufacturer/thank-you.html");
-  response.resolve(new Response(null, { status: 201 }));
+  response.resolve(createdResponse());
   await submission;
 
   const sent = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
@@ -251,7 +368,7 @@ it("does not let an older failed static submission restore after the newer one s
   await expect(submissionA).rejects.toThrow("Zoho lead capture failed");
   expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
 
-  responseB.resolve(new Response(null, { status: 201 }));
+  responseB.resolve(createdResponse());
   await submissionB;
   expect(sessionStorage.getItem("teyes_page_journey_v1")).toBeNull();
   expect(sessionStorage.getItem("teyes_last_whatsapp_click_v1")).toBeNull();
@@ -413,7 +530,7 @@ it("bounds static journey fields before serializing a keepalive request", async 
   const link = document.querySelector("a")!;
   link.addEventListener("click", (event) => event.preventDefault());
   link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-  const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 201 }));
+  const fetchMock = vi.fn().mockResolvedValue(createdResponse());
   vi.stubGlobal("fetch", fetchMock);
 
   await client().capture(form(), options);

@@ -201,6 +201,41 @@ it("静态落地页在新会话使用持久化归因", async () => {
   });
 });
 
+it.each(["gtm_debug", "gtm_auth", "gtm_preview"])(
+  "静态客户端首次访问带 %s 时清洗 GTM 参数但保留真实广告归因",
+  async (previewKey) => {
+    renderForm();
+    history.replaceState(
+      {},
+      "",
+      `/?${previewKey}=1&gclid=static-real-click&utm_source=google&utm_medium=cpc&utm_campaign=preview-test`,
+    );
+    window.eval(staticLeadClient);
+    const firstLandingPage = JSON.parse(
+      localStorage.getItem("teyes_attribution_v1")!,
+    ).values.landing_page;
+
+    sessionStorage.clear();
+    delete (window as Window & { TeyesLeadCapture?: unknown }).TeyesLeadCapture;
+    history.replaceState({}, "", "/contact/");
+    const fetchMock = vi.fn().mockResolvedValue(createdResponse());
+    vi.stubGlobal("fetch", fetchMock);
+    window.eval(staticLeadClient);
+    await client().capture(form(), options);
+
+    const attribution = JSON.parse(String(fetchMock.mock.calls[0][1]?.body)).attribution;
+    expect(firstLandingPage).toContain("/?gclid=static-real-click");
+    expect(firstLandingPage).not.toContain(previewKey);
+    expect(attribution).toMatchObject({
+      gclid: "static-real-click",
+      utm_source: "google",
+      utm_medium: "cpc",
+      utm_campaign: "preview-test",
+      landing_page: firstLandingPage,
+    });
+  },
+);
+
 it("静态落地页忽略过期的持久化归因", async () => {
   vi.useFakeTimers();
   vi.setSystemTime("2026-08-21T00:00:00Z");

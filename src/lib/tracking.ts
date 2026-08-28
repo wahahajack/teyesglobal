@@ -29,6 +29,7 @@ const AD_PARAM_KEYS = [
   "utm_term",
   "fbclid",
 ] as const;
+const GTM_PREVIEW_PARAM_KEYS = ["gtm_debug", "gtm_auth", "gtm_preview"] as const;
 const STORED_ATTRIBUTION_KEYS = [
   ...AD_PARAM_KEYS,
   "landing_page",
@@ -173,6 +174,12 @@ function readStoredValue(key: AttributionKey, durable: AttributionValues) {
 function hasStoredValue(key: AttributionKey, durable: AttributionValues) {
   return safeSessionGet(key) !== null ||
     Object.prototype.hasOwnProperty.call(durable, key);
+}
+
+function getCleanLandingPage() {
+  const landingPage = new URL(window.location.href);
+  GTM_PREVIEW_PARAM_KEYS.forEach((key) => landingPage.searchParams.delete(key));
+  return landingPage.href;
 }
 
 function getCurrentPath() {
@@ -462,8 +469,9 @@ export function persistAdParams() {
   });
 
   if (!hasStoredValue("landing_page", durable)) {
-    safeSessionSet("landing_page", window.location.href);
-    durable.landing_page = window.location.href;
+    const landingPage = getCleanLandingPage();
+    safeSessionSet("landing_page", landingPage);
+    durable.landing_page = landingPage;
   }
   if (!hasStoredValue("referrer", durable)) {
     if (document.referrer) {
@@ -503,7 +511,7 @@ export function loadGtmNow() {
 function isGtmPreview() {
   const params = new URLSearchParams(window.location.search);
 
-  return params.has("gtm_debug") || params.has("gtm_auth") || params.has("gtm_preview");
+  return GTM_PREVIEW_PARAM_KEYS.some((key) => params.has(key));
 }
 
 export function loadGtmWhenIdle() {

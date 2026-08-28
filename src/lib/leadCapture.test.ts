@@ -154,6 +154,33 @@ describe("lead capture attribution", () => {
     });
   });
 
+  it.each(["gtm_debug", "gtm_auth", "gtm_preview"])(
+    "首次访问带 %s 时清洗 GTM 参数但保留真实广告归因",
+    (previewKey) => {
+      history.replaceState(
+        {},
+        "",
+        `/?${previewKey}=1&gclid=real-click&utm_source=google&utm_medium=cpc&utm_campaign=preview-test`,
+      );
+
+      persistAdParams();
+      const firstLandingPage = getStoredAdParams().landing_page;
+      sessionStorage.clear();
+      history.replaceState({}, "", "/contact/");
+      persistAdParams();
+
+      expect(firstLandingPage).toContain("/?gclid=real-click");
+      expect(firstLandingPage).not.toContain(previewKey);
+      expect(getStoredAdParams()).toMatchObject({
+        gclid: "real-click",
+        utm_source: "google",
+        utm_medium: "cpc",
+        utm_campaign: "preview-test",
+        landing_page: firstLandingPage,
+      });
+    },
+  );
+
   it("后续页面不会覆盖初始落地页", () => {
     history.replaceState({}, "", "/first");
     persistAdParams();

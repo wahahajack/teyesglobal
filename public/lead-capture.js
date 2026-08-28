@@ -65,8 +65,16 @@
     } catch { /* fall back to durable storage */ }
     return Object.prototype.hasOwnProperty.call(durable, key);
   };
-  const cleanLandingPage = () => {
-    const landingPage = new URL(window.location.href);
+  const cleanLandingPageUrl = (value) => {
+    let landingPage;
+    try {
+      landingPage = new URL(value);
+    } catch {
+      return value;
+    }
+    if (!GTM_PREVIEW_PARAM_KEYS.some((key) => landingPage.searchParams.has(key))) {
+      return value;
+    }
     GTM_PREVIEW_PARAM_KEYS.forEach((key) => landingPage.searchParams.delete(key));
     return landingPage.href;
   };
@@ -244,8 +252,15 @@
         durable[key] = param;
       }
     });
-    if (!hasStoredValue("landing_page", durable)) {
-      const landingPage = cleanLandingPage();
+    const storedLandingPage = readStorage("landing_page", durable);
+    if (storedLandingPage) {
+      const landingPage = cleanLandingPageUrl(storedLandingPage);
+      if (landingPage !== storedLandingPage) {
+        writeSession("landing_page", landingPage);
+        durable.landing_page = landingPage;
+      }
+    } else if (!hasStoredValue("landing_page", durable)) {
+      const landingPage = cleanLandingPageUrl(window.location.href);
       writeSession("landing_page", landingPage);
       durable.landing_page = landingPage;
     }

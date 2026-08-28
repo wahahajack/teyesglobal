@@ -181,6 +181,41 @@ describe("lead capture attribution", () => {
     },
   );
 
+  it.each(["gtm_debug", "gtm_auth", "gtm_preview"])(
+    "已有 durable landing_page 带 %s 时立即清洗并回写 first-touch",
+    (previewKey) => {
+      const pollutedLandingPage =
+        `https://teyesglobal.com/products/cc4-pro/?${previewKey}=1&gclid=stored-click&utm_source=google&utm_medium=cpc&campaign_id=keep`;
+      const cleanLandingPage =
+        "https://teyesglobal.com/products/cc4-pro/?gclid=stored-click&utm_source=google&utm_medium=cpc&campaign_id=keep";
+      localStorage.setItem("teyes_attribution_v1", JSON.stringify({
+        expiresAt: Date.now() + 90 * 24 * 60 * 60 * 1000,
+        values: {
+          landing_page: pollutedLandingPage,
+          gclid: "stored-click",
+          utm_source: "google",
+          utm_medium: "cpc",
+          campaign_id: "not-stored",
+        },
+      }));
+      sessionStorage.clear();
+      history.replaceState({}, "", "/contact/");
+
+      persistAdParams();
+
+      expect(sessionStorage.getItem("landing_page")).toBe(cleanLandingPage);
+      expect(JSON.parse(localStorage.getItem("teyes_attribution_v1")!).values.landing_page)
+        .toBe(cleanLandingPage);
+      expect(getStoredAdParams()).toMatchObject({
+        landing_page: cleanLandingPage,
+        gclid: "stored-click",
+        utm_source: "google",
+        utm_medium: "cpc",
+      });
+      expect(getStoredAdParams().landing_page).not.toContain("/contact/");
+    },
+  );
+
   it("后续页面不会覆盖初始落地页", () => {
     history.replaceState({}, "", "/first");
     persistAdParams();

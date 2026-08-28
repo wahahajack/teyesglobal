@@ -176,8 +176,16 @@ function hasStoredValue(key: AttributionKey, durable: AttributionValues) {
     Object.prototype.hasOwnProperty.call(durable, key);
 }
 
-function getCleanLandingPage() {
-  const landingPage = new URL(window.location.href);
+function cleanLandingPageUrl(value: string) {
+  let landingPage: URL;
+  try {
+    landingPage = new URL(value);
+  } catch {
+    return value;
+  }
+  if (!GTM_PREVIEW_PARAM_KEYS.some((key) => landingPage.searchParams.has(key))) {
+    return value;
+  }
   GTM_PREVIEW_PARAM_KEYS.forEach((key) => landingPage.searchParams.delete(key));
   return landingPage.href;
 }
@@ -468,8 +476,15 @@ export function persistAdParams() {
     }
   });
 
-  if (!hasStoredValue("landing_page", durable)) {
-    const landingPage = getCleanLandingPage();
+  const storedLandingPage = readStoredValue("landing_page", durable);
+  if (storedLandingPage) {
+    const landingPage = cleanLandingPageUrl(storedLandingPage);
+    if (landingPage !== storedLandingPage) {
+      safeSessionSet("landing_page", landingPage);
+      durable.landing_page = landingPage;
+    }
+  } else if (!hasStoredValue("landing_page", durable)) {
+    const landingPage = cleanLandingPageUrl(window.location.href);
     safeSessionSet("landing_page", landingPage);
     durable.landing_page = landingPage;
   }

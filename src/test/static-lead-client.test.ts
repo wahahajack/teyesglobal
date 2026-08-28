@@ -236,6 +236,46 @@ it.each(["gtm_debug", "gtm_auth", "gtm_preview"])(
   },
 );
 
+it.each(["gtm_debug", "gtm_auth", "gtm_preview"])(
+  "静态客户端已有 durable landing_page 带 %s 时立即清洗并回写 first-touch",
+  async (previewKey) => {
+    renderForm();
+    const pollutedLandingPage =
+      `https://teyesglobal.com/products/cc4-pro/?${previewKey}=1&gclid=stored-static-click&utm_source=google&utm_medium=cpc&campaign_id=keep`;
+    const cleanLandingPage =
+      "https://teyesglobal.com/products/cc4-pro/?gclid=stored-static-click&utm_source=google&utm_medium=cpc&campaign_id=keep";
+    localStorage.setItem("teyes_attribution_v1", JSON.stringify({
+      expiresAt: Date.now() + 90 * 24 * 60 * 60 * 1000,
+      values: {
+        landing_page: pollutedLandingPage,
+        gclid: "stored-static-click",
+        utm_source: "google",
+        utm_medium: "cpc",
+        campaign_id: "not-stored",
+      },
+    }));
+    sessionStorage.clear();
+    history.replaceState({}, "", "/contact/");
+    const fetchMock = vi.fn().mockResolvedValue(createdResponse());
+    vi.stubGlobal("fetch", fetchMock);
+
+    window.eval(staticLeadClient);
+    await client().capture(form(), options);
+
+    const attribution = JSON.parse(String(fetchMock.mock.calls[0][1]?.body)).attribution;
+    expect(sessionStorage.getItem("landing_page")).toBe(cleanLandingPage);
+    expect(JSON.parse(localStorage.getItem("teyes_attribution_v1")!).values.landing_page)
+      .toBe(cleanLandingPage);
+    expect(attribution).toMatchObject({
+      landing_page: cleanLandingPage,
+      gclid: "stored-static-click",
+      utm_source: "google",
+      utm_medium: "cpc",
+    });
+    expect(attribution.landing_page).not.toContain("/contact/");
+  },
+);
+
 it("静态落地页忽略过期的持久化归因", async () => {
   vi.useFakeTimers();
   vi.setSystemTime("2026-08-21T00:00:00Z");

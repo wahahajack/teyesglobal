@@ -3,6 +3,7 @@
     "gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign",
     "utm_content", "utm_term", "fbclid",
   ];
+  const GTM_PREVIEW_PARAM_KEYS = ["gtm_debug", "gtm_auth", "gtm_preview"];
   const STORED_ATTRIBUTION_KEYS = [...ATTRIBUTION_KEYS, "landing_page", "referrer"];
   const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
   const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
@@ -63,6 +64,19 @@
       if (window.sessionStorage.getItem(key) !== null) return true;
     } catch { /* fall back to durable storage */ }
     return Object.prototype.hasOwnProperty.call(durable, key);
+  };
+  const cleanLandingPageUrl = (value) => {
+    let landingPage;
+    try {
+      landingPage = new URL(value);
+    } catch {
+      return value;
+    }
+    if (!GTM_PREVIEW_PARAM_KEYS.some((key) => landingPage.searchParams.has(key))) {
+      return value;
+    }
+    GTM_PREVIEW_PARAM_KEYS.forEach((key) => landingPage.searchParams.delete(key));
+    return landingPage.href;
   };
   const removeSession = (key) => {
     try { window.sessionStorage.removeItem(key); } catch { /* storage must not break forms */ }
@@ -238,9 +252,17 @@
         durable[key] = param;
       }
     });
-    if (!hasStoredValue("landing_page", durable)) {
-      writeSession("landing_page", window.location.href);
-      durable.landing_page = window.location.href;
+    const storedLandingPage = readStorage("landing_page", durable);
+    if (storedLandingPage) {
+      const landingPage = cleanLandingPageUrl(storedLandingPage);
+      if (landingPage !== storedLandingPage) {
+        writeSession("landing_page", landingPage);
+        durable.landing_page = landingPage;
+      }
+    } else if (!hasStoredValue("landing_page", durable)) {
+      const landingPage = cleanLandingPageUrl(window.location.href);
+      writeSession("landing_page", landingPage);
+      durable.landing_page = landingPage;
     }
     if (!hasStoredValue("referrer", durable)) {
       if (document.referrer) writeSession("referrer", document.referrer);

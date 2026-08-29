@@ -75,6 +75,53 @@ describe("tracking contract: 正式文件不含禁用追踪代码", () => {
   }
 });
 
+describe("Distributor canonical route contract", () => {
+  const distributorUrl =
+    "https://teyesglobal.com/teyes-android-car-stereo-distributor/";
+  const distributorImageUrl = `${distributorUrl}og-image.jpg`;
+  const distributorHtml = readFileSync(
+    join(PUBLIC_DIR, "teyes-android-car-stereo-distributor", "index.html"),
+    "utf8",
+  );
+  const redirects = readFileSync(join(PUBLIC_DIR, "_redirects"), "utf8")
+    .split(/\r?\n/)
+    .map((line) => line.trim().replace(/\s+/g, " "))
+    .filter(Boolean);
+
+  it("uses the served distributor URL for canonical and social metadata", () => {
+    expect(distributorHtml).toContain(
+      `<link rel="canonical" href="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta property="og:url" content="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta name="twitter:url" content="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta property="og:image" content="${distributorImageUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta name="twitter:image" content="${distributorImageUrl}">`,
+    );
+    expect(distributorHtml).not.toContain(
+      "https://teyesglobal.com/head-unit-distributor-portal",
+    );
+  });
+
+  it("redirects only the exact distributor aliases with permanent redirects", () => {
+    expect(redirects).toContain(
+      "/head-unit-distributor-portal /teyes-android-car-stereo-distributor/ 301",
+    );
+    expect(redirects).toContain(
+      "/head-unit-distributor-portal/ /teyes-android-car-stereo-distributor/ 301",
+    );
+    expect(redirects).not.toContain(
+      "/head-unit-distributor-portal/* /teyes-android-car-stereo-distributor/:splat 301",
+    );
+  });
+});
+
 describe("tracking contract: 参数数组与跳转契约", () => {
   const PARAM_FILES = [
     "android-car-stereo-wholesale/script.js",

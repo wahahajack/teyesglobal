@@ -157,7 +157,7 @@ const CarAudio = () => {
         ]}
       />
 
-      <main className="bg-[#070707] text-white">
+      <div className="bg-[#070707] text-white">
         <section className="relative overflow-hidden border-b border-white/10 pt-28 md:pt-32">
           <div
             className="absolute inset-0 opacity-70"
@@ -475,7 +475,7 @@ const CarAudio = () => {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </Layout>
   );
 };

@@ -16,54 +16,46 @@ const productFamilies = [
   {
     title: "Speakers",
     eyebrow: "T3 · T6",
-    description: "Six component, active 3-way and coaxial speaker configurations across the T3 and T6 series.",
-    highlights: ["6 models", "100–180 W rated", "Passive · Active · Coaxial"],
+    description: "Component, active 3-way and coaxial speaker configurations across the T3 and T6 series.",
+    highlights: ["6 models", "100–180 W rated"],
     icon: Volume2,
     anchor: "speakers",
     href: "/car-audio/speakers/",
     image: "/images/car-audio/speakers.webp",
     imageAlt: "TEYES T3 and T6 car speaker range",
-    detail:
-      "Use the dedicated speaker page to compare the T3 and T6 series by format, rated power, sensitivity, frequency response and mounting depth.",
   },
   {
     title: "Subwoofers",
     eyebrow: "Under-seat · 10-inch drivers",
     description: "Compact TS under-seat systems plus standard and thin-line 10-inch subwoofer drivers.",
-    highlights: ["77 mm under-seat", "25 Hz TS-10", "84 mm thin-line driver"],
+    highlights: ["77 mm under-seat", "25 Hz TS-10"],
     icon: Radio,
     anchor: "subwoofers",
     href: "/car-audio/subwoofers/",
     image: "/images/car-audio/subwoofers.webp",
     imageAlt: "TEYES under-seat and 10-inch subwoofer range",
-    detail:
-      "Compare integrated under-seat bass with standalone 10-inch drivers using installation depth, rated power, impedance and frequency response.",
   },
   {
     title: "Bass Systems",
     eyebrow: "Competition · Enclosed",
     description: "V8 competition bass plus active and passive sealed or ported enclosed subwoofer systems.",
-    highlights: ["600 W V8 rated", "16 mm X-MAX", "Birch plywood enclosures"],
+    highlights: ["600 W V8 rated", "16 mm X-MAX"],
     icon: Box,
     anchor: "bass-systems",
     href: "/car-audio/bass-systems/",
     image: "/images/car-audio/bass-systems.webp",
     imageAlt: "TEYES V8 competition and enclosed bass systems",
-    detail:
-      "Separate competition-driver specifications from ready-built enclosed formats, including active, passive, sealed and ported configurations.",
   },
   {
     title: "Amplifiers",
     eyebrow: "TD · TP",
     description: "Four-channel and mono Class D amplifiers across TD and DSP-controlled TP series.",
-    highlights: ["4 models", "Up to 200 W × 4", "Up to 1200 W × 1"],
+    highlights: ["Up to 200 W × 4", "Up to 1200 W × 1"],
     icon: SlidersHorizontal,
     anchor: "amplifiers",
     href: "/car-audio/amplifiers/",
     image: "/images/car-audio/amplifiers.webp",
     imageAlt: "TEYES TD and TP Class D amplifier range",
-    detail:
-      "Compare TD and TP models by channel layout, RMS output at 4 and 2 ohms, bridged output, dimensions and net weight.",
   },
 ];
 
@@ -88,14 +80,12 @@ const SectionHeading = ({
   eyebrow,
   title,
   description,
-  compact = false,
 }: {
   eyebrow: string;
   title: string;
   description: string;
-  compact?: boolean;
 }) => (
-  <div className={compact ? "max-w-3xl" : "mb-8 max-w-3xl"}>
+  <div className="mb-8 max-w-3xl">
     <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>
     <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
     <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">{description}</p>
@@ -193,27 +183,51 @@ const CarAudio = () => {
           <div className="container-wide py-16 md:py-24">
             <SectionHeading
               eyebrow="Product range"
-              title="Four product categories, each with its own selection logic."
-              description="Start here for the overall TEYES Car Audio range, then move into the category page for model-level specifications and comparison."
+              title="Choose a Car Audio category."
+              description="Each category has a dedicated page with model-level specifications and comparison data."
             />
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {productFamilies.map((family, index) => {
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {productFamilies.map((family) => {
                 const Icon = family.icon;
                 return (
-                  <Link key={family.title} to={family.href} className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]">
-                    <div className="absolute -right-7 -top-8 text-[88px] font-bold leading-none text-primary/[0.035]" aria-hidden="true">0{index + 1}</div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"><Icon className="h-5 w-5" /></div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+                  <Link
+                    key={family.title}
+                    id={family.anchor}
+                    to={family.href}
+                    className="group scroll-mt-24 overflow-hidden rounded-[1.6rem] border border-border/60 bg-card/55 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]"
+                  >
+                    <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.14),transparent_50%),linear-gradient(145deg,hsl(var(--secondary)/0.48),hsl(var(--background))_72%)] p-5">
+                      <img
+                        src={family.image}
+                        alt={family.imageAlt}
+                        width={500}
+                        height={320}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
                     </div>
-                    <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-primary">{family.eyebrow}</p>
-                    <h3 className="mt-2 text-xl font-semibold">{family.title}</h3>
-                    <p className="mt-3 text-sm leading-5 text-muted-foreground">{family.description}</p>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {family.highlights.slice(0, 2).map((highlight) => (
-                        <span key={highlight} className="rounded-full border border-border/60 bg-secondary/45 px-2.5 py-1 text-[11px] text-foreground/70">{highlight}</span>
-                      ))}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{family.eyebrow}</p>
+                          <h3 className="mt-2 text-xl font-semibold">{family.title}</h3>
+                        </div>
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                      </div>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{family.description}</p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {family.highlights.map((highlight) => (
+                          <span key={highlight} className="rounded-full border border-border/60 bg-secondary/45 px-2.5 py-1 text-[11px] text-foreground/70">{highlight}</span>
+                        ))}
+                      </div>
+                      <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary">
+                        Explore {family.title}
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
                 );
@@ -221,27 +235,6 @@ const CarAudio = () => {
             </div>
           </div>
         </section>
-
-        {productFamilies.map((family, index) => (
-          <section key={family.anchor} id={family.anchor} className="scroll-mt-24 border-b border-border/60 py-16 md:py-24">
-            <div className={`container-wide grid gap-8 lg:items-center lg:gap-12 ${index % 2 === 0 ? "lg:grid-cols-[0.95fr_1.05fr]" : "lg:grid-cols-[1.05fr_0.95fr]"}`}>
-              {index % 2 === 0 && <ProductStage src={family.image} alt={family.imageAlt} />}
-              <div>
-                <SectionHeading compact eyebrow={family.eyebrow} title={family.title} description={family.description} />
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {family.highlights.map((highlight) => (
-                    <span key={highlight} className="rounded-full border border-border/60 bg-card/55 px-3 py-1.5 text-sm text-foreground/75">{highlight}</span>
-                  ))}
-                </div>
-                <p className="mt-6 max-w-2xl leading-7 text-muted-foreground">{family.detail}</p>
-                <Button asChild size="lg" className="mt-7">
-                  <Link to={family.href}>Explore {family.title} <ArrowRight className="h-4 w-4" /></Link>
-                </Button>
-              </div>
-              {index % 2 !== 0 && <ProductStage src={family.image} alt={family.imageAlt} />}
-            </div>
-          </section>
-        ))}
 
         <section className="border-b border-border/60 py-16 md:py-24">
           <div className="container-wide grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-10">

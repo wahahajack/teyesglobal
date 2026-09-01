@@ -11,32 +11,47 @@ const categories = [
 
 export function CarAudioSection() {
   return (
-    <section className="relative overflow-hidden bg-[#080808] py-20 md:py-24 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_45%,rgba(249,115,22,0.16),transparent_28%)]" aria-hidden="true" />
-      <div className="container-wide relative grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
+    <section className="relative overflow-hidden border-y border-border/60 bg-background py-20 md:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_44%,hsl(var(--primary)/0.13),transparent_30%)]" aria-hidden="true" />
+      <div className="container-wide relative grid lg:grid-cols-[0.93fr_1.07fr] gap-10 lg:gap-14 items-center">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-orange-400 mb-3">New Product Family</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary mb-3">New Product Family</p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">TEYES Car Audio</h2>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">Expand your aftermarket offer with TEYES speakers, subwoofers, bass systems and Class D amplifiers alongside the established Android head-unit range.</p>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+            Expand your aftermarket offer with TEYES speakers, subwoofers, bass systems and Class D amplifiers alongside the established Android head-unit range.
+          </p>
           <div className="mt-7 grid sm:grid-cols-2 gap-3 max-w-2xl">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
-                <div key={category.label} className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-400/10 text-orange-400"><Icon className="h-4 w-4" /></div>
-                  <span className="font-medium text-zinc-200">{category.label}</span>
+                <div key={category.label} className="flex items-center gap-3 rounded-xl border border-border/60 bg-card/55 px-4 py-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary"><Icon className="h-4 w-4" /></div>
+                  <span className="font-medium text-foreground/85">{category.label}</span>
                 </div>
               );
             })}
           </div>
-          <Button asChild size="lg" className="mt-8 bg-orange-500 text-black hover:bg-orange-400">
+          <Button asChild size="lg" className="mt-8">
             <Link to="/car-audio/">Explore TEYES Car Audio <ArrowRight className="h-4 w-4" /></Link>
           </Button>
         </div>
-        <div className="relative">
-          <div className="absolute -inset-6 rounded-full bg-orange-500/10 blur-3xl" aria-hidden="true" />
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/50 p-4 shadow-2xl">
-            <img src="/images/car-audio/hero-speakers.webp" alt="TEYES Car Audio speaker products" width={500} height={362} loading="lazy" decoding="async" className="h-auto w-full rounded-2xl object-cover" />
+
+        <div className="relative min-h-[390px] md:min-h-[450px]">
+          <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.18),transparent_42%)]" aria-hidden="true" />
+          <div className="absolute left-[8%] top-[12%] h-24 w-24 rounded-full border border-primary/15" aria-hidden="true" />
+          <div className="absolute right-[3%] bottom-[8%] h-40 w-40 rounded-full border border-accent/10" aria-hidden="true" />
+          <img
+            src="/images/car-audio/overview.webp"
+            alt="TEYES Car Audio product range"
+            width={800}
+            height={453}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 m-auto h-auto w-[106%] max-w-none object-contain drop-shadow-[0_30px_48px_rgba(0,0,0,0.5)]"
+          />
+          <div className="absolute bottom-3 right-2 rounded-xl border border-border/70 bg-background/75 px-4 py-3 backdrop-blur-md">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Car Audio range</p>
+            <p className="mt-1 text-sm font-semibold text-foreground">19 core models</p>
           </div>
         </div>
       </div>

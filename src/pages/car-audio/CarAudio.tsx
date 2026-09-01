@@ -32,7 +32,7 @@ const productFamilies = [
   {
     title: "Bass Systems",
     description:
-      "Competition and enclosed bass products, including active and passive sealed or ported configurations identified in the catalog.",
+      "Competition and enclosed bass products across active, passive, sealed and ported configurations in the range.",
     models: ["10V8-V4", "BXA3-10T3S-V4", "BX1-10T3S-V4", "BX2-10T3S-V4", "BX4-10T3-D4"],
     icon: Box,
     anchor: "bass-systems",
@@ -40,7 +40,7 @@ const productFamilies = [
   {
     title: "Amplifiers",
     description:
-      "Class D power amplification in TD and TP series, including DSP-controlled TP models as identified in the catalog.",
+      "Class D power amplification in TD and TP series, with DSP-controlled architecture on TP models.",
     models: ["TD500/4", "TD1000/1", "TP800/4", "TP1200/1"],
     icon: SlidersHorizontal,
     anchor: "amplifiers",
@@ -58,7 +58,7 @@ const speakerSeries = [
   },
   {
     series: "T6 Series",
-    summary: "Broader speaker range including component, active 3-way and coaxial configurations.",
+    summary: "Broader speaker range for more varied system layouts.",
     models: [
       { model: "T6-652", type: "Component speaker" },
       { model: "T6-653A", type: "Active 3-way configuration" },
@@ -71,7 +71,7 @@ const speakerSeries = [
 const subwooferGroups = [
   {
     title: "Under-seat subwoofers",
-    description: "Compact powered-bass formats identified by size in the catalog.",
+    description: "Compact under-seat bass formats available in 8-inch and 10-inch versions.",
     models: [
       { model: "TS-08", detail: "8-inch under-seat subwoofer" },
       { model: "TS-10", detail: "10-inch under-seat subwoofer" },
@@ -79,13 +79,12 @@ const subwooferGroups = [
   },
   {
     title: "Subwoofer drivers",
-    description:
-      "Standalone driver models. No vehicle-specific fitment claim is made without separate fitment evidence.",
+    description: "Standalone T3 and T6 driver options for custom bass-system builds.",
     models: [
-      { model: "10T3-V4", detail: "Subwoofer driver" },
-      { model: "10T3S-V4", detail: "Subwoofer driver" },
-      { model: "10T6-V4", detail: "Subwoofer driver" },
-      { model: "10T6S-V4", detail: "Subwoofer driver" },
+      { model: "10T3-V4", detail: "T3 subwoofer driver" },
+      { model: "10T3S-V4", detail: "T3S subwoofer driver" },
+      { model: "10T6-V4", detail: "T6 subwoofer driver" },
+      { model: "10T6S-V4", detail: "T6S subwoofer driver" },
     ],
   },
 ];
@@ -99,8 +98,8 @@ const bassSystems = [
 ];
 
 const amplifiers = [
-  { model: "TD500/4", classType: "Class D", control: "Standard TD series" },
-  { model: "TD1000/1", classType: "Class D", control: "Standard TD series" },
+  { model: "TD500/4", classType: "Class D", control: "TD series" },
+  { model: "TD1000/1", classType: "Class D", control: "TD series" },
   { model: "TP800/4", classType: "Class D", control: "DSP-controlled" },
   { model: "TP1200/1", classType: "Class D", control: "DSP-controlled" },
 ];
@@ -196,8 +195,7 @@ const CarAudio = () => {
                 distributors, installers and car-audio channels.
               </p>
               <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-500">
-                A dedicated TEYES product family that broadens the in-car entertainment portfolio
-                without changing the existing Android head-unit range.
+                A dedicated product family that extends the TEYES in-car entertainment portfolio beyond infotainment.
               </p>
 
               <div className="mt-9 flex flex-col sm:flex-row gap-4">
@@ -236,7 +234,7 @@ const CarAudio = () => {
             <SectionHeading
               eyebrow="Product range"
               title="Four core Car Audio families"
-              description="The Phase 1 hub keeps Car Audio separate from the existing head-unit catalog while giving B2B buyers one place to review the confirmed range."
+              description="Review the TEYES Car Audio range across speakers, subwoofers, bass systems and amplification in one dedicated B2B product hub."
             />
 
             <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
@@ -276,7 +274,7 @@ const CarAudio = () => {
             <SectionHeading
               eyebrow="Speakers"
               title="T3 and T6 speaker families"
-              description="The catalog confirms component, coaxial and active 3-way configurations. Detailed performance specifications should remain tied to approved source data rather than inferred from series names."
+              description="T3 and T6 cover component, coaxial and active 3-way configurations for different car-audio system layouts."
             />
 
             <div className="grid lg:grid-cols-2 gap-6">
@@ -302,8 +300,8 @@ const CarAudio = () => {
           <div className="container-wide">
             <SectionHeading
               eyebrow="Subwoofers"
-              title="Compact under-seat bass and standalone drivers"
-              description="The range covers TS under-seat products plus T3 and T6 subwoofer-driver variants. Vehicle-specific compatibility is not stated here because fitment evidence has not been approved."
+              title="Under-seat bass and standalone drivers"
+              description="Choose compact TS under-seat models or standalone T3 and T6 subwoofer drivers for different bass-system formats."
             />
 
             <div className="grid lg:grid-cols-2 gap-6">
@@ -330,7 +328,7 @@ const CarAudio = () => {
             <SectionHeading
               eyebrow="Bass systems"
               title="Competition and enclosed bass formats"
-              description="The catalog identifies the V8 competition series and enclosed bass systems. Sealed, ported, active and passive wording should only be applied where the source explicitly assigns that configuration to the individual model."
+              description="The range includes the V8 competition series plus BXA and BX enclosed bass systems for different installation and output requirements."
             />
 
             <div className="overflow-x-auto rounded-2xl border border-white/10">
@@ -338,8 +336,8 @@ const CarAudio = () => {
                 <thead className="bg-white/[0.05] text-xs uppercase tracking-[0.16em] text-zinc-500">
                   <tr>
                     <th className="px-5 py-4 font-medium">Model</th>
-                    <th className="px-5 py-4 font-medium">Catalog classification</th>
-                    <th className="px-5 py-4 font-medium">Verified detail</th>
+                    <th className="px-5 py-4 font-medium">Product type</th>
+                    <th className="px-5 py-4 font-medium">Key detail</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10 text-sm">
@@ -350,7 +348,7 @@ const CarAudio = () => {
                       <td className="px-5 py-5 text-zinc-400">
                         {item.model === "10V8-V4"
                           ? "600 W rated · 1200 W max · 4 Ω + 4 Ω · 84 dB · 30–400 Hz · 16 mm X-MAX"
-                          : "Enclosure type and dimensions remain source-controlled technical data."}
+                          : "Active/passive and sealed/ported formats vary by model."}
                       </td>
                     </tr>
                   ))}
@@ -365,7 +363,7 @@ const CarAudio = () => {
             <SectionHeading
               eyebrow="Amplifiers"
               title="TD and DSP-controlled TP amplification"
-              description="All four confirmed amplifier models are Class D. The TP series is identified by the catalog as DSP-controlled; no additional DSP software or protection-function claims are added without verified documentation."
+              description="TD models provide Class D power amplification, while TP models add DSP-controlled architecture for the Car Audio range."
             />
 
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -379,7 +377,7 @@ const CarAudio = () => {
                       <span className="text-zinc-200">{amp.classType}</span>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <span className="text-zinc-500">Control</span>
+                      <span className="text-zinc-500">Series</span>
                       <span className="text-right text-zinc-200">{amp.control}</span>
                     </div>
                   </div>
@@ -395,10 +393,10 @@ const CarAudio = () => {
               <SectionHeading
                 eyebrow="Portfolio ecosystem"
                 title="A broader TEYES in-car entertainment offer"
-                description="Build a broader TEYES offer across source, amplification, speakers and bass. This describes portfolio breadth, not guaranteed electrical or mechanical compatibility between individual products."
+                description="Build a broader TEYES in-car entertainment offer across source, amplification, speakers and bass."
               />
               <div className="rounded-xl border border-orange-400/20 bg-orange-400/[0.05] p-5 text-sm leading-6 text-zinc-300">
-                Product compatibility, vehicle fitment and installation requirements should be confirmed for the actual project before ordering.
+                Confirm power, impedance, installation space and system matching for each vehicle project.
               </div>
             </div>
 
@@ -422,7 +420,7 @@ const CarAudio = () => {
           <div className="container-wide grid lg:grid-cols-2 gap-10">
             <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-7 md:p-9">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Car Audio accessories</p>
-              <h2 className="mt-3 text-3xl font-semibold">Supporting hardware inside the Car Audio range</h2>
+              <h2 className="mt-3 text-3xl font-semibold">Supporting hardware for the Car Audio range</h2>
               <div className="mt-7 space-y-4">
                 {accessories.map((item) => (
                   <div key={item} className="flex items-center gap-3 text-zinc-300">
@@ -432,7 +430,7 @@ const CarAudio = () => {
                 ))}
               </div>
               <p className="mt-6 text-sm leading-6 text-zinc-500">
-                These items remain part of the Car Audio section and do not replace or redefine the existing site-wide Accessories page.
+                These Car Audio-specific accessories are presented separately from the existing head-unit Accessories range.
               </p>
             </div>
 
@@ -440,7 +438,7 @@ const CarAudio = () => {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">B2B cooperation</p>
               <h2 className="mt-3 text-3xl font-semibold">Discuss the range for your market</h2>
               <p className="mt-5 leading-7 text-zinc-400">
-                Contact the TEYES B2B team for product information, model selection and distributor availability by market. Commercial terms such as MOQ, warranty, lead time and territory arrangements are confirmed separately rather than assumed from the product catalog.
+                Contact the TEYES B2B team for product specifications, model selection, market availability and commercial information for the Car Audio range.
               </p>
               <Button asChild size="lg" className="mt-7 bg-orange-500 text-black hover:bg-orange-400">
                 <Link to="/contact/">

@@ -50,6 +50,15 @@ No new conversion action, Contact query-parameter convention, tracking ID, conve
 
 Primary factual source remains `Teyes car Audio Catalog 2026.pdf` (14 pages). Product imagery and specifications must stay within catalog-confirmed information. Unverified claims listed in the original integration plan remain prohibited.
 
+## Validation required before merge
+
+- final PR head must receive a successful Netlify deploy preview
+- all five Car Audio URLs must load in the preview
+- category canonicals and sitemap entries must match the trailing-slash policy
+- `/products/`, `/accessories/` and existing `/landing/` pages must remain unchanged
+- tracking and attribution code must remain unchanged unless separately approved
+- PR remains Draft until the applicable merge gates are accepted
+
 ## Unchanged guardrails
 
 - no direct implementation on `main`

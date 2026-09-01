@@ -32,7 +32,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     image: "/images/car-audio/speakers.webp",
     imageAlt: "TEYES T3 and T6 car speaker range",
     heroCopy:
-      "A six-model range covering passive component, active 3-way and coaxial configurations, with rated power from 100 W to 180 W.",
+      "From 100 W T3 upgrades to the 180 W, 91 dB T6-603A, the range scales toward higher acoustic output and greater dynamic headroom across component, active 3-way and coaxial layouts.",
     models: ["T3-652", "T3-65X", "T6-652", "T6-653A", "T6-603A", "T6-65X"],
     related: [
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
@@ -50,7 +50,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     image: "/images/car-audio/subwoofers.webp",
     imageAlt: "TEYES under-seat and 10-inch subwoofer range",
     heroCopy:
-      "Compact 77 mm under-seat systems plus standard and thin-line 10-inch drivers for different installation depths and output requirements.",
+      "Deep bass without giving up installation space: TS-10 reaches 25 Hz in a 77 mm-high under-seat chassis, while 10T6S-V4 brings a 10-inch driver to just 84 mm mounting depth.",
     models: ["TS-08", "TS-10", "10T3-D4", "10T3S-V4", "10T6-V4", "10T6S-V4"],
     related: [
       { label: "Bass Systems", href: "/car-audio/bass-systems/" },
@@ -68,7 +68,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     image: "/images/car-audio/bass-systems.webp",
     imageAlt: "TEYES V8 competition and enclosed bass systems",
     heroCopy:
-      "Active and passive sealed or ported enclosures sit alongside the 600 W rated V8 competition subwoofer for higher-output bass programs.",
+      "For higher-output bass builds, the 10V8-V4 combines 600 W rated power with 16 mm X-MAX, while sealed, ported, active and passive enclosures cover different system and installation priorities.",
     models: ["10V8-V4", "BXA3-10T3S-V4", "BX1-10T3S-V4", "BX2-10T3S-V4", "BX4-10T3-D4"],
     related: [
       { label: "Subwoofers", href: "/car-audio/subwoofers/" },
@@ -86,7 +86,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     image: "/images/car-audio/amplifiers.webp",
     imageAlt: "TEYES TD and TP Class D car amplifier range",
     heroCopy:
-      "Four-channel and mono Class D amplifiers across TD and DSP-controlled TP series, with output up to 1200 W × 1 at 2 ohms.",
+      "From 200 W × 4 four-channel output to 1200 W × 1 mono at 2 ohms, TD and DSP-controlled TP models provide distinct power tiers for speaker systems and high-output bass builds.",
     models: ["TD500/4", "TD1000/1", "TP800/4", "TP1200/1"],
     related: [
       { label: "Speakers", href: "/car-audio/speakers/" },
@@ -222,18 +222,18 @@ function SpeakersContent() {
           <SectionHeading
             eyebrow="Range structure"
             title="T3 and T6 cover distinct speaker configurations."
-            description="Use the series, speaker format, rated power and mounting depth to shape the right assortment for your channel."
+            description="T3 provides compact 100 W component and coaxial choices; T6 steps up to 120–180 W and adds active 3-way formats for higher-output systems."
           />
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T3 Series</p>
               <h3 className="mt-2 text-2xl font-semibold">T3-652 · T3-65X</h3>
-              <p className="mt-3 text-muted-foreground">A 100 W rated component option and a 100 W rated coaxial option, both with 71 mm mounting depth.</p>
+              <p className="mt-3 text-muted-foreground">A 100 W rated component option and a 100 W rated coaxial option, both with a 71 mm mounting depth for a compact upgrade tier.</p>
             </div>
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T6 Series</p>
               <h3 className="mt-2 text-2xl font-semibold">Passive · Active 3-way · Coaxial</h3>
-              <p className="mt-3 text-muted-foreground">Four configurations from 120 W to 180 W rated power, including 6.5-inch and 8-inch active 3-way models.</p>
+              <p className="mt-3 text-muted-foreground">Four configurations from 120 W to 180 W rated power, topped by the 8-inch T6-603A at 91 dB sensitivity for stronger acoustic output from available amplifier power.</p>
             </div>
           </div>
         </div>
@@ -244,7 +244,7 @@ function SpeakersContent() {
           <SectionHeading
             eyebrow="Technical comparison"
             title="Compare the six speaker models."
-            description="The catalog supplies type, rated and maximum power, impedance, sensitivity, frequency response and mounting depth."
+            description="Power handling, sensitivity, frequency response and mounting depth show how the range progresses from compact upgrades to higher-output speaker systems."
           />
           <div>
             <p className="mb-3 text-sm font-semibold text-primary">Component and active configurations</p>
@@ -259,11 +259,11 @@ function SpeakersContent() {
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Selection checkpoints" title="Build the range around installation and system needs." description="These are the main catalog dimensions distributors and installers can compare before narrowing the model list." />
+          <SectionHeading eyebrow="What the specs mean" title="More output headroom as you move up the range." description="The strongest published figures translate into practical system choices rather than just larger numbers." />
           <DecisionGrid items={[
-            { title: "Speaker format", text: "Separate passive component, active 3-way and coaxial configurations before comparing models." },
-            { title: "Rated power", text: "The published range runs from 100 W to 180 W rated power across T3 and T6." },
-            { title: "Mounting depth", text: "Published mounting depth is 71 mm for T3 models and 77.5 mm for the listed T6 models." },
+            { title: "180 W + 91 dB", text: "T6-603A combines the highest rated power and sensitivity in the speaker range. Higher sensitivity helps produce more acoustic output from available amplifier power, while the higher power rating provides more headroom for higher-output systems." },
+            { title: "8-inch active 3-way", text: "T6-603A gives the range a larger-format active 3-way option for buyers building a more substantial front-stage upgrade than the 6.5-inch configurations." },
+            { title: "Clear step-up path", text: "T3 starts at 100 W with 71 mm mounting depth; T6 extends to 120–180 W and multiple active, passive and coaxial layouts, giving installers more output and system-format options." },
           ]} />
         </div>
       </section>
@@ -276,17 +276,17 @@ function SubwoofersContent() {
     <>
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Two installation formats" title="Under-seat systems and standalone 10-inch drivers." description="Keep compact integrated bass and enclosure-ready subwoofer drivers as separate buying decisions." />
+          <SectionHeading eyebrow="Two installation formats" title="Deep bass for both space-limited and enclosure-based builds." description="TS under-seat systems prioritize compact packaging; the 10-inch driver range adds standard and thin-line choices for custom bass installations." />
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">TS Under-Seat</p>
               <h3 className="mt-2 text-2xl font-semibold">TS-08 · TS-10</h3>
-              <p className="mt-3 text-muted-foreground">Both models are 77 mm high, with 260 W rated power and different cabinet footprints and low-frequency response.</p>
+              <p className="mt-3 text-muted-foreground">Both models stay only 77 mm high. TS-10 extends the published low-frequency response to 25 Hz, bringing deeper bass extension to an under-seat form factor.</p>
             </div>
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">10-inch drivers</p>
               <h3 className="mt-2 text-2xl font-semibold">Standard · Thin-line</h3>
-              <p className="mt-3 text-muted-foreground">Four 10-inch drivers cover 400–500 W rated power with mounting depths from 84 mm to 160.5 mm.</p>
+              <p className="mt-3 text-muted-foreground">Four 10-inch drivers cover 400–500 W rated power. The 10T6S-V4 reduces mounting depth to 84 mm while retaining a 10-inch driver and 400 W rating.</p>
             </div>
           </div>
         </div>
@@ -294,7 +294,7 @@ function SubwoofersContent() {
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide space-y-8">
-          <SectionHeading eyebrow="Technical comparison" title="Compare compact systems and standalone drivers separately." description="The two groups solve different installation tasks, so their catalog specifications are kept in separate tables." />
+          <SectionHeading eyebrow="Technical comparison" title="Compare compact systems and standalone drivers separately." description="Frequency extension, mounting depth and power show the trade-off between packaging efficiency and higher-power enclosure-based bass systems." />
           <div>
             <p className="mb-3 text-sm font-semibold text-primary">Under-seat subwoofers</p>
             <SpecTable caption="TEYES under-seat subwoofer specifications" headers={["Model", "Type", "Rated", "Max", "Sensitivity", "Frequency response", "Frequency control", "Dimensions", "Net weight"]} rows={underSeatSpecs} />
@@ -308,11 +308,11 @@ function SubwoofersContent() {
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Selection checkpoints" title="Start with available space, then compare electrical and acoustic specifications." description="The catalog gives enough dimensional and power data to separate compact installations from enclosure-based builds." />
+          <SectionHeading eyebrow="What the specs mean" title="Low-frequency extension without surrendering installation space." description="The standout specifications combine real packaging advantages with different levels of bass-system output." />
           <DecisionGrid items={[
-            { title: "Installation format", text: "Choose between an integrated under-seat unit and a standalone 10-inch driver before comparing individual models." },
-            { title: "Available depth", text: "Under-seat units are 77 mm high; the listed 10-inch drivers range from 84 mm to 160.5 mm mounting depth." },
-            { title: "Power and impedance", text: "Standalone drivers publish 400–500 W rated power and single or dual 4-ohm configurations depending on model." },
+            { title: "25 Hz at 77 mm", text: "TS-10 reaches 25 Hz while staying 77 mm high, supporting deeper low-frequency extension in under-seat installations without requiring a conventional subwoofer enclosure." },
+            { title: "84 mm thin-line 10-inch", text: "10T6S-V4 uses an 84 mm mounting depth while retaining a 10-inch driver and 400 W rated power, opening shallow installations to a larger bass driver." },
+            { title: "Slim or higher-power", text: "Thin-line models prioritize shallow packaging, while the standard 10T6-V4 reaches 500 W rated power for builds where greater mounting depth is available." },
           ]} />
         </div>
       </section>
@@ -327,7 +327,8 @@ function BassSystemsContent() {
         <div className="container-wide grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.10),hsl(var(--card))_55%,hsl(var(--background)))] p-6 md:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">10V8-V4 · V8 Competition Series</p>
-            <h2 className="mt-2 text-3xl font-semibold">600 W rated competition subwoofer.</h2>
+            <h2 className="mt-2 text-3xl font-semibold">600 W rated power. 16 mm X-MAX.</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">The combination targets high-output bass builds: greater linear excursion lets the cone move more air, while the 600 W rating provides substantial power-handling headroom.</p>
             <div className="mt-6 grid grid-cols-2 gap-3">
               {competitionSpecs.map(([label, value]) => (
                 <div key={label} className="rounded-xl border border-border/60 bg-background/45 p-4">
@@ -338,7 +339,7 @@ function BassSystemsContent() {
             </div>
           </div>
           <div>
-            <SectionHeading eyebrow="Enclosed systems" title="Four cabinet formats with active, passive, sealed and ported options." description="The enclosed range uses birch plywood and publishes enclosure type, surface treatment, dimensions and net weight for each model." />
+            <SectionHeading eyebrow="Enclosed systems" title="Choose the bass-system format, not just the model number." description="The range combines active and passive architectures with sealed and ported birch-plywood enclosures, giving installers distinct approaches to packaging, amplification and bass-system behavior." />
             <SpecTable caption="TEYES enclosed bass system specifications" headers={["Model", "Type", "Enclosure", "Surface treatment", "Dimensions", "Net weight"]} rows={enclosedBassSpecs} />
           </div>
         </div>
@@ -346,11 +347,11 @@ function BassSystemsContent() {
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Selection checkpoints" title="Separate competition drivers from complete enclosed systems." description="This keeps the category clear for buyers comparing ready-built enclosures against a dedicated high-output subwoofer driver." />
+          <SectionHeading eyebrow="What the specs mean" title="From controlled enclosure builds to higher-output competition bass." description="The product formats let distributors cover fundamentally different bass-system goals inside one range." />
           <DecisionGrid items={[
-            { title: "System format", text: "The enclosed range includes one active sealed model plus passive sealed and passive ported models." },
-            { title: "Cabinet construction", text: "All four listed enclosed systems specify birch plywood, with felt, flat covering or polyurea surface treatments." },
-            { title: "Competition specification", text: "The 10V8-V4 publishes 600 W rated power, 1200 W maximum power and 16 mm X-MAX." },
+            { title: "16 mm X-MAX", text: "X-MAX describes linear cone excursion. At 16 mm, the V8 driver can move more air through its linear travel, supporting stronger low-frequency output and greater dynamic headroom in high-output builds." },
+            { title: "600 W rated · 1200 W max", text: "The 10V8-V4 carries the highest published bass-driver power figures in the range, providing substantial power-handling capacity for competition-oriented systems." },
+            { title: "Sealed · ported · active · passive", text: "Sealed and ported enclosures support different bass-system priorities, while active and passive formats let installers choose between an integrated or externally amplified system architecture." },
           ]} />
         </div>
       </section>
@@ -363,17 +364,17 @@ function AmplifiersContent() {
     <>
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Series structure" title="TD Class D and TP DSP-controlled Class D amplifiers." description="The four-model range separates four-channel and mono output while keeping TD and TP as clear series choices." />
+          <SectionHeading eyebrow="Series structure" title="Power tiers for multi-speaker and high-output bass systems." description="TD and TP cover four-channel and mono layouts; TP adds DSP control and raises the four-channel and mono output ceilings." />
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">TD Series</p>
               <h3 className="mt-2 text-2xl font-semibold">TD500/4 · TD1000/1</h3>
-              <p className="mt-3 text-muted-foreground">Class D four-channel and mono models in a 250 × 172 × 60 mm chassis format.</p>
+              <p className="mt-3 text-muted-foreground">Class D four-channel and mono choices with up to 125 W × 4 or 650 W × 1 at 2 ohms, both in a 250 × 172 × 60 mm chassis format.</p>
             </div>
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">TP Series</p>
               <h3 className="mt-2 text-2xl font-semibold">TP800/4 · TP1200/1</h3>
-              <p className="mt-3 text-muted-foreground">DSP-controlled Class D four-channel and mono models, each listed at 300 × 176 × 60 mm.</p>
+              <p className="mt-3 text-muted-foreground">DSP-controlled Class D models step up to 200 W × 4 and 1200 W × 1 at 2 ohms, adding a higher-output tier for speaker and bass channels.</p>
             </div>
           </div>
         </div>
@@ -381,18 +382,18 @@ function AmplifiersContent() {
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Technical comparison" title="Compare channel layout and published RMS output." description="The catalog supplies RMS power at 4 and 2 ohms, bridged output where applicable, dimensions and net weight." />
+          <SectionHeading eyebrow="Technical comparison" title="Compare channel layout and published RMS output." description="RMS power at 4 and 2 ohms shows the available power reserve for different speaker and subwoofer system layouts; bridged output is listed where supported." />
           <SpecTable caption="TEYES power amplifier specifications" headers={["Model", "Type", "RMS @ 4 Ω", "RMS @ 2 Ω", "Bridged @ 4 Ω", "Dimensions", "Net weight"]} rows={amplifierSpecs} />
         </div>
       </section>
 
       <section className="border-b border-border/60 py-16 md:py-24">
         <div className="container-wide">
-          <SectionHeading eyebrow="Selection checkpoints" title="Choose by channel count, impedance and output tier." description="The published specifications make it possible to compare the amplifier range without relying on unsupported feature claims." />
+          <SectionHeading eyebrow="What the specs mean" title="More amplifier headroom where the system needs it." description="The four models separate multi-channel speaker amplification from dedicated mono bass power, with a higher-output TP tier above TD." />
           <DecisionGrid items={[
-            { title: "Four-channel or mono", text: "TD500/4 and TP800/4 are four-channel models; TD1000/1 and TP1200/1 are mono models." },
-            { title: "TD or TP", text: "TD models are listed as Class D; TP models are explicitly listed as Class D DSP-Controlled." },
-            { title: "Published RMS output", text: "At 2 ohms, the catalog lists up to 200 W × 4 for the four-channel range and 1200 W × 1 for the mono range." },
+            { title: "200 W × 4 @ 2 Ω", text: "TP800/4 provides the highest four-channel output in the range, giving multi-speaker systems more available power and greater headroom than the TD four-channel tier." },
+            { title: "1200 W × 1 @ 2 Ω", text: "TP1200/1 is the highest-output mono model, providing a dedicated high-power tier for subwoofer systems that require substantially more bass-channel power." },
+            { title: "DSP-controlled TP", text: "TP models add digital signal control to the amplification stage. The catalog confirms DSP control; specific adjustment functions are intentionally not claimed without further product documentation." },
           ]} />
         </div>
       </section>

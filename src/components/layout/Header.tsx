@@ -14,8 +14,10 @@ const navigation = [
     name: "Products",
     href: "/products/",
     children: [
+      { name: "Android Head Units", href: "/products/" },
+      { name: "Car Audio", href: "/car-audio/" },
       { name: "Product Lines", href: "/products/lines/" },
-      { name: "Compare Models", href: "/products/compare/" },
+      { name: "Compare Head Units", href: "/products/compare/" },
       { name: "Accessories", href: "/accessories/" },
     ],
   },
@@ -58,6 +60,7 @@ export function Header() {
 
   const isActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
+    if (href === "/products/" && location.pathname.startsWith("/car-audio")) return true;
     return location.pathname.startsWith(href);
   };
 

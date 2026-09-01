@@ -4,7 +4,7 @@
 **Date:** 2026-09-02  
 **Repository:** `wahahajack/teyesglobal`  
 **Purpose:** Define the homepage Car Audio rollout as a separate deployment after PR #18 is merged and validated in production.  
-**Supersedes for execution:** `2026-09-02-homepage-car-audio-additive-integration.md` where this document is more specific.
+**Execution source of truth:** This document is the sole execution plan for the post-PR18 Homepage Car Audio rollout.
 
 Related source-of-truth documents:
 

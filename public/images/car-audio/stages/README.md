@@ -1,0 +1,1 @@
+These Car Audio stage images are composed from the catalog-derived transparent product assets for use in the `/car-audio/` editorial layout. No new product renderings or technical claims are introduced by these compositions.

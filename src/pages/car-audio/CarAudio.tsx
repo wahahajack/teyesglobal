@@ -7,7 +7,6 @@ import {
   Radio,
   SlidersHorizontal,
   Volume2,
-  Zap,
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -17,32 +16,32 @@ const productFamilies = [
   {
     title: "Speakers",
     eyebrow: "T3 · T6",
-    description: "High-power component, coaxial and active 3-way speakers for clear, dynamic front-stage sound.",
-    highlights: ["Up to 180 W rated", "Active 3-way options"],
+    description: "From 100 W upgrades to 180 W active 3-way systems.",
+    highlights: ["100–180 W rated", "Active 3-way"],
     icon: Volume2,
     anchor: "speakers",
   },
   {
     title: "Subwoofers",
     eyebrow: "Under-seat · Drivers",
-    description: "Compact powered bass plus standard and thin-line 10-inch drivers for flexible system builds.",
-    highlights: ["TS-10 down to 25 Hz", "84 mm slim driver"],
+    description: "Compact under-seat bass plus slim and standard 10-inch drivers.",
+    highlights: ["25 Hz TS-10", "84 mm slim driver"],
     icon: Radio,
     anchor: "subwoofers",
   },
   {
     title: "Bass Systems",
     eyebrow: "Competition · Enclosed",
-    description: "High-excursion competition bass and ready-to-install sealed or ported enclosure formats.",
-    highlights: ["16 mm X-MAX", "Birch plywood cabinets"],
+    description: "Competition output plus active/passive sealed and ported systems.",
+    highlights: ["16 mm X-MAX", "Birch plywood"],
     icon: Box,
     anchor: "bass-systems",
   },
   {
     title: "Amplifiers",
     eyebrow: "TD · TP",
-    description: "Class D power for speakers and subwoofers, with DSP-controlled TP models for more advanced tuning.",
-    highlights: ["Up to 1200 W RMS", "DSP-controlled TP series"],
+    description: "Class D power from compact 4-channel builds to DSP and mono bass systems.",
+    highlights: ["Up to 1200 W RMS", "DSP-controlled TP"],
     icon: SlidersHorizontal,
     anchor: "amplifiers",
   },
@@ -122,10 +121,10 @@ const SectionHeading = ({
   description: string;
   compact?: boolean;
 }) => (
-  <div className={compact ? "max-w-3xl" : "mb-10 max-w-3xl"}>
+  <div className={compact ? "max-w-3xl" : "mb-8 max-w-3xl"}>
     <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>
     <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
-    <p className="mt-4 text-base leading-8 text-muted-foreground md:text-lg">{description}</p>
+    <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">{description}</p>
   </div>
 );
 
@@ -156,13 +155,13 @@ const ProductStage = ({ src, label, height = 295 }: { src: string; label: string
   </div>
 );
 
-const BenefitGrid = ({ items }: { items: { title: string; text: string; stat?: string }[] }) => (
+const BenefitGrid = ({ items }: { items: { title: string; text: string; stat: string }[] }) => (
   <div className="grid gap-3 sm:grid-cols-3">
     {items.map((item) => (
       <div key={item.title} className="rounded-2xl border border-border/60 bg-card/45 p-5">
-        {item.stat && <p className="text-2xl font-semibold tracking-tight text-primary">{item.stat}</p>}
-        <h3 className={item.stat ? "mt-3 font-semibold text-foreground" : "font-semibold text-foreground"}>{item.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.text}</p>
+        <p className="text-2xl font-semibold tracking-tight text-primary">{item.stat}</p>
+        <h3 className="mt-2 font-semibold text-foreground">{item.title}</h3>
+        <p className="mt-1.5 text-sm leading-5 text-muted-foreground">{item.text}</p>
       </div>
     ))}
   </div>
@@ -183,9 +182,7 @@ const SpecTable = ({
       <thead className="bg-secondary/45 text-xs uppercase tracking-[0.12em] text-muted-foreground">
         <tr>
           {headers.map((header) => (
-            <th key={header} scope="col" className="whitespace-nowrap px-4 py-3.5 font-medium">
-              {header}
-            </th>
+            <th key={header} scope="col" className="whitespace-nowrap px-4 py-3.5 font-medium">{header}</th>
           ))}
         </tr>
       </thead>
@@ -194,13 +191,9 @@ const SpecTable = ({
           <tr key={row[0]} className="transition-colors hover:bg-primary/[0.035]">
             {row.map((cell, index) =>
               index === 0 ? (
-                <th key={`${row[0]}-${index}`} scope="row" className="whitespace-nowrap px-4 py-4 font-semibold text-foreground">
-                  {cell}
-                </th>
+                <th key={`${row[0]}-${index}`} scope="row" className="whitespace-nowrap px-4 py-4 font-semibold text-foreground">{cell}</th>
               ) : (
-                <td key={`${row[0]}-${index}`} className="whitespace-nowrap px-4 py-4 text-muted-foreground">
-                  {cell}
-                </td>
+                <td key={`${row[0]}-${index}`} className="whitespace-nowrap px-4 py-4 text-muted-foreground">{cell}</td>
               ),
             )}
           </tr>
@@ -224,17 +217,12 @@ const CarAudio = () => {
       <div className="bg-background text-foreground">
         <section className="hero-section relative border-b border-border/60 pt-20 md:pt-24 lg:pt-32">
           <div className="hero-glow" aria-hidden="true" />
-          <div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,hsl(var(--accent)/0.12),transparent_27%)]"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,hsl(var(--accent)/0.12),transparent_27%)]" aria-hidden="true" />
           <div className="container-wide relative grid items-center gap-8 py-8 sm:py-10 md:py-16 lg:grid-cols-[0.94fr_1.06fr] lg:gap-14 lg:py-24">
             <div className="relative z-10">
               <nav aria-label="Breadcrumb" className="mb-5 md:mb-8">
                 <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                  <li>
-                    <Link to="/" className="transition-colors hover:text-primary">Home</Link>
-                  </li>
+                  <li><Link to="/" className="transition-colors hover:text-primary">Home</Link></li>
                   <li aria-hidden="true"><ChevronRight className="h-4 w-4" /></li>
                   <li className="text-foreground/80" aria-current="page">Car Audio</li>
                 </ol>
@@ -242,11 +230,10 @@ const CarAudio = () => {
 
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-primary">TEYES Car Audio</p>
               <h1 className="text-4xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-5xl md:text-6xl lg:text-7xl">
-                Built to make every drive sound bigger.
+                More power. More range. More ways to sell.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/80 md:text-xl">
-                High-power speakers, compact bass solutions and Class D amplification engineered for more impact,
-                more tuning freedom and a complete TEYES in-car audio system.
+              <p className="mt-5 max-w-2xl text-lg leading-7 text-foreground/80 md:text-xl">
+                Speakers, bass systems and Class D amplifiers built as one scalable Car Audio portfolio.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row md:mt-9 md:gap-4">
@@ -260,10 +247,7 @@ const CarAudio = () => {
             </div>
 
             <div className="relative min-h-[300px] sm:min-h-[360px] lg:min-h-[520px]">
-              <div
-                className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_55%_50%,hsl(var(--primary)/0.22),transparent_44%)]"
-                aria-hidden="true"
-              />
+              <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_55%_50%,hsl(var(--primary)/0.22),transparent_44%)]" aria-hidden="true" />
               <div className="absolute left-[6%] top-[10%] h-20 w-20 rounded-full border border-primary/15 md:h-24 md:w-24" aria-hidden="true" />
               <div className="absolute bottom-[10%] right-[8%] h-32 w-32 rounded-full border border-accent/10 md:h-44 md:w-44" aria-hidden="true" />
               <img
@@ -277,10 +261,8 @@ const CarAudio = () => {
                 className="absolute inset-0 m-auto h-auto max-h-[470px] w-[96%] object-contain drop-shadow-[0_34px_54px_rgba(0,0,0,0.58)] md:w-[102%]"
               />
               <div className="absolute bottom-2 left-2 flex flex-wrap gap-2 sm:bottom-5 sm:left-0">
-                {["Up to 180 W speakers", "25 Hz compact bass", "Up to 1200 W RMS amp"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-border/70 bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80 backdrop-blur-md sm:text-xs">
-                    {tag}
-                  </span>
+                {["6 speaker models", "25 Hz under-seat bass", "1200 W RMS amplifier"].map((tag) => (
+                  <span key={tag} className="rounded-full border border-border/70 bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80 backdrop-blur-md sm:text-xs">{tag}</span>
                 ))}
               </div>
             </div>
@@ -290,35 +272,27 @@ const CarAudio = () => {
         <section id="product-range" className="scroll-mt-24 border-b border-border/60">
           <div className="container-wide py-16 md:py-24">
             <SectionHeading
-              eyebrow="Choose your sound"
-              title="One range. Four ways to transform the system."
-              description="Build from the listening experience you want: clearer front-stage detail, deeper bass, ready-made enclosures or the amplifier power to drive the whole system."
+              eyebrow="Product range"
+              title="Four families. Multiple upgrade tiers."
+              description="From entry speaker upgrades to DSP amplification and high-output bass."
             />
 
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {productFamilies.map((family, index) => {
                 const Icon = family.icon;
                 return (
-                  <a
-                    key={family.title}
-                    href={`#${family.anchor}`}
-                    className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]"
-                  >
+                  <a key={family.title} href={`#${family.anchor}`} className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]">
                     <div className="absolute -right-7 -top-8 text-[88px] font-bold leading-none text-primary/[0.035]" aria-hidden="true">0{index + 1}</div>
                     <div className="flex items-center justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"><Icon className="h-5 w-5" /></div>
                       <ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
                     </div>
                     <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-primary">{family.eyebrow}</p>
                     <h3 className="mt-2 text-xl font-semibold">{family.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{family.description}</p>
+                    <p className="mt-3 text-sm leading-5 text-muted-foreground">{family.description}</p>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {family.highlights.map((highlight) => (
-                        <span key={highlight} className="rounded-full border border-border/60 bg-secondary/45 px-2.5 py-1 text-[11px] text-foreground/70">
-                          {highlight}
-                        </span>
+                        <span key={highlight} className="rounded-full border border-border/60 bg-secondary/45 px-2.5 py-1 text-[11px] text-foreground/70">{highlight}</span>
                       ))}
                     </div>
                   </a>
@@ -333,20 +307,13 @@ const CarAudio = () => {
             <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-10">
               <ProductStage src="/images/car-audio/speakers.webp" label="TEYES T3 and T6 speaker range" />
               <div>
-                <SectionHeading
-                  compact
-                  eyebrow="Speakers"
-                  title="More headroom for detail, dynamics and volume."
-                  description="T3 starts with strong 100 W rated power, while T6 scales to 180 W and adds active 3-way configurations for systems that demand more output and more precise tuning."
-                />
+                <SectionHeading compact eyebrow="Speakers" title="100 W to 180 W. One clear upgrade ladder." description="T3 covers mainstream upgrades. T6 adds more output and active 3-way options." />
                 <div className="mt-6">
-                  <BenefitGrid
-                    items={[
-                      { stat: "100-180 W", title: "Power across the range", text: "Rated power rises with the series, giving installers more room to match higher-output amplifier channels." },
-                      { stat: "3-way active", title: "Built for advanced tuning", text: "T6-653A and T6-603A open the door to dedicated frequency-band control in DSP-based systems." },
-                      { stat: "88-91 dB", title: "Strong acoustic efficiency", text: "Sensitivity stays consistent across the family, with the 8-inch T6-603A reaching 91 dB." },
-                    ]}
-                  />
+                  <BenefitGrid items={[
+                    { stat: "100–180 W", title: "Easy tiering", text: "Clear step-up from T3 to higher-output T6." },
+                    { stat: "3-way active", title: "Premium installs", text: "More control for DSP-led system tuning." },
+                    { stat: "Up to 91 dB", title: "Lively sound", text: "Strong sensitivity for clear, energetic playback." },
+                  ]} />
                 </div>
               </div>
             </div>
@@ -354,19 +321,11 @@ const CarAudio = () => {
             <div className="mt-10 space-y-5">
               <div>
                 <p className="mb-3 text-sm font-semibold text-primary">Component / active configurations</p>
-                <SpecTable
-                  caption="TEYES component speaker specifications"
-                  headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]}
-                  rows={componentSpeakerSpecs}
-                />
+                <SpecTable caption="TEYES component speaker specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={componentSpeakerSpecs} />
               </div>
               <div>
                 <p className="mb-3 text-sm font-semibold text-primary">Coaxial configurations</p>
-                <SpecTable
-                  caption="TEYES coaxial speaker specifications"
-                  headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]}
-                  rows={coaxialSpeakerSpecs}
-                />
+                <SpecTable caption="TEYES coaxial speaker specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={coaxialSpeakerSpecs} />
               </div>
             </div>
           </div>
@@ -376,20 +335,13 @@ const CarAudio = () => {
           <div className="container-wide">
             <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-10">
               <div>
-                <SectionHeading
-                  compact
-                  eyebrow="Subwoofers"
-                  title="Bass that fits the car without giving up the low end."
-                  description="Choose a compact under-seat solution for a clean installation, or move to a dedicated 10-inch driver when the system calls for more output and enclosure freedom."
-                />
+                <SectionHeading compact eyebrow="Subwoofers" title="Compact bass to serious low-end." description="Under-seat convenience, slim 10-inch options and higher-output custom builds." />
                 <div className="mt-6">
-                  <BenefitGrid
-                    items={[
-                      { stat: "77 mm", title: "Compact under-seat profile", text: "TS-08 and TS-10 keep enclosure height low while delivering 260 W rated power." },
-                      { stat: "25 Hz", title: "Deeper extension from TS-10", text: "The 10-inch under-seat model reaches down to 25 Hz for more weight in low bass." },
-                      { stat: "84 mm", title: "Slim 10-inch option", text: "10T6S-V4 combines a thin-line format with 400 W rated power for space-conscious builds." },
-                    ]}
-                  />
+                  <BenefitGrid items={[
+                    { stat: "77 mm", title: "Easy fit", text: "Compact TS enclosures preserve cabin and cargo space." },
+                    { stat: "25 Hz", title: "Feel the depth", text: "TS-10 reaches deeper for fuller low-frequency weight." },
+                    { stat: "84 mm", title: "Slim, still serious", text: "10-inch bass for depth-limited installations." },
+                  ]} />
                 </div>
               </div>
               <ProductStage src="/images/car-audio/subwoofers.webp" label="TEYES under-seat and standalone subwoofer range" />
@@ -398,19 +350,11 @@ const CarAudio = () => {
             <div className="mt-10 space-y-7">
               <div>
                 <p className="mb-3 text-sm font-semibold text-primary">Under-seat subwoofers</p>
-                <SpecTable
-                  caption="TEYES under-seat subwoofer specifications"
-                  headers={["Model", "Type", "Rated", "Max", "Sensitivity", "Frequency response", "Frequency control", "Dimensions", "Net weight"]}
-                  rows={underSeatSpecs}
-                />
+                <SpecTable caption="TEYES under-seat subwoofer specifications" headers={["Model", "Type", "Rated", "Max", "Sensitivity", "Frequency response", "Frequency control", "Dimensions", "Net weight"]} rows={underSeatSpecs} />
               </div>
               <div>
                 <p className="mb-3 text-sm font-semibold text-primary">Subwoofer drivers</p>
-                <SpecTable
-                  caption="TEYES subwoofer driver specifications"
-                  headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]}
-                  rows={driverSpecs}
-                />
+                <SpecTable caption="TEYES subwoofer driver specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={driverSpecs} />
               </div>
             </div>
           </div>
@@ -421,20 +365,13 @@ const CarAudio = () => {
             <div className="grid gap-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center lg:gap-10">
               <ProductStage src="/images/car-audio/bass-systems.webp" label="TEYES V8 competition and enclosed bass systems" />
               <div>
-                <SectionHeading
-                  compact
-                  eyebrow="Bass systems"
-                  title="Choose control, punch or maximum impact."
-                  description="Sealed and ported birch-plywood enclosures make it easy to choose the character of the bass, while the V8 competition driver is built for high-excursion, high-power systems."
-                />
+                <SectionHeading compact eyebrow="Bass systems" title="Three bass formats. One upsell path." description="Active, passive and competition options cover different budgets and output goals." />
                 <div className="mt-6">
-                  <BenefitGrid
-                    items={[
-                      { stat: "16 mm", title: "High-excursion V8 driver", text: "Generous X-MAX gives the 10V8-V4 the cone travel needed for forceful low-frequency output." },
-                      { stat: "600 W", title: "Competition-series power", text: "Rated at 600 W with 1200 W maximum power for systems built around serious bass output." },
-                      { stat: "Birch", title: "Purpose-built enclosures", text: "All four enclosed systems use birch plywood, with sealed and ported choices for different bass goals." },
-                    ]}
-                  />
+                  <BenefitGrid items={[
+                    { stat: "16 mm", title: "More excursion", text: "More cone travel. More physical bass impact." },
+                    { stat: "600 W", title: "Built to hit hard", text: "V8 is the high-output step in the range." },
+                    { stat: "Birch", title: "Better enclosure story", text: "Sealed and ported cabinets use birch plywood." },
+                  ]} />
                 </div>
               </div>
             </div>
@@ -443,7 +380,6 @@ const CarAudio = () => {
               <div className="rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.10),hsl(var(--card))_55%,hsl(var(--background)))] p-6 md:p-8">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">10V8-V4 · V8 Competition Series</p>
                 <h3 className="mt-2 text-2xl font-semibold md:text-3xl">Built for impact.</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">A high-excursion 10-inch platform for systems where bass output is a priority, not an afterthought.</p>
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   {competitionSpecs.map(([label, value]) => (
                     <div key={label} className="rounded-xl border border-border/60 bg-background/45 p-4">
@@ -456,11 +392,7 @@ const CarAudio = () => {
 
               <div>
                 <p className="mb-3 text-sm font-semibold text-primary">T3 enclosed subwoofer systems</p>
-                <SpecTable
-                  caption="TEYES enclosed subwoofer specifications"
-                  headers={["Model", "Type", "Enclosure", "Surface treatment", "Dimensions", "Net weight"]}
-                  rows={enclosedBassSpecs}
-                />
+                <SpecTable caption="TEYES enclosed subwoofer specifications" headers={["Model", "Type", "Enclosure", "Surface treatment", "Dimensions", "Net weight"]} rows={enclosedBassSpecs} />
               </div>
             </div>
           </div>
@@ -470,31 +402,20 @@ const CarAudio = () => {
           <div className="container-wide">
             <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-10">
               <div>
-                <SectionHeading
-                  compact
-                  eyebrow="Amplifiers"
-                  title="Power that scales from a clean speaker upgrade to a full system."
-                  description="TD brings efficient Class D power in compact chassis sizes. TP raises the output ceiling and adds DSP-controlled architecture for systems that need both muscle and tuning flexibility."
-                />
+                <SectionHeading compact eyebrow="Amplifiers" title="Power tiers that match the system." description="Compact Class D, stronger 2-ohm output and DSP-controlled TP models." />
                 <div className="mt-6">
-                  <BenefitGrid
-                    items={[
-                      { stat: "125 W × 4", title: "Strong 2-ohm four-channel output", text: "TD500/4 grows from 75 W × 4 at 4 Ω to 125 W × 4 at 2 Ω, with 250 W × 2 bridged." },
-                      { stat: "200 W × 4", title: "TP800/4 adds serious headroom", text: "Four-channel DSP-controlled power rises to 200 W × 4 at 2 Ω or 400 W × 2 bridged." },
-                      { stat: "1200 W × 1", title: "Dedicated bass authority", text: "TP1200/1 delivers up to 1200 W RMS at 2 Ω for demanding subwoofer systems." },
-                    ]}
-                  />
+                  <BenefitGrid items={[
+                    { stat: "125 W × 4", title: "Flexible 4-channel", text: "TD500/4 scales cleanly into lower-impedance systems." },
+                    { stat: "200 W × 4", title: "Step-up DSP power", text: "TP800/4 adds output and tuning flexibility." },
+                    { stat: "1200 W × 1", title: "Serious mono output", text: "TP1200/1 is built for high-power bass systems." },
+                  ]} />
                 </div>
               </div>
               <ProductStage src="/images/car-audio/amplifiers.webp" label="TEYES TD and TP Class D amplifiers" />
             </div>
 
             <div className="mt-10">
-              <SpecTable
-                caption="TEYES power amplifier specifications"
-                headers={["Model", "Type", "RMS @ 4 Ω", "RMS @ 2 Ω", "Bridged @ 4 Ω", "Dimensions", "Net weight"]}
-                rows={amplifierSpecs}
-              />
+              <SpecTable caption="TEYES power amplifier specifications" headers={["Model", "Type", "RMS @ 4 Ω", "RMS @ 2 Ω", "Bridged @ 4 Ω", "Dimensions", "Net weight"]} rows={amplifierSpecs} />
             </div>
           </div>
         </section>
@@ -502,22 +423,13 @@ const CarAudio = () => {
         <section className="border-b border-border/60 py-16 md:py-24">
           <div className="container-wide grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-10">
             <div>
-              <SectionHeading
-                eyebrow="Complete system"
-                title="Build the signal chain around one connected product family."
-                description="Start with the source, add the power the system needs, then choose the speaker and bass combination that matches the listening goal."
-              />
-              <div className="rounded-2xl border border-primary/20 bg-primary/[0.06] p-5 text-sm leading-6 text-foreground/75">
-                From everyday upgrades to higher-output active systems, TEYES Car Audio gives installers a clear path from infotainment to amplification, speakers and bass.
-              </div>
+              <SectionHeading eyebrow="Complete system" title="Sell the system, not just the SKU." description="Head unit → amplifier → speakers → bass. More attach opportunities from one portfolio." />
             </div>
             <div className="relative grid gap-3">
               <div className="absolute bottom-7 left-5 top-7 w-px bg-gradient-to-b from-primary/60 via-primary/25 to-transparent" aria-hidden="true" />
               {ecosystemSteps.map((step, index) => (
                 <div key={step} className="relative flex items-center gap-5 rounded-2xl border border-border/60 bg-card/45 p-5 pl-4">
-                  <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary">
-                    {index + 1}
-                  </div>
+                  <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary">{index + 1}</div>
                   <p className="flex-1 font-medium">{step}</p>
                   {index < ecosystemSteps.length - 1 && <ArrowRight className="h-4 w-4 text-muted-foreground/50" />}
                 </div>
@@ -530,11 +442,7 @@ const CarAudio = () => {
           <div className="container-wide grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:gap-10">
             <ProductStage src="/images/car-audio/accessories.webp" label="TEYES Car Audio tweeter mounts and speaker grilles" height={227} />
             <div>
-              <SectionHeading
-                eyebrow="Car Audio accessories"
-                title="Finish the installation cleanly."
-                description="Dedicated tweeter mounting hardware and protective grilles help complete T6 speaker installations with a more integrated finish."
-              />
+              <SectionHeading eyebrow="Car Audio accessories" title="Finish the installation cleanly." description="Dedicated mounts and grilles for a more complete T6 installation." />
               <div className="space-y-3">
                 {accessories.map((item) => (
                   <div key={item} className="flex items-center gap-3 rounded-xl border border-border/60 bg-card/45 px-4 py-3 text-foreground/80">
@@ -547,36 +455,16 @@ const CarAudio = () => {
           </div>
         </section>
 
-        <section className="border-b border-border/60 py-16 md:py-24">
-          <div className="container-wide">
-            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/50 p-7 md:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
-              <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
-              <div className="relative max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">B2B cooperation</p>
-                <h2 className="mt-3 text-3xl font-semibold">Build the right Car Audio range for your market.</h2>
-                <p className="mt-5 leading-7 text-muted-foreground">
-                  Talk with TEYES about model selection, product positioning, market availability and commercial options for your distribution channel.
-                </p>
-              </div>
-              <Button asChild size="lg" className="relative mt-7 shrink-0 lg:mt-0">
-                <Link to="/contact/">Contact TEYES B2B <ArrowRight className="h-4 w-4" /></Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-
         <section className="py-16 md:py-24">
           <div className="container-wide">
-            <div className="relative overflow-hidden rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.13),hsl(var(--card))_50%,hsl(var(--background)))] px-7 py-10 md:px-12 md:py-16">
+            <div className="relative overflow-hidden rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.13),hsl(var(--card))_50%,hsl(var(--background)))] px-7 py-10 md:px-12 md:py-14">
               <div className="absolute right-[-8%] top-[-45%] h-80 w-80 rounded-full border border-primary/10" aria-hidden="true" />
               <div className="relative max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">TEYES Car Audio</p>
-                <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">Bring more sound to your next product lineup.</h2>
-                <p className="mt-5 text-lg leading-8 text-foreground/75">
-                  Tell us which speaker, bass and amplifier categories you are evaluating and we will help you build a focused wholesale selection.
-                </p>
-                <Button asChild size="lg" className="mt-8">
-                  <Link to="/contact/">Start an Inquiry <ArrowRight className="h-4 w-4" /></Link>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">B2B cooperation</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Build the right range for your market.</h2>
+                <p className="mt-4 text-base leading-7 text-foreground/75 md:text-lg">Tell us your target price points and channels. We will help shape the lineup.</p>
+                <Button asChild size="lg" className="mt-7">
+                  <Link to="/contact/">Contact TEYES B2B <ArrowRight className="h-4 w-4" /></Link>
                 </Button>
               </div>
             </div>

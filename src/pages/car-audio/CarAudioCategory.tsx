@@ -69,7 +69,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     imageAlt: "TEYES V8 competition and enclosed bass systems",
     heroCopy:
       "For higher-output bass builds, the 10V8-V4 combines 600 W rated power with 16 mm X-MAX, while sealed, ported, active and passive enclosures cover different system and installation priorities.",
-    models: ["10V8-V4", "BXA3-10T3S-V4", "BX1-10T3S-V4", "BX2-10T3S-V4", "BX4-10T3-D4"],
+    models: ["10V8-V4", "BXA3/10T3S/V4", "BX1/10T3S/V4", "BX2/10T3S/V4", "BX4/10T3/D4"],
     related: [
       { label: "Subwoofers", href: "/car-audio/subwoofers/" },
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
@@ -96,7 +96,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
 };
 
 const componentSpeakerSpecs = [
-  ["T3-652", '6.5" 2-Way Passive', "100 W", "200 W", "4 Ω", "88 dB", "65 Hz-22 kHz", "71 mm"],
+  ["T3-652", '6.5" 2-Way Passive', "100 W", "200 W", "4 Ω", "89 dB", "65 Hz-22 kHz", "71 mm"],
   ["T6-652", '6.5" 2-Way Passive', "120 W", "240 W", "4 Ω", "89 dB", "55 Hz-25 kHz", "77.5 mm"],
   ["T6-653A", '6.5" 3-Way Active', "150 W", "300 W", "4 Ω", "89 dB", "55 Hz-25 kHz", "77.5 mm"],
   ["T6-803A", '8" 3-Way Active', "180 W", "360 W", "4 Ω", "91 dB", "53 Hz-25 kHz", "77.5 mm"],
@@ -120,10 +120,10 @@ const driverSpecs = [
 ];
 
 const enclosedBassSpecs = [
-  ["BXA3-10T3S-V4", '10" Active Sealed Subwoofer', "Birch plywood", "Black flat covering", "460 × 340 × 139 mm", "13 kg"],
-  ["BX1-10T3S-V4", '10" Passive Sealed Subwoofer', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "11 kg"],
-  ["BX2-10T3S-V4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "323 × 330 × 400 mm", "13 kg"],
-  ["BX4-10T3-D4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "240 × 355 × 430 mm", "15 kg"],
+  ["BXA3/10T3S/V4", '10" Active Sealed Subwoofer', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
+  ["BX1/10T3S/V4", '10" Passive Sealed Subwoofer', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
+  ["BX2/10T3S/V4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "323 × 330 × 400 mm", "13 kg"],
+  ["BX4/10T3/D4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "240 × 355 × 430 mm", "15 kg"],
 ];
 
 const amplifierSpecs = [

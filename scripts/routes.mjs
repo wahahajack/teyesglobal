@@ -10,6 +10,7 @@ export const BASE_URL = 'https://teyesglobal.com';
 // Public routes to prerender and verify.
 // Keep in sync with scripts/generate-sitemap.js (verify-seo-dist.mjs enforces this
 // against the generated sitemap at build time).
+// Car Audio category routes stay explicit so each page is prerendered and SEO-verified independently.
 export const STATIC_ROUTES = [
   '/',
   '/products',

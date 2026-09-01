@@ -32,8 +32,8 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     image: "/images/car-audio/speakers.webp",
     imageAlt: "TEYES T3 and T6 car speaker range",
     heroCopy:
-      "From 100 W T3 upgrades to the 180 W, 91 dB T6-603A, the range scales toward higher acoustic output and greater dynamic headroom across component, active 3-way and coaxial layouts.",
-    models: ["T3-652", "T3-65X", "T6-652", "T6-653A", "T6-603A", "T6-65X"],
+      "From 100 W T3 upgrades to the 180 W, 91 dB T6-803A, the range scales toward higher acoustic output and greater dynamic headroom across component, active 3-way and coaxial layouts.",
+    models: ["T3-652", "T3-65X", "T6-652", "T6-653A", "T6-803A", "T6-65X"],
     related: [
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
       { label: "Subwoofers", href: "/car-audio/subwoofers/" },
@@ -99,7 +99,7 @@ const componentSpeakerSpecs = [
   ["T3-652", '6.5" 2-Way Passive', "100 W", "200 W", "4 Ω", "88 dB", "65 Hz-22 kHz", "71 mm"],
   ["T6-652", '6.5" 2-Way Passive', "120 W", "240 W", "4 Ω", "89 dB", "55 Hz-25 kHz", "77.5 mm"],
   ["T6-653A", '6.5" 3-Way Active', "150 W", "300 W", "4 Ω", "89 dB", "55 Hz-25 kHz", "77.5 mm"],
-  ["T6-603A", '8" 3-Way Active', "180 W", "360 W", "4 Ω", "91 dB", "53 Hz-25 kHz", "77.5 mm"],
+  ["T6-803A", '8" 3-Way Active', "180 W", "360 W", "4 Ω", "91 dB", "53 Hz-25 kHz", "77.5 mm"],
 ];
 
 const coaxialSpeakerSpecs = [
@@ -233,7 +233,7 @@ function SpeakersContent() {
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T6 Series</p>
               <h3 className="mt-2 text-2xl font-semibold">Passive · Active 3-way · Coaxial</h3>
-              <p className="mt-3 text-muted-foreground">Four configurations from 120 W to 180 W rated power, topped by the 8-inch T6-603A at 91 dB sensitivity for stronger acoustic output from available amplifier power.</p>
+              <p className="mt-3 text-muted-foreground">Four configurations from 120 W to 180 W rated power, topped by the 8-inch T6-803A at 91 dB sensitivity for stronger acoustic output from available amplifier power.</p>
             </div>
           </div>
         </div>
@@ -261,8 +261,8 @@ function SpeakersContent() {
         <div className="container-wide">
           <SectionHeading eyebrow="What the specs mean" title="More output headroom as you move up the range." description="The strongest published figures translate into practical system choices rather than just larger numbers." />
           <DecisionGrid items={[
-            { title: "180 W + 91 dB", text: "T6-603A combines the highest rated power and sensitivity in the speaker range. Higher sensitivity helps produce more acoustic output from available amplifier power, while the higher power rating provides more headroom for higher-output systems." },
-            { title: "8-inch active 3-way", text: "T6-603A gives the range a larger-format active 3-way option for buyers building a more substantial front-stage upgrade than the 6.5-inch configurations." },
+            { title: "180 W + 91 dB", text: "T6-803A combines the highest rated power and sensitivity in the speaker range. Higher sensitivity helps produce more acoustic output from available amplifier power, while the higher power rating provides more headroom for higher-output systems." },
+            { title: "8-inch active 3-way", text: "T6-803A gives the range a larger-format active 3-way option for buyers building a more substantial front-stage upgrade than the 6.5-inch configurations." },
             { title: "Clear step-up path", text: "T3 starts at 100 W with 71 mm mounting depth; T6 extends to 120–180 W and multiple active, passive and coaxial layouts, giving installers more output and system-format options." },
           ]} />
         </div>

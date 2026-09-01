@@ -128,15 +128,14 @@ const SectionHeading = ({ eyebrow, title, description }: { eyebrow: string; titl
   </div>
 );
 
-const ProductImage = ({ src, alt, eager = false }: { src: string; alt: string; eager?: boolean }) => (
+const ProductImage = ({ src, alt, height = 295 }: { src: string; alt: string; height?: number }) => (
   <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-950">
     <img
       src={src}
       alt={alt}
       width={500}
-      height={295}
-      loading={eager ? "eager" : "lazy"}
-      fetchPriority={eager ? "high" : "auto"}
+      height={height}
+      loading="lazy"
       decoding="async"
       className="h-auto w-full object-cover"
     />
@@ -199,7 +198,7 @@ const CarAudio = () => {
 
         <section className="py-16 md:py-20 border-b border-white/10">
           <div className="container-wide grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
-            <ProductImage src="/images/car-audio/overview.webp" alt="Overview of the TEYES Car Audio product range" />
+            <ProductImage src="/images/car-audio/overview.webp" alt="Overview of the TEYES Car Audio product range" height={283} />
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Complete range</p>
               <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">One product family from source to bass</h2>
@@ -324,12 +323,27 @@ const CarAudio = () => {
 
         <section className="py-20 md:py-24 border-b border-white/10">
           <div className="container-wide grid lg:grid-cols-2 gap-10 items-center">
-            <ProductImage src="/images/car-audio/accessories.webp" alt="TEYES Car Audio speaker accessories and grilles" />
+            <ProductImage src="/images/car-audio/accessories.webp" alt="TEYES Car Audio speaker accessories and grilles" height={227} />
             <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-7 md:p-9">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Car Audio accessories</p>
               <h2 className="mt-3 text-3xl font-semibold">Supporting hardware for the Car Audio range</h2>
               <div className="mt-7 space-y-4">{accessories.map((item) => <div key={item} className="flex items-center gap-3 text-zinc-300"><CheckCircle2 className="h-5 w-5 text-orange-400" /><span>{item}</span></div>)}</div>
               <p className="mt-6 text-sm leading-6 text-zinc-500">These Car Audio-specific accessories are presented separately from the existing head-unit Accessories range.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 md:py-24 border-b border-white/10">
+          <div className="container-wide">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 md:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">B2B cooperation</p>
+                <h2 className="mt-3 text-3xl font-semibold">Discuss the range for your market</h2>
+                <p className="mt-5 leading-7 text-zinc-400">Contact the TEYES B2B team for product specifications, model selection, market availability and commercial information for the Car Audio range.</p>
+              </div>
+              <Button asChild size="lg" className="mt-7 shrink-0 bg-orange-500 text-black hover:bg-orange-400 lg:mt-0">
+                <Link to="/contact/">Contact TEYES B2B <ArrowRight className="h-4 w-4" /></Link>
+              </Button>
             </div>
           </div>
         </section>

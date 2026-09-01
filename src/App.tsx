@@ -23,6 +23,8 @@ const ProductsPage = lazy(() => import("./pages/products/Products"));
 const ProductLinesPage = lazy(() => import("./pages/products/ProductLines"));
 const ProductDetailPage = lazy(() => import("./pages/products/ProductDetail"));
 const ProductComparePage = lazy(() => import("./pages/products/ProductCompare"));
+const CarAudioPage = lazy(() => import("./pages/car-audio/CarAudio"));
+const CarAudioCategoryPage = lazy(() => import("./pages/car-audio/CarAudioCategory"));
 
 // Solutions
 const SolutionsPage = lazy(() => import("./pages/solutions/Solutions"));
@@ -75,6 +77,11 @@ const App = () => (
               <Route path="/products/lines" element={<ProductLinesPage />} />
               <Route path="/products/compare" element={<ProductComparePage />} />
               <Route path="/products/:productId" element={<ProductDetailPage />} />
+              <Route path="/car-audio" element={<CarAudioPage />} />
+              <Route path="/car-audio/speakers" element={<CarAudioCategoryPage category="speakers" />} />
+              <Route path="/car-audio/subwoofers" element={<CarAudioCategoryPage category="subwoofers" />} />
+              <Route path="/car-audio/bass-systems" element={<CarAudioCategoryPage category="bass-systems" />} />
+              <Route path="/car-audio/amplifiers" element={<CarAudioCategoryPage category="amplifiers" />} />
               {/* Solutions */}
               <Route path="/solutions" element={<SolutionsPage />} />
               <Route path="/solutions/distributors" element={<SolutionsDistributorsPage />} />

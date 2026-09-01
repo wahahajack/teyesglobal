@@ -3,8 +3,8 @@
 **Status:** Approved implementation amendment  
 **Date:** 2026-09-01  
 **Repository:** `wahahajack/teyesglobal`  
-**Branch:** `feature/car-audio-product-line`  
-**PR:** #18
+**Branch:** `feature/car-audio-product-line-pr21`  
+**PR:** #21
 
 This amendment records the approved decision to promote the previously reserved Car Audio category URLs into the current implementation scope. It supplements `2026-09-01-car-audio-product-line-integration.md` and supersedes only the earlier statement that these four category URLs were future IA outside Phase 1.
 
@@ -48,7 +48,7 @@ No new conversion action, Contact query-parameter convention, tracking ID, conve
 
 ## Content source
 
-Primary factual source remains `Teyes car Audio Catalog 2026.pdf` (14 pages). Product imagery and specifications must stay within catalog-confirmed information. Unverified claims listed in the original integration plan remain prohibited.
+The working factual sources are `Teyes car Audio Catalog 2026.pdf` (14 pages) and the approved `Teyes Car Speaker list.xlsx`. Where the PDF and spreadsheet conflict on a model name or specification, the spreadsheet is authoritative. Product imagery remains catalog-derived. Unverified claims listed in the original integration plan remain prohibited.
 
 ## Validation required before merge
 

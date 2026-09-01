@@ -140,10 +140,10 @@ const CarAudio = () => {
 
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-primary">TEYES Car Audio</p>
               <h1 className="text-4xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-5xl md:text-6xl lg:text-7xl">
-                More power. More range. More ways to sell.
+                Expand your aftermarket range with TEYES Car Audio.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-7 text-foreground/80 md:text-xl">
-                Speakers, subwoofers, bass systems and Class D amplifiers in one dedicated Car Audio portfolio.
+                Speakers, subwoofers, bass systems and Class D amplifiers for distributors, wholesalers and installers building a broader in-car audio range.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row md:mt-9 md:gap-4">
@@ -183,8 +183,8 @@ const CarAudio = () => {
           <div className="container-wide py-16 md:py-24">
             <SectionHeading
               eyebrow="Product range"
-              title="Choose a Car Audio category."
-              description="Each category has a dedicated page with model-level specifications and comparison data."
+              title="From speaker upgrades to complete bass and amplification."
+              description="T3 and T6 speakers, compact and 10-inch subwoofers, enclosed bass systems, and TD/TP Class D amplifiers."
             />
 
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

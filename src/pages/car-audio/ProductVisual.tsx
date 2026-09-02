@@ -62,7 +62,7 @@ export const ProductPairVisual = ({ products }: { products: readonly CarAudioPro
 export const ProductHeroMosaic = ({ products }: { products: readonly CarAudioProductVisual[] }) => (
   <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/25 p-3 sm:p-4 lg:p-5">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_48%,hsl(var(--primary)/0.22),transparent_48%)]" aria-hidden="true" />
-    <div className="relative grid min-h-[300px] grid-cols-2 gap-2 sm:min-h-[360px] sm:gap-3 lg:min-h-[500px]">
+    <div className="relative grid min-h-[260px] grid-cols-2 gap-2 sm:min-h-[300px] sm:gap-3 lg:min-h-[400px]">
       {products.map((product) => (
         <figure key={product.id} className="relative flex min-h-0 items-center justify-center overflow-hidden rounded-2xl border border-border/45 bg-background/20 p-3 sm:p-4">
           <ProductImage

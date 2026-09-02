@@ -3,6 +3,8 @@ import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
+import { ProductVisualGrid } from "./ProductVisual";
+import { categoryProductVisualIds, getProductVisuals } from "./productVisuals";
 
 type CategoryKey = "speakers" | "subwoofers" | "bass-systems" | "amplifiers";
 
@@ -468,6 +470,17 @@ const CarAudioCategory = ({ category }: { category: CategoryKey }) => {
               </div>
             </div>
             <ProductStage src={config.image} alt={config.imageAlt} />
+          </div>
+        </section>
+
+        <section className="border-b border-border/60 py-16 md:py-24">
+          <div className="container-wide">
+            <SectionHeading
+              eyebrow="Product lineup"
+              title={`Explore the ${config.label.toLowerCase()} lineup.`}
+              description="Review each model at a glance, then use the technical information below for the complete published specifications."
+            />
+            <ProductVisualGrid products={getProductVisuals(categoryProductVisualIds[category])} />
           </div>
         </section>
 

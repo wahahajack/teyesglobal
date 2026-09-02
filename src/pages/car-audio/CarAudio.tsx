@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Box,
-  CheckCircle2,
   ChevronRight,
   Radio,
   SlidersHorizontal,
@@ -11,6 +10,13 @@ import {
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
+import { ProductHeroMosaic, ProductPairVisual, ProductVisualGrid } from "./ProductVisual";
+import {
+  accessoryProductVisualIds,
+  getProductVisuals,
+  hubFamilyVisualIds,
+  hubHeroVisualIds,
+} from "./productVisuals";
 
 const productFamilies = [
   {
@@ -21,8 +27,7 @@ const productFamilies = [
     icon: Volume2,
     anchor: "speakers",
     href: "/car-audio/speakers/",
-    image: "/images/car-audio/speakers.webp",
-    imageAlt: "TEYES T3 and T6 car speaker range",
+    visualIds: hubFamilyVisualIds.speakers,
   },
   {
     title: "Subwoofers",
@@ -32,8 +37,7 @@ const productFamilies = [
     icon: Radio,
     anchor: "subwoofers",
     href: "/car-audio/subwoofers/",
-    image: "/images/car-audio/subwoofers.webp",
-    imageAlt: "TEYES under-seat and 10-inch subwoofer range",
+    visualIds: hubFamilyVisualIds.subwoofers,
   },
   {
     title: "Bass Systems",
@@ -43,8 +47,7 @@ const productFamilies = [
     icon: Box,
     anchor: "bass-systems",
     href: "/car-audio/bass-systems/",
-    image: "/images/car-audio/bass-systems.webp",
-    imageAlt: "TEYES V8 competition and enclosed bass systems",
+    visualIds: hubFamilyVisualIds["bass-systems"],
   },
   {
     title: "Amplifiers",
@@ -54,12 +57,10 @@ const productFamilies = [
     icon: SlidersHorizontal,
     anchor: "amplifiers",
     href: "/car-audio/amplifiers/",
-    image: "/images/car-audio/amplifiers.webp",
-    imageAlt: "TEYES TD and TP Class D amplifier range",
+    visualIds: hubFamilyVisualIds.amplifiers,
   },
 ];
 
-const accessories = ["Tweeter Mount", "T6-650 Woofer Grille", "T6-65X Coaxial Grille"];
 const ecosystemSteps = ["TEYES Infotainment / Head Unit", "Amplifier", "Speakers", "Subwoofer / Bass"];
 
 const collectionSchema = JSON.stringify({
@@ -89,27 +90,6 @@ const SectionHeading = ({
     <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>
     <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
     <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">{description}</p>
-  </div>
-);
-
-const ProductStage = ({ src, alt, height = 320 }: { src: string; alt: string; height?: number }) => (
-  <div className="relative isolate min-h-[280px] overflow-hidden rounded-[2rem] border border-border/60 bg-card/50 sm:min-h-[320px] md:min-h-[420px]">
-    <div
-      className="absolute inset-0 bg-[radial-gradient(circle_at_46%_48%,hsl(var(--primary)/0.18),transparent_36%),linear-gradient(145deg,hsl(var(--secondary)/0.58),hsl(var(--background))_68%)]"
-      aria-hidden="true"
-    />
-    <div className="absolute inset-x-[14%] bottom-5 h-16 rounded-full bg-primary/10 blur-3xl md:bottom-7 md:h-20" aria-hidden="true" />
-    <div className="relative flex min-h-[280px] items-center justify-center p-4 sm:min-h-[320px] md:min-h-[420px] md:p-7">
-      <img
-        src={src}
-        alt={alt}
-        width={500}
-        height={height}
-        loading="lazy"
-        decoding="async"
-        className="relative z-10 h-auto w-full object-contain drop-shadow-[0_28px_42px_rgba(0,0,0,0.52)]"
-      />
-    </div>
   </div>
 );
 
@@ -156,21 +136,9 @@ const CarAudio = () => {
               </div>
             </div>
 
-            <div className="relative min-h-[300px] sm:min-h-[360px] lg:min-h-[520px]">
-              <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_55%_50%,hsl(var(--primary)/0.22),transparent_44%)]" aria-hidden="true" />
-              <div className="absolute left-[6%] top-[10%] h-20 w-20 rounded-full border border-primary/15 md:h-24 md:w-24" aria-hidden="true" />
-              <div className="absolute bottom-[10%] right-[8%] h-32 w-32 rounded-full border border-accent/10 md:h-44 md:w-44" aria-hidden="true" />
-              <img
-                src="/images/car-audio/hero-speakers.webp"
-                alt="TEYES Car Audio speaker pair"
-                width={500}
-                height={362}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="absolute inset-0 m-auto h-auto max-h-[470px] w-[96%] object-contain drop-shadow-[0_34px_54px_rgba(0,0,0,0.58)] md:w-[102%]"
-              />
-              <div className="absolute bottom-2 left-2 flex flex-wrap gap-2 sm:bottom-5 sm:left-0">
+            <div className="relative">
+              <ProductHeroMosaic products={getProductVisuals(hubHeroVisualIds)} />
+              <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
                 {["6 speaker models", "77 mm under-seat bass", "1200 W × 1 amplifier"].map((tag) => (
                   <span key={tag} className="rounded-full border border-border/70 bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80 backdrop-blur-md sm:text-xs">{tag}</span>
                 ))}
@@ -197,17 +165,7 @@ const CarAudio = () => {
                     to={family.href}
                     className="group scroll-mt-24 overflow-hidden rounded-[1.6rem] border border-border/60 bg-card/55 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]"
                   >
-                    <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-border/60 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.14),transparent_50%),linear-gradient(145deg,hsl(var(--secondary)/0.48),hsl(var(--background))_72%)] p-5">
-                      <img
-                        src={family.image}
-                        alt={family.imageAlt}
-                        width={500}
-                        height={320}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-[1.03]"
-                      />
-                    </div>
+                    <ProductPairVisual products={getProductVisuals(family.visualIds)} />
                     <div className="p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>
@@ -259,19 +217,13 @@ const CarAudio = () => {
         </section>
 
         <section className="border-b border-border/60 py-16 md:py-24">
-          <div className="container-wide grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:gap-10">
-            <ProductStage src="/images/car-audio/accessories.webp" alt="TEYES Car Audio tweeter mounts and speaker grilles" height={227} />
-            <div>
-              <SectionHeading eyebrow="Car Audio accessories" title="Installation accessories within the Car Audio range." description="The catalog lists dedicated tweeter mounts and T6 speaker grilles alongside the main Car Audio categories." />
-              <div className="space-y-3">
-                {accessories.map((item) => (
-                  <div key={item} className="flex items-center gap-3 rounded-xl border border-border/60 bg-card/45 px-4 py-3 text-foreground/80">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="container-wide">
+            <SectionHeading
+              eyebrow="Car Audio accessories"
+              title="Installation accessories within the Car Audio range."
+              description="The catalog lists dedicated tweeter mounts and T6 speaker grilles alongside the main Car Audio categories."
+            />
+            <ProductVisualGrid products={getProductVisuals(accessoryProductVisualIds)} />
           </div>
         </section>
 

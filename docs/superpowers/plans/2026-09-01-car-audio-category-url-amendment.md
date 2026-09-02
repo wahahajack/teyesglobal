@@ -31,6 +31,15 @@ The four child pages are indexable, self-canonical category pages:
 
 Complete catalog specification tables belong on the relevant category page. The hub may repeat selected factual highlights needed for orientation, but should not repeat the same full tables or duplicate the same page purpose.
 
+## Product visual system
+
+- Product assets are stored as independent WebP files under `public/images/car-audio/products/` rather than bundled into JavaScript.
+- The hub hero uses representative products from speakers, subwoofers, bass systems and amplifiers without loading the full product asset set.
+- Hub category cards use representative real-product pairs for each category.
+- Each child category page includes a Product Lineup visual grid before its technical comparison content. Product cards show the model, type and only selected key specifications; complete technical tables remain below.
+- The hub accessory section retains Tweeter Mount, T6-650 Woofer Grille and T6-65X Coaxial Grille as the currently confirmed accessory set.
+- The standalone driver is identified as `10T3-V4`; the enclosed bass model remains `BX4/10T3/D4`. These identities must not be conflated.
+
 ## SEO rules
 
 1. All five Car Audio URLs use the repository's existing trailing-slash canonical policy.
@@ -55,6 +64,8 @@ The working factual sources are `Teyes car Audio Catalog 2026.pdf` (14 pages) an
 - final PR head must receive a successful Netlify deploy preview
 - all five Car Audio URLs must load in the preview
 - category canonicals and sitemap entries must match the trailing-slash policy
+- all 24 product visual IDs must resolve to repository assets with no broken image paths
+- standard-depth and thin-line subwoofer cards must remain aligned with their technical-table identities and mounting depths
 - `/products/`, `/accessories/` and existing `/landing/` pages must remain unchanged
 - tracking and attribution code must remain unchanged unless separately approved
 - PR remains Draft until the applicable merge gates are accepted

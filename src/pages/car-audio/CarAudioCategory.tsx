@@ -51,7 +51,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     imageAlt: "TEYES under-seat and 10-inch subwoofer range",
     heroCopy:
       "Deep bass without giving up installation space: TS-10 reaches 25 Hz in a 77 mm-high under-seat chassis, while 10T6S-V4 brings a 10-inch driver to just 84 mm mounting depth.",
-    models: ["TS-08", "TS-10", "10T3-D4", "10T3S-V4", "10T6-V4", "10T6S-V4"],
+    models: ["TS-08", "TS-10", "10T3-V4", "10T3S-V4", "10T6-V4", "10T6S-V4"],
     related: [
       { label: "Bass Systems", href: "/car-audio/bass-systems/" },
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
@@ -113,7 +113,7 @@ const underSeatSpecs = [
 ];
 
 const driverSpecs = [
-  ["10T3-D4", '10" Subwoofer', "400 W", "800 W", "4 Ω", "85 dB", "31.5 Hz-400 Hz", "148.5 mm"],
+  ["10T3-V4", '10" Subwoofer', "400 W", "800 W", "4 Ω", "85 dB", "31.5 Hz-400 Hz", "148.5 mm"],
   ["10T3S-V4", '10" Thin-line Subwoofer', "400 W", "800 W", "4 Ω + 4 Ω", "84 dB", "30 Hz-400 Hz", "89 mm"],
   ["10T6-V4", '10" Subwoofer', "500 W", "1000 W", "4 Ω + 4 Ω", "85 dB", "29 Hz-400 Hz", "160.5 mm"],
   ["10T6S-V4", '10" Thin-line Subwoofer', "400 W", "800 W", "4 Ω + 4 Ω", "85 dB", "28 Hz-400 Hz", "84 mm"],

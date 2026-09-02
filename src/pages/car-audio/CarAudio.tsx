@@ -27,8 +27,8 @@ const productFamilies = [
   {
     title: "Subwoofers",
     eyebrow: "Under-seat · 10-inch drivers",
-    description: "Compact TS under-seat systems plus standard and thin-line 10-inch subwoofer drivers.",
-    highlights: ["77 mm under-seat", "25 Hz TS-10"],
+    description: "Compact TS under-seat systems plus standard-depth and thin-line 10-inch subwoofer drivers.",
+    highlights: ["77 mm under-seat", "84–160.5 mm driver depth"],
     icon: Radio,
     anchor: "subwoofers",
     href: "/car-audio/subwoofers/",

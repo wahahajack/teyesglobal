@@ -9,11 +9,10 @@ import {
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ProductPairVisual, ProductVisualGrid } from "./ProductVisual";
+import { ProductVisualGrid } from "./ProductVisual";
 import {
   accessoryProductVisualIds,
   getProductVisuals,
-  hubFamilyVisualIds,
 } from "./productVisuals";
 
 const productFamilies = [
@@ -25,7 +24,8 @@ const productFamilies = [
     icon: Volume2,
     anchor: "speakers",
     href: "/car-audio/speakers/",
-    visualIds: hubFamilyVisualIds.speakers,
+    image: "/images/car-audio/category-speakers.webp",
+    imageAlt: "TEYES car speakers and standalone subwoofer drivers",
   },
   {
     title: "Enclosed Subwoofers",
@@ -35,7 +35,8 @@ const productFamilies = [
     icon: Box,
     anchor: "enclosed-subwoofers",
     href: "/car-audio/enclosed-subwoofers/",
-    visualIds: hubFamilyVisualIds["enclosed-subwoofers"],
+    image: "/images/car-audio/category-enclosed-subwoofers.webp",
+    imageAlt: "TEYES enclosed car subwoofer system",
   },
   {
     title: "Amplifiers",
@@ -45,7 +46,8 @@ const productFamilies = [
     icon: SlidersHorizontal,
     anchor: "amplifiers",
     href: "/car-audio/amplifiers/",
-    visualIds: hubFamilyVisualIds.amplifiers,
+    image: "/images/car-audio/category-amplifiers.webp",
+    imageAlt: "TEYES Class D car amplifier",
   },
 ];
 
@@ -134,8 +136,8 @@ const CarAudio = () => {
                 <img
                   src="/images/car-audio/car-audio-hero.webp"
                   alt="TEYES Car Audio speakers, subwoofer system and amplifier"
-                  width={1000}
-                  height={800}
+                  width={720}
+                  height={576}
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
@@ -170,7 +172,17 @@ const CarAudio = () => {
                     to={family.href}
                     className="group scroll-mt-24 overflow-hidden rounded-[1.6rem] border border-border/60 bg-card/55 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_42px_-24px_hsl(var(--primary)/0.65)]"
                   >
-                    <ProductPairVisual products={getProductVisuals(family.visualIds)} />
+                    <div className="aspect-[4/3] overflow-hidden border-b border-border/60 bg-card/30">
+                      <img
+                        src={family.image}
+                        alt={family.imageAlt}
+                        width={520}
+                        height={390}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                      />
+                    </div>
                     <div className="p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>

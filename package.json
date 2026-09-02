@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && npx puppeteer browsers install chrome && node scripts/prerender.mjs && npm run generate-sitemap && node scripts/inline-css.js && node scripts/prune-deploy-assets.js && node scripts/verify-seo-dist.mjs",
+    "build": "npm run lint && npm test && npm run generate-sitemap && vite build && npx puppeteer browsers install chrome && node scripts/prerender.mjs && npm run generate-sitemap && node scripts/inline-css.js && node scripts/prune-deploy-assets.js && node scripts/verify-seo-dist.mjs",
     "build:dev": "vite build --mode development",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
@@ -54,7 +54,7 @@
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
-    "react-day-picker": "^8.10.1",
+    "react-day-picker": "^8.10.0",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.61.1",

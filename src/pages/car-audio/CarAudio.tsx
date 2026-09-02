@@ -105,10 +105,10 @@ const CarAudio = () => {
       />
 
       <div className="bg-background text-foreground">
-        <section className="hero-section relative border-b border-border/60 pt-20 md:pt-24 lg:pt-32">
+        <section className="hero-section relative border-b border-border/60 pt-20 md:pt-24">
           <div className="hero-glow" aria-hidden="true" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_32%,hsl(var(--accent)/0.12),transparent_27%)]" aria-hidden="true" />
-          <div className="container-wide relative grid items-center gap-8 py-8 sm:py-10 md:py-16 lg:grid-cols-[0.94fr_1.06fr] lg:gap-14 lg:py-24">
+          <div className="container-wide relative grid items-center gap-8 py-8 sm:py-10 md:py-12 lg:grid-cols-[0.94fr_1.06fr] lg:gap-14 lg:py-14">
             <div className="relative z-10">
               <nav aria-label="Breadcrumb" className="mb-5 md:mb-8">
                 <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">

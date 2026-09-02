@@ -79,8 +79,7 @@ const App = () => (
               <Route path="/products/:productId" element={<ProductDetailPage />} />
               <Route path="/car-audio" element={<CarAudioPage />} />
               <Route path="/car-audio/speakers" element={<CarAudioCategoryPage category="speakers" />} />
-              <Route path="/car-audio/subwoofers" element={<CarAudioCategoryPage category="subwoofers" />} />
-              <Route path="/car-audio/bass-systems" element={<CarAudioCategoryPage category="bass-systems" />} />
+              <Route path="/car-audio/enclosed-subwoofers" element={<CarAudioCategoryPage category="enclosed-subwoofers" />} />
               <Route path="/car-audio/amplifiers" element={<CarAudioCategoryPage category="amplifiers" />} />
               {/* Solutions */}
               <Route path="/solutions" element={<SolutionsPage />} />

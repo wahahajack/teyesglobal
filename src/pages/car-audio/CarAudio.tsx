@@ -51,11 +51,30 @@ const productFamilies = [
   },
 ];
 
-const ecosystemSteps = [
-  "TEYES Infotainment / Head Unit",
-  "Amplifier",
-  "Speakers / Subwoofer Drivers",
-  "Enclosed Subwoofer Systems",
+const ecosystemGroups = [
+  {
+    title: "Head Unit",
+    description: "Smart source, control and infotainment at the center of the in-car entertainment system.",
+    links: [{ label: "Explore Android Head Units", href: "/products/" }],
+  },
+  {
+    title: "Amplification",
+    description: "TD and TP Class D power stages for multi-channel speakers and dedicated bass systems.",
+    links: [{ label: "Explore Amplifiers", href: "/car-audio/amplifiers/" }],
+  },
+  {
+    title: "Cabin Audio",
+    description: "T3 and T6 component, active and coaxial speakers for the main listening environment.",
+    links: [{ label: "Explore Speakers", href: "/car-audio/speakers/" }],
+  },
+  {
+    title: "Bass",
+    description: "Choose standalone subwoofer drivers for custom enclosures or complete enclosed subwoofer systems.",
+    links: [
+      { label: "Standalone Drivers", href: "/car-audio/speakers/" },
+      { label: "Enclosed Subwoofers", href: "/car-audio/enclosed-subwoofers/" },
+    ],
+  },
 ];
 
 const collectionSchema = JSON.stringify({
@@ -145,11 +164,9 @@ const CarAudio = () => {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" aria-hidden="true" />
               </div>
-              <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
-                {["6 speaker + 5 subwoofer driver models", "Under-seat · sealed · ported bass", "1200 W × 1 amplifier"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-border/70 bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80 backdrop-blur-md sm:text-xs">{tag}</span>
-                ))}
-              </div>
+              <p className="mt-4 text-sm font-semibold uppercase tracking-[0.28em] text-foreground/70 sm:text-base" aria-label="Detail, Dynamics, Depth">
+                DETAIL <span className="px-1.5 text-primary">·</span> DYNAMICS <span className="px-1.5 text-primary">·</span> DEPTH
+              </p>
             </div>
           </div>
         </section>
@@ -212,21 +229,27 @@ const CarAudio = () => {
         </section>
 
         <section className="border-b border-border/60 py-16 md:py-24">
-          <div className="container-wide grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-10">
+          <div className="container-wide grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
             <div>
               <SectionHeading
                 eyebrow="Complete system"
                 title="A broader TEYES in-car entertainment portfolio."
-                description="Present source, amplification, cabin speakers, standalone bass drivers and enclosed subwoofer systems as one portfolio while keeping each product format technically distinct."
+                description="Present source, amplification, cabin audio and bass as one connected product ecosystem without implying that every installation must follow the same sequence."
               />
             </div>
-            <div className="relative grid gap-3">
-              <div className="absolute bottom-7 left-5 top-7 w-px bg-gradient-to-b from-primary/60 via-primary/25 to-transparent" aria-hidden="true" />
-              {ecosystemSteps.map((step, index) => (
-                <div key={step} className="relative flex items-center gap-5 rounded-2xl border border-border/60 bg-card/45 p-5 pl-4">
-                  <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary">{index + 1}</div>
-                  <p className="flex-1 font-medium">{step}</p>
-                  {index < ecosystemSteps.length - 1 && <ArrowRight className="h-4 w-4 text-muted-foreground/50" />}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {ecosystemGroups.map((group) => (
+                <div key={group.title} className="rounded-2xl border border-border/60 bg-card/45 p-6">
+                  <h3 className="text-xl font-semibold text-foreground">{group.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{group.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
+                    {group.links.map((item) => (
+                      <Link key={item.label} to={item.href} className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80">
+                        {item.label}
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5" />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

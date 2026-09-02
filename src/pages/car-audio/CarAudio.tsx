@@ -3,51 +3,39 @@ import {
   ArrowRight,
   Box,
   ChevronRight,
-  Radio,
   SlidersHorizontal,
   Volume2,
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ProductHeroMosaic, ProductPairVisual, ProductVisualGrid } from "./ProductVisual";
+import { ProductPairVisual, ProductVisualGrid } from "./ProductVisual";
 import {
   accessoryProductVisualIds,
   getProductVisuals,
   hubFamilyVisualIds,
-  hubHeroVisualIds,
 } from "./productVisuals";
 
 const productFamilies = [
   {
     title: "Speakers",
-    eyebrow: "T3 · T6",
-    description: "Component, active 3-way and coaxial speaker configurations across the T3 and T6 series.",
-    highlights: ["6 models", "100–180 W rated"],
+    eyebrow: "T3 · T6 · 10-inch drivers",
+    description: "T3 and T6 cabin speakers plus standard-depth, thin-line and competition standalone subwoofer drivers.",
+    highlights: ["6 speaker models", "5 subwoofer drivers"],
     icon: Volume2,
     anchor: "speakers",
     href: "/car-audio/speakers/",
     visualIds: hubFamilyVisualIds.speakers,
   },
   {
-    title: "Subwoofers",
-    eyebrow: "Under-seat · 10-inch drivers",
-    description: "Compact TS under-seat systems plus standard-depth and thin-line 10-inch subwoofer drivers.",
-    highlights: ["77 mm under-seat", "84–160.5 mm driver depth"],
-    icon: Radio,
-    anchor: "subwoofers",
-    href: "/car-audio/subwoofers/",
-    visualIds: hubFamilyVisualIds.subwoofers,
-  },
-  {
-    title: "Bass Systems",
-    eyebrow: "Competition · Enclosed",
-    description: "V8 competition bass plus active and passive sealed or ported enclosed subwoofer systems.",
-    highlights: ["600 W V8 rated", "16 mm X-MAX"],
+    title: "Enclosed Subwoofers",
+    eyebrow: "Under-seat · sealed · ported",
+    description: "Compact TS under-seat systems plus active and passive sealed or ported boxed subwoofers.",
+    highlights: ["TS under-seat", "Sealed & ported"],
     icon: Box,
-    anchor: "bass-systems",
-    href: "/car-audio/bass-systems/",
-    visualIds: hubFamilyVisualIds["bass-systems"],
+    anchor: "enclosed-subwoofers",
+    href: "/car-audio/enclosed-subwoofers/",
+    visualIds: hubFamilyVisualIds["enclosed-subwoofers"],
   },
   {
     title: "Amplifiers",
@@ -61,7 +49,12 @@ const productFamilies = [
   },
 ];
 
-const ecosystemSteps = ["TEYES Infotainment / Head Unit", "Amplifier", "Speakers", "Subwoofer / Bass"];
+const ecosystemSteps = [
+  "TEYES Infotainment / Head Unit",
+  "Amplifier",
+  "Speakers / Subwoofer Drivers",
+  "Enclosed Subwoofer Systems",
+];
 
 const collectionSchema = JSON.stringify({
   "@context": "https://schema.org",
@@ -69,7 +62,7 @@ const collectionSchema = JSON.stringify({
   name: "TEYES Car Audio",
   url: "https://teyesglobal.com/car-audio/",
   description:
-    "TEYES Car Audio speakers, subwoofers, bass systems and power amplifiers for automotive aftermarket distributors and car audio channels.",
+    "TEYES Car Audio speakers and standalone subwoofer drivers, enclosed subwoofers and power amplifiers for automotive aftermarket distributors and car audio channels.",
   hasPart: productFamilies.map((family) => ({
     "@type": "WebPage",
     name: family.title,
@@ -97,8 +90,8 @@ const CarAudio = () => {
   return (
     <Layout>
       <SEO
-        title="TEYES Car Audio - Speakers, Subwoofers & Amplifiers"
-        description="Explore TEYES Car Audio speakers, subwoofers, enclosed bass systems and power amplifiers for automotive aftermarket distributors and car audio channels."
+        title="TEYES Car Audio - Speakers, Enclosed Subwoofers & Amplifiers"
+        description="Explore TEYES Car Audio speakers and standalone subwoofer drivers, enclosed subwoofers and power amplifiers for automotive aftermarket distributors and car audio channels."
         path="/car-audio/"
         schema={collectionSchema}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Car Audio" }]}
@@ -123,7 +116,7 @@ const CarAudio = () => {
                 Expand your aftermarket range with TEYES Car Audio.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-7 text-foreground/80 md:text-xl">
-                Speakers, subwoofers, bass systems and Class D amplifiers for distributors, wholesalers and installers building a broader in-car audio range.
+                Speakers and standalone subwoofer drivers, enclosed subwoofers and Class D amplifiers for distributors, wholesalers and installers building a broader in-car audio range.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row md:mt-9 md:gap-4">
@@ -137,9 +130,21 @@ const CarAudio = () => {
             </div>
 
             <div className="relative">
-              <ProductHeroMosaic products={getProductVisuals(hubHeroVisualIds)} />
+              <div className="relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 shadow-[0_24px_70px_-36px_rgba(0,0,0,0.8)]">
+                <img
+                  src="/images/car-audio/car-audio-hero.webp"
+                  alt="TEYES Car Audio speakers, subwoofer system and amplifier"
+                  width={1000}
+                  height={800}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="aspect-[5/4] w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" aria-hidden="true" />
+              </div>
               <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
-                {["6 speaker models", "77 mm under-seat bass", "1200 W × 1 amplifier"].map((tag) => (
+                {["6 speaker + 5 subwoofer driver models", "Under-seat · sealed · ported bass", "1200 W × 1 amplifier"].map((tag) => (
                   <span key={tag} className="rounded-full border border-border/70 bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80 backdrop-blur-md sm:text-xs">{tag}</span>
                 ))}
               </div>
@@ -151,11 +156,11 @@ const CarAudio = () => {
           <div className="container-wide py-16 md:py-24">
             <SectionHeading
               eyebrow="Product range"
-              title="From speaker upgrades to complete bass and amplification."
-              description="T3 and T6 speakers, compact and 10-inch subwoofers, enclosed bass systems, and TD/TP Class D amplifiers."
+              title="Speakers, enclosed bass and amplification in three clear categories."
+              description="T3 and T6 speakers with standalone subwoofer drivers, enclosed subwoofer systems, and TD/TP Class D amplifiers."
             />
 
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {productFamilies.map((family) => {
                 const Icon = family.icon;
                 return (
@@ -200,7 +205,7 @@ const CarAudio = () => {
               <SectionHeading
                 eyebrow="Complete system"
                 title="A broader TEYES in-car entertainment portfolio."
-                description="Present source, amplification, speakers and bass as one portfolio while keeping each product category technically distinct."
+                description="Present source, amplification, cabin speakers, standalone bass drivers and enclosed subwoofer systems as one portfolio while keeping each product format technically distinct."
               />
             </div>
             <div className="relative grid gap-3">

@@ -33,8 +33,8 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     description:
       "Compare TEYES T3 and T6 car speakers plus standalone 10-inch standard-depth, thin-line and competition subwoofer drivers for automotive aftermarket channels.",
     path: "/car-audio/speakers/",
-    image: "/images/car-audio/speakers.webp",
-    imageAlt: "TEYES T3 and T6 car speaker range",
+    image: "/images/car-audio/category-speakers.webp",
+    imageAlt: "TEYES car speakers and standalone subwoofer drivers",
     heroCopy:
       "The range combines six T3 and T6 component, active 3-way and coaxial speakers with five standalone 10-inch subwoofer drivers for custom low-frequency installations.",
     models: [
@@ -64,7 +64,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     description:
       "Compare TEYES under-seat, sealed and ported enclosed subwoofers, including active and passive formats for automotive aftermarket channels.",
     path: "/car-audio/enclosed-subwoofers/",
-    image: "/images/car-audio/products/bxa3-10t3s-v4.webp",
+    image: "/images/car-audio/category-enclosed-subwoofers.webp",
     imageAlt: "TEYES enclosed car subwoofer system",
     heroCopy:
       "Compact TS under-seat systems and birch-plywood sealed or ported enclosures cover integrated, active and passive bass installations without mixing in standalone subwoofer drivers.",
@@ -83,7 +83,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     description:
       "Compare TEYES TD and TP Class D car amplifiers, including four-channel, mono and DSP-controlled models for automotive aftermarket channels.",
     path: "/car-audio/amplifiers/",
-    image: "/images/car-audio/amplifiers.webp",
+    image: "/images/car-audio/category-amplifiers.webp",
     imageAlt: "TEYES TD and TP Class D car amplifier range",
     heroCopy:
       "From 200 W × 4 four-channel output to 1200 W × 1 mono at 2 ohms, TD and DSP-controlled TP models provide distinct power tiers for speaker systems and high-output bass builds.",
@@ -144,22 +144,17 @@ const SectionHeading = ({ eyebrow, title, description }: { eyebrow: string; titl
 
 const ProductStage = ({ src, alt }: { src: string; alt: string }) => (
   <div className="relative isolate min-h-[180px] overflow-hidden rounded-[1.6rem] border border-border/60 bg-card/50 sm:min-h-[210px] md:min-h-[240px] lg:min-h-[260px]">
-    <div
-      className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,hsl(var(--primary)/0.18),transparent_38%),linear-gradient(145deg,hsl(var(--secondary)/0.58),hsl(var(--background))_68%)]"
-      aria-hidden="true"
+    <img
+      src={src}
+      alt={alt}
+      width={520}
+      height={390}
+      loading="eager"
+      fetchPriority="high"
+      decoding="async"
+      className="absolute inset-0 h-full w-full object-cover"
     />
-    <div className="relative flex min-h-[180px] items-center justify-center p-4 sm:min-h-[210px] md:min-h-[240px] md:p-5 lg:min-h-[260px]">
-      <img
-        src={src}
-        alt={alt}
-        width={500}
-        height={320}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className="relative z-10 h-auto max-h-[220px] w-full object-contain drop-shadow-[0_24px_36px_rgba(0,0,0,0.48)]"
-      />
-    </div>
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" aria-hidden="true" />
   </div>
 );
 

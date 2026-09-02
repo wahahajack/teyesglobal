@@ -38,7 +38,10 @@ Complete catalog specification tables belong on the relevant category page. The 
 - Hub category cards use representative real-product pairs for each category.
 - Each child category page includes a Product Lineup visual grid before its technical comparison content. Product cards show the model, type and only selected key specifications; complete technical tables remain below.
 - The hub accessory section retains Tweeter Mount, T6-650 Woofer Grille and T6-65X Coaxial Grille as the currently confirmed accessory set.
-- The standalone driver is identified as `10T3-V4`; the enclosed bass model remains `BX4/10T3/D4`. These identities must not be conflated.
+- The standalone standard-depth driver is `10T3-D4`: 400 W rated, 800 W maximum, 4 Ω, 85 dB, 31.5–400 Hz, 148.5 mm mounting depth.
+- `10T3S-V4` is a separate thin-line driver at 89 mm mounting depth. `10T6-V4` is standard-depth at 160.5 mm; `10T6S-V4` is thin-line at 84 mm.
+- The enclosed bass model remains `BX4/10T3/D4`. The standalone `10T3-D4` and enclosed `BX4/10T3/D4` identities must not be conflated.
+- This correction supersedes earlier standalone-driver references to `10T3-V4` in `2026-09-01-car-audio-product-line-integration.md` for the current PR21 implementation. It does not make any claim about whether a separate `10T3-V4` product exists outside the confirmed current lineup.
 
 ## SEO rules
 
@@ -65,7 +68,8 @@ The working factual sources are `Teyes car Audio Catalog 2026.pdf` (14 pages) an
 - all five Car Audio URLs must load in the preview
 - category canonicals and sitemap entries must match the trailing-slash policy
 - all 24 product visual IDs must resolve to repository assets with no broken image paths
-- standard-depth and thin-line subwoofer cards must remain aligned with their technical-table identities and mounting depths
+- `10T3-D4`, `10T3S-V4`, `10T6-V4`, and `10T6S-V4` cards must remain aligned with their technical-table identities and mounting depths
+- standard-depth and thin-line subwoofer cards must remain presented as distinct product structures
 - `/products/`, `/accessories/` and existing `/landing/` pages must remain unchanged
 - tracking and attribution code must remain unchanged unless separately approved
 - PR remains Draft until the applicable merge gates are accepted

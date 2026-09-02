@@ -37,7 +37,7 @@ export const productVisuals = {
 
   "ts-08": product("ts-08", "TS-08", '8" Under-Seat Subwoofer', ["260 W rated", "77 mm chassis height"], 394, 512),
   "ts-10": product("ts-10", "TS-10", '10" Under-Seat Subwoofer', ["260 W rated", "25 Hz low-frequency response"], 398, 512),
-  "10t3-v4": product("10t3-v4", "10T3-V4", '10" Standard-Depth Subwoofer', ["400 W rated", "148.5 mm mounting depth"], 512, 311),
+  "10t3-d4": product("10t3-d4", "10T3-D4", '10" Standard-Depth Subwoofer', ["400 W rated", "148.5 mm mounting depth"], 512, 311),
   "10t3s-v4": product("10t3s-v4", "10T3S-V4", '10" Thin-Line Subwoofer', ["400 W rated", "89 mm mounting depth"], 512, 311),
   "10t6-v4": product("10t6-v4", "10T6-V4", '10" Standard-Depth Subwoofer', ["500 W rated", "160.5 mm mounting depth"], 512, 312),
   "10t6s-v4": product("10t6s-v4", "10T6S-V4", '10" Thin-Line Subwoofer', ["400 W rated", "84 mm mounting depth"], 512, 313),
@@ -73,7 +73,7 @@ export const hubFamilyVisualIds = {
 
 export const categoryProductVisualIds = {
   speakers: ["t3-652", "t3-65x", "t6-652", "t6-653a", "t6-803a", "t6-65x"],
-  subwoofers: ["ts-08", "ts-10", "10t3-v4", "10t3s-v4", "10t6-v4", "10t6s-v4"],
+  subwoofers: ["ts-08", "ts-10", "10t3-d4", "10t3s-v4", "10t6-v4", "10t6s-v4"],
   "bass-systems": ["10v8-v4", "bxa3-10t3s-v4", "bx1-10t3s-v4", "bx2-10t3s-v4", "bx4-10t3-d4"],
   amplifiers: ["td500-4", "td1000-1", "tp800-4", "tp1200-1"],
 } as const satisfies Record<string, readonly ProductVisualId[]>;

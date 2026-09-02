@@ -359,3 +359,27 @@
     background-size: 80px 80px;
   }
 }
+
+/* Car Audio refinements: keep the hub signature visible without turning it into a badge. */
+.hero-section p[aria-label="Detail, Dynamics, Depth"] {
+  margin-top: 1.25rem;
+  color: hsl(var(--foreground) / 0.95);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+}
+
+@media (min-width: 640px) {
+  .hero-section p[aria-label="Detail, Dynamics, Depth"] {
+    font-size: 1.125rem;
+  }
+}
+
+/* Product Detail Quick View: a light neutral stage reveals dark product details more clearly. */
+div[role="dialog"][aria-label^="Product details for "] > div > div:first-of-type {
+  background: #f4f4f2;
+}
+
+div[role="dialog"][aria-label^="Product details for "] > div > div:first-of-type > img {
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.24));
+}

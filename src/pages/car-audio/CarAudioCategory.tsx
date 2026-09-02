@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ProductVisualGrid } from "./ProductVisual";
 import { categoryProductVisualIds, getProductVisuals } from "./productVisuals";
 
-type CategoryKey = "speakers" | "subwoofers" | "bass-systems" | "amplifiers";
+type CategoryKey = "speakers" | "enclosed-subwoofers" | "amplifiers";
 
 type CategoryConfig = {
   label: string;
@@ -26,58 +26,51 @@ type CategoryConfig = {
 const categoryConfig: Record<CategoryKey, CategoryConfig> = {
   speakers: {
     label: "Speakers",
-    noun: "speaker",
-    eyebrow: "T3 · T6 speaker range",
-    title: "TEYES Car Speakers",
-    seoTitle: "TEYES Car Speakers - T3 & T6 Series",
+    noun: "speaker and subwoofer driver",
+    eyebrow: "T3 · T6 speakers · 10-inch subwoofer drivers",
+    title: "TEYES Car Speakers & Subwoofer Drivers",
+    seoTitle: "TEYES Car Speakers & Subwoofer Drivers",
     description:
-      "Compare TEYES T3 and T6 component, active 3-way and coaxial car speakers for automotive aftermarket distribution and installation channels.",
+      "Compare TEYES T3 and T6 car speakers plus standalone 10-inch standard-depth, thin-line and competition subwoofer drivers for automotive aftermarket channels.",
     path: "/car-audio/speakers/",
     image: "/images/car-audio/speakers.webp",
     imageAlt: "TEYES T3 and T6 car speaker range",
     heroCopy:
-      "From 100 W T3 upgrades to the 180 W, 91 dB T6-803A, the range scales toward higher acoustic output and greater dynamic headroom across component, active 3-way and coaxial layouts.",
-    models: ["T3-652", "T3-65X", "T6-652", "T6-653A", "T6-803A", "T6-65X"],
-    related: [
-      { label: "Amplifiers", href: "/car-audio/amplifiers/" },
-      { label: "Subwoofers", href: "/car-audio/subwoofers/" },
+      "The range combines six T3 and T6 component, active 3-way and coaxial speakers with five standalone 10-inch subwoofer drivers for custom low-frequency installations.",
+    models: [
+      "T3-652",
+      "T3-65X",
+      "T6-652",
+      "T6-653A",
+      "T6-803A",
+      "T6-65X",
+      "10T3-D4",
+      "10T3S-V4",
+      "10T6-V4",
+      "10T6S-V4",
+      "10V8-V4",
     ],
-  },
-  subwoofers: {
-    label: "Subwoofers",
-    noun: "subwoofer",
-    eyebrow: "Under-seat · 10-inch drivers",
-    title: "TEYES Car Subwoofers",
-    seoTitle: "TEYES Car Subwoofers - Under-Seat & 10-Inch Drivers",
-    description:
-      "Compare TEYES TS under-seat subwoofers and 10-inch standard or thin-line subwoofer drivers for automotive aftermarket channels.",
-    path: "/car-audio/subwoofers/",
-    image: "/images/car-audio/subwoofers.webp",
-    imageAlt: "TEYES under-seat and 10-inch subwoofer range",
-    heroCopy:
-      "Deep bass without giving up installation space: TS-10 reaches 25 Hz in a 77 mm-high under-seat chassis, while 10T6S-V4 brings a 10-inch driver to just 84 mm mounting depth.",
-    models: ["TS-08", "TS-10", "10T3-D4", "10T3S-V4", "10T6-V4", "10T6S-V4"],
     related: [
-      { label: "Bass Systems", href: "/car-audio/bass-systems/" },
+      { label: "Enclosed Subwoofers", href: "/car-audio/enclosed-subwoofers/" },
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
     ],
   },
-  "bass-systems": {
-    label: "Bass Systems",
-    noun: "bass system",
-    eyebrow: "Competition · Enclosed systems",
-    title: "TEYES Car Bass Systems & Subwoofer Enclosures",
-    seoTitle: "TEYES Car Bass Systems & Subwoofer Enclosures",
+  "enclosed-subwoofers": {
+    label: "Enclosed Subwoofers",
+    noun: "enclosed subwoofer",
+    eyebrow: "Under-seat · sealed · ported",
+    title: "TEYES Enclosed Car Subwoofers",
+    seoTitle: "TEYES Enclosed Car Subwoofers - Under-Seat, Sealed & Ported",
     description:
-      "Explore TEYES enclosed sealed and ported subwoofer systems plus the V8 competition subwoofer range for car audio distribution channels.",
-    path: "/car-audio/bass-systems/",
-    image: "/images/car-audio/bass-systems.webp",
-    imageAlt: "TEYES V8 competition and enclosed bass systems",
+      "Compare TEYES under-seat, sealed and ported enclosed subwoofers, including active and passive formats for automotive aftermarket channels.",
+    path: "/car-audio/enclosed-subwoofers/",
+    image: "/images/car-audio/products/bxa3-10t3s-v4.webp",
+    imageAlt: "TEYES enclosed car subwoofer system",
     heroCopy:
-      "For higher-output bass builds, the 10V8-V4 combines 600 W rated power with 16 mm X-MAX, while sealed, ported, active and passive enclosures cover different system and installation priorities.",
-    models: ["10V8-V4", "BXA3/10T3S/V4", "BX1/10T3S/V4", "BX2/10T3S/V4", "BX4/10T3/D4"],
+      "Compact TS under-seat systems and birch-plywood sealed or ported enclosures cover integrated, active and passive bass installations without mixing in standalone subwoofer drivers.",
+    models: ["TS-08", "TS-10", "BXA3/10T3S/V4", "BX1/10T3S/V4", "BX2/10T3S/V4", "BX4/10T3/D4"],
     related: [
-      { label: "Subwoofers", href: "/car-audio/subwoofers/" },
+      { label: "Speakers", href: "/car-audio/speakers/" },
       { label: "Amplifiers", href: "/car-audio/amplifiers/" },
     ],
   },
@@ -97,7 +90,7 @@ const categoryConfig: Record<CategoryKey, CategoryConfig> = {
     models: ["TD500/4", "TD1000/1", "TP800/4", "TP1200/1"],
     related: [
       { label: "Speakers", href: "/car-audio/speakers/" },
-      { label: "Subwoofers", href: "/car-audio/subwoofers/" },
+      { label: "Enclosed Subwoofers", href: "/car-audio/enclosed-subwoofers/" },
     ],
   },
 };
@@ -114,23 +107,24 @@ const coaxialSpeakerSpecs = [
   ["T6-65X", "Coaxial", "120 W", "240 W", "4 Ω", "89 dB", "55 Hz-25 kHz", "77.5 mm"],
 ];
 
+const subwooferDriverSpecs = [
+  ["10T3-D4", '10" Standard-depth', "400 W", "800 W", "4 Ω", "85 dB", "31.5 Hz-400 Hz", "148.5 mm", "N/A", "N/A"],
+  ["10T3S-V4", '10" Thin-line', "400 W", "800 W", "4 Ω + 4 Ω", "84 dB", "30 Hz-400 Hz", "89 mm", "N/A", "N/A"],
+  ["10T6-V4", '10" Standard-depth', "500 W", "1000 W", "4 Ω + 4 Ω", "85 dB", "29 Hz-400 Hz", "160.5 mm", "N/A", "N/A"],
+  ["10T6S-V4", '10" Thin-line', "400 W", "800 W", "4 Ω + 4 Ω", "85 dB", "28 Hz-400 Hz", "84 mm", "N/A", "N/A"],
+  ["10V8-V4", '10" Competition', "600 W", "1200 W", "4 Ω + 4 Ω", "84 dB", "30 Hz-400 Hz", "165 mm", "16 mm", "CCAW"],
+];
+
 const underSeatSpecs = [
-  ["TS-08", '8" Under-Seat Subwoofer', "260 W", "520 W", "85 dB", "35 Hz-150 Hz", "20 Hz-150 Hz", "284 × 210 × 77 mm", "5.5 kg"],
-  ["TS-10", '10" Under-Seat Subwoofer', "260 W", "520 W", "85 dB", "25 Hz-150 Hz", "20 Hz-150 Hz", "314 × 235 × 77 mm", "6.5 kg"],
+  ["TS-08", '8" Under-Seat Enclosed Subwoofer', "260 W", "520 W", "85 dB", "35 Hz-150 Hz", "20 Hz-150 Hz", "284 × 210 × 77 mm", "5.5 kg"],
+  ["TS-10", '10" Under-Seat Enclosed Subwoofer', "260 W", "520 W", "85 dB", "25 Hz-150 Hz", "20 Hz-150 Hz", "314 × 235 × 77 mm", "6.5 kg"],
 ];
 
-const driverSpecs = [
-  ["10T3-D4", '10" Subwoofer', "400 W", "800 W", "4 Ω", "85 dB", "31.5 Hz-400 Hz", "148.5 mm"],
-  ["10T3S-V4", '10" Thin-line Subwoofer', "400 W", "800 W", "4 Ω + 4 Ω", "84 dB", "30 Hz-400 Hz", "89 mm"],
-  ["10T6-V4", '10" Subwoofer', "500 W", "1000 W", "4 Ω + 4 Ω", "85 dB", "29 Hz-400 Hz", "160.5 mm"],
-  ["10T6S-V4", '10" Thin-line Subwoofer', "400 W", "800 W", "4 Ω + 4 Ω", "85 dB", "28 Hz-400 Hz", "84 mm"],
-];
-
-const enclosedBassSpecs = [
-  ["BXA3/10T3S/V4", '10" Active Sealed Subwoofer', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
-  ["BX1/10T3S/V4", '10" Passive Sealed Subwoofer', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
-  ["BX2/10T3S/V4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "323 × 330 × 400 mm", "13 kg"],
-  ["BX4/10T3/D4", '10" Passive Ported Subwoofer', "Birch plywood", "Polyurea paint", "240 × 355 × 430 mm", "15 kg"],
+const enclosedSubwooferSpecs = [
+  ["BXA3/10T3S/V4", '10" Active Sealed', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
+  ["BX1/10T3S/V4", '10" Passive Sealed', "Birch plywood", "Black felt covering", "460 × 340 × 139 mm", "13 kg"],
+  ["BX2/10T3S/V4", '10" Passive Ported', "Birch plywood", "Polyurea paint", "323 × 330 × 400 mm", "13 kg"],
+  ["BX4/10T3/D4", '10" Passive Ported', "Birch plywood", "Polyurea paint", "240 × 355 × 430 mm", "15 kg"],
 ];
 
 const amplifierSpecs = [
@@ -138,18 +132,6 @@ const amplifierSpecs = [
   ["TD1000/1", "Class D", "350 W × 1", "650 W × 1", "N/A", "250 × 172 × 60 mm", "2.2 kg"],
   ["TP800/4", "Class D DSP-Controlled", "120 W × 4", "200 W × 4", "400 W × 2", "300 × 176 × 60 mm", "3.6 kg"],
   ["TP1200/1", "Class D DSP-Controlled", "800 W × 1", "1200 W × 1", "N/A", "300 × 176 × 60 mm", "3.6 kg"],
-];
-
-const competitionSpecs = [
-  ["Type", '10" Subwoofer'],
-  ["Rated power", "600 W"],
-  ["Maximum power", "1200 W"],
-  ["Nominal impedance", "4 Ω + 4 Ω"],
-  ["Sensitivity", "84 dB"],
-  ["Frequency response", "30 Hz-400 Hz"],
-  ["X-MAX", "16 mm"],
-  ["Voice coil", "CCAW"],
-  ["Mounting depth", "165 mm"],
 ];
 
 const SectionHeading = ({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) => (
@@ -181,9 +163,19 @@ const ProductStage = ({ src, alt }: { src: string; alt: string }) => (
   </div>
 );
 
-const SpecTable = ({ caption, headers, rows }: { caption: string; headers: string[]; rows: string[][] }) => (
+const SpecTable = ({
+  caption,
+  headers,
+  rows,
+  wide = false,
+}: {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+  wide?: boolean;
+}) => (
   <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card/35">
-    <table className="w-full min-w-[820px] text-left text-sm">
+    <table className={`w-full ${wide ? "min-w-[1120px]" : "min-w-[820px]"} text-left text-sm`}>
       <caption className="sr-only">{caption}</caption>
       <thead className="bg-secondary/45 text-xs uppercase tracking-[0.12em] text-muted-foreground">
         <tr>
@@ -216,19 +208,24 @@ function SpeakersContent() {
         <div className="container-wide">
           <SectionHeading
             eyebrow="Range structure"
-            title="T3 and T6 cover distinct speaker configurations."
-            description="T3 covers component and coaxial upgrades, while T6 adds passive, active 3-way and coaxial configurations for broader system design options."
+            title="One driver category for the full speaker and standalone subwoofer range."
+            description="T3 and T6 cover cabin speaker formats, while the 10-inch driver range covers standard-depth, thin-line and competition low-frequency installations."
           />
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T3 Series</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T3 Speakers</p>
               <h3 className="mt-2 text-2xl font-semibold">T3-652 · T3-65X</h3>
-              <p className="mt-3 text-muted-foreground">A focused component and coaxial pair for straightforward speaker upgrades.</p>
+              <p className="mt-3 text-muted-foreground">Component and coaxial speaker choices for straightforward cabin upgrades.</p>
             </div>
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T6 Series</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">T6 Speakers</p>
               <h3 className="mt-2 text-2xl font-semibold">Passive · Active 3-way · Coaxial</h3>
-              <p className="mt-3 text-muted-foreground">Four configurations give installers more choice in speaker format and system architecture.</p>
+              <p className="mt-3 text-muted-foreground">Four configurations provide broader speaker-format and system-architecture options.</p>
+            </div>
+            <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">Subwoofer Drivers</p>
+              <h3 className="mt-2 text-2xl font-semibold">Standard · Thin-line · Competition</h3>
+              <p className="mt-3 text-muted-foreground">Five standalone 10-inch drivers for custom enclosures, including the V8 competition model.</p>
             </div>
           </div>
         </div>
@@ -238,16 +235,25 @@ function SpeakersContent() {
         <div className="container-wide space-y-8">
           <SectionHeading
             eyebrow="Technical comparison"
-            title="Compare the six speaker models."
-            description="Use power handling, sensitivity, frequency response and mounting depth to compare the complete published speaker specifications."
+            title="Compare speakers and standalone subwoofer drivers."
+            description="The tables stay with their product families so published power, impedance, sensitivity, frequency and installation data remain directly comparable after the category regrouping."
           />
           <div>
-            <p className="mb-3 text-sm font-semibold text-primary">Component and active configurations</p>
+            <p className="mb-3 text-sm font-semibold text-primary">Component and active speakers</p>
             <SpecTable caption="TEYES component and active speaker specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={componentSpeakerSpecs} />
           </div>
           <div>
-            <p className="mb-3 text-sm font-semibold text-primary">Coaxial configurations</p>
+            <p className="mb-3 text-sm font-semibold text-primary">Coaxial speakers</p>
             <SpecTable caption="TEYES coaxial speaker specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={coaxialSpeakerSpecs} />
+          </div>
+          <div>
+            <p className="mb-3 text-sm font-semibold text-primary">Standalone 10-inch subwoofer drivers</p>
+            <SpecTable
+              caption="TEYES standalone 10-inch subwoofer driver specifications"
+              headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth", "X-MAX", "Voice coil"]}
+              rows={subwooferDriverSpecs}
+              wide
+            />
           </div>
         </div>
       </section>
@@ -255,22 +261,26 @@ function SpeakersContent() {
   );
 }
 
-function SubwoofersContent() {
+function EnclosedSubwoofersContent() {
   return (
     <>
       <section className="border-b border-border/60 py-16 md:py-20">
         <div className="container-wide">
-          <SectionHeading eyebrow="Two installation formats" title="Choose between compact under-seat systems and standalone 10-inch drivers." description="TS models package the subwoofer into a compact under-seat format; the driver range supports custom enclosures with standard-depth and thin-line choices." />
+          <SectionHeading
+            eyebrow="Enclosed formats"
+            title="Under-seat, sealed and ported subwoofers in one enclosed-system category."
+            description="TS models provide compact integrated under-seat bass, while BXA3 and BX enclosures cover sealed, ported, active and passive installation formats."
+          />
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">TS Under-Seat</p>
               <h3 className="mt-2 text-2xl font-semibold">TS-08 · TS-10</h3>
-              <p className="mt-3 text-muted-foreground">Integrated compact bass systems for installations where cabin and enclosure space are limited.</p>
+              <p className="mt-3 text-muted-foreground">Compact integrated enclosures for installations where cabin and enclosure space are limited.</p>
             </div>
             <div className="rounded-2xl border border-border/60 bg-card/45 p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">10-inch drivers</p>
-              <h3 className="mt-2 text-2xl font-semibold">Standard · Thin-line</h3>
-              <p className="mt-3 text-muted-foreground">Standalone drivers for custom bass builds, with standard-depth and shallow-mount structures kept as distinct options.</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">Boxed Subwoofers</p>
+              <h3 className="mt-2 text-2xl font-semibold">Sealed · Ported · Active · Passive</h3>
+              <p className="mt-3 text-muted-foreground">Birch-plywood enclosures for buyers who need complete boxed bass systems rather than standalone drivers.</p>
             </div>
           </div>
         </div>
@@ -278,49 +288,22 @@ function SubwoofersContent() {
 
       <section className="border-b border-border/60 py-16 md:py-20">
         <div className="container-wide space-y-8">
-          <SectionHeading eyebrow="Technical comparison" title="Compare compact systems and standalone drivers separately." description="Use frequency extension, mounting depth and power to compare the published specifications for each installation format." />
+          <SectionHeading
+            eyebrow="Technical comparison"
+            title="Compare all enclosed subwoofer formats."
+            description="Under-seat performance data and boxed-enclosure construction data remain separated into the parameter sets published for each product format."
+          />
           <div>
-            <p className="mb-3 text-sm font-semibold text-primary">Under-seat subwoofers</p>
-            <SpecTable caption="TEYES under-seat subwoofer specifications" headers={["Model", "Type", "Rated", "Max", "Sensitivity", "Frequency response", "Frequency control", "Dimensions", "Net weight"]} rows={underSeatSpecs} />
+            <p className="mb-3 text-sm font-semibold text-primary">Under-seat enclosed subwoofers</p>
+            <SpecTable caption="TEYES under-seat enclosed subwoofer specifications" headers={["Model", "Type", "Rated", "Max", "Sensitivity", "Frequency response", "Frequency control", "Dimensions", "Net weight"]} rows={underSeatSpecs} />
           </div>
           <div>
-            <p className="mb-3 text-sm font-semibold text-primary">10-inch subwoofer drivers</p>
-            <SpecTable caption="TEYES 10-inch subwoofer driver specifications" headers={["Model", "Type", "Rated", "Max", "Impedance", "Sensitivity", "Frequency response", "Mounting depth"]} rows={driverSpecs} />
+            <p className="mb-3 text-sm font-semibold text-primary">Sealed and ported boxed subwoofers</p>
+            <SpecTable caption="TEYES boxed enclosed subwoofer specifications" headers={["Model", "Type", "Enclosure", "Surface treatment", "Dimensions", "Net weight"]} rows={enclosedSubwooferSpecs} />
           </div>
         </div>
       </section>
     </>
-  );
-}
-
-function BassSystemsContent() {
-  return (
-    <section className="border-b border-border/60 py-16 md:py-20">
-      <div className="container-wide">
-        <div className="rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.10),hsl(var(--card))_55%,hsl(var(--background)))] p-6 md:p-8">
-          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">10V8-V4 · V8 Competition Series</p>
-              <h2 className="mt-2 text-3xl font-semibold">600 W rated power. 16 mm X-MAX.</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">The combination targets high-output bass builds: greater linear excursion lets the cone move more air, while the 600 W rating provides substantial power-handling headroom.</p>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-              {competitionSpecs.map(([label, value]) => (
-                <div key={label} className="rounded-xl border border-border/60 bg-background/45 p-4">
-                  <p className="text-xs text-muted-foreground">{label}</p>
-                  <p className="mt-2 text-base font-semibold text-foreground">{value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <SectionHeading eyebrow="Enclosed systems" title="Compare sealed, ported, active and passive enclosure formats." description="The enclosed range combines active and passive architectures with sealed and ported birch-plywood cabinets for different installation and amplification strategies." />
-          <SpecTable caption="TEYES enclosed bass system specifications" headers={["Model", "Type", "Enclosure", "Surface treatment", "Dimensions", "Net weight"]} rows={enclosedBassSpecs} />
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -357,8 +340,7 @@ function AmplifiersContent() {
 
 function CategoryBody({ category }: { category: CategoryKey }) {
   if (category === "speakers") return <SpeakersContent />;
-  if (category === "subwoofers") return <SubwoofersContent />;
-  if (category === "bass-systems") return <BassSystemsContent />;
+  if (category === "enclosed-subwoofers") return <EnclosedSubwoofersContent />;
   return <AmplifiersContent />;
 }
 

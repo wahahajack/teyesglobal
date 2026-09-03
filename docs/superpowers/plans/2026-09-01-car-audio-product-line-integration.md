@@ -105,7 +105,7 @@ The catalog supplies rated power, maximum power, sensitivity, frequency response
 
 #### 3.3 Subwoofer drivers
 
-- 10T3-V4
+- 10T3-D4
 - 10T3S-V4
 - 10T6-V4
 - 10T6S-V4
@@ -364,7 +364,7 @@ Cover:
 
 - TS-08
 - TS-10
-- 10T3-V4
+- 10T3-D4
 - 10T3S-V4
 - 10T6-V4
 - 10T6S-V4

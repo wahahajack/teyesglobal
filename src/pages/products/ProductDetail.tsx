@@ -56,7 +56,7 @@ const ProductDetailPage = () => {
               Products
             </Link>
             <span>/</span>
-            <Link to="/products/lines/" className="hover:text-foreground transition-colors">
+            <Link to={`/products/#${product.series}`} className="hover:text-foreground transition-colors">
               {product.seriesName}
             </Link>
             <span>/</span>

@@ -25,6 +25,7 @@ const ProductDetailPage = lazy(() => import("./pages/products/ProductDetail"));
 const ProductComparePage = lazy(() => import("./pages/products/ProductCompare"));
 const CarAudioPage = lazy(() => import("./pages/car-audio/CarAudio"));
 const CarAudioCategoryPage = lazy(() => import("./pages/car-audio/CarAudioCategory"));
+const CarAudioComparePage = lazy(() => import("./pages/car-audio/CarAudioCompare"));
 
 // Solutions
 const SolutionsPage = lazy(() => import("./pages/solutions/Solutions"));
@@ -56,7 +57,7 @@ function PageLoader() {
       <div className="space-y-4 w-full max-w-md px-4">
         <Skeleton className="h-8 w-3/4 mx-auto" />
         <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-4 w-5/6 mx-auto" />
       </div>
     </div>
   );
@@ -78,6 +79,7 @@ const App = () => (
               <Route path="/products/compare" element={<ProductComparePage />} />
               <Route path="/products/:productId" element={<ProductDetailPage />} />
               <Route path="/car-audio" element={<CarAudioPage />} />
+              <Route path="/car-audio/compare" element={<CarAudioComparePage />} />
               <Route path="/car-audio/speakers" element={<CarAudioCategoryPage category="speakers" />} />
               <Route path="/car-audio/enclosed-subwoofers" element={<CarAudioCategoryPage category="enclosed-subwoofers" />} />
               <Route path="/car-audio/amplifiers" element={<CarAudioCategoryPage category="amplifiers" />} />

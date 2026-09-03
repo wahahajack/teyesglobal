@@ -87,7 +87,7 @@ export function HeroSection() {
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products/">
+                <Link id="hero-product-cta" to="/products/">
                   Explore Product Lines
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>

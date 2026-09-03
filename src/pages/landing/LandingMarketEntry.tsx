@@ -87,7 +87,7 @@ const LandingMarketEntryPage = () => {
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button variant="hero-outline" size="xl" asChild>
+                <Button variant="hero-outline" size="xl" className="bg-secondary/90 hover:bg-secondary" asChild>
                   <Link to="/solutions/market-needs/">View Market Solutions</Link>
                 </Button>
               </div>

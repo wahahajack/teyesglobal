@@ -12,7 +12,7 @@ export function WhatsAppFloat() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-32 right-4 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-primary shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-110 active:scale-95 group"
+            className="fixed bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] right-4 z-50 md:hidden flex items-center justify-center w-14 h-14 rounded-full bg-primary shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-110 active:scale-95 group"
             aria-label="Contact us on WhatsApp"
         >
             {/* Glow Effect */}

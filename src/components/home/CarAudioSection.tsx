@@ -16,7 +16,6 @@ export function CarAudioSection() {
       <div className="container-wide">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-center">
           <div>
-            <p className="text-primary font-medium mb-2">Car Audio Product Line</p>
             <h2 className="section-title">TEYES Car Audio</h2>
             <p className="section-subtitle mt-4 max-w-2xl">
               A growing product line for distributors and car audio channels, covering speakers,

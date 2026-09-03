@@ -128,12 +128,8 @@ export function HeroSection() {
 
                 {/* Image Overlay with Product Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
-                  <p className="hidden sm:block text-xs text-muted-foreground/80 tracking-wide mb-3">
-                    Head Units · Speakers · Amplifiers · Subwoofers
-                  </p>
                   <div className="flex items-end justify-between gap-4">
                     <div>
-                      <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
                       <h3 className="text-xl md:text-2xl font-bold text-foreground">CC4 Pro</h3>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
@@ -152,6 +148,10 @@ export function HeroSection() {
                 Flagship Model
               </div>
             </div>
+
+            <p className="hidden sm:block mt-3 text-center text-xs text-muted-foreground/80 tracking-wide">
+              Head Units · Speakers · Amplifiers · Subwoofers
+            </p>
           </div>
         </div>
 

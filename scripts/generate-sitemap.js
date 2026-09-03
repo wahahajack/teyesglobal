@@ -17,6 +17,7 @@ const staticPages = [
   { path: '/products/lines', source: 'src/pages/products/ProductLines.tsx', priority: '0.8' },
   { path: '/products/compare', source: 'src/pages/products/ProductCompare.tsx', priority: '0.8' },
   { path: '/car-audio', source: 'src/pages/car-audio/CarAudio.tsx', priority: '0.8' },
+  { path: '/car-audio/compare', source: 'src/pages/car-audio/CarAudioCompare.tsx', priority: '0.8' },
   { path: '/car-audio/speakers', source: 'src/pages/car-audio/CarAudioCategory.tsx', priority: '0.8' },
   { path: '/car-audio/enclosed-subwoofers', source: 'src/pages/car-audio/CarAudioCategory.tsx', priority: '0.8' },
   { path: '/car-audio/amplifiers', source: 'src/pages/car-audio/CarAudioCategory.tsx', priority: '0.8' },

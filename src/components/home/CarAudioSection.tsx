@@ -12,7 +12,7 @@ const categories = ["Speakers", "Subwoofers", "Amplifiers", "Bass Systems"];
 
 export function CarAudioSection() {
   return (
-    <section className="py-20 md:py-24 bg-background">
+    <section className="pt-8 pb-20 md:py-24 bg-background">
       <div className="container-wide">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-center">
           <div>

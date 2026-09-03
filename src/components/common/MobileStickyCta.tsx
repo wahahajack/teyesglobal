@@ -52,14 +52,14 @@ export function MobileStickyCta() {
         <Link
           to="/products/"
           tabIndex={isVisible ? 0 : -1}
-          className="flex h-12 flex-1 items-center justify-center rounded-lg border border-border/80 bg-secondary px-4 text-sm font-semibold text-foreground shadow-sm transition-colors active:bg-secondary/80"
+          className="flex h-12 flex-1 items-center justify-center rounded-lg border border-border/80 bg-secondary px-4 text-base font-bold text-foreground shadow-sm transition-colors active:bg-secondary/80"
         >
           View Products
         </Link>
         <Link
           to="/contact/"
           tabIndex={isVisible ? 0 : -1}
-          className="flex h-12 flex-1 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-opacity active:opacity-90"
+          className="flex h-12 flex-1 items-center justify-center rounded-lg bg-primary px-4 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-opacity active:opacity-90"
         >
           Get in Touch
         </Link>

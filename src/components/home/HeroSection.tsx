@@ -81,8 +81,8 @@ export function HeroSection() {
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
-              Android head units, car stereo systems, accessories, distributor cooperation,
-              and OEM/ODM solutions for global markets.
+              Premium TEYES Android head units and car audio solutions for distributors,
+              installers and automotive partners worldwide.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Cpu, Handshake, Layers3 } from "lucide-react";
+import { ArrowRight, Building2, Cpu, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg800 from "@/assets/hero-bg-800.webp";
 import heroBg1200 from "@/assets/hero-bg-1200.webp";
@@ -155,72 +155,18 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Four Entry Points - Full Width */}
+        {/* Three Entry Points - Full Width */}
         <div className="mt-6 md:mt-8">
           <p className="text-muted-foreground text-xs uppercase tracking-wider mb-2 md:mb-3">
             Choose your path
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4">
-            <div className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border border-border/30 bg-secondary/20 p-2.5 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-secondary/30 md:p-4">
-              <Link
-                to="/products/"
-                aria-label="Explore all TEYES products"
-                className="absolute inset-0 z-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              />
-
-              <div className="relative z-10 flex items-center gap-3 pointer-events-none md:gap-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
-                  <Layers3 className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
-                    Explore Products
-                  </p>
-                  <p className="text-muted-foreground text-xs mt-0.5">
-                    Browse the TEYES product range
-                  </p>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary md:h-5 md:w-5" />
-              </div>
-
-              <div className="relative z-20 grid grid-cols-2 gap-2">
-                <Link
-                  to="/products/"
-                  className="group/tile flex min-h-16 flex-col justify-between gap-2 rounded-lg border border-border/30 bg-background/45 px-3 py-2.5 transition-all hover:border-primary/50 hover:bg-background/70"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <span className="text-xs font-semibold leading-tight text-foreground group-hover/tile:text-primary">
-                      Android Head Units
-                    </span>
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform group-hover/tile:translate-x-0.5 group-hover/tile:text-primary" />
-                  </div>
-                  <span className="text-[11px] leading-tight text-muted-foreground">
-                    Flagship · Mainstream · Entry
-                  </span>
-                </Link>
-                <Link
-                  to="/car-audio/"
-                  className="group/tile flex min-h-16 flex-col justify-between gap-2 rounded-lg border border-border/30 bg-background/45 px-3 py-2.5 transition-all hover:border-primary/50 hover:bg-background/70"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <span className="text-xs font-semibold leading-tight text-foreground group-hover/tile:text-primary">
-                      Car Audio
-                    </span>
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform group-hover/tile:translate-x-0.5 group-hover/tile:text-primary" />
-                  </div>
-                  <span className="text-[11px] leading-tight text-muted-foreground">
-                    Speakers · Subwoofers · Amplifiers
-                  </span>
-                </Link>
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
             {entryPoints.map((entry, index) => (
               <Link
                 key={entry.id}
                 to={entry.href}
                 className="group flex h-full items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
-                style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div
                   className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}

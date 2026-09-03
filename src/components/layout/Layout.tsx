@@ -1,5 +1,7 @@
 import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Header } from "./Header";
+import { MobileStickyCta } from "../common/MobileStickyCta";
 
 const Footer = lazy(() =>
   import("./Footer").then((module) => ({ default: module.Footer }))
@@ -14,6 +16,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [loadDeferredChrome, setLoadDeferredChrome] = useState(false);
+  const location = useLocation();
+  const isContact = location.pathname.startsWith("/contact/") || location.pathname === "/contact";
 
   useEffect(() => {
     const load = () => setLoadDeferredChrome(true);
@@ -29,11 +33,12 @@ export function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${isContact ? "" : "pb-20 md:pb-0"}`}>
       <Header />
       <main className="flex-1">
         {children}
       </main>
+      <MobileStickyCta />
       {loadDeferredChrome && (
         <Suspense fallback={null}>
           <Footer />

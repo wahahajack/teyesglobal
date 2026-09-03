@@ -202,7 +202,6 @@ const ProductsPage = () => {
                     </div>
                   </Link>
                 ))}
-                }
               </div>
             </div>
           </section>

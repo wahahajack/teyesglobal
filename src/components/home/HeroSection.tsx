@@ -92,7 +92,12 @@ export function HeroSection() {
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
+              <Button
+                variant="hero-outline"
+                size="lg"
+                className="border-border/80 bg-secondary/90 shadow-sm hover:border-primary/70 hover:bg-secondary md:h-12 md:px-6"
+                asChild
+              >
                 <Link to="/contact/">Contact TEYES</Link>
               </Button>
             </div>

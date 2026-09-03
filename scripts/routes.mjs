@@ -14,7 +14,6 @@ export const BASE_URL = 'https://teyesglobal.com';
 export const STATIC_ROUTES = [
   '/',
   '/products',
-  '/products/lines',
   '/products/compare',
   '/car-audio',
   '/car-audio/speakers',

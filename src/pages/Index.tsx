@@ -15,6 +15,9 @@ const CapabilitiesSection = lazy(() =>
 const ProductsSection = lazy(() =>
   import("@/components/home/ProductsSection").then((module) => ({ default: module.ProductsSection }))
 );
+const CarAudioSection = lazy(() =>
+  import("@/components/home/CarAudioSection").then((module) => ({ default: module.CarAudioSection }))
+);
 const OemCtaSection = lazy(() =>
   import("@/components/home/OemCtaSection").then((module) => ({ default: module.OemCtaSection }))
 );
@@ -106,6 +109,7 @@ const Index = () => {
         <TrustSection />
         <CapabilitiesSection />
         <ProductsSection />
+        <CarAudioSection />
         <OemCtaSection />
         <PartnersSection />
         <HomeFaqSection />

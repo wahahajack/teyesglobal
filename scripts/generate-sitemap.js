@@ -14,7 +14,6 @@ const baseUrl = 'https://teyesglobal.com';
 const staticPages = [
   { path: '', source: 'src/pages/Index.tsx', priority: '1.0' },
   { path: '/products', source: 'src/pages/products/Products.tsx', priority: '0.8' },
-  { path: '/products/lines', source: 'src/pages/products/ProductLines.tsx', priority: '0.8' },
   { path: '/products/compare', source: 'src/pages/products/ProductCompare.tsx', priority: '0.8' },
   { path: '/car-audio', source: 'src/pages/car-audio/CarAudio.tsx', priority: '0.8' },
   { path: '/car-audio/speakers', source: 'src/pages/car-audio/CarAudioCategory.tsx', priority: '0.8' },

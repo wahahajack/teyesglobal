@@ -52,7 +52,7 @@ export function MobileStickyCta() {
         <Link
           to="/products/"
           tabIndex={isVisible ? 0 : -1}
-          className="flex h-12 flex-1 items-center justify-center rounded-lg border border-border bg-secondary/40 px-4 text-sm font-semibold text-foreground transition-colors active:bg-secondary/70"
+          className="flex h-12 flex-1 items-center justify-center rounded-lg border border-border/80 bg-secondary px-4 text-sm font-semibold text-foreground shadow-sm transition-colors active:bg-secondary/80"
         >
           View Products
         </Link>

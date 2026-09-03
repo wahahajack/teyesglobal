@@ -33,7 +33,7 @@ export function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className={`min-h-screen flex flex-col ${isContact ? "" : "pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0"}`}>
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {children}
@@ -44,6 +44,12 @@ export function Layout({ children }: LayoutProps) {
           <Footer />
           <WhatsAppFloat />
         </Suspense>
+      )}
+      {!isContact && (
+        <div aria-hidden="true" className="md:hidden">
+          <div className="h-20" />
+          <div style={{ height: "env(safe-area-inset-bottom)" }} />
+        </div>
       )}
     </div>
   );

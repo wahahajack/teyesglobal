@@ -68,8 +68,8 @@ const ProductsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Car Infotainment Products - Android Head Units"
-        description="Browse TEYES car infotainment products. From flagship CC4 Pro to entry-level solutions. Android head units with CarPlay, Android Auto, 2K displays, and premium audio."
+        title="TEYES Android Head Units | Smart Car Infotainment"
+        description="Explore TEYES Android head units including CC4 Pro, CC4, CC3 2K, CC4L and X1 Pro, with solutions for premium, mainstream and value-focused aftermarket markets."
         keywords="TEYES products, car head unit, android car stereo, CC4 Pro, CC3 2K, CarPlay, Android Auto"
         path="/products/"
         breadcrumbs={[
@@ -79,7 +79,7 @@ const ProductsPage = () => {
       />
       <ContextHeader
         title="Android Head Units"
-        description="From flagship performance to value-focused entry solutions, find the perfect product for your market."
+        description="Explore the TEYES Android head unit range, from premium flagship systems to proven mainstream and value-focused solutions for different aftermarket channels."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products" },

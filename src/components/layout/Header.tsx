@@ -69,7 +69,14 @@ export function Header() {
       <nav className="container-wide" aria-label="Global">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="site-logo-link flex items-center">
+          <Link
+            to="/"
+            className="site-logo-link flex items-center"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
             <img
               src="/main-logo.webp"
               alt="TEYES Logo"

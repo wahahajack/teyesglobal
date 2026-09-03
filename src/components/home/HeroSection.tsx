@@ -5,12 +5,12 @@ import heroBg800 from "@/assets/hero-bg-800.webp";
 import heroBg1200 from "@/assets/hero-bg-1200.webp";
 import heroBg800Avif from "@/assets/hero-bg-800.avif";
 import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
-import cc4Pro400 from "@/assets/products/cc4-pro-hero-400.webp";
-import cc4Pro800 from "@/assets/products/cc4-pro-hero-800.webp";
-import cc4Pro1200 from "@/assets/products/cc4-pro-hero-1200.webp";
-import cc4Pro400Avif from "@/assets/products/cc4-pro-hero-400.avif";
-import cc4Pro800Avif from "@/assets/products/cc4-pro-hero-800.avif";
-import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
+import teyesHero480 from "@/assets/teyes-hero-ecosystem-approved-480.webp";
+import teyesHero800 from "@/assets/teyes-hero-ecosystem-approved-800.webp";
+import teyesHero1200 from "@/assets/teyes-hero-ecosystem-approved-1200.webp";
+import teyesHero480Avif from "@/assets/teyes-hero-ecosystem-approved-480.avif";
+import teyesHero800Avif from "@/assets/teyes-hero-ecosystem-approved-800.avif";
+import teyesHero1200Avif from "@/assets/teyes-hero-ecosystem-approved-1200.avif";
 
 const entryPoints = [
   {
@@ -108,15 +108,15 @@ export function HeroSection() {
               {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
                 <picture>
-                  <source media="(max-width: 480px)" type="image/avif" srcSet={cc4Pro400Avif} />
-                  <source media="(max-width: 480px)" type="image/webp" srcSet={cc4Pro400} />
-                  <source media="(max-width: 768px)" type="image/avif" srcSet={cc4Pro800Avif} />
-                  <source media="(max-width: 768px)" type="image/webp" srcSet={cc4Pro800} />
-                  <source media="(min-width: 769px)" type="image/avif" srcSet={cc4Pro1200Avif} />
-                  <source media="(min-width: 769px)" type="image/webp" srcSet={cc4Pro1200} />
+                  <source media="(max-width: 480px)" type="image/avif" srcSet={teyesHero480Avif} />
+                  <source media="(max-width: 480px)" type="image/webp" srcSet={teyesHero480} />
+                  <source media="(max-width: 768px)" type="image/avif" srcSet={teyesHero800Avif} />
+                  <source media="(max-width: 768px)" type="image/webp" srcSet={teyesHero800} />
+                  <source media="(min-width: 769px)" type="image/avif" srcSet={teyesHero1200Avif} />
+                  <source media="(min-width: 769px)" type="image/webp" srcSet={teyesHero1200} />
                   <img
-                    src={cc4Pro800}
-                    alt="TEYES CC4 Pro - Flagship Android Head Unit"
+                    src={teyesHero800}
+                    alt="TEYES CC4 Pro smart head unit with speakers, subwoofer and amplifier"
                     className="w-full h-auto"
                     width={800}
                     height={800}
@@ -130,7 +130,6 @@ export function HeroSection() {
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
                   <div className="flex items-end justify-between gap-4">
                     <div>
-                      <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
                       <h3 className="text-xl md:text-2xl font-bold text-foreground">CC4 Pro</h3>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
@@ -149,6 +148,10 @@ export function HeroSection() {
                 Flagship Model
               </div>
             </div>
+
+            <p className="hidden sm:block mt-3 text-center text-xs text-muted-foreground/80 tracking-wide">
+              Head Units · Speakers · Amplifiers · Subwoofers
+            </p>
           </div>
         </div>
 

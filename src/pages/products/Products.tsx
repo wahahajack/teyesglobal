@@ -86,6 +86,26 @@ const ProductsPage = () => {
         ]}
       />
 
+      {/* Cross-category path to Car Audio */}
+      <section className="bg-background py-4 md:py-5">
+        <div className="container-wide">
+          <Link
+            to="/car-audio/"
+            className="group flex items-center justify-between gap-4 rounded-xl border border-primary/20 bg-primary/5 px-4 py-4 transition-all hover:border-primary/40 hover:bg-primary/10 md:px-6"
+          >
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">Car Audio</p>
+              <h2 className="mt-1 text-base font-semibold text-foreground md:text-lg">Looking for Car Audio?</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Speakers · Subwoofers · Amplifiers</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2 text-sm font-semibold text-primary">
+              <span className="hidden sm:inline">Explore Car Audio</span>
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Featured Products */}
       <section className="py-10 bg-card">
         <div className="container-wide">
@@ -181,7 +201,7 @@ const ProductsPage = () => {
                       </div>
                     </div>
                   </Link>
-                ))
+                ))}
                 }
               </div>
             </div>

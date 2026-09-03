@@ -27,7 +27,7 @@ export function MobileStickyCta() {
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(!entry.isIntersecting),
+      ([entry]) => setIsVisible(entry.boundingClientRect.bottom <= 0),
       { threshold: 0 },
     );
 

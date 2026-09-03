@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Cpu, Handshake } from "lucide-react";
+import { ArrowRight, Building2, Cpu, Handshake, Layers3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg800 from "@/assets/hero-bg-800.webp";
 import heroBg1200 from "@/assets/hero-bg-1200.webp";
@@ -16,8 +16,8 @@ const entryPoints = [
   {
     id: "products-compare",
     icon: Building2,
-    label: "Product Lines & Model Comparison",
-    description: "Compare flagship, mainstream, and entry-level models",
+    label: "Compare Products",
+    description: "Compare head units and car audio products side by side",
     href: "/products/compare/",
     color: "from-primary to-blue-400",
   },
@@ -155,18 +155,48 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Three Entry Points - Full Width */}
+        {/* Four Entry Points - Full Width */}
         <div className="mt-6 md:mt-8">
           <p className="text-muted-foreground text-xs uppercase tracking-wider mb-2 md:mb-3">
             Choose your path
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4">
+            <div className="flex h-full flex-col gap-3 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center shrink-0">
+                  <Layers3 className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-foreground font-semibold text-sm">Explore Products</p>
+                  <p className="text-muted-foreground text-xs mt-0.5">
+                    Android Head Units · Speakers · Subwoofers · Amplifiers
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to="/products/"
+                  className="group flex items-center justify-between gap-2 rounded-lg border border-border/30 bg-background/40 px-3 py-2 text-xs font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                >
+                  Android Head Units
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/car-audio/"
+                  className="group flex items-center justify-between gap-2 rounded-lg border border-border/30 bg-background/40 px-3 py-2 text-xs font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                >
+                  Car Audio
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </div>
+
             {entryPoints.map((entry, index) => (
               <Link
                 key={entry.id}
                 to={entry.href}
-                className="group flex items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="group flex h-full items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                style={{ animationDelay: `${(index + 1) * 50}ms` }}
               >
                 <div
                   className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${entry.color} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}

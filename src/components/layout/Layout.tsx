@@ -33,7 +33,7 @@ export function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className={`min-h-screen flex flex-col ${isContact ? "" : "pb-20 md:pb-0"}`}>
+    <div className={`min-h-screen flex flex-col ${isContact ? "" : "pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0"}`}>
       <Header />
       <main className="flex-1">
         {children}

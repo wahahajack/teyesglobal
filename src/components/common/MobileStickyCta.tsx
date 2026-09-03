@@ -39,23 +39,27 @@ export function MobileStickyCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-[60] border-t border-border/60 bg-background/95 px-3 pt-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] shadow-[0_-8px_30px_rgba(0,0,0,0.16)] backdrop-blur-lg transition-transform duration-300 md:hidden ${
+      className={`fixed inset-x-0 bottom-0 border-t border-border/60 bg-background/95 px-3 pt-2 shadow-2xl backdrop-blur-lg transition-transform duration-300 md:hidden ${
         isVisible ? "translate-y-0" : "translate-y-full pointer-events-none"
       }`}
+      style={{
+        zIndex: 60,
+        paddingBottom: "calc(env(safe-area-inset-bottom) + 0.5rem)",
+      }}
       aria-hidden={!isVisible}
     >
       <div className="mx-auto flex max-w-lg gap-2">
         <Link
           to="/products/"
           tabIndex={isVisible ? 0 : -1}
-          className="flex min-h-12 flex-1 items-center justify-center rounded-lg border border-border bg-secondary/40 px-4 text-sm font-semibold text-foreground transition-colors active:bg-secondary/70"
+          className="flex h-12 flex-1 items-center justify-center rounded-lg border border-border bg-secondary/40 px-4 text-sm font-semibold text-foreground transition-colors active:bg-secondary/70"
         >
           View Products
         </Link>
         <Link
           to="/contact/"
           tabIndex={isVisible ? 0 : -1}
-          className="flex min-h-12 flex-1 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-opacity active:opacity-90"
+          className="flex h-12 flex-1 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-opacity active:opacity-90"
         >
           Get in Touch
         </Link>

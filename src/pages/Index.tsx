@@ -98,7 +98,7 @@ const Index = () => {
     <Layout>
       <SEO
         title="TEYES Premium Android Head Units & Car Audio"
-        description="Premium TEYES Android head units and car audio solutions for distributors, installers, wholesalers and automotive partners across global aftermarket markets."
+        description="Premium TEYES Android head units and car audio solutions for distributors, installers, wholesalers and automotive partners in the global automotive aftermarket."
         path="/"
         schema={schema}
         faq={faq}

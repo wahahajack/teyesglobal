@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
 import { useState } from "react";
@@ -79,7 +78,7 @@ const ProductsPage = () => {
         ]}
       />
       <ContextHeader
-        title="Products"
+        title="Android Head Units"
         description="From flagship performance to value-focused entry solutions, find the perfect product for your market."
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -146,18 +145,13 @@ const ProductsPage = () => {
         return (
           <section key={key} id={key} className="py-10 bg-background border-t border-border/50">
             <div className="container-wide">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-2xl font-display font-bold">{info.name}</h2>
-                  <p className="text-muted-foreground">{info.description}</p>
-                </div>
-                <Button variant="hero-outline" size="sm" asChild>
-                  <Link to={`/products/lines/#${key}`}>View All</Link>
-                </Button>
+              <div className="mb-8">
+                <h2 className="text-2xl font-display font-bold">{info.name}</h2>
+                <p className="text-muted-foreground">{info.description}</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {seriesProducts.slice(0, 3).map((product) => (
+                {seriesProducts.map((product) => (
                   <Link
                     key={product.id}
                     to={`/products/${product.id}/`}

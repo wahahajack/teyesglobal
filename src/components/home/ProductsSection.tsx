@@ -46,7 +46,7 @@ const productSeries = [
 
 export function ProductsSection() {
   return (
-    <section className="py-24 bg-card">
+    <section className="pt-24 pb-8 md:py-24 bg-card">
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>

@@ -148,6 +148,13 @@ const CarAudio = () => {
                   <a href="#product-range">Explore the Range</a>
                 </Button>
               </div>
+              <Link
+                to="/car-audio/compare/"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+              >
+                Compare Car Audio Products
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
             <div className="relative">

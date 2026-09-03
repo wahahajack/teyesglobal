@@ -17,6 +17,7 @@ export const STATIC_ROUTES = [
   '/products/lines',
   '/products/compare',
   '/car-audio',
+  '/car-audio/compare',
   '/car-audio/speakers',
   '/car-audio/enclosed-subwoofers',
   '/car-audio/amplifiers',

@@ -3,8 +3,8 @@ import { ArrowRight, Boxes, Globe2, Handshake, Layers3 } from "lucide-react";
 
 const portalLinks = [
   {
-    title: "Product Lines & Model Comparison",
-    description: "Compare TEYES Android head unit models by market position, performance level, and channel role.",
+    title: "Compare Products",
+    description: "Compare TEYES Android head units and car audio products side by side by specifications and features.",
     href: "/products/compare/",
     icon: Layers3,
   },

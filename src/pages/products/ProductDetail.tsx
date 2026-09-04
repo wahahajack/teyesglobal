@@ -5,6 +5,27 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Star } from "lucide-react";
 import { getProductById, products } from "@/data/products";
 
+const productSeoOverrides: Record<string, { title: string; heading: string; intro: string }> = {
+  "cc4-pro": {
+    title: "TEYES CC4 Pro | Premium Android Head Unit",
+    heading: "TEYES CC4 Pro",
+    intro:
+      "TEYES CC4 Pro is the flagship premium Android head unit, combining a 6nm processor, 12TOPS AI NPU, 2K AMOLED display, 7.1-channel DTS audio and integrated 360° camera support.",
+  },
+  cc4: {
+    title: "TEYES CC4 | High-Performance Android Head Unit",
+    heading: "TEYES CC4",
+    intro:
+      "TEYES CC4 is a high-performance Android head unit with a 2000×1200 2K display, SM6225 8-core processor and 7.1-channel DTS audio.",
+  },
+  cc4l: {
+    title: "TEYES CC4L | Smart Value Android Head Unit",
+    heading: "TEYES CC4L",
+    intro:
+      "TEYES CC4L is a smart-value Android head unit designed for markets that need essential TEYES infotainment features at a more accessible price point.",
+  },
+};
+
 const ProductDetailPage = () => {
   const { productId } = useParams();
   const product = getProductById(productId || "");
@@ -29,8 +50,10 @@ const ProductDetailPage = () => {
     .filter((p) => p.series === product.series && p.id !== product.id)
     .slice(0, 2);
 
+  const seoOverride = productSeoOverrides[product.id];
+
   // Generate SEO content
-  const seoTitle = `${product.name} - ${product.tagline} | TEYES Car Infotainment`;
+  const seoTitle = seoOverride?.title ?? `${product.name} - ${product.tagline} | TEYES Car Infotainment`;
   const seoDescription = `${product.description} Features: ${product.features.slice(0, 4).join(", ")}. ${product.seriesName}.`;
   const seoKeywords = `${product.name}, TEYES, car head unit, android car stereo, ${product.features.join(", ")}, ${product.seriesName}`;
 
@@ -56,7 +79,7 @@ const ProductDetailPage = () => {
               Products
             </Link>
             <span>/</span>
-            <Link to="/products/lines/" className="hover:text-foreground transition-colors">
+            <Link to={`/products/#${product.series}`} className="hover:text-foreground transition-colors">
               {product.seriesName}
             </Link>
             <span>/</span>
@@ -93,12 +116,12 @@ const ProductDetailPage = () => {
             <div>
               <p className="text-primary font-medium mb-2">{product.seriesName}</p>
               <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                {product.name}
+                {seoOverride?.heading ?? product.name}
               </h1>
               <p className="text-xl text-muted-foreground mb-6">
                 {product.tagline}
               </p>
-              <p className="text-muted-foreground mb-8">{product.description}</p>
+              <p className="text-muted-foreground mb-8">{seoOverride?.intro ?? product.description}</p>
 
               {/* Highlights */}
               <div className="space-y-3 mb-8">

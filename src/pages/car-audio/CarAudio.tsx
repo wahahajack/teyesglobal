@@ -112,7 +112,7 @@ const CarAudio = () => {
     <Layout>
       <SEO
         title="TEYES Car Audio - Speakers, Enclosed Subwoofers & Amplifiers"
-        description="Explore TEYES Car Audio speakers and standalone subwoofer drivers, enclosed subwoofers and power amplifiers for automotive aftermarket distributors and car audio channels."
+        description="Explore TEYES Car Audio and car stereo products, including speakers, standalone subwoofer drivers, enclosed subwoofers and power amplifiers for distributors, wholesalers and installers."
         path="/car-audio/"
         schema={collectionSchema}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Car Audio" }]}

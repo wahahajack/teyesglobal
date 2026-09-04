@@ -16,8 +16,8 @@ const entryPoints = [
   {
     id: "products-compare",
     icon: Building2,
-    label: "Product Lines & Model Comparison",
-    description: "Compare flagship, mainstream, and entry-level models",
+    label: "Compare Products",
+    description: "Compare head units and car audio products side by side",
     href: "/products/compare/",
     color: "from-primary to-blue-400",
   },
@@ -81,18 +81,23 @@ export function HeroSection() {
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
-              Android head units, car stereo systems, accessories, distributor cooperation,
-              and OEM/ODM solutions for global markets.
+              Premium TEYES Android head units and car audio solutions for distributors,
+              installers and automotive partners worldwide.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products/">
+                <Link id="hero-product-cta" to="/products/">
                   Explore Product Lines
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
+              <Button
+                variant="hero-outline"
+                size="lg"
+                className="border-border/80 bg-secondary/90 shadow-sm hover:border-primary/70 hover:bg-secondary md:h-12 md:px-6"
+                asChild
+              >
                 <Link to="/contact/">Contact TEYES</Link>
               </Button>
             </div>
@@ -165,7 +170,7 @@ export function HeroSection() {
               <Link
                 key={entry.id}
                 to={entry.href}
-                className="group flex items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                className="group flex h-full items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div

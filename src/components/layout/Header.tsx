@@ -16,7 +16,6 @@ const navigation = [
     children: [
       { name: "Android Head Units", href: "/products/" },
       { name: "Car Audio", href: "/car-audio/" },
-      { name: "Product Lines", href: "/products/lines/" },
       { name: "Compare Products", href: "/products/compare/" },
       { name: "Accessories", href: "/accessories/" },
     ],

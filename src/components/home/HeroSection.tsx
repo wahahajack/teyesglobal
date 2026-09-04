@@ -68,7 +68,7 @@ export function HeroSection() {
 
       {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
-        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-10 items-center">
           {/* Left: Text Content */}
           <div className="space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
@@ -105,7 +105,7 @@ export function HeroSection() {
           </div>
 
           {/* Right: Product Image */}
-          <div className="relative max-w-[520px] xl:max-w-[560px] w-full mx-auto lg:ml-auto">
+          <div className="relative max-w-[620px] xl:max-w-[660px] w-full mx-auto lg:ml-auto">
             <div className="relative">
               {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-accent/15 to-transparent rounded-3xl blur-3xl transform scale-105" />
@@ -120,11 +120,11 @@ export function HeroSection() {
                   <source media="(min-width: 769px)" type="image/avif" srcSet={teyesHero1200Avif} />
                   <source media="(min-width: 769px)" type="image/webp" srcSet={teyesHero1200} />
                   <img
-                    src={teyesHero800}
+                    src={teyesHero1200}
                     alt="TEYES CC4 Pro smart head unit with speakers, subwoofer and amplifier"
                     className="w-full h-auto"
-                    width={800}
-                    height={800}
+                    width={1200}
+                    height={1200}
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"

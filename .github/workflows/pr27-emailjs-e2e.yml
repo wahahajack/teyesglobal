@@ -11,7 +11,7 @@ permissions:
 jobs:
   browser-e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -26,8 +26,13 @@ jobs:
       - name: Install dependencies without install hooks or audit
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      - name: Install Chrome for Puppeteer
-        run: npx puppeteer browsers install chrome
+      - name: Detect preinstalled Chrome
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          echo "PUPPETEER_EXECUTABLE_PATH=$CHROME" >> "$GITHUB_ENV"
+          echo "Using $CHROME"
 
       - name: Run PR27 EmailJS browser E2E
         run: node .github/scripts/pr27-emailjs-e2e.mjs

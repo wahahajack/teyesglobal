@@ -160,13 +160,16 @@ it("injects the shared attribution envelope into static EmailJS forms without du
   expect(typeof client?.getEmailAttributionSnapshot).toBe("function");
 });
 
-it("installs React EmailJS enrichment before the app renders", () => {
+it("wires Contact EmailJS enrichment explicitly and initializes first-visit before stored attribution", () => {
   const mainSource = readFileSync(join(__dirname, "..", "main.tsx"), "utf8");
-  const enrichmentSource = readFileSync(join(__dirname, "..", "lib", "emailJsEnrichment.ts"), "utf8");
+  const contactSource = readFileSync(join(__dirname, "..", "pages", "Contact.tsx"), "utf8");
 
-  expect(mainSource).toContain("installEmailJsEnrichment();");
-  expect(mainSource.indexOf("installEmailJsEnrichment();")).toBeLessThan(mainSource.indexOf("createRoot("));
-  expect(enrichmentSource).toContain("getEmailAttributionSnapshot({");
-  expect(enrichmentSource).toContain("...attribution");
-  expect(enrichmentSource).toContain('formName: "contact_page"');
+  expect(mainSource).toContain("initEmailAttributionContext();");
+  expect(mainSource.indexOf("initEmailAttributionContext();")).toBeLessThan(mainSource.indexOf("persistAdParams();"));
+  expect(contactSource).toContain('import { getEmailAttributionSnapshot } from "@/lib/emailAttribution";');
+  expect(contactSource).toContain("const emailAttribution = getEmailAttributionSnapshot({");
+  expect(contactSource).toContain("...emailAttribution,");
+  expect(contactSource).toContain('formName: "contact_page"');
+  expect(contactSource).toContain("submissionId,");
+  expect(contactSource).toContain("submittedAt,");
 });

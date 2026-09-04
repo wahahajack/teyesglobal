@@ -11,6 +11,7 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
+import { getEmailAttributionSnapshot } from "@/lib/emailAttribution";
 import { delayForConversionDispatch, pushContactEmailClick, pushFormSubmitSuccess } from "@/lib/tracking";
 import {
   buildAttribution,
@@ -120,6 +121,8 @@ const ContactPage = () => {
       let user_country = "Unknown";
       const submissionId = createSubmissionId();
       const submittedAt = new Date().toISOString();
+      const inquiryType = formData.inquiryType || "General";
+      const inquiryTypeLabel = inquiryTypes.find((type) => type.value === formData.inquiryType)?.label || inquiryType;
 
       try {
         const geoResponse = await fetchWithTimeout("https://ipapi.co/json/");
@@ -137,6 +140,14 @@ const ContactPage = () => {
         console.warn("Geo lookup failed:", geoError);
       }
 
+      const emailAttribution = getEmailAttributionSnapshot({
+        formName: "contact_page",
+        inquiryType,
+        inquiryTypeLabel,
+        submittedAt,
+        submissionId,
+      });
+
       // EmailJS template parameters
       const templateParams = {
         full_name: formData.name,
@@ -144,11 +155,12 @@ const ContactPage = () => {
         company: formData.company || "N/A",
         country: formData.country || "N/A",
         user_country,
-        inquiry_type: formData.inquiryType || "General",
+        inquiry_type: inquiryType,
         user_time: submittedAt,
         submission_id: submissionId,
         message: formData.message,
         to_email: "info@teyesauto.com",
+        ...emailAttribution,
       };
 
       const result = await emailjs.send(

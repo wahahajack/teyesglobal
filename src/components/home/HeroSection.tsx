@@ -154,7 +154,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <p className="hidden sm:block mt-3 text-center text-xs text-muted-foreground/80 tracking-wide">
+            <p className="hidden sm:block mt-3 rounded-full border border-border/50 bg-secondary/30 px-4 py-2 text-center text-sm font-semibold uppercase tracking-[0.12em] text-foreground/80 md:text-base">
               Head Units · Speakers · Amplifiers · Subwoofers
             </p>
           </div>

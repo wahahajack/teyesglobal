@@ -76,7 +76,7 @@ export function HeroSection() {
               Trusted by 100+ Markets Worldwide
             </div>
 
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.02] tracking-[-0.035em]">
               <span className="text-gradient">TEYES Global Smart Infotainment Solutions</span>
             </h1>
 

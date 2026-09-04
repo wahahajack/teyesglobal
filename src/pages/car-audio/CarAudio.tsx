@@ -171,7 +171,7 @@ const CarAudio = () => {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" aria-hidden="true" />
               </div>
-              <p className="mt-4 text-sm font-semibold uppercase tracking-[0.28em] text-foreground/70 sm:text-base" aria-label="Detail, Dynamics, Depth">
+              <p className="mt-4 text-center text-sm font-semibold uppercase tracking-[0.28em] text-foreground/70 sm:text-base" aria-label="Detail, Dynamics, Depth">
                 DETAIL <span className="px-1.5 text-primary">·</span> DYNAMICS <span className="px-1.5 text-primary">·</span> DEPTH
               </p>
             </div>

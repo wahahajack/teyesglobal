@@ -3,7 +3,6 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import "./index.css";
 import { initEmailAttributionContext } from "./lib/emailAttribution";
-import { installEmailJsEnrichment } from "./lib/emailJsEnrichment";
 import {
   initDataLayer,
   installContactEntryTracking,
@@ -15,7 +14,6 @@ import {
 initDataLayer();
 initEmailAttributionContext();
 persistAdParams();
-installEmailJsEnrichment();
 installContactEntryTracking();
 installPageJourneyTracking();
 

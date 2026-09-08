@@ -53,10 +53,10 @@ export const newsArticles: NewsArticle[] = [
     slug: "automechanika-frankfurt-2026",
     category: "exhibitions",
     title:
-      "TEYES Exhibits at Automechanika Frankfurt 2026, the World's Leading Automotive Aftermarket Trade Fair",
+      "TEYES Exhibits at Automechanika Frankfurt 2026 and Launches New Car Audio Series",
     date: "2026-09-08",
     excerpt:
-      "TEYES is exhibiting at Automechanika Frankfurt 2026 (September 8–12, Messe Frankfurt) — visit us at Hall 3.1, Booth G85 to explore our Android smart infotainment lineup built for distributors, retailers, and industry partners from 80+ countries.",
+      "TEYES is exhibiting at Automechanika Frankfurt 2026 (September 8–12, Messe Frankfurt, Hall 3.1, Booth G85) and using the show to launch its new car audio series — speakers, amplifiers, and subwoofers that extend the TEYES ecosystem from infotainment to complete in-car sound systems.",
     location: "Messe Frankfurt, Frankfurt am Main, Germany",
     eventDates: "September 8–12, 2026",
     booth: "Hall 3.1, Booth G85",
@@ -69,6 +69,26 @@ export const newsArticles: NewsArticle[] = [
       {
         type: "paragraph",
         text: "At the show, TEYES is presenting its full range of Android smart infotainment systems for the automotive aftermarket — from entry-level head units to flagship large-screen solutions — alongside accessories and OEM/ODM capabilities for partners who want custom-branded products.",
+      },
+      {
+        type: "heading",
+        text: "New Product Launch: TEYES Car Audio Series",
+      },
+      {
+        type: "paragraph",
+        text: "The headline announcement at this year's booth is the launch of the TEYES car audio series. Building on a decade-plus of infotainment engineering, TEYES is extending its product ecosystem from screens and software into complete in-car sound systems.",
+      },
+      {
+        type: "paragraph",
+        text: "The new series covers three product categories: speakers, amplifiers, and subwoofers. Together with TEYES head units — including flagship models with multi-channel DSP audio output — the new lineup lets drivers upgrade their entire sound system under one brand, with one support channel, and with vehicle-fitment know-how backed by TEYES localization experience in 100+ markets.",
+      },
+      {
+        type: "paragraph",
+        text: "For distributors and retailers, the car audio series opens a higher-margin accessory category alongside head units, while OEM/ODM partners can develop custom-branded audio programs on the same platforms.",
+      },
+      {
+        type: "paragraph",
+        text: "Visitors to Hall 3.1, Booth G85 can experience the new audio lineup live at the TEYES demonstration area throughout the fair.",
       },
       {
         type: "heading",

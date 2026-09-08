@@ -5,9 +5,14 @@
 export type NewsCategory = "company" | "exhibitions" | "industry";
 
 export interface NewsArticleBlock {
-  type: "paragraph" | "heading" | "list";
+  type: "paragraph" | "heading" | "list" | "image";
   text?: string;
   items?: string[];
+  src?: string;
+  alt?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
 }
 
 export interface NewsArticle {
@@ -79,8 +84,24 @@ export const newsArticles: NewsArticle[] = [
         text: "The headline announcement at this year's booth is the launch of the TEYES car audio series. Building on a decade-plus of infotainment engineering, TEYES is extending its product ecosystem from screens and software into complete in-car sound systems.",
       },
       {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-demo-large.webp",
+        alt: "TEYES car audio demo station at Automechanika Frankfurt 2026 — speakers, head unit and subwoofer on a lit display podium",
+        caption: "The TEYES car audio demo station at Hall 3.1, Booth G85 — speakers, a TEYES head unit, and a subwoofer playing in a live setup",
+        width: 1600,
+        height: 900,
+      },
+      {
         type: "paragraph",
-        text: "The new series covers three product categories: speakers, amplifiers, and subwoofers. Together with TEYES head units — including flagship models with multi-channel DSP audio output — the new lineup lets drivers upgrade their entire sound system under one brand, with one support channel, and with vehicle-fitment know-how backed by TEYES localization experience in 100+ markets.",
+        text: "The new series covers three product categories: speakers, amplifiers, and subwoofers. On display at the booth are multi-channel amplifiers including the TD500/4, TD600/1, and TD600/4, alongside compact BX-10 series subwoofers such as the BX-10TSL-V4, and 1-DIN head units including the TP1200/1. Together with TEYES head units — including flagship models with multi-channel DSP audio output — the new lineup lets drivers upgrade their entire sound system under one brand, with one support channel, and with vehicle-fitment know-how backed by TEYES localization experience in 100+ markets.",
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-wall.webp",
+        alt: "TEYES exhibition wall at Automechanika Frankfurt 2026 showing head units, amplifiers and subwoofers on three display shelves",
+        caption: "The TEYES audio wall — head units on top, TD-series amplifiers in the middle, and BX-10 series subwoofers below",
+        width: 1200,
+        height: 2133,
       },
       {
         type: "paragraph",
@@ -89,6 +110,50 @@ export const newsArticles: NewsArticle[] = [
       {
         type: "paragraph",
         text: "Visitors to Hall 3.1, Booth G85 can experience the new audio lineup live at the TEYES demonstration area throughout the fair.",
+      },
+      {
+        type: "heading",
+        text: "Digital Cameras and Accessories",
+      },
+      {
+        type: "paragraph",
+        text: "Alongside head units and the new audio series, TEYES is showcasing its growing accessory ecosystem at the booth — digital camera and microphone products that extend the infotainment system into a complete vehicle electronics platform.",
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-front-adas-camera.webp",
+        alt: "TEYES front ADAS camera on display at Automechanika Frankfurt 2026",
+        caption: "TEYES front ADAS camera",
+        width: 1200,
+        height: 675,
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-rear-adas-camera.webp",
+        alt: "TEYES rear ADAS camera with 1080P digital output on display at Automechanika Frankfurt 2026",
+        caption: "TEYES rear ADAS camera — 1080P digital",
+        width: 1200,
+        height: 675,
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-rear-360-camera.webp",
+        alt: "TEYES rear 360-degree camera on display at Automechanika Frankfurt 2026",
+        caption: "TEYES rear 360° camera",
+        width: 1200,
+        height: 675,
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-digital-mic.webp",
+        alt: "TEYES digital microphone on display at Automechanika Frankfurt 2026",
+        caption: "TEYES digital microphone for in-car voice and calls",
+        width: 1200,
+        height: 675,
+      },
+      {
+        type: "paragraph",
+        text: "The camera lineup includes a front ADAS camera for advanced driver assistance features, a rear ADAS camera with 1080P digital output, and a rear 360° camera for surround-view parking — all designed to integrate with TEYES head units. A digital microphone rounds out the lineup for clear in-car voice control and hands-free calls.",
       },
       {
         type: "heading",

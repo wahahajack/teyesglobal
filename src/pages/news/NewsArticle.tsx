@@ -42,6 +42,25 @@ const BlockRenderer = ({ block }: { block: NewsArticleBlock }) => {
       </ul>
     );
   }
+  if (block.type === "image") {
+    return (
+      <figure className="my-8">
+        <img
+          src={block.src}
+          alt={block.alt ?? ""}
+          width={block.width}
+          height={block.height}
+          loading="lazy"
+          className="w-full max-w-2xl mx-auto rounded-2xl border border-border/50 object-cover"
+        />
+        {block.caption && (
+          <figcaption className="text-center text-xs text-muted-foreground mt-3">
+            {block.caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
   return <p className="my-4 text-muted-foreground leading-relaxed">{block.text}</p>;
 };
 

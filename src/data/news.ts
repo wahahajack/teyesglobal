@@ -56,10 +56,10 @@ export const newsArticles: NewsArticle[] = [
       "TEYES Exhibits at Automechanika Frankfurt 2026, the World's Leading Automotive Aftermarket Trade Fair",
     date: "2026-09-08",
     excerpt:
-      "TEYES is exhibiting at Automechanika Frankfurt 2026 (September 8–12, Messe Frankfurt), presenting its Android smart infotainment lineup to distributors, retailers, and industry partners from 80+ countries.",
+      "TEYES is exhibiting at Automechanika Frankfurt 2026 (September 8–12, Messe Frankfurt) — visit us at Hall 3.1, Booth G85 to explore our Android smart infotainment lineup built for distributors, retailers, and industry partners from 80+ countries.",
     location: "Messe Frankfurt, Frankfurt am Main, Germany",
     eventDates: "September 8–12, 2026",
-    booth: "Booth details to be announced",
+    booth: "Hall 3.1, Booth G85",
     blocks: [
       {
         type: "paragraph",
@@ -95,7 +95,7 @@ export const newsArticles: NewsArticle[] = [
           "Event: Automechanika Frankfurt 2026",
           "Dates: September 8–12, 2026 (9:00–18:00; 9:00–17:00 on September 12)",
           "Venue: Messe Frankfurt, Ludwig-Erhard-Anlage 1, 60327 Frankfurt am Main, Germany",
-          "TEYES Booth: [Hall / Booth number to be confirmed — update before publishing]",
+          "TEYES Booth: Hall 3.1, Booth G85",
         ],
       },
       {

@@ -60,6 +60,7 @@ export const newsArticles: NewsArticle[] = [
     location: "Messe Frankfurt, Frankfurt am Main, Germany",
     eventDates: "September 8–12, 2026",
     booth: "Hall 3.1, Booth G85",
+    image: "/assets/news/automechanika-2026-booth-1-large.webp",
     blocks: [
       {
         type: "paragraph",

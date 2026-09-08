@@ -139,6 +139,24 @@ const NewsArticlePage = () => {
             )}
           </div>
 
+          {/* Hero image */}
+          {article.image && (
+            <figure className="mb-10">
+              <img
+                src={article.image}
+                alt={article.title}
+                width={1600}
+                height={2844}
+                loading="eager"
+                className="w-full max-w-2xl mx-auto rounded-2xl border border-border/50 object-cover"
+              />
+              <figcaption className="text-center text-xs text-muted-foreground mt-3">
+                The TEYES booth at Automechanika Frankfurt 2026 — Hall 3.1,
+                Booth G85
+              </figcaption>
+            </figure>
+          )}
+
           {/* Body */}
           {article.blocks.map((block, index) => (
             <BlockRenderer key={index} block={block} />

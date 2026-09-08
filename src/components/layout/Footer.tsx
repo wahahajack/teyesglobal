@@ -15,10 +15,16 @@ const footerLinks = {
     { name: "Market Solutions", href: "/solutions/market-needs/" },
   ],
   company: [
+    { name: "About TEYES", href: "/about/" },
     { name: "OEM / ODM", href: "/oem-odm/" },
     { name: "Certifications", href: "/oem-odm/certifications/" },
     { name: "Project Cases", href: "/oem-odm/cases/" },
     { name: "Contact", href: "/contact/" },
+  ],
+  news: [
+    { name: "Company News", href: "/news/company/" },
+    { name: "Exhibitions & Events", href: "/news/exhibitions/" },
+    { name: "Industry Insights", href: "/news/industry/" },
   ],
 };
 
@@ -32,7 +38,7 @@ export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
@@ -89,6 +95,23 @@ export function Footer() {
             <h3 className="text-foreground font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* News */}
+          <div>
+            <h3 className="text-foreground font-semibold mb-4">News</h3>
+            <ul className="space-y-3">
+              {footerLinks.news.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}

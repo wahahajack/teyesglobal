@@ -28,8 +28,25 @@ export const STATIC_ROUTES = [
   '/landing/market-entry',
   '/landing/distributor',
   '/accessories',
+  '/about',
+  '/news',
+  '/news/company',
+  '/news/exhibitions',
+  '/news/industry',
   '/contact',
 ];
+
+export function getNewsRoutes() {
+  const source = readFileSync(path.join(rootDir, 'src/data/news.ts'), 'utf8');
+  return [...source.matchAll(/slug:\s*"([^"]+)"/g)]
+    .map((m) => {
+      const slug = m[1];
+      const after = source.slice(m.index);
+      const category = /category:\s*"([^"]+)"/.exec(after)?.[1];
+      return category ? `/news/${category}/${slug}` : null;
+    })
+    .filter(Boolean);
+}
 
 export function getProductRoutes() {
   const source = readFileSync(path.join(rootDir, 'src/data/products.ts'), 'utf8');
@@ -37,7 +54,7 @@ export function getProductRoutes() {
 }
 
 export function getAllRoutes() {
-  return [...STATIC_ROUTES, ...getProductRoutes()];
+  return [...STATIC_ROUTES, ...getProductRoutes(), ...getNewsRoutes()];
 }
 
 // Site-wide canonical policy: trailing slash everywhere (matches Netlify's

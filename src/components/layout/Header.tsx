@@ -38,6 +38,19 @@ const navigation = [
       { name: "Project Cases", href: "/oem-odm/cases/" },
     ],
   },
+  {
+    name: "News",
+    href: "/news/",
+    children: [
+      { name: "Company News", href: "/news/company/" },
+      { name: "Exhibitions & Events", href: "/news/exhibitions/" },
+      { name: "Industry Insights", href: "/news/industry/" },
+    ],
+  },
+  {
+    name: "About",
+    href: "/about/",
+  },
   { name: "Contact", href: "/contact/" },
 ];
 

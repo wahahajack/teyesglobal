@@ -42,6 +42,11 @@ const LandingOemPage = lazy(() => import("./pages/landing/LandingOem"));
 const LandingMarketEntryPage = lazy(() => import("./pages/landing/LandingMarketEntry"));
 const LandingDistributorPage = lazy(() => import("./pages/landing/LandingDistributor"));
 
+// News & About
+const AboutPage = lazy(() => import("./pages/about/About"));
+const NewsPage = lazy(() => import("./pages/news/News"));
+const NewsArticlePage = lazy(() => import("./pages/news/NewsArticle"));
+
 // Other Pages
 const AccessoriesPage = lazy(() => import("./pages/Accessories"));
 const ContactPage = lazy(() => import("./pages/Contact"));
@@ -92,6 +97,12 @@ const App = () => (
               <Route path="/landing/distributor" element={<LandingDistributorPage />} />
               {/* Accessories */}
               <Route path="/accessories" element={<AccessoriesPage />} />
+              {/* About */}
+              <Route path="/about" element={<AboutPage />} />
+              {/* News */}
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/news/:category" element={<NewsPage />} />
+              <Route path="/news/:category/:slug" element={<NewsArticlePage />} />
               {/* Contact */}
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/thank-you" element={<HomeThankYou />} />

@@ -61,7 +61,14 @@ const BlockRenderer = ({ block }: { block: NewsArticleBlock }) => {
       </figure>
     );
   }
-  return <p className="my-4 text-muted-foreground leading-relaxed">{block.text}</p>;
+  // Paragraph text is authored in news.ts (internal content, no user input),
+  // so inline HTML for links is rendered intentionally.
+  return (
+    <p
+      className="my-4 text-muted-foreground leading-relaxed [&_a]:text-primary [&_a]:underline hover:[&_a]:text-primary/80"
+      dangerouslySetInnerHTML={{ __html: block.text ?? "" }}
+    />
+  );
 };
 
 const NewsArticlePage = () => {

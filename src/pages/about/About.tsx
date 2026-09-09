@@ -25,7 +25,7 @@ const organizationSchema = JSON.stringify({
   logo: "https://teyesglobal.com/logo.webp",
   slogan: "Global Smart Infotainment Solutions for the Automotive Aftermarket",
   description:
-    "TEYES is a Shenzhen-based manufacturer of Android car infotainment systems founded in 2011. The company designs and manufactures Android head units, smart car stereos, dash cameras, TPMS and accessories, serving distributors, auto brands and OEM/ODM partners in 100+ markets with more than 5 million users.",
+    "TEYES is a Shenzhen-based manufacturer of Android car infotainment systems founded in 2011. The company designs and manufactures Android head units, smart car stereos, dash cameras, TPMS and accessories. In 2026 TEYES extended its ecosystem into car audio with a new series of speakers, Class D amplifiers (TD and TP series) and subwoofers (TS and BX series). TEYES serves distributors, auto brands and OEM/ODM partners in 100+ markets with more than 5 million users.",
   foundingDate: "2011",
   numberOfEmployees: { "@type": "QuantitativeValue", minValue: 500 },
   areaServed: { "@type": "Place", name: "Global (100+ markets)" },
@@ -41,6 +41,10 @@ const organizationSchema = JSON.stringify({
     "Smart Car Stereos",
     "Wireless CarPlay and Android Auto",
     "360-Degree Camera Systems",
+    "Car Audio Systems",
+    "Car Speakers",
+    "Car Amplifiers",
+    "Car Subwoofers",
     "OEM/ODM Manufacturing",
     "Automotive Aftermarket",
   ],
@@ -65,7 +69,7 @@ const quickFacts = [
   { label: "Employees", value: "500+" },
   { label: "Markets Served", value: "100+ countries" },
   { label: "Users", value: "5M+" },
-  { label: "Product Lines", value: "CC4 Pro, CC3 2K, CC4, X1 Pro, CC4L + accessories" },
+  { label: "Product Lines", value: "CC4 Pro, CC3 2K, CC4, X1 Pro, CC4L head units + 2026 car audio series (speakers, amplifiers, subwoofers) + accessories" },
   { label: "Business Models", value: "Distribution, OEM / ODM, white-label" },
 ];
 
@@ -123,12 +127,33 @@ const productLadder = [
   },
 ];
 
+const carAudioLadder = [
+  {
+    name: "Speakers",
+    position: "Component & Coaxial",
+    highlights: "T3-652 / T6-652 / T6-653A component sets, T6-803A active 3-way, T3-65X / T6-65X coaxial",
+    href: "/car-audio/speakers/",
+  },
+  {
+    name: "Amplifiers",
+    position: "Class D",
+    highlights: "TD500/4 four-channel and TD1000/1 mono; DSP-controlled TP800/4 and TP1200/1",
+    href: "/car-audio/amplifiers/",
+  },
+  {
+    name: "Subwoofers",
+    position: "Under-Seat & Boxed",
+    highlights: "TS-08 / TS-10 under-seat enclosures; BXA3 / BX1 / BX2 / BX4 boxed enclosures",
+    href: "/car-audio/enclosed-subwoofers/",
+  },
+];
+
 const AboutPage = () => {
   return (
     <Layout>
       <SEO
         title="About TEYES - Android Car Infotainment Manufacturer Since 2011"
-        description="TEYES (Shenzhen Teyes High Tech Co., Ltd.) is a Shenzhen-based manufacturer of Android head units and smart car infotainment systems, founded in 2011. 500+ employees, 100+ markets, 5M+ users, OEM/ODM services."
+        description="TEYES (Shenzhen Teyes High Tech Co., Ltd.) is a Shenzhen-based manufacturer of Android head units and smart car infotainment systems, founded in 2011. 2026 car audio series (speakers, amplifiers, subwoofers), 500+ employees, 100+ markets, 5M+ users, OEM/ODM services."
         keywords="TEYES company, TEYES about, android head unit manufacturer, car infotainment OEM, Shenzhen Teyes High Tech, TEYES history"
         path="/about/"
         schema={organizationSchema}
@@ -155,10 +180,12 @@ const AboutPage = () => {
             manufactures its own line of Android head units — including the
             flagship CC4 Pro, the best-selling CC3 2K, the CC4, and entry-level
             X1 Pro and CC4L — together with dash cameras, TPMS, OBD, DAB+ and
-            other accessories. TEYES products are sold in more than 100 markets
-            and used by over 5 million drivers, and the company operates as an
-            OEM/ODM partner for auto brands, distributors, and system
-            integrators worldwide.
+            other accessories. In 2026, TEYES extended its ecosystem from
+            infotainment into complete in-car sound with a new car audio
+            series: speakers, Class D amplifiers, and subwoofers. TEYES
+            products are sold in more than 100 markets and used by over 5
+            million drivers, and the company operates as an OEM/ODM partner for
+            auto brands, distributors, and system integrators worldwide.
           </p>
 
           {/* Quick facts table */}
@@ -225,6 +252,47 @@ const AboutPage = () => {
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               View all products <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* 2026 car audio series */}
+          <h3 className="text-xl md:text-2xl font-display font-bold mt-14 mb-3">
+            New in 2026: The TEYES Car Audio Series
+          </h3>
+          <p className="text-muted-foreground leading-relaxed mb-6">
+            Launched at Automechanika Frankfurt 2026, the TEYES car audio
+            series extends the TEYES ecosystem from screens and software into
+            complete in-car sound systems — so drivers can upgrade their entire
+            audio chain under one brand, and distributors gain a higher-margin
+            category alongside head units.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {carAudioLadder.map((product) => (
+              <Link
+                key={product.name}
+                to={product.href}
+                className="group rounded-2xl bg-card border border-border/50 p-6 hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-display font-bold text-lg group-hover:text-primary transition-colors">
+                    {product.name}
+                  </h4>
+                  <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                    {product.position}
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {product.highlights}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link
+              to="/car-audio/"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            >
+              Explore the car audio series <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

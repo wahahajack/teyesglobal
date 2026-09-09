@@ -9,57 +9,57 @@ const solutionCategories = [
   {
     id: "distributors",
     title: "For Distributors",
-    description: "Access proven products with competitive margins and reliable supply chain support",
+    description: "Review Android car stereos, car audio products and distribution options",
     icon: Building2,
     href: "/solutions/distributors/",
     color: "from-primary to-accent",
     benefits: [
-      "Competitive wholesale pricing",
-      "Marketing support materials",
-      "Technical training programs",
-      "Dedicated account management",
+      "Product information and selection support",
+      "Marketing materials for your channels",
+      "Technical information for installation projects",
+      "Discuss account and order requirements",
     ],
   },
   {
     id: "auto-brands",
     title: "For Auto Brands",
-    description: "White-label and co-branded infotainment solutions tailored to your specifications",
+    description: "Discuss branded infotainment products tailored to your specifications",
     icon: Car,
     href: "/solutions/auto-brands/",
     color: "from-emerald-500 to-teal-400",
     benefits: [
-      "Custom branding options",
-      "Exclusive model variants",
-      "Priority production scheduling",
-      "Joint development programs",
+      "Branding options",
+      "Product variants",
+      "Production planning",
+      "Joint project discussions",
     ],
   },
   {
     id: "integrators",
     title: "For System Integrators",
-    description: "Flexible hardware platforms with open APIs for custom integrations",
+    description: "Discuss hardware platforms and integration requirements for your project",
     icon: Settings,
     href: "/solutions/integrators/",
     color: "from-amber-500 to-orange-400",
     benefits: [
-      "Open API documentation",
-      "SDK and development tools",
-      "Technical integration support",
-      "Custom firmware options",
+      "Technical documentation",
+      "Integration discussions",
+      "Product platform guidance",
+      "Project-specific firmware questions",
     ],
   },
   {
     id: "market-needs",
     title: "By Market Needs",
-    description: "Solutions tailored to specific market conditions and customer requirements",
+    description: "Compare product options with regional requirements and customer needs",
     icon: Globe,
     href: "/solutions/market-needs/",
     color: "from-violet-500 to-purple-400",
     benefits: [
-      "Market entry consulting",
-      "Regional feature adaptation",
-      "Local compliance support",
-      "Pricing strategy guidance",
+      "Product selection",
+      "Vehicle and accessory fit",
+      "Compliance questions",
+      "Distribution discussion",
     ],
   },
 ];
@@ -69,7 +69,7 @@ const SolutionsPage = () => {
     <Layout>
       <SEO
         title="Partnership Solutions - Distributors, Auto Brands & Integrators"
-        description="TEYES partnership solutions for distributors, auto brands, and system integrators. OEM/ODM services, white-label options, and market entry support for 100+ markets."
+        description="TEYES partnership solutions for distributors, auto brands and system integrators, including product selection and OEM/ODM discussions."
         keywords="TEYES solutions, car infotainment distributor, OEM partnership, ODM services, white-label, system integrator"
         path="/solutions/"
       />

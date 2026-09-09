@@ -5,7 +5,7 @@ const partners = [
   {
     icon: Building2,
     title: "Distributors & Wholesalers",
-    description: "Access a proven Android car stereo portfolio with competitive margins and reliable supply.",
+    description: "Review the product range and discuss distribution options for your business.",
     href: "/solutions/distributors/",
   },
   {
@@ -17,7 +17,7 @@ const partners = [
   {
     icon: Settings,
     title: "Installers & System Integrators",
-    description: "Flexible product platforms, accessories, and integration support for professional channels.",
+    description: "Flexible product platforms, accessories and integration support for installation projects.",
     href: "/solutions/integrators/",
   },
 ];
@@ -30,8 +30,7 @@ export function PartnersSection() {
           <p className="text-primary font-medium mb-2">Partnership Models</p>
           <h2 className="section-title">Who We Work With</h2>
           <p className="section-subtitle mt-4 mx-auto">
-            We support different business models and partnership structures
-            to match your market strategy.
+            Choose the cooperation path that matches your business and project.
           </p>
         </div>
 

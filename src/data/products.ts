@@ -33,12 +33,11 @@ export const products: Product[] = [
     name: "CC4 Pro",
     series: "flagship",
     seriesName: "Flagship Series",
-    tagline: "Leading Flagship",
+    tagline: "Flagship Android car stereo",
     description:
-      "The most advanced car infotainment system with 6nm CPU, 12TOPS NPU for AI-powered driving assistance, premium DTS audio, and comprehensive camera support.",
+      "Android car stereo with a 6nm CPU, 12TOPS NPU, DTS audio and camera support.",
     image: cc4ProScreenImg,
     imageBack: cc4ProBackImg,
-    badge: "NEW",
     features: [
       "8-Core 6nm CPU",
       "12TOPS AI NPU",
@@ -78,10 +77,10 @@ export const products: Product[] = [
       { label: "Android Auto", value: "Yes (Wireless)" },
     ],
     highlights: [
-      "AI-Powered Driving Safety Assistant with 12TOPS NPU",
-      "Premium DTS Sound with 7.1 Channel support",
-      "Built-in 360° Surround View System",
-      "Dual Band GPS with 1-2m accuracy",
+      "12TOPS NPU",
+      "DTS audio with 7.1-channel support",
+      "Built-in 360° surround view system",
+      "Dual-band GPS with 1–2 m accuracy",
     ],
   },
   {
@@ -89,11 +88,10 @@ export const products: Product[] = [
     name: "CC3 2K",
     series: "advanced",
     seriesName: "Advanced Series",
-    tagline: "Best Seller Over All Time",
+    tagline: "Advanced Android car stereo",
     description:
-      "The most popular choice combining excellent performance with proven reliability. Perfect balance of features and value for demanding customers.",
+      "Android car stereo with an 8-core processor, 2K display and 5.1-channel audio.",
     image: cc3Img,
-    badge: "BESTSELLER",
     features: [
       "8-Core 12nm CPU",
       "2K Display",
@@ -130,10 +128,9 @@ export const products: Product[] = [
       { label: "Android Auto", value: "Yes" },
     ],
     highlights: [
-      "Proven reliability with millions of units sold",
-      "Excellent 2K display quality",
-      "5.1 Channel audio system",
-      "Full CarPlay & Android Auto support",
+      "8-core processor with 2K display",
+      "5.1-channel audio system",
+      "Apple CarPlay and Android Auto support",
     ],
   },
   {
@@ -141,9 +138,9 @@ export const products: Product[] = [
     name: "X1 Pro",
     series: "entry",
     seriesName: "Entry Series",
-    tagline: "Value Champion",
+    tagline: "Entry-level Android car stereo",
     description:
-      "Affordable entry-level solution without compromising essential features. Perfect for price-sensitive markets and first-time upgrades.",
+      "Entry-level Android car stereo with essential connectivity and display features.",
     image: x1ProImg,
     features: [
       "Quad-Core CPU",
@@ -168,10 +165,10 @@ export const products: Product[] = [
       { label: "Android Auto", value: "Yes" },
     ],
     highlights: [
-      "Best value for entry-level markets",
-      "Essential features at competitive price",
-      "Full CarPlay & Android Auto support",
-      "Easy installation and setup",
+      "Android car stereo for straightforward installations",
+      "HD display with a quad-core processor",
+      "Apple CarPlay and Android Auto support",
+      "Wi-Fi 4 and Bluetooth 5.0",
     ],
   },
   {
@@ -179,9 +176,9 @@ export const products: Product[] = [
     name: "CC4",
     series: "advanced",
     seriesName: "Advanced Series",
-    tagline: "Performance Standard",
+    tagline: "Advanced Android car stereo",
     description:
-      "High-performance Android head unit with 2000×1200 2K display, powerful SM6225 8-core processor, and 7.1 channel audio with TAS6424 digital amplifier. Features dual-fan cooling design for stable operation.",
+      "Android head unit with a 2000×1200 2K display, SM6225 8-core processor, 7.1-channel audio and TAS6424 digital amplifier. It also includes a dual-fan cooling design.",
     image: cc4ScreenImg,
     imageBack: cc4BackImg,
     features: [
@@ -227,10 +224,10 @@ export const products: Product[] = [
       { label: "Android Auto", value: "Yes (Wireless)" },
     ],
     highlights: [
-      "SM6225 8-Core 6nm processor with 2000×1200 2K display",
-      "TAS6424 digital amplifier with 7.1 channel DTS® sound",
-      "Optional 360° AHD surround view support",
-      "Full Wireless CarPlay & Android Auto support",
+      "SM6225 8-core 6nm processor with 2000×1200 2K display",
+      "TAS6424 digital amplifier with 7.1-channel DTS® sound",
+      "Optional 360° AHD surround-view support",
+      "Wireless Apple CarPlay and Android Auto support",
     ],
   },
   {
@@ -238,9 +235,9 @@ export const products: Product[] = [
     name: "CC4L",
     series: "entry",
     seriesName: "Entry Series",
-    tagline: "Smart Value Choice",
+    tagline: "Entry-level Android car stereo",
     description:
-      "Streamlined version offering essential smart features at an accessible price. Features SM6115 octa-core processor, 1280×720 IPS display, and a 3D engine powered UI for smooth animations.",
+      "Android head unit with an SM6115 octa-core processor, 1280×720 IPS display and a 3D-engine UI.",
     image: cc4lScreenImg,
     imageBack: cc4lBackImg,
     features: [
@@ -286,10 +283,10 @@ export const products: Product[] = [
       { label: "Android Auto", value: "Yes (Wireless)" },
     ],
     highlights: [
-      "Affordable smart infotainment upgrade",
-      "SM6115 octa-core processor with 3D engine UI",
-      "CarPlay & Android Auto support",
-      "Essential features at competitive price",
+      "SM6115 octa-core processor with 3D-engine UI",
+      "1280×720 IPS display",
+      "Apple CarPlay and Android Auto support",
+      "Wi-Fi and Bluetooth connectivity",
     ],
   },
 ];
@@ -302,17 +299,17 @@ export const getProductsBySeries = (series: Product["series"]) =>
 export const seriesInfo = {
   flagship: {
     name: "Flagship Series",
-    description: "Ultimate performance and cutting-edge technology",
+    description: "Higher-specification Android car stereos",
     color: "from-primary to-accent",
   },
   advanced: {
     name: "Advanced Series",
-    description: "Best-selling performance with proven reliability",
+    description: "Android car stereos with expanded features",
     color: "from-emerald-500 to-teal-400",
   },
   entry: {
     name: "Entry Series",
-    description: "Affordable solutions for every market",
+    description: "Android car stereos for straightforward installations",
     color: "from-amber-500 to-orange-400",
   },
 };

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getIndexableRoutes, getNewsMetadata } from './routes.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -89,37 +90,24 @@ function getProductIds() {
   return Array.from(ids);
 }
 
-const staticEntries = staticPages.map((page) =>
+const indexableRoutes = new Set(getIndexableRoutes());
+const staticEntries = staticPages
+  .filter((page) => indexableRoutes.has(page.path || '/'))
+  .map((page) =>
   createUrlEntry(
     `${baseUrl}${toCanonicalPath(page.path)}`,
     getIsoDate(path.join(rootDir, page.source)),
     page.priority
   )
-);
+  );
 
 const productLastMod = getIsoDate(productsFile);
 const productEntries = getProductIds().map((id) =>
   createUrlEntry(`${baseUrl}/products/${id}/`, productLastMod, '0.9')
 );
 
-function getNewsRoutes() {
-  const newsContent = fs.readFileSync(path.join(rootDir, 'src/data/news.ts'), 'utf8');
-  const routes = [];
-  const slugRegex = /slug:\s*"([^"]+)"/g;
-  let match;
-  while ((match = slugRegex.exec(newsContent)) !== null) {
-    const after = newsContent.slice(match.index);
-    const category = /category:\s*"([^"]+)"/.exec(after)?.[1];
-    if (category) {
-      routes.push({ category, slug: match[1] });
-    }
-  }
-  return routes;
-}
-
-const newsLastMod = getIsoDate(path.join(rootDir, 'src/data/news.ts'));
-const newsEntries = getNewsRoutes().map(({ category, slug }) =>
-  createUrlEntry(`${baseUrl}/news/${category}/${slug}/`, newsLastMod, '0.6')
+const newsEntries = getNewsMetadata().map(({ category, slug, date, updatedAt }) =>
+  createUrlEntry(`${baseUrl}/news/${category}/${slug}/`, updatedAt || date, '0.6')
 );
 
 const xml = [

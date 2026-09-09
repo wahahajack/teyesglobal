@@ -10,19 +10,19 @@ const portalLinks = [
   },
   {
     title: "Distributor Cooperation",
-    description: "Explore wholesale cooperation, product-line planning, and support for regional car audio channels.",
+    description: "Explore distribution options, product selection and support for regional car audio businesses.",
     href: "/solutions/distributors/",
     icon: Handshake,
   },
   {
     title: "Accessories Ecosystem",
-    description: "View cameras, TPMS, OBD, DAB+, installation accessories, and add-on products for higher basket value.",
+    description: "View cameras, TPMS, OBD, DAB+ and installation accessories that can be added to a TEYES product range.",
     href: "/accessories/",
     icon: Boxes,
   },
   {
     title: "Market Needs",
-    description: "Match flagship, mainstream, and entry-level models to different regional market strategies.",
+    description: "Compare flagship, mainstream and entry-level models by features, installation requirements and budget.",
     href: "/solutions/market-needs/",
     icon: Globe2,
   },
@@ -36,9 +36,9 @@ export function OfficialPortalSection() {
           <p className="text-primary font-medium mb-2">Official TEYES Global Portal</p>
           <h2 className="section-title">Find the Right TEYES Path for Your Market</h2>
           <p className="section-subtitle mt-4">
-            TEYES Global is the international B2B cooperation portal for TEYES smart infotainment,
-            Android head unit, and car stereo solutions. We support distributors, installers,
-            car audio wholesalers, auto brands, and OEM/ODM partners across global markets.
+            TEYES develops Android car stereos, car audio products and accessories for distributors,
+            installers, wholesalers, auto brands and OEM/ODM partners. Use the links below to
+            compare products, review accessories or discuss a project.
           </p>
         </div>
 

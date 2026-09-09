@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
 import { Button } from "@/components/ui/button";
-import { CalendarDays, MapPin, ArrowLeft, ArrowRight } from "lucide-react";
+import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import {
   newsCategories,
   getArticleBySlug,
@@ -88,24 +88,28 @@ const NewsArticlePage = () => {
     headline: article.title,
     description: article.excerpt,
     datePublished: article.date,
-    dateModified: article.date,
+    dateModified: article.updatedAt ?? article.date,
     url,
-    image: article.image ?? `${BASE_URL}/og-image.webp`,
-    author: { "@type": "Organization", name: "TEYES", url: BASE_URL },
+    image: new URL(article.image, BASE_URL).href,
+    author: { "@type": "Organization", "@id": `${BASE_URL}/#organization`, name: "TEYES", url: `${BASE_URL}/about/` },
     publisher: {
       "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
       name: "TEYES",
       logo: { "@type": "ImageObject", url: `${BASE_URL}/logo.webp` },
     },
-    ...(article.location ? { locationCreated: article.location } : {}),
+    ...(article.location
+      ? {
+          contentLocation: {
+            "@type": "Place",
+            name: article.location,
+          },
+        }
+      : {}),
     mainEntityOfPage: url,
   });
 
-  const sorted = getSortedArticles();
-  const currentIndex = sorted.findIndex((a) => a.slug === article.slug);
-  const prev = currentIndex > 0 ? sorted[currentIndex - 1] : undefined;
-  const next =
-    currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : undefined;
+  const related = getSortedArticles().filter((item) => item.slug !== article.slug).slice(0, 2);
 
   return (
     <Layout>
@@ -114,6 +118,7 @@ const NewsArticlePage = () => {
         description={article.excerpt}
         path={`/news/${article.category}/${article.slug}/`}
         ogType="article"
+        image={article.image}
         schema={articleSchema}
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -145,8 +150,12 @@ const NewsArticlePage = () => {
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border/50">
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="h-4 w-4" />
-              {formatDate(article.date)}
+              <time dateTime={article.date}>{formatDate(article.date)}</time>
             </span>
+            {article.updatedAt && article.updatedAt !== article.date && (
+              <span>Updated <time dateTime={article.updatedAt}>{formatDate(article.updatedAt)}</time></span>
+            )}
+            <span>By <Link to="/about/" className="text-primary hover:underline">TEYES</Link></span>
             {article.eventDates && (
               <span className="inline-flex items-center gap-1.5">
                 Event: {article.eventDates}
@@ -170,16 +179,13 @@ const NewsArticlePage = () => {
             <figure className="mb-10">
               <img
                 src={article.image}
-                alt={article.title}
-                width={1600}
-                height={2844}
+                alt={article.imageAlt}
+                width={article.imageWidth}
+                height={article.imageHeight}
                 loading="eager"
-                className="w-full max-w-2xl mx-auto rounded-2xl border border-border/50 object-cover"
+                className="w-full h-auto max-h-[32rem] object-contain mx-auto rounded-2xl border border-border/50"
               />
-              <figcaption className="text-center text-xs text-muted-foreground mt-3">
-                The TEYES booth at Automechanika Frankfurt 2026 — Hall 3.1,
-                Booth G85
-              </figcaption>
+              {article.imageCaption && <figcaption className="text-center text-xs text-muted-foreground mt-3">{article.imageCaption}</figcaption>}
             </figure>
           )}
 
@@ -188,51 +194,37 @@ const NewsArticlePage = () => {
             <BlockRenderer key={index} block={block} />
           ))}
 
-          {/* Prev / Next */}
+          {/* Related reading */}
           <nav
             className="mt-12 pt-8 border-t border-border/50 grid sm:grid-cols-2 gap-4"
-            aria-label="More articles"
+            aria-label="Related news"
           >
-            {prev ? (
+            {related.map((item) => (
               <Link
-                to={`/news/${prev.category}/${prev.slug}/`}
+                key={item.slug}
+                to={`/news/${item.category}/${item.slug}/`}
                 className="group rounded-xl border border-border/50 p-4 hover:border-primary/50 transition-colors"
               >
                 <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                  <ArrowLeft className="h-3.5 w-3.5" /> Previous
+                  Related news <ArrowRight className="h-3.5 w-3.5" />
                 </span>
                 <span className="block font-medium group-hover:text-primary transition-colors line-clamp-2">
-                  {prev.title}
+                  {item.title}
                 </span>
               </Link>
-            ) : (
-              <span />
-            )}
-            {next && (
-              <Link
-                to={`/news/${next.category}/${next.slug}/`}
-                className="group rounded-xl border border-border/50 p-4 hover:border-primary/50 transition-colors sm:text-right"
-              >
-                <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                  Next <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-                <span className="block font-medium group-hover:text-primary transition-colors line-clamp-2">
-                  {next.title}
-                </span>
-              </Link>
-            )}
+            ))}
           </nav>
 
           {/* CTA */}
           <div className="mt-8 rounded-2xl bg-secondary/40 p-8 text-center">
             <h2 className="font-display font-bold text-lg mb-2">
-              Interested in Partnering With TEYES?
+              {article.cta.title}
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Talk to our team about distribution, OEM/ODM, or market entry.
+              {article.cta.description}
             </p>
             <Button variant="hero" asChild>
-              <Link to="/contact/">Contact Us</Link>
+              <Link to={article.cta.href}>{article.cta.label}</Link>
             </Button>
           </div>
         </div>

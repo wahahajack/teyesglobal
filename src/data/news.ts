@@ -55,6 +55,66 @@ export const newsCategories: {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: "teyes-car-audio-series-launch",
+    category: "company",
+    title:
+      "TEYES Launches Car Audio Series: Speakers, Amplifiers, and Subwoofers for Complete In-Car Sound",
+    date: "2026-09-08",
+    excerpt:
+      "TEYES has launched its new car audio series — component and coaxial speakers, Class D amplifiers, and enclosed subwoofers. Debuted at Automechanika Frankfurt 2026, the series extends the TEYES ecosystem from infotainment into complete in-car sound systems.",
+    image: "/assets/news/automechanika-2026-audio-demo-large.webp",
+    blocks: [
+      {
+        type: "paragraph",
+        text: "TEYES has officially launched its car audio series, debuting the lineup at Automechanika Frankfurt 2026 (September 8–12, Messe Frankfurt, Hall 3.1, Booth G85). Building on a decade-plus of infotainment engineering, TEYES is extending its product ecosystem from screens and software into complete in-car sound systems.",
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-demo-large.webp",
+        alt: "TEYES car audio demo station at Automechanika Frankfurt 2026 — speakers, head unit and subwoofer on a lit display podium",
+        caption: "The TEYES car audio demo station at the Frankfurt debut — speakers, a TEYES head unit, and a subwoofer playing in a live setup",
+        width: 1600,
+        height: 900,
+      },
+      {
+        type: "heading",
+        text: "Three Categories, One Ecosystem",
+      },
+      {
+        type: "paragraph",
+        text: "The new series covers three product categories: speakers, amplifiers, and subwoofers. The speaker lineup includes 6.5-inch component sets (T3-652, T6-652, T6-653A) and active 3-way models (T6-803A), plus coaxial speakers (T3-65X, T6-65X) — full specs are on the <a href=\"/car-audio/speakers/\">TEYES speakers page</a>. Amplifiers span the Class D TD series (TD500/4 four-channel, TD1000/1 mono) and the DSP-controlled TP series (TP800/4, TP1200/1) — see the <a href=\"/car-audio/amplifiers/\">amplifier comparison</a>. For bass, the lineup ranges from compact TS-08 and TS-10 under-seat enclosures to BX-series boxed subwoofers — details on the <a href=\"/car-audio/enclosed-subwoofers/\">enclosed subwoofer page</a>.",
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-wall.webp",
+        alt: "TEYES exhibition wall at Automechanika Frankfurt 2026 showing head units, amplifiers and subwoofers on three display shelves",
+        caption: "The TEYES audio wall at the launch — head units on top, TD-series amplifiers in the middle, and subwoofers below",
+        width: 1200,
+        height: 2133,
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-showcase.webp",
+        alt: "Panorama of the TEYES car audio showcase at Automechanika Frankfurt 2026 — rotating subwoofer tower, speaker and amplifier shelves, and the demo speaker",
+        caption: "The full car audio showcase — subwoofer driver tower on the left, speaker and amplifier wall in the center, demo speaker on the right",
+        width: 1200,
+        height: 2133,
+      },
+      {
+        type: "paragraph",
+        text: "Together with TEYES head units — including flagship models with multi-channel DSP audio output — the new lineup lets drivers upgrade their entire sound system under one brand, with one support channel, and with vehicle-fitment know-how backed by TEYES localization experience in 100+ markets.",
+      },
+      {
+        type: "paragraph",
+        text: "For distributors and retailers, the car audio series opens a higher-margin accessory category alongside head units, while OEM/ODM partners can develop custom-branded audio programs on the same platforms. Wholesale buyers can <a href=\"/contact/\">contact the TEYES team</a> for the current model list and channel terms.",
+      },
+      {
+        type: "paragraph",
+        text: "The series debuted live at the TEYES demonstration area, Hall 3.1, Booth G85, throughout Automechanika Frankfurt 2026. Read the <a href=\"/news/exhibitions/automechanika-frankfurt-2026/\">full exhibition report</a> for booth details and how to meet the team.",
+      },
+    ],
+  },
+  {
     slug: "automechanika-frankfurt-2026",
     category: "exhibitions",
     title:
@@ -87,7 +147,7 @@ export const newsArticles: NewsArticle[] = [
         type: "image",
         src: "/assets/news/automechanika-2026-cc4-pro-display.webp",
         alt: "TEYES CC4 Pro display island at Automechanika Frankfurt 2026 — live head unit, AI dashboard on screen and camera accessories",
-        caption: "The CC4 Pro island — TEYES flagship with 6nm CPU, 12 TOPS AI NPU and 7.1-channel audio, shown with its camera accessories",
+        caption: "The CC4 Pro island — the TEYES flagship on live display with its camera accessories",
         width: 1200,
         height: 675,
       },
@@ -103,7 +163,7 @@ export const newsArticles: NewsArticle[] = [
         type: "image",
         src: "/assets/news/automechanika-2026-cc4-display.webp",
         alt: "TEYES CC4 display island at Automechanika Frankfurt 2026 with live unit and accessory lineup",
-        caption: "The CC4 island — 2K display and TAS6424 digital amplifier in the performance tier",
+        caption: "The CC4 island — performance tier",
         width: 1200,
         height: 675,
       },
@@ -117,47 +177,23 @@ export const newsArticles: NewsArticle[] = [
       },
       {
         type: "heading",
-        text: "New Product Launch: TEYES Car Audio Series",
+        text: "Headline News: TEYES Car Audio Series Launches at the Show",
       },
       {
         type: "paragraph",
-        text: "The headline announcement at this year's booth is the launch of the TEYES car audio series. Building on a decade-plus of infotainment engineering, TEYES is extending its product ecosystem from screens and software into complete in-car sound systems.",
+        text: "The headline announcement at this year's booth is the world debut of the TEYES car audio series — speakers, amplifiers, and subwoofers that extend the TEYES ecosystem from infotainment into complete in-car sound systems. Visitors can experience the new lineup live at the demonstration area throughout the fair.",
       },
       {
         type: "image",
         src: "/assets/news/automechanika-2026-audio-demo-large.webp",
         alt: "TEYES car audio demo station at Automechanika Frankfurt 2026 — speakers, head unit and subwoofer on a lit display podium",
-        caption: "The TEYES car audio demo station at Hall 3.1, Booth G85 — speakers, a TEYES head unit, and a subwoofer playing in a live setup",
+        caption: "The TEYES car audio demo station at Hall 3.1, Booth G85 — part of the world debut of the new speaker, amplifier and subwoofer series",
         width: 1600,
         height: 900,
       },
       {
         type: "paragraph",
-        text: "The new series covers three product categories: speakers, amplifiers, and subwoofers. The speaker lineup includes 6.5-inch component sets (T3-652, T6-652, T6-653A) and active 3-way models (T6-803A), plus coaxial speakers (T3-65X, T6-65X) — full specs are on the <a href=\"/car-audio/speakers/\">TEYES speakers page</a>. Amplifiers span the Class D TD series (TD500/4 four-channel, TD1000/1 mono) and the DSP-controlled TP series (TP800/4, TP1200/1) — see the <a href=\"/car-audio/amplifiers/\">amplifier comparison</a>. For bass, the lineup ranges from compact TS-08 and TS-10 under-seat enclosures to BX-series boxed subwoofers such as the BX-10TSL-V4 shown on the booth — details on the <a href=\"/car-audio/enclosed-subwoofers/\">enclosed subwoofer page</a>. Together with TEYES head units — including flagship models with multi-channel DSP audio output — the new lineup lets drivers upgrade their entire sound system under one brand, with one support channel, and with vehicle-fitment know-how backed by TEYES localization experience in 100+ markets.",
-      },
-      {
-        type: "image",
-        src: "/assets/news/automechanika-2026-audio-wall.webp",
-        alt: "TEYES exhibition wall at Automechanika Frankfurt 2026 showing head units, amplifiers and subwoofers on three display shelves",
-        caption: "The TEYES audio wall — head units on top, TD-series amplifiers in the middle, and BX-10 series subwoofers below",
-        width: 1200,
-        height: 2133,
-      },
-      {
-        type: "image",
-        src: "/assets/news/automechanika-2026-audio-showcase.webp",
-        alt: "Panorama of the TEYES car audio showcase at Automechanika Frankfurt 2026 — rotating subwoofer tower, speaker and amplifier shelves, and the demo speaker",
-        caption: "The full car audio showcase — subwoofer driver tower on the left, speaker and amplifier wall in the center, demo speaker on the right",
-        width: 1200,
-        height: 2133,
-      },
-      {
-        type: "paragraph",
-        text: "For distributors and retailers, the car audio series opens a higher-margin accessory category alongside head units, while OEM/ODM partners can develop custom-branded audio programs on the same platforms.",
-      },
-      {
-        type: "paragraph",
-        text: "Visitors to Hall 3.1, Booth G85 can experience the new audio lineup live at the TEYES demonstration area throughout the fair.",
+        text: "For the full product lineup — component and coaxial speakers, TD and TP Class D amplifiers, and TS / BX subwoofers — read the <a href=\"/news/company/teyes-car-audio-series-launch/\">official car audio series launch announcement</a>.",
       },
       {
         type: "heading",

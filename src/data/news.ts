@@ -196,6 +196,14 @@ export const newsArticles: NewsArticle[] = [
         text: "TEYES is exhibiting at Automechanika Frankfurt 2026, the world's leading trade fair for the automotive aftermarket, taking place September 8–12, 2026 at Messe Frankfurt, Germany. The 2026 edition brings together more than 4,400 exhibitors from over 80 countries across roughly 300,000 square metres of exhibition space.",
       },
       {
+        type: "image",
+        src: "/assets/news/automechanika-2026-booth-panorama.webp",
+        alt: "TEYES booth panorama at Automechanika Frankfurt 2026 — hanging illuminated TEYES logo, 3D interaction screen, speaker driver tower and CC4 display islands",
+        caption: "The TEYES booth at Hall 3.1, Booth G85 — hanging logo, the \"Engaging 3D Interaction\" wall, speaker driver tower, and display islands",
+        width: 1200,
+        height: 1200,
+      },
+      {
         type: "paragraph",
         text: "At the show, TEYES is presenting its full range of Android smart infotainment systems for the automotive aftermarket — from entry-level head units to flagship large-screen solutions — alongside accessories and OEM/ODM capabilities for partners who want custom-branded products.",
       },
@@ -225,11 +233,11 @@ export const newsArticles: NewsArticle[] = [
       },
       {
         type: "image",
-        src: "/assets/news/automechanika-2026-cc4-display.webp",
-        alt: "TEYES CC4 display island at Automechanika Frankfurt 2026 with live unit and accessory lineup",
-        caption: "The CC4 island — performance tier",
+        src: "/assets/news/automechanika-2026-cc4-pro-welcome.webp",
+        alt: "TEYES CC4 Pro island at Automechanika Frankfurt 2026 — Welcome Aboard display, TEYES Germany 2026 branding and a visitor exploring the lineup",
+        caption: "The CC4 Pro island — \"Welcome Aboard! Pro Attitude. Pro Altitude.\" — with the CC4 island beside it",
         width: 1200,
-        height: 675,
+        height: 1200,
       },
       {
         type: "image",
@@ -269,6 +277,14 @@ export const newsArticles: NewsArticle[] = [
       },
       {
         type: "image",
+        src: "/assets/news/automechanika-2026-accessory-wall.webp",
+        alt: "TEYES accessory wall at Automechanika Frankfurt 2026 — digital microphones, front and rear ADAS cameras, and front, rear, left and right 360-degree cameras labeled side by side",
+        caption: "The TEYES accessory wall — digital microphones, front / rear ADAS cameras, and a full four-camera 360° surround set, laid out side by side",
+        width: 1200,
+        height: 1200,
+      },
+      {
+        type: "image",
         src: "/assets/news/automechanika-2026-front-adas-camera.webp",
         alt: "TEYES front ADAS camera on display at Automechanika Frankfurt 2026",
         caption: "TEYES front ADAS camera",
@@ -301,7 +317,7 @@ export const newsArticles: NewsArticle[] = [
       },
       {
         type: "paragraph",
-        text: "The camera lineup includes a front ADAS camera for advanced driver assistance features, a rear ADAS camera with 1080P digital output, and a rear 360° camera for surround-view parking — all designed to integrate with TEYES head units. A digital microphone rounds out the lineup for clear in-car voice control and hands-free calls.",
+        text: "The camera lineup includes a front ADAS camera for advanced driver assistance features, a rear ADAS camera with 1080P digital output, and a full 360° surround set with front, rear, left and right cameras — all designed to integrate with TEYES head units. A digital microphone rounds out the lineup for clear in-car voice control and hands-free calls.",
       },
       {
         type: "heading",

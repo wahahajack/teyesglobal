@@ -39,6 +39,19 @@ const navigation = [
       { name: "Project Cases", href: "/oem-odm/cases/" },
     ],
   },
+  {
+    name: "News",
+    href: "/news/",
+    children: [
+      { name: "Company News", href: "/news/company/" },
+      { name: "Exhibitions & Events", href: "/news/exhibitions/" },
+      { name: "Industry Insights", href: "/news/industry/" },
+    ],
+  },
+  {
+    name: "About",
+    href: "/about/",
+  },
   { name: "Contact", href: "/contact/" },
 ];
 
@@ -167,7 +180,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border/50 animate-fade-in">
+          <div className="lg:hidden py-4 border-t border-border/50 animate-fade-in max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain">
             <div className="space-y-1">
               {navigation.map((item) => (
                 <div key={item.name}>

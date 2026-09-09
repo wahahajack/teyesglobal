@@ -32,6 +32,11 @@ const staticPages = [
   { path: '/landing/market-entry', source: 'src/pages/landing/LandingMarketEntry.tsx', priority: '0.8' },
   { path: '/landing/distributor', source: 'src/pages/landing/LandingDistributor.tsx', priority: '0.8' },
   { path: '/accessories', source: 'src/pages/Accessories.tsx', priority: '0.8' },
+  { path: '/about', source: 'src/pages/about/About.tsx', priority: '0.7' },
+  { path: '/news', source: 'src/pages/news/News.tsx', priority: '0.7' },
+  { path: '/news/company', source: 'src/pages/news/News.tsx', priority: '0.6' },
+  { path: '/news/exhibitions', source: 'src/pages/news/News.tsx', priority: '0.6' },
+  { path: '/news/industry', source: 'src/pages/news/News.tsx', priority: '0.6' },
   { path: '/contact', source: 'src/pages/Contact.tsx', priority: '0.8' },
   // Exclude post-conversion utility pages like /thank-you from sitemap indexing.
 ];
@@ -97,11 +102,32 @@ const productEntries = getProductIds().map((id) =>
   createUrlEntry(`${baseUrl}/products/${id}/`, productLastMod, '0.9')
 );
 
+function getNewsRoutes() {
+  const newsContent = fs.readFileSync(path.join(rootDir, 'src/data/news.ts'), 'utf8');
+  const routes = [];
+  const slugRegex = /slug:\s*"([^"]+)"/g;
+  let match;
+  while ((match = slugRegex.exec(newsContent)) !== null) {
+    const after = newsContent.slice(match.index);
+    const category = /category:\s*"([^"]+)"/.exec(after)?.[1];
+    if (category) {
+      routes.push({ category, slug: match[1] });
+    }
+  }
+  return routes;
+}
+
+const newsLastMod = getIsoDate(path.join(rootDir, 'src/data/news.ts'));
+const newsEntries = getNewsRoutes().map(({ category, slug }) =>
+  createUrlEntry(`${baseUrl}/news/${category}/${slug}/`, newsLastMod, '0.6')
+);
+
 const xml = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
   ...staticEntries,
   ...productEntries,
+  ...newsEntries,
   '</urlset>',
   '',
 ].join('\n');

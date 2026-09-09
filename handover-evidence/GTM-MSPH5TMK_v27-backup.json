@@ -1,0 +1,955 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2026-08-04 19:22:54",
+    "containerVersion": {
+        "path": "accounts/6334869722/containers/241127555/versions/27",
+        "accountId": "6334869722",
+        "containerId": "241127555",
+        "containerVersionId": "27",
+        "name": "track",
+        "container": {
+            "path": "accounts/6334869722/containers/241127555",
+            "accountId": "6334869722",
+            "containerId": "241127555",
+            "name": "TEYES",
+            "publicId": "GTM-MSPH5TMK",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1773225068623",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6334869722/containers/241127555/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-MSPH5TMK"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "4",
+                "name": "Conversion Linker -Teyesauto",
+                "type": "gclidw",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCrossDomain",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableUrlPassthrough",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "linkerDomains",
+                        "value": "6a293b9d25d01c000828047e--teyesglobal.netlify.app, teyesauto.com"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCookieOverrides",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1781278818869",
+                "firingTriggerId": [
+                    "2147479553"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "5",
+                "name": "Google Tag - AW-17816659109",
+                "type": "googtag",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "tagId",
+                        "value": "AW-17816659109"
+                    }
+                ],
+                "fingerprint": "1768815892094",
+                "firingTriggerId": [
+                    "2147479573"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "8",
+                "name": "GAds Tracking | WA Click",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "17816659109"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "7bNDCJ3LougbEKXJ0q9C"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1769181988229",
+                "firingTriggerId": [
+                    "11"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "12",
+                "name": "cHTML Listner Iframe Tag",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n/**\n* Author: Md Hasanuzzamna\n* Linkedin: https://linkedin.com/in/md-h\n* Youtube: https://youtube.com/@leomeasure\n* Email: info@leomeasure.com\n*/\n\n(function() {\n    function leoMeasureIframeFormSubmitDataLayer() {\n        var iframeSelector = 'iframe'; // Change as your iframe selector example: 'iframe#id-of-iframe'\n    \n        var iframe = document.querySelector(iframeSelector);\n        var isFormSubmitted = false;\n        var isInsideIframe = false;\n        var isCodeExecuted = false;\n        var iframeHeight;\n    \n        var observer = new MutationObserver(function (_mutationsList, observer) {\n            var currentHeight = iframe.offsetHeight;\n            var iframeHeightChange = Math.abs(((currentHeight - iframeHeight) / iframeHeight) * 100);\n    \n            if (!isFormSubmitted && iframeHeightChange > 40) {\n                observer.disconnect();\n    \n                isFormSubmitted = true;\n                window.dataLayer = window.dataLayer || [];\n                dataLayer.push({\n                    event: 'iframe_form_submit',\n                    form_location: window.location.href,\n                    iframe_id: iframe.getAttribute('id'),\n                    iframe_class: iframe.getAttribute('class')\n                });\n            }\n        });\n    \n        function handleMouseOver(event) {\n            if (event.target.closest(iframeSelector)) {\n                isInsideIframe = true;\n            } else {\n                isInsideIframe = false;\n            }\n        }\n    \n        function handleFormSubmission() {\n            var formInsideIframe = iframe.contentDocument.querySelector('form');\n    \n            formInsideIframe.addEventListener('submit', function (event) {\n                var formData = {};\n                var formInputs = formInsideIframe.querySelectorAll('input, select, textarea');\n    \n                for (var i = 0; i < formInputs.length; i++) {\n                    var input = formInputs[i];\n                    if (input.type === 'radio') {\n    \n                        if (input.checked) {\n                            formData[input.name] = input.value;\n                        }\n                    } else if (input.type === 'checkbox') {\n                        if (!formData[input.name]) {\n                            formData[input.name] = [];\n                        }\n                        if (input.checked) {\n                            formData[input.name].push(input.value);\n                        }\n                    } else {\n                        formData[input.name] = input.value;\n                    }\n                }\n    \n                window.dataLayer = window.dataLayer || [];\n                window.dataLayer.push({\n                    event: 'iframe_form_submit',\n                    form_location: window.location.href,\n                    iframe_id: iframe.getAttribute('id'),\n                    iframe_class: iframe.getAttribute('class'),\n                    user_inputs: formData\n                });\n            });\n        }\n    \n        document.addEventListener('mouseover', handleMouseOver);\n        window.addEventListener('blur', function () {\n    \n            if (isInsideIframe && !isCodeExecuted) {\n                isCodeExecuted = true;\n                document.removeEventListener('mouseover', handleMouseOver);\n    \n                window.dataLayer = window.dataLayer || [];\n                dataLayer.push({\n                    event: 'iframe_form_start',\n                    form_location: window.location.href,\n                    iframe_id: iframe.getAttribute('id'),\n                    iframe_class: iframe.getAttribute('class')\n                });\n    \n                if (iframe.contentDocument) {\n                    handleFormSubmission();\n                } else {\n                    iframeHeight = iframe.offsetHeight;\n                    observer.observe(iframe, { attributes: true, childList: true, subtree: true });\n                }\n            }\n        });\n    }\n    leoMeasureIframeFormSubmitDataLayer();\n})()\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "true"
+                    }
+                ],
+                "fingerprint": "1768822058063",
+                "firingTriggerId": [
+                    "2147479553"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "30",
+                "name": "GAds Tracking | (Android-Car-Distributor) Tag",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "17816659109"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "TA1DCMH4xoYcEKXJ0q9C"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1773234727497",
+                "firingTriggerId": [
+                    "29"
+                ],
+                "tagFiringOption": "ONCE_PER_LOAD",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "32",
+                "name": "GAds Tracking | (Android-Car-wholesale) Tag",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "17816659109"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "jdXlCMiivoYcEKXJ0q9C"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1773234543113",
+                "firingTriggerId": [
+                    "31"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "34",
+                "name": "GAds Tracking | (Android-Car-Manufacturer) Tag",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "17816659109"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "f-2YCNqyx4YcEKXJ0q9C"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1773234660630",
+                "firingTriggerId": [
+                    "33"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "36",
+                "name": "GAds Tracking | (Phone Click ) Tag",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "17816659109"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "W-KgCMbjx4YcEKXJ0q9C"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1773235030860",
+                "firingTriggerId": [
+                    "35"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "37",
+                "name": "Google Tag",
+                "type": "googtag",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "tagId",
+                        "value": "G-VBNCN089DG"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "configSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "send_page_view"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "true"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1773235362813",
+                "firingTriggerId": [
+                    "2147479573"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "38",
+                "name": "Google Analytics GA4 Event generate_lead Tag",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "generate_lead"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "G-VBNCN089DG"
+                    }
+                ],
+                "fingerprint": "1773235420255",
+                "firingTriggerId": [
+                    "33",
+                    "31",
+                    "29"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "39",
+                "name": "Google Analytics GA4 Event Whatsapp Tag",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "whatsapp_click"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "G-VBNCN089DG"
+                    }
+                ],
+                "fingerprint": "1773235500908",
+                "firingTriggerId": [
+                    "11"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "tagId": "40",
+                "name": "Google Analytics GA4 Event Phone Click Tag",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "Phone_Click"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "G-VBNCN089DG"
+                    }
+                ],
+                "fingerprint": "1773235548583",
+                "firingTriggerId": [
+                    "35"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "9",
+                "name": "Download PDF - Trigger",
+                "type": "PAGEVIEW",
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Page Path}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "head-unit-distributor-portal/thank-you-catalog.html"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1769181264804"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "10",
+                "name": "Application Submit - Trigger",
+                "type": "PAGEVIEW",
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Page Path}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "head-unit-distributor-portal/thank-you.html"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1769181250853"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "11",
+                "name": "WA Trigger",
+                "type": "LINK_CLICK",
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Click URL}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "wa.me/"
+                            }
+                        ]
+                    }
+                ],
+                "waitForTags": {
+                    "type": "BOOLEAN",
+                    "value": "false"
+                },
+                "checkValidation": {
+                    "type": "BOOLEAN",
+                    "value": "false"
+                },
+                "waitForTagsTimeout": {
+                    "type": "TEMPLATE",
+                    "value": "2000"
+                },
+                "uniqueTriggerId": {
+                    "type": "TEMPLATE"
+                },
+                "fingerprint": "1768821797845"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "29",
+                "name": "Event Lead (Android-Car-Distributor)",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "form_submit_success"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Page Path}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "/teyes-android-car-stereo-distributor/"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1774416090804"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "31",
+                "name": "Event  Submit Lead (Android-Car-wholesale)",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "form_submit_success"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Page Path}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "/android-car-stereo-wholesale/"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1774415995778"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "33",
+                "name": "Event Submit Lead (Android-Car-Manufacturer)",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "form_submit_success"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Page Path}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "/android-car-stereo-oem-manufacturer/"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1774416139490"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "triggerId": "35",
+                "name": "Event Phone Click",
+                "type": "LINK_CLICK",
+                "filter": [
+                    {
+                        "type": "CONTAINS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Click URL}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "tel:"
+                            }
+                        ]
+                    }
+                ],
+                "waitForTags": {
+                    "type": "BOOLEAN",
+                    "value": "false"
+                },
+                "checkValidation": {
+                    "type": "BOOLEAN",
+                    "value": "false"
+                },
+                "waitForTagsTimeout": {
+                    "type": "TEMPLATE",
+                    "value": "2000"
+                },
+                "uniqueTriggerId": {
+                    "type": "TEMPLATE"
+                },
+                "fingerprint": "1773235014995"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "variableId": "24",
+                "name": "GA4 ID",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "G-B2458260YY"
+                    }
+                ],
+                "fingerprint": "1769186394112",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "PAGE_URL",
+                "name": "Page URL"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "PAGE_HOSTNAME",
+                "name": "Page Hostname"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "PAGE_PATH",
+                "name": "Page Path"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "REFERRER",
+                "name": "Referrer"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "EVENT",
+                "name": "Event"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_ELEMENT",
+                "name": "Click Element"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_CLASSES",
+                "name": "Click Classes"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_ID",
+                "name": "Click ID"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_TARGET",
+                "name": "Click Target"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_URL",
+                "name": "Click URL"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "CLICK_TEXT",
+                "name": "Click Text"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_ELEMENT",
+                "name": "Form Element"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_CLASSES",
+                "name": "Form Classes"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_ID",
+                "name": "Form ID"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_TARGET",
+                "name": "Form Target"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_URL",
+                "name": "Form URL"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "FORM_TEXT",
+                "name": "Form Text"
+            },
+            {
+                "accountId": "6334869722",
+                "containerId": "241127555",
+                "type": "HTML_ID",
+                "name": "HTML ID"
+            }
+        ],
+        "fingerprint": "1781279192682",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6334869722/containers/241127555/versions/27?apiLink=version"
+    }
+}

@@ -5,25 +5,25 @@ const capabilities = [
     icon: Cpu,
     title: "Android Head Unit Platform",
     description:
-      "TEYES combines Android infotainment hardware, UI, audio, camera, connectivity, and vehicle integration into market-ready product platforms.",
+      "TEYES Android infotainment hardware includes display, audio, camera, connectivity and vehicle integration features.",
   },
   {
     icon: Boxes,
-    title: "Wholesale Product Planning",
+    title: "Product Selection for Wholesale",
     description:
-      "Build a product ladder from entry-level to flagship models, with accessories and trial-order planning for your market.",
+      "Compare models from entry-level to flagship and discuss accessories or trial orders for your market.",
   },
   {
     icon: Wrench,
-    title: "Localization & Vehicle Adaptation",
+    title: "Vehicle and Market Fit",
     description:
-      "Support for different market needs, languages, accessories, vehicle-fitment scenarios, and regional selling strategies.",
+      "Discuss language options, accessories and vehicle-fitment requirements for your market.",
   },
   {
     icon: Headphones,
-    title: "Distributor & After-sales Support",
+    title: "Distributor Support",
     description:
-      "Product comparison materials, technical support, accessory guidance, and cooperation support for long-term channel development.",
+      "Use product comparison materials, technical information and accessory guidance when planning cooperation.",
   },
 ];
 
@@ -37,11 +37,11 @@ export function CapabilitiesSection() {
         <div className="max-w-3xl mb-16">
           <span className="text-primary font-medium mb-2 block">Core Capabilities</span>
           <h2 className="section-title">
-            What Makes TEYES a Long-term Partner
+            How TEYES Can Support Your Project
           </h2>
           <p className="section-subtitle mt-4">
-            We don't just sell products — we help partners build Android car stereo and
-            smart infotainment product lines for different market positions.
+            Use the product range, technical information and cooperation paths below to plan a
+            TEYES car audio project.
           </p>
         </div>
 

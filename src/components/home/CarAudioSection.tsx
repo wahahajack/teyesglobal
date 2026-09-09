@@ -18,8 +18,8 @@ export function CarAudioSection() {
           <div>
             <h2 className="section-title">TEYES Car Audio</h2>
             <p className="section-subtitle mt-4 max-w-2xl">
-              A growing product line for distributors and car audio channels, covering speakers,
-              subwoofers, amplifiers and bass systems.
+              The TEYES car audio range includes speakers, subwoofers, amplifiers and bass systems
+              for distributors, installers and car audio businesses.
             </p>
 
             <div className="flex flex-wrap gap-x-5 gap-y-2 mt-6 text-sm text-muted-foreground">

@@ -15,7 +15,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import { rootDir, getAllRoutes, toCanonicalUrl } from './routes.mjs';
+import { rootDir, getAllRoutes, getIndexableRoutes, getNewsMetadata, toCanonicalUrl } from './routes.mjs';
 
 const distDir = path.join(rootDir, 'dist');
 const errors = [];
@@ -35,7 +35,41 @@ function extractBodyText(html) {
     .trim();
 }
 
+function extractElementText(html, element) {
+  const match = html.match(new RegExp(`<${element}\\b[^>]*>([\\s\\S]*?)</${element}>`, 'i'));
+  return (match?.[1] || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getMetaContent(html, name, attribute = 'name') {
+  const tag = html.match(new RegExp(`<meta[^>]*${attribute}="${name}"[^>]*>`, 'i'))?.[0];
+  return tag?.match(/content="([^"]*)"/i)?.[1] || '';
+}
+
+function getNewsSchema(html) {
+  const scripts = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)];
+  for (const match of scripts) {
+    try {
+      const value = JSON.parse(match[1]);
+      if (value?.['@type'] === 'NewsArticle') return value;
+    } catch {
+      // Existing schema checks below report missing/invalid article data.
+    }
+  }
+  return undefined;
+}
+
 const routes = getAllRoutes();
+const indexableRoutes = getIndexableRoutes();
+const newsMetadata = getNewsMetadata();
+const existingNoindexRoutes = new Set(['/landing/oem', '/landing/market-entry', '/landing/distributor']);
 const titles = new Map();
 const descriptions = new Map();
 
@@ -80,6 +114,38 @@ for (const route of routes) {
   if (bodyText.length < 200) {
     fail(route, `body text too short (${bodyText.length} chars) — looks like an empty shell`);
   }
+
+  const robots = getMetaContent(html, 'robots');
+  if (route === '/news/industry' && robots !== 'noindex, follow') {
+    fail(route, `empty category must use noindex, follow (got "${robots}")`);
+  } else if (route !== '/news/industry' && !existingNoindexRoutes.has(route) && robots !== 'index, follow') {
+    fail(route, `expected index, follow robots directive (got "${robots}")`);
+  }
+
+  if (route === '/about' && extractElementText(html, 'main').length < 300) {
+    fail(route, 'About main content is too short');
+  }
+
+  const articleMatch = route.match(/^\/news\/([^/]+)\/([^/]+)$/);
+  if (articleMatch) {
+    const metadata = newsMetadata.find(({ category, slug }) => category === articleMatch[1] && slug === articleMatch[2]);
+    const articleText = extractElementText(html, 'article');
+    if (!metadata) fail(route, 'missing parsed news metadata');
+    if (articleText.length < 200) fail(route, `article content is too short (${articleText.length} chars)`);
+    const h1 = extractElementText(html, 'h1');
+    if (metadata && !h1.includes(metadata.title)) fail(route, `H1 does not contain article title "${metadata.title}"`);
+    const expectedImage = new URL(metadata?.image || '/og-image.webp', 'https://teyesglobal.com').href;
+    const ogImage = getMetaContent(html, 'og:image', 'property');
+    if (!ogImage.startsWith('https://teyesglobal.com/')) fail(route, `og:image must be an absolute site URL (got "${ogImage}")`);
+    const schema = getNewsSchema(html);
+    if (!schema) {
+      fail(route, 'missing NewsArticle JSON-LD');
+    } else {
+      if (metadata && schema.datePublished !== metadata.date) fail(route, `datePublished mismatch: got ${schema.datePublished}, expected ${metadata.date}`);
+      if (metadata && schema.dateModified !== (metadata.updatedAt || metadata.date)) fail(route, `dateModified mismatch: got ${schema.dateModified}, expected ${metadata.updatedAt || metadata.date}`);
+      if (schema.image !== expectedImage) fail(route, `NewsArticle image mismatch: got ${schema.image}, expected ${expectedImage}`);
+    }
+  }
 }
 
 // Sitemap <-> route list consistency (enforces the "keep in sync" comment).
@@ -91,7 +157,7 @@ if (!existsSync(sitemapPath)) {
   const locs = new Set(
     [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim())
   );
-  const expected = new Set(routes.map((r) => toCanonicalUrl(r)));
+  const expected = new Set(indexableRoutes.map((r) => toCanonicalUrl(r)));
 
   for (const url of expected) {
     if (!locs.has(url)) fail('sitemap', `route missing from sitemap.xml: ${url}`);
@@ -108,6 +174,6 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `[verify-seo-dist] OK — ${routes.length} routes: unique titles, unique descriptions, ` +
+  `[verify-seo-dist] OK — ${routes.length} prerendered routes / ${indexableRoutes.length} indexable routes: unique titles, unique descriptions, ` +
   'self-referencing canonicals, real body content, sitemap in sync.'
 );

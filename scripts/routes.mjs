@@ -41,15 +41,77 @@ export const STATIC_ROUTES = [
 ];
 
 export function getNewsRoutes() {
-  const source = readFileSync(path.join(rootDir, 'src/data/news.ts'), 'utf8');
-  return [...source.matchAll(/slug:\s*"([^"]+)"/g)]
-    .map((m) => {
-      const slug = m[1];
-      const after = source.slice(m.index);
-      const category = /category:\s*"([^"]+)"/.exec(after)?.[1];
-      return category ? `/news/${category}/${slug}` : null;
-    })
-    .filter(Boolean);
+  return getNewsMetadata().map(({ category, slug }) => `/news/${category}/${slug}`);
+}
+
+function readBalanced(source, start, open = '[', close = ']') {
+  let depth = 0;
+  let quote = null;
+  let escaped = false;
+  for (let index = start; index < source.length; index += 1) {
+    const char = source[index];
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (char === '\\') escaped = true;
+      else if (char === quote) quote = null;
+      continue;
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char;
+      continue;
+    }
+    if (char === open) depth += 1;
+    if (char === close) {
+      depth -= 1;
+      if (depth === 0) return source.slice(start, index + 1);
+    }
+  }
+  throw new Error(`Unclosed ${open}${close} block in news.ts`);
+}
+
+function readStringProperty(objectSource, name) {
+  const match = new RegExp(`${name}\\s*:\\s*"((?:\\\\.|[^"\\\\])*)"`).exec(objectSource);
+  if (!match) return undefined;
+  return JSON.parse(`"${match[1]}"`);
+}
+
+export function parseNewsMetadata(source) {
+  const marker = 'export const newsArticles';
+  const markerIndex = source.indexOf(marker);
+  if (markerIndex < 0) throw new Error('newsArticles export not found');
+  const arrayStart = source.indexOf('[', source.indexOf('=', markerIndex));
+  const arraySource = readBalanced(source, arrayStart);
+  const metadata = [];
+  let quote = null;
+  let escaped = false;
+  for (let index = 1; index < arraySource.length - 1; index += 1) {
+    const char = arraySource[index];
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (char === '\\') escaped = true;
+      else if (char === quote) quote = null;
+      continue;
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char;
+      continue;
+    }
+    if (char !== '{') continue;
+    const objectSource = readBalanced(arraySource, index, '{', '}');
+    const slug = readStringProperty(objectSource, 'slug');
+    const category = readStringProperty(objectSource, 'category');
+    const title = readStringProperty(objectSource, 'title');
+    const date = readStringProperty(objectSource, 'date');
+    const updatedAt = readStringProperty(objectSource, 'updatedAt');
+    const image = readStringProperty(objectSource, 'image');
+    if (slug && category && title && date && image) metadata.push({ slug, category, title, date, updatedAt, image });
+    index += objectSource.length - 1;
+  }
+  return metadata;
+}
+
+export function getNewsMetadata() {
+  return parseNewsMetadata(readFileSync(path.join(rootDir, 'src/data/news.ts'), 'utf8'));
 }
 
 export function getProductRoutes() {
@@ -59,6 +121,13 @@ export function getProductRoutes() {
 
 export function getAllRoutes() {
   return [...STATIC_ROUTES, ...getProductRoutes(), ...getNewsRoutes()];
+}
+
+export function getIndexableRoutes(newsMetadata = getNewsMetadata()) {
+  const hasIndustryArticles = newsMetadata.some((article) => article.category === 'industry');
+  return STATIC_ROUTES
+    .filter((route) => route !== '/news/industry' || hasIndustryArticles)
+    .concat(getProductRoutes(), getNewsRoutes());
 }
 
 // Site-wide canonical policy: trailing slash everywhere (matches Netlify's

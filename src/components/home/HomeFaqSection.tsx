@@ -2,27 +2,27 @@ const faqs = [
   {
     question: "Is this the official TEYES Global website?",
     answer:
-      "TEYES Global is the international B2B cooperation portal for TEYES smart infotainment, Android head unit, and car stereo solutions.",
+      "This is the international website for TEYES Android car stereos, car audio products and accessories.",
   },
   {
     question: "Does TEYES Global support distributors?",
     answer:
-      "Yes. TEYES Global supports distributors, wholesalers, installers, and retail channels with product-line planning, wholesale cooperation, accessories, and market support.",
+      "Yes. TEYES works with distributors, wholesalers, installers and retail partners. Contact the team to discuss product selection and current distribution options.",
   },
   {
     question: "Can I become a TEYES distributor in my market?",
     answer:
-      "You can contact us with your country, business type, sales channel, and target product range. Our team will review the cooperation fit and suggest a trial plan.",
+      "Send us your country, business type, sales channel and target products. The team can then discuss whether TEYES products fit your business and market.",
   },
   {
     question: "Does TEYES support OEM / ODM projects?",
     answer:
-      "Yes. TEYES supports OEM/ODM cooperation, including product platform selection, branding, UI/software customization, accessories, and project support.",
+      "Yes. TEYES can discuss OEM/ODM projects covering product platforms, branding, software, accessories and vehicle compatibility.",
   },
   {
     question: "Which TEYES model should distributors start with?",
     answer:
-      "It depends on the market. CC4 Pro is positioned for premium channels, CC3 2K for mainstream demand, and X1 Pro or CC4L for entry-level or price-sensitive markets.",
+      "It depends on the market. CC4 Pro is positioned for premium channels, CC3 2K for mainstream demand, and X1 Pro or CC4L for entry-level channels. Compare the specifications and vehicle requirements before selecting a model.",
   },
 ];
 
@@ -34,8 +34,7 @@ export function HomeFaqSection() {
           <p className="text-primary font-medium mb-2">Quick Answers</p>
           <h2 className="section-title">TEYES Global FAQ</h2>
           <p className="section-subtitle mt-4 mx-auto">
-            Common questions from visitors looking for the official TEYES Global portal,
-            distributor cooperation, and OEM/ODM project support.
+            Answers about TEYES products, distribution and OEM/ODM projects.
           </p>
         </div>
 

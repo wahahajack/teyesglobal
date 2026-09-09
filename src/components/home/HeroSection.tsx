@@ -33,7 +33,7 @@ const entryPoints = [
     id: "distributor-cooperation",
     icon: Handshake,
     label: "Distributor / Wholesale Cooperation",
-    description: "Explore product-line planning and market support",
+    description: "Explore product selection and distribution support",
     href: "/solutions/distributors/",
     color: "from-emerald-500 to-teal-400",
   },
@@ -73,7 +73,7 @@ export function HeroSection() {
           <div className="space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
               <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary" />
-              Trusted by 100+ Markets Worldwide
+              TEYES Products & Business Cooperation
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.02] tracking-[-0.035em]">
@@ -81,8 +81,8 @@ export function HeroSection() {
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
-              Premium TEYES Android head units and car audio solutions for distributors,
-              installers and automotive partners worldwide.
+              TEYES Android head units and car audio products for distributors, installers and
+              automotive partners.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">

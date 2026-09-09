@@ -210,7 +210,15 @@ export const newsArticles: NewsArticle[] = [
       },
       {
         type: "paragraph",
-        text: "TEYES is also showing its new speakers, amplifiers and subwoofers in the car audio demonstration area. The range adds audio products alongside TEYES head units. For an overview of the categories, representative models and specification links, read the <a href=\"/news/company/teyes-car-audio-series-launch/\">car audio launch announcement</a>.",
+        text: "The car audio demonstration area brings component and coaxial speakers, TD and TP amplifiers, enclosed subwoofers and TEYES head units together in one display. Visitors can see how the product categories fit into a complete in-car system and discuss model selection with the team. Representative models and specification links are also available in the <a href=\"/news/company/teyes-car-audio-series-launch/\">car audio launch announcement</a>.",
+      },
+      {
+        type: "image",
+        src: "/assets/news/automechanika-2026-audio-demo-large.webp",
+        alt: "TEYES car audio demonstration display with speakers, amplifiers, head units and a subwoofer",
+        caption: "The Frankfurt display brings speakers, amplifiers, head units and subwoofers together for a complete view of the car audio range.",
+        width: 1600,
+        height: 900,
       },
       {
         type: "heading",

@@ -51,6 +51,19 @@ describe("news reading and metadata", () => {
     await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "index, follow"));
   });
 
+  it("shows the car audio range inside the exhibition article", () => {
+    renderRoute("/news/exhibitions/automechanika-frankfurt-2026/");
+    expect(screen.getByRole("img", {
+      name: "TEYES car audio demonstration display with speakers, amplifiers, head units and a subwoofer",
+    })).toHaveAttribute("src", "/assets/news/automechanika-2026-audio-demo-large.webp");
+  });
+
+  it("gives article media more desktop width than the reading column", () => {
+    renderRoute("/news/exhibitions/automechanika-frankfurt-2026/");
+    expect(screen.getByTestId("news-article-canvas")).toHaveClass("max-w-5xl");
+    expect(screen.getByTestId("news-article-prose")).toHaveClass("max-w-4xl");
+  });
+
   it("preserves nofollow for existing noindex consumers", async () => {
     render(<HelmetProvider><SEO title="Utility" description="Utility page" path="/utility/" noindex /></HelmetProvider>);
     await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow"));

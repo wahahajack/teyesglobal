@@ -51,7 +51,7 @@ const BlockRenderer = ({ block }: { block: NewsArticleBlock }) => {
           width={block.width}
           height={block.height}
           loading="lazy"
-          className="w-full max-w-2xl mx-auto rounded-2xl border border-border/50 object-cover"
+          className="w-full max-w-4xl max-h-[38rem] mx-auto rounded-2xl border border-border/50 object-contain"
         />
         {block.caption && (
           <figcaption className="text-center text-xs text-muted-foreground mt-3">
@@ -145,9 +145,9 @@ const NewsArticlePage = () => {
       />
 
       <article className="py-12 bg-background">
-        <div className="container-wide max-w-3xl">
+        <div className="container-wide max-w-5xl" data-testid="news-article-canvas">
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border/50">
+          <div className="max-w-4xl mx-auto flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8 pb-8 border-b border-border/50">
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="h-4 w-4" />
               <time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -183,49 +183,51 @@ const NewsArticlePage = () => {
                 width={article.imageWidth}
                 height={article.imageHeight}
                 loading="eager"
-                className="w-full h-auto max-h-[32rem] object-contain mx-auto rounded-2xl border border-border/50"
+                className="w-full aspect-[4/3] md:aspect-[16/9] object-cover object-center mx-auto rounded-2xl border border-border/50"
               />
               {article.imageCaption && <figcaption className="text-center text-xs text-muted-foreground mt-3">{article.imageCaption}</figcaption>}
             </figure>
           )}
 
-          {/* Body */}
-          {article.blocks.map((block, index) => (
-            <BlockRenderer key={index} block={block} />
-          ))}
-
-          {/* Related reading */}
-          <nav
-            className="mt-12 pt-8 border-t border-border/50 grid sm:grid-cols-2 gap-4"
-            aria-label="Related news"
-          >
-            {related.map((item) => (
-              <Link
-                key={item.slug}
-                to={`/news/${item.category}/${item.slug}/`}
-                className="group rounded-xl border border-border/50 p-4 hover:border-primary/50 transition-colors"
-              >
-                <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                  Related news <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-                <span className="block font-medium group-hover:text-primary transition-colors line-clamp-2">
-                  {item.title}
-                </span>
-              </Link>
+          <div className="max-w-4xl mx-auto" data-testid="news-article-prose">
+            {/* Body */}
+            {article.blocks.map((block, index) => (
+              <BlockRenderer key={index} block={block} />
             ))}
-          </nav>
 
-          {/* CTA */}
-          <div className="mt-8 rounded-2xl bg-secondary/40 p-8 text-center">
-            <h2 className="font-display font-bold text-lg mb-2">
-              {article.cta.title}
-            </h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              {article.cta.description}
-            </p>
-            <Button variant="hero" asChild>
-              <Link to={article.cta.href}>{article.cta.label}</Link>
-            </Button>
+            {/* Related reading */}
+            <nav
+              className="mt-12 pt-8 border-t border-border/50 grid sm:grid-cols-2 gap-4"
+              aria-label="Related news"
+            >
+              {related.map((item) => (
+                <Link
+                  key={item.slug}
+                  to={`/news/${item.category}/${item.slug}/`}
+                  className="group rounded-xl border border-border/50 p-4 hover:border-primary/50 transition-colors"
+                >
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                    Related news <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="block font-medium group-hover:text-primary transition-colors line-clamp-2">
+                    {item.title}
+                  </span>
+                </Link>
+              ))}
+            </nav>
+
+            {/* CTA */}
+            <div className="mt-8 rounded-2xl bg-secondary/40 p-8 text-center">
+              <h2 className="font-display font-bold text-lg mb-2">
+                {article.cta.title}
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                {article.cta.description}
+              </p>
+              <Button variant="hero" asChild>
+                <Link to={article.cta.href}>{article.cta.label}</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </article>

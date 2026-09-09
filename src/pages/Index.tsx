@@ -15,6 +15,9 @@ const CapabilitiesSection = lazy(() =>
 const ProductsSection = lazy(() =>
   import("@/components/home/ProductsSection").then((module) => ({ default: module.ProductsSection }))
 );
+const CarAudioSection = lazy(() =>
+  import("@/components/home/CarAudioSection").then((module) => ({ default: module.CarAudioSection }))
+);
 const OemCtaSection = lazy(() =>
   import("@/components/home/OemCtaSection").then((module) => ({ default: module.OemCtaSection }))
 );
@@ -94,8 +97,8 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="TEYES - Smart Infotainment Solutions for Global Markets"
-        description="Global Smart Infotainment Solutions for the Automotive Aftermarket. OEM/ODM partner trusted by distributors across 100+ markets."
+        title="TEYES Premium Android Head Units & Car Audio"
+        description="Premium TEYES Android head units and car audio solutions for distributors, installers, wholesalers and automotive partners in the global automotive aftermarket."
         path="/"
         schema={schema}
         faq={faq}
@@ -106,6 +109,7 @@ const Index = () => {
         <TrustSection />
         <CapabilitiesSection />
         <ProductsSection />
+        <CarAudioSection />
         <OemCtaSection />
         <PartnersSection />
         <HomeFaqSection />

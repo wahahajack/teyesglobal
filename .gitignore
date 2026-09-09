@@ -14,6 +14,7 @@ dist-ssr
 .env
 .env.local
 .netlify/
+.npm-netlify-cli/
 
 # Editor directories and files
 .vscode/*

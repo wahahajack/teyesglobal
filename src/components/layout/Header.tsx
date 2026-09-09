@@ -14,8 +14,9 @@ const navigation = [
     name: "Products",
     href: "/products/",
     children: [
-      { name: "Product Lines", href: "/products/lines/" },
-      { name: "Compare Models", href: "/products/compare/" },
+      { name: "Android Head Units", href: "/products/" },
+      { name: "Car Audio", href: "/car-audio/" },
+      { name: "Compare Products", href: "/products/compare/" },
       { name: "Accessories", href: "/accessories/" },
     ],
   },
@@ -71,6 +72,7 @@ export function Header() {
 
   const isActive = (href: string) => {
     if (href === "/") return location.pathname === "/";
+    if (href === "/products/" && location.pathname.startsWith("/car-audio")) return true;
     return location.pathname.startsWith(href);
   };
 
@@ -79,7 +81,14 @@ export function Header() {
       <nav className="container-wide" aria-label="Global">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="site-logo-link flex items-center">
+          <Link
+            to="/"
+            className="site-logo-link flex items-center"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
             <img
               src="/main-logo.webp"
               alt="TEYES Logo"

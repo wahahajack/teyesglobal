@@ -3,9 +3,9 @@ import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react";
 
 const footerLinks = {
   products: [
-    { name: "Flagship Series", href: "/products/lines/#flagship" },
-    { name: "Advanced Series", href: "/products/lines/#advanced" },
-    { name: "Entry Series", href: "/products/lines/#entry" },
+    { name: "Flagship Series", href: "/products/#flagship" },
+    { name: "Advanced Series", href: "/products/#advanced" },
+    { name: "Entry Series", href: "/products/#entry" },
     { name: "Accessories", href: "/accessories/" },
   ],
   solutions: [

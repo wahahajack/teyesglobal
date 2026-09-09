@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { ContextHeader } from "@/components/layout/ContextHeader";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import { products, seriesInfo, getProductsBySeries } from "@/data/products";
 import { useState } from "react";
@@ -69,8 +68,8 @@ const ProductsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Car Infotainment Products - Android Head Units"
-        description="Browse TEYES car infotainment products. From flagship CC4 Pro to entry-level solutions. Android head units with CarPlay, Android Auto, 2K displays, and premium audio."
+        title="TEYES Android Head Units | Smart Car Infotainment"
+        description="Explore TEYES Android head units including CC4 Pro, CC4, CC3 2K, CC4L and X1 Pro, with solutions for premium, mainstream and value-focused aftermarket markets."
         keywords="TEYES products, car head unit, android car stereo, CC4 Pro, CC3 2K, CarPlay, Android Auto"
         path="/products/"
         breadcrumbs={[
@@ -79,13 +78,33 @@ const ProductsPage = () => {
         ]}
       />
       <ContextHeader
-        title="Products"
-        description="From flagship performance to value-focused entry solutions, find the perfect product for your market."
+        title="Android Head Units"
+        description="Explore the TEYES Android head unit range, from premium flagship systems to proven mainstream and value-focused solutions for different aftermarket channels."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Products" },
         ]}
       />
+
+      {/* Cross-category path to Car Audio */}
+      <section className="bg-background py-4 md:py-5">
+        <div className="container-wide">
+          <Link
+            to="/car-audio/"
+            className="group flex items-center justify-between gap-4 rounded-xl border border-primary/20 bg-primary/5 px-4 py-4 transition-all hover:border-primary/40 hover:bg-primary/10 md:px-6"
+          >
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">Car Audio</p>
+              <h2 className="mt-1 text-base font-semibold text-foreground md:text-lg">Looking for Car Audio?</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Speakers · Subwoofers · Amplifiers</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2 text-sm font-semibold text-primary">
+              <span className="hidden sm:inline">Explore Car Audio</span>
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+        </div>
+      </section>
 
       {/* Featured Products */}
       <section className="py-10 bg-card">
@@ -146,18 +165,13 @@ const ProductsPage = () => {
         return (
           <section key={key} id={key} className="py-10 bg-background border-t border-border/50">
             <div className="container-wide">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-2xl font-display font-bold">{info.name}</h2>
-                  <p className="text-muted-foreground">{info.description}</p>
-                </div>
-                <Button variant="hero-outline" size="sm" asChild>
-                  <Link to={`/products/lines/#${key}`}>View All</Link>
-                </Button>
+              <div className="mb-8">
+                <h2 className="text-2xl font-display font-bold">{info.name}</h2>
+                <p className="text-muted-foreground">{info.description}</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {seriesProducts.slice(0, 3).map((product) => (
+                {seriesProducts.map((product) => (
                   <Link
                     key={product.id}
                     to={`/products/${product.id}/`}
@@ -187,8 +201,7 @@ const ProductsPage = () => {
                       </div>
                     </div>
                   </Link>
-                ))
-                }
+                ))}
               </div>
             </div>
           </section>

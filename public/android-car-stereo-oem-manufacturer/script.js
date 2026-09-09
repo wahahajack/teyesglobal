@@ -16,7 +16,8 @@
     g = "teyes_last_submit_ts",
     h = Date.now();
   let v,
-    y = !1;
+    y = !1,
+    pendingZohoSubmission = null;
   ((window.dataLayer = window.dataLayer || []),
     (window.gtag =
       window.gtag ||
@@ -272,6 +273,7 @@
       }),
     a?.addEventListener("submit", async (e) => {
       if ((e.preventDefault(), !a)) return;
+      if (pendingZohoSubmission) return;
       (window.dataLayer &&
           dataLayer.push({
             event: "form_submit_attempt",
@@ -283,7 +285,7 @@
         p(a.estimated_quantity, w),
         (r.hidden = !0),
         (d.hidden = !0));
-      const t = a.website?.value?.trim();
+      const t = a.elements.namedItem("teyes_leave_blank")?.value?.trim();
       if (t) return;
       const n = Date.now();
       if (n - (Number(a.form_ts?.value) || h) < 2500)
@@ -329,12 +331,27 @@
           );
         }
         ((o.disabled = !0), (o.textContent = "Sending..."));
+        let emailSent = !1;
         try {
+          const submissionId =
+            window.TeyesLeadCapture &&
+            typeof window.TeyesLeadCapture.createSubmissionId === "function"
+              ? window.TeyesLeadCapture.createSubmissionId()
+              : crypto.randomUUID();
+          let submissionInput = a.elements.namedItem("submission_id");
+          if (!submissionInput) {
+            ((submissionInput = document.createElement("input")),
+              (submissionInput.type = "hidden"),
+              (submissionInput.name = "submission_id"),
+              a.appendChild(submissionInput));
+          }
+          submissionInput.value = submissionId;
           (await window.emailjs.sendForm(
             "service_p161z11",
             "template_at1z02w",
             a,
           ),
+            (emailSent = !0),
             localStorage.setItem(g, String(Date.now())),
             window.dataLayer &&
               dataLayer.push({
@@ -342,15 +359,10 @@
                 form_name: "manufacturing_quote",
                 form_location: "manufacturing_landing_page",
                 lead_type: "oem_inquiry",
+                submission_id: submissionId,
                 value: 1,
                 event_category: "conversion",
               }));
-          if (window.TeyesLeadCapture) {
-            void window.TeyesLeadCapture.capture(a, {
-              source: "manufacturing_quote",
-              inquiryType: "OEM / ODM Inquiry",
-            }).catch((error) => console.error("Zoho lead capture failed", error));
-          }
           const e = new URLSearchParams(window.location.search),
             t = new URLSearchParams();
           ([
@@ -369,15 +381,33 @@
           }),
             t.set("lead", "1"));
           const n = t.toString();
-          window.location.href =
+          const redirectUrl =
             "/android-car-stereo-oem-manufacturer/thank-you.html" +
             (n ? `?${n}` : "");
+          const options = {
+            source: "manufacturing_quote",
+            inquiryType: "OEM / ODM Inquiry",
+            submissionId,
+          };
+          pendingZohoSubmission = { options, redirectUrl };
+          if (!window.TeyesLeadCapture)
+            throw new Error("Lead processing unavailable");
+          await window.TeyesLeadCapture.capture(a, options);
+          window.location.href = redirectUrl;
         } catch (e) {
-          ((r.textContent =
-            "Submission failed. Please try again, or contact info@teyesauto.com / WhatsApp."),
+          (console.error(
+            emailSent ? "Zoho lead capture failed" : "Email submission failed",
+            e,
+          ),
+            (r.textContent = emailSent
+              ? "Your request email was sent successfully. Internal processing is delayed; no further submission is needed."
+              : "Submission failed. Please try again, or contact info@teyesauto.com / WhatsApp."),
             (r.hidden = !1));
         } finally {
-          ((o.disabled = !1), (o.textContent = "Get Pricing & MOQ"));
+          ((o.disabled = emailSent),
+            (o.textContent = emailSent
+              ? "Message Sent"
+              : "Get Pricing & MOQ"));
         }
       } else b(l, u, "Please enter a valid country name.");
     }));

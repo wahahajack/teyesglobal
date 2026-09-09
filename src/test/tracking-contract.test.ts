@@ -75,6 +75,53 @@ describe("tracking contract: 正式文件不含禁用追踪代码", () => {
   }
 });
 
+describe("Distributor canonical route contract", () => {
+  const distributorUrl =
+    "https://teyesglobal.com/teyes-android-car-stereo-distributor/";
+  const distributorImageUrl = `${distributorUrl}og-image.jpg`;
+  const distributorHtml = readFileSync(
+    join(PUBLIC_DIR, "teyes-android-car-stereo-distributor", "index.html"),
+    "utf8",
+  );
+  const redirects = readFileSync(join(PUBLIC_DIR, "_redirects"), "utf8")
+    .split(/\r?\n/)
+    .map((line) => line.trim().replace(/\s+/g, " "))
+    .filter(Boolean);
+
+  it("uses the served distributor URL for canonical and social metadata", () => {
+    expect(distributorHtml).toContain(
+      `<link rel="canonical" href="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta property="og:url" content="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta name="twitter:url" content="${distributorUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta property="og:image" content="${distributorImageUrl}">`,
+    );
+    expect(distributorHtml).toContain(
+      `<meta name="twitter:image" content="${distributorImageUrl}">`,
+    );
+    expect(distributorHtml).not.toContain(
+      "https://teyesglobal.com/head-unit-distributor-portal",
+    );
+  });
+
+  it("redirects only the exact distributor aliases with permanent redirects", () => {
+    expect(redirects).toContain(
+      "/head-unit-distributor-portal /teyes-android-car-stereo-distributor/ 301",
+    );
+    expect(redirects).toContain(
+      "/head-unit-distributor-portal/ /teyes-android-car-stereo-distributor/ 301",
+    );
+    expect(redirects).not.toContain(
+      "/head-unit-distributor-portal/* /teyes-android-car-stereo-distributor/:splat 301",
+    );
+  });
+});
+
 describe("tracking contract: 参数数组与跳转契约", () => {
   const PARAM_FILES = [
     "android-car-stereo-wholesale/script.js",
@@ -132,4 +179,57 @@ describe("tracking contract: 静态页面 Lead capture", () => {
     expect(source).toContain("thank-you.html");
     expect(source).toContain("event: 'form_submit_success'");
   });
+
+  const staticSubmissionFiles = [
+    "android-car-stereo-wholesale/script.js",
+    "android-car-stereo-oem-manufacturer/script.js",
+    "teyes-android-car-stereo-distributor/index.html",
+  ];
+
+  for (const rel of staticSubmissionFiles) {
+    it(`${rel} 等待 Zoho 且复用 submissionId`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain("createSubmissionId()");
+      expect(source).toContain("submission_id: submissionId");
+      expect(source).toContain("await window.TeyesLeadCapture.capture");
+      expect(source).not.toContain("void window.TeyesLeadCapture.capture");
+      expect(source).toContain("pendingZohoSubmission");
+      expect(source).not.toContain("Retry Processing");
+      expect(
+        source.match(/await window\.TeyesLeadCapture\.capture/g) || [],
+      ).toHaveLength(1);
+    });
+  }
+
+  const staticHoneypotFiles = [
+    "android-car-stereo-wholesale/index.html",
+    "android-car-stereo-oem-manufacturer/index.html",
+    "teyes-android-car-stereo-distributor/index.html",
+  ];
+
+  for (const rel of staticHoneypotFiles) {
+    it(`${rel} 使用不易自动填充的 honeypot 名称`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain('name="teyes_leave_blank"');
+      expect(source).not.toContain('name="website"');
+    });
+  }
+});
+
+describe("tracking contract: 静态页 WhatsApp 归因标记", () => {
+  const whatsappMarkers = [
+    ["android-car-stereo-wholesale/index.html", "wholesale_cta"],
+    ["android-car-stereo-oem-manufacturer/index.html", "oem_hero"],
+    [
+      "teyes-android-car-stereo-distributor/index.html",
+      "distributor_hero",
+    ],
+  ] as const;
+
+  for (const [rel, location] of whatsappMarkers) {
+    it(`${rel} 提供 data-wa-location=${location}`, () => {
+      const source = readFileSync(join(PUBLIC_DIR, rel), "utf8");
+      expect(source).toContain(`data-wa-location="${location}"`);
+    });
+  }
 });

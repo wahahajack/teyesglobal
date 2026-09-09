@@ -1,5 +1,7 @@
 import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Header } from "./Header";
+import { MobileStickyCta } from "../common/MobileStickyCta";
 
 const Footer = lazy(() =>
   import("./Footer").then((module) => ({ default: module.Footer }))
@@ -14,6 +16,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [loadDeferredChrome, setLoadDeferredChrome] = useState(false);
+  const location = useLocation();
+  const isContact = location.pathname.startsWith("/contact/") || location.pathname === "/contact";
 
   useEffect(() => {
     const load = () => setLoadDeferredChrome(true);
@@ -34,11 +38,18 @@ export function Layout({ children }: LayoutProps) {
       <main className="flex-1">
         {children}
       </main>
+      <MobileStickyCta />
       {loadDeferredChrome && (
         <Suspense fallback={null}>
           <Footer />
           <WhatsAppFloat />
         </Suspense>
+      )}
+      {!isContact && (
+        <div aria-hidden="true" className="md:hidden">
+          <div className="h-20" />
+          <div style={{ height: "env(safe-area-inset-bottom)" }} />
+        </div>
       )}
     </div>
   );

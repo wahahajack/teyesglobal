@@ -5,19 +5,19 @@ import heroBg800 from "@/assets/hero-bg-800.webp";
 import heroBg1200 from "@/assets/hero-bg-1200.webp";
 import heroBg800Avif from "@/assets/hero-bg-800.avif";
 import heroBg1200Avif from "@/assets/hero-bg-1200.avif";
-import cc4Pro400 from "@/assets/products/cc4-pro-hero-400.webp";
-import cc4Pro800 from "@/assets/products/cc4-pro-hero-800.webp";
-import cc4Pro1200 from "@/assets/products/cc4-pro-hero-1200.webp";
-import cc4Pro400Avif from "@/assets/products/cc4-pro-hero-400.avif";
-import cc4Pro800Avif from "@/assets/products/cc4-pro-hero-800.avif";
-import cc4Pro1200Avif from "@/assets/products/cc4-pro-hero-1200.avif";
+import teyesHero480 from "@/assets/teyes-hero-ecosystem-approved-480.webp";
+import teyesHero800 from "@/assets/teyes-hero-ecosystem-approved-800.webp";
+import teyesHero1200 from "@/assets/teyes-hero-ecosystem-approved-1200.webp";
+import teyesHero480Avif from "@/assets/teyes-hero-ecosystem-approved-480.avif";
+import teyesHero800Avif from "@/assets/teyes-hero-ecosystem-approved-800.avif";
+import teyesHero1200Avif from "@/assets/teyes-hero-ecosystem-approved-1200.avif";
 
 const entryPoints = [
   {
     id: "products-compare",
     icon: Building2,
-    label: "Product Lines & Model Comparison",
-    description: "Compare flagship, mainstream, and entry-level models",
+    label: "Compare Products",
+    description: "Compare head units and car audio products side by side",
     href: "/products/compare/",
     color: "from-primary to-blue-400",
   },
@@ -68,7 +68,7 @@ export function HeroSection() {
 
       {/* Content - Left Text, Right Product Image */}
       <div className="relative container-wide pt-20 md:pt-28 pb-12 md:pb-16">
-        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-10 items-center">
           {/* Left: Text Content */}
           <div className="space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
@@ -76,23 +76,28 @@ export function HeroSection() {
               Trusted by 100+ Markets Worldwide
             </div>
 
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.02] tracking-[-0.035em]">
               <span className="text-gradient">TEYES Global Smart Infotainment Solutions</span>
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
-              Android head units, car stereo systems, accessories, distributor cooperation,
-              and OEM/ODM solutions for global markets.
+              Premium TEYES Android head units and car audio solutions for distributors,
+              installers and automotive partners worldwide.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link to="/products/">
+                <Link id="hero-product-cta" to="/products/">
                   Explore Product Lines
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="lg" className="md:h-12 md:px-6" asChild>
+              <Button
+                variant="hero-outline"
+                size="lg"
+                className="border-border/80 bg-secondary/90 shadow-sm hover:border-primary/70 hover:bg-secondary md:h-12 md:px-6"
+                asChild
+              >
                 <Link to="/contact/">Contact TEYES</Link>
               </Button>
             </div>
@@ -100,7 +105,7 @@ export function HeroSection() {
           </div>
 
           {/* Right: Product Image */}
-          <div className="relative max-w-[520px] xl:max-w-[560px] w-full mx-auto lg:ml-auto">
+          <div className="relative max-w-[620px] xl:max-w-[660px] w-full mx-auto lg:ml-auto">
             <div className="relative">
               {/* Glow behind image */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-accent/15 to-transparent rounded-3xl blur-3xl transform scale-105" />
@@ -108,18 +113,18 @@ export function HeroSection() {
               {/* Product Image */}
               <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card/30 backdrop-blur-sm shadow-2xl">
                 <picture>
-                  <source media="(max-width: 480px)" type="image/avif" srcSet={cc4Pro400Avif} />
-                  <source media="(max-width: 480px)" type="image/webp" srcSet={cc4Pro400} />
-                  <source media="(max-width: 768px)" type="image/avif" srcSet={cc4Pro800Avif} />
-                  <source media="(max-width: 768px)" type="image/webp" srcSet={cc4Pro800} />
-                  <source media="(min-width: 769px)" type="image/avif" srcSet={cc4Pro1200Avif} />
-                  <source media="(min-width: 769px)" type="image/webp" srcSet={cc4Pro1200} />
+                  <source media="(max-width: 480px)" type="image/avif" srcSet={teyesHero480Avif} />
+                  <source media="(max-width: 480px)" type="image/webp" srcSet={teyesHero480} />
+                  <source media="(max-width: 768px)" type="image/avif" srcSet={teyesHero800Avif} />
+                  <source media="(max-width: 768px)" type="image/webp" srcSet={teyesHero800} />
+                  <source media="(min-width: 769px)" type="image/avif" srcSet={teyesHero1200Avif} />
+                  <source media="(min-width: 769px)" type="image/webp" srcSet={teyesHero1200} />
                   <img
-                    src={cc4Pro800}
-                    alt="TEYES CC4 Pro - Flagship Android Head Unit"
+                    src={teyesHero1200}
+                    alt="TEYES CC4 Pro smart head unit with speakers, subwoofer and amplifier"
                     className="w-full h-auto"
-                    width={800}
-                    height={800}
+                    width={1200}
+                    height={1200}
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
@@ -130,7 +135,6 @@ export function HeroSection() {
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 bg-gradient-to-t from-background/90 via-background/60 to-transparent">
                   <div className="flex items-end justify-between gap-4">
                     <div>
-                      <p className="text-primary text-sm font-medium mb-1">Flagship Model</p>
                       <h3 className="text-xl md:text-2xl font-bold text-foreground">CC4 Pro</h3>
                       <p className="text-muted-foreground text-sm mt-1">8-Core • 8GB RAM • 256GB ROM</p>
                     </div>
@@ -149,6 +153,10 @@ export function HeroSection() {
                 Flagship Model
               </div>
             </div>
+
+            <p className="hidden sm:block mt-3 rounded-full border border-border/50 bg-secondary/30 px-4 py-2 text-center text-sm font-semibold uppercase tracking-[0.12em] text-foreground/80 md:text-base">
+              Head Units · Speakers · Amplifiers · Subwoofers
+            </p>
           </div>
         </div>
 
@@ -162,7 +170,7 @@ export function HeroSection() {
               <Link
                 key={entry.id}
                 to={entry.href}
-                className="group flex items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
+                className="group flex h-full items-center gap-3 md:gap-4 p-2.5 md:p-4 rounded-xl border border-border/30 bg-secondary/20 backdrop-blur-sm hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <div

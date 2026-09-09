@@ -1,4 +1,22 @@
 const GTM_ID = "GTM-MSPH5TMK";
+const FORM_ENTRY_PAGE_KEY = "form_entry_page";
+const TRACKING_REVISION_KEY = "teyes_tracking_revision_v1";
+const FORM_ENTRY_TARGET_PATHS = new Set([
+  "/contact/",
+  "/android-car-stereo-oem-manufacturer/",
+  "/android-car-stereo-wholesale/",
+  "/teyes-android-car-stereo-distributor/",
+]);
+const PAGE_JOURNEY_KEY = "teyes_page_journey_v1";
+const WHATSAPP_CLICK_KEY = "teyes_last_whatsapp_click_v1";
+const MAX_PAGE_JOURNEY_ENTRIES = 20;
+const MAX_PAGE_JOURNEY_LENGTH = 1024;
+const MAX_WHATSAPP_CLICK_PATH_LENGTH = 255;
+const WHATSAPP_HOSTS = new Set([
+  "wa.me",
+  "api.whatsapp.com",
+  "web.whatsapp.com",
+]);
 
 const AD_PARAM_KEYS = [
   "gclid",
@@ -11,8 +29,38 @@ const AD_PARAM_KEYS = [
   "utm_term",
   "fbclid",
 ] as const;
+const GTM_PREVIEW_PARAM_KEYS = ["gtm_debug", "gtm_auth", "gtm_preview"] as const;
+const STORED_ATTRIBUTION_KEYS = [
+  ...AD_PARAM_KEYS,
+  "landing_page",
+  "referrer",
+] as const;
+const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
+const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
+const GTM_IDLE_DELAY_MS = 4000;
+
+type AttributionKey = (typeof STORED_ATTRIBUTION_KEYS)[number];
+type AttributionValues = Partial<Record<AttributionKey, string>>;
+
+interface DurableAttribution {
+  expiresAt: number;
+  values: AttributionValues;
+}
+
+export interface PageJourneySnapshot {
+  pageJourney: string;
+  whatsappClickJourney: string;
+  whatsappClickPath: string;
+  whatsappClickCount: number;
+}
+
+interface StoredWhatsappClick {
+  journey: string;
+  path: string;
+  count: number;
+}
 
 declare global {
   interface Window {
@@ -38,29 +86,416 @@ function safeSessionGet(key: string) {
   }
 }
 
+function safeSessionRemove(key: string) {
+  try {
+    sessionStorage.removeItem(key);
+  } catch {
+    // Storage can be unavailable in some privacy modes. Tracking must not break the page.
+  }
+}
+
+function readTrackingRevision() {
+  const revision = Number(safeSessionGet(TRACKING_REVISION_KEY));
+  return Number.isSafeInteger(revision) && revision >= 0 ? revision : 0;
+}
+
+function advanceTrackingRevision() {
+  const current = readTrackingRevision();
+  const next = current >= Number.MAX_SAFE_INTEGER ? 1 : current + 1;
+  safeSessionSet(TRACKING_REVISION_KEY, String(next));
+  return next;
+}
+
+function removeDurableAttribution() {
+  try {
+    localStorage.removeItem(ATTRIBUTION_STORAGE_KEY);
+  } catch {
+    // Storage can be unavailable in some privacy modes.
+  }
+}
+
+function readDurableAttribution(): DurableAttribution | null {
+  try {
+    const raw = localStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+    if (!raw) return null;
+
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") {
+      removeDurableAttribution();
+      return null;
+    }
+
+    const candidate = parsed as { expiresAt?: unknown; values?: unknown };
+    if (
+      typeof candidate.expiresAt !== "number" ||
+      !Number.isFinite(candidate.expiresAt) ||
+      candidate.expiresAt <= Date.now() ||
+      !candidate.values ||
+      typeof candidate.values !== "object" ||
+      Array.isArray(candidate.values)
+    ) {
+      removeDurableAttribution();
+      return null;
+    }
+
+    const source = candidate.values as Record<string, unknown>;
+    const values: AttributionValues = {};
+    STORED_ATTRIBUTION_KEYS.forEach((key) => {
+      if (typeof source[key] === "string") {
+        values[key] = source[key];
+      }
+    });
+
+    return { expiresAt: candidate.expiresAt, values };
+  } catch {
+    removeDurableAttribution();
+    return null;
+  }
+}
+
+function writeDurableAttribution(values: AttributionValues) {
+  try {
+    localStorage.setItem(
+      ATTRIBUTION_STORAGE_KEY,
+      JSON.stringify({
+        expiresAt: Date.now() + ATTRIBUTION_TTL_MS,
+        values,
+      } satisfies DurableAttribution),
+    );
+  } catch {
+    // Durable attribution is best-effort and must not break the page.
+  }
+}
+
+function readStoredValue(key: AttributionKey, durable: AttributionValues) {
+  return safeSessionGet(key) ?? durable[key] ?? null;
+}
+
+function hasStoredValue(key: AttributionKey, durable: AttributionValues) {
+  return safeSessionGet(key) !== null ||
+    Object.prototype.hasOwnProperty.call(durable, key);
+}
+
+function cleanLandingPageUrl(value: string) {
+  let landingPage: URL;
+  try {
+    landingPage = new URL(value);
+  } catch {
+    return value;
+  }
+  if (!GTM_PREVIEW_PARAM_KEYS.some((key) => landingPage.searchParams.has(key))) {
+    return value;
+  }
+  GTM_PREVIEW_PARAM_KEYS.forEach((key) => landingPage.searchParams.delete(key));
+  return landingPage.href;
+}
+
+function getCurrentPath() {
+  return window.location.pathname + window.location.search;
+}
+
+function normalizeJourneyPath(value: unknown) {
+  if (typeof value !== "string") return "";
+
+  const path = value
+    .split("")
+    .filter((character) => {
+      const code = character.charCodeAt(0);
+      return code > 0x1f && code !== 0x7f;
+    })
+    .join("")
+    .trim();
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return "";
+  if (/^(?:https?:|javascript:|data:)/i.test(path)) return "";
+  return path.split("?")[0] || "/";
+}
+
+function normalizeWhatsappLinkLocation(value: unknown) {
+  if (typeof value !== "string") return "unknown";
+
+  const location = value.trim();
+  return /^[a-z0-9_-]{1,64}$/.test(location) ? location : "unknown";
+}
+
+function boundJourneyEntries(entries: string[], limit = MAX_PAGE_JOURNEY_LENGTH) {
+  const kept: string[] = [];
+  let length = 0;
+
+  for (let index = entries.length - 1; index >= 0; index -= 1) {
+    const entry = entries[index];
+    const separatorLength = kept.length ? 3 : 0;
+    if (length + separatorLength + entry.length > limit) continue;
+    kept.unshift(entry);
+    length += separatorLength + entry.length;
+  }
+
+  return kept.slice(-MAX_PAGE_JOURNEY_ENTRIES);
+}
+
+function normalizeWhatsappClickPath(value: unknown) {
+  const path = normalizeJourneyPath(value);
+  return path && path.length <= MAX_WHATSAPP_CLICK_PATH_LENGTH ? path : "";
+}
+
+function readPageJourneyEntries() {
+  const raw = safeSessionGet(PAGE_JOURNEY_KEY);
+  if (!raw) return [];
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .map(normalizeJourneyPath)
+      .filter((entry): entry is string => Boolean(entry))
+      .slice(-MAX_PAGE_JOURNEY_ENTRIES)
+      .filter((entry) => entry.length <= MAX_PAGE_JOURNEY_LENGTH);
+  } catch {
+    return [];
+  }
+}
+
+function formatJourney(entries: string[]) {
+  return entries.join(" > ");
+}
+
+function readStoredWhatsappClick(): StoredWhatsappClick | null {
+  const raw = safeSessionGet(WHATSAPP_CLICK_KEY);
+  if (!raw) return null;
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+
+    const candidate = parsed as Partial<StoredWhatsappClick>;
+    const journey = typeof candidate.journey === "string"
+      ? formatJourney(boundJourneyEntries(candidate.journey.split(" > ").map(normalizeJourneyPath).filter(Boolean)))
+      : "";
+    const path = normalizeWhatsappClickPath(candidate.path);
+    const count = typeof candidate.count === "number" && Number.isFinite(candidate.count)
+      ? Math.max(0, Math.floor(candidate.count))
+      : 0;
+
+    if (!journey || !path || count < 1) return null;
+    return {
+      journey,
+      path,
+      count,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function recordPageJourneyEntry() {
+  const path = normalizeJourneyPath(window.location.pathname);
+  if (!path) return;
+
+  const entries = readPageJourneyEntries();
+  if (entries[entries.length - 1] === path) return;
+
+  entries.push(path);
+  safeSessionSet(
+    PAGE_JOURNEY_KEY,
+    JSON.stringify(boundJourneyEntries(entries)),
+  );
+  advanceTrackingRevision();
+}
+
+let contactEntryTrackingInstalled = false;
+let pageJourneyTrackingInstalled = false;
+
+export function installContactEntryTracking() {
+  if (contactEntryTrackingInstalled) return;
+
+  contactEntryTrackingInstalled = true;
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link) return;
+
+    const destination = new URL(link.getAttribute("href")!, window.location.origin);
+    if (destination.origin === window.location.origin && FORM_ENTRY_TARGET_PATHS.has(destination.pathname)) {
+      safeSessionSet(FORM_ENTRY_PAGE_KEY, getCurrentPath());
+      advanceTrackingRevision();
+    }
+  }, { capture: true });
+}
+
+export function getFormEntryPage() {
+  return safeSessionGet(FORM_ENTRY_PAGE_KEY) || getCurrentPath();
+}
+
+export interface SubmissionTrackingTransaction {
+  payload: PageJourneySnapshot & { formEntryPage: string };
+  rollbackIfUnchanged: () => void;
+}
+
+export function beginSubmissionTracking(): SubmissionTrackingTransaction {
+  const storedFormEntryPage = safeSessionGet(FORM_ENTRY_PAGE_KEY);
+  const rawPageJourney = safeSessionGet(PAGE_JOURNEY_KEY);
+  const rawWhatsappClick = safeSessionGet(WHATSAPP_CLICK_KEY);
+  const payload = {
+    formEntryPage: storedFormEntryPage || getCurrentPath(),
+    ...getPageJourneySnapshot(),
+  };
+
+  const revision = advanceTrackingRevision();
+  safeSessionRemove(FORM_ENTRY_PAGE_KEY);
+  safeSessionRemove(PAGE_JOURNEY_KEY);
+  safeSessionRemove(WHATSAPP_CLICK_KEY);
+
+  return {
+    payload,
+    rollbackIfUnchanged: () => {
+      if (
+        readTrackingRevision() !== revision ||
+        safeSessionGet(FORM_ENTRY_PAGE_KEY) !== null ||
+        safeSessionGet(PAGE_JOURNEY_KEY) !== null ||
+        safeSessionGet(WHATSAPP_CLICK_KEY) !== null
+      ) {
+        return;
+      }
+
+      if (storedFormEntryPage) {
+        safeSessionSet(FORM_ENTRY_PAGE_KEY, storedFormEntryPage);
+      }
+      if (rawPageJourney) safeSessionSet(PAGE_JOURNEY_KEY, rawPageJourney);
+      if (rawWhatsappClick) safeSessionSet(WHATSAPP_CLICK_KEY, rawWhatsappClick);
+    },
+  };
+}
+
+export function clearFormEntryPage() {
+  safeSessionRemove(FORM_ENTRY_PAGE_KEY);
+  advanceTrackingRevision();
+}
+
+export function installPageJourneyTracking() {
+  if (pageJourneyTrackingInstalled) return;
+
+  pageJourneyTrackingInstalled = true;
+  recordPageJourneyEntry();
+
+  const originalPushState = history.pushState.bind(history);
+  history.pushState = ((...args: Parameters<History["pushState"]>) => {
+    const result = originalPushState(...args);
+    recordPageJourneyEntry();
+    return result;
+  }) as History["pushState"];
+
+  const originalReplaceState = history.replaceState.bind(history);
+  history.replaceState = ((...args: Parameters<History["replaceState"]>) => {
+    const result = originalReplaceState(...args);
+    recordPageJourneyEntry();
+    return result;
+  }) as History["replaceState"];
+
+  window.addEventListener("popstate", recordPageJourneyEntry);
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link) return;
+
+    let destination: URL;
+    try {
+      destination = new URL(link.getAttribute("href")!, window.location.href);
+    } catch {
+      return;
+    }
+
+    const destinationHost = destination.hostname.toLowerCase();
+    const isWhatsAppLink = destination.protocol === "whatsapp:" || WHATSAPP_HOSTS.has(destinationHost);
+    if (!isWhatsAppLink) return;
+    const eventDestinationHost = destination.protocol === "whatsapp:" ? "whatsapp" : destinationHost;
+
+    const journey = formatJourney(boundJourneyEntries(readPageJourneyEntries()));
+    const path = normalizeJourneyPath(window.location.pathname) || "/";
+    const clickPath = normalizeWhatsappClickPath(path);
+    const previous = readStoredWhatsappClick();
+    const count = (previous?.count ?? 0) + 1;
+    const stored: StoredWhatsappClick = {
+      journey: journey || path,
+      path: clickPath,
+      count,
+    };
+    const linkLocation = normalizeWhatsappLinkLocation(link.getAttribute("data-wa-location"));
+
+    if (clickPath) {
+      safeSessionSet(WHATSAPP_CLICK_KEY, JSON.stringify(stored));
+      advanceTrackingRevision();
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "whatsapp_click",
+      page_path: path,
+      page_journey: stored.journey,
+      wa_click_path: clickPath,
+      link_location: linkLocation,
+      destination_host: eventDestinationHost,
+    });
+    loadGtmNow();
+  }, { capture: true });
+}
+
+export function getPageJourneySnapshot(): PageJourneySnapshot {
+  const entries = boundJourneyEntries(readPageJourneyEntries());
+  const stored = readStoredWhatsappClick();
+  const currentPath = normalizeJourneyPath(window.location.pathname) || "/";
+
+  return {
+    pageJourney: formatJourney(entries) || (currentPath.length <= MAX_PAGE_JOURNEY_LENGTH ? currentPath : "/"),
+    whatsappClickJourney: stored?.journey ?? "",
+    whatsappClickPath: stored?.path ?? "",
+    whatsappClickCount: stored?.count ?? 0,
+  };
+}
+
+export function clearPageJourney() {
+  safeSessionRemove(PAGE_JOURNEY_KEY);
+  safeSessionRemove(WHATSAPP_CLICK_KEY);
+  advanceTrackingRevision();
+}
+
 export function initDataLayer() {
   window.dataLayer = window.dataLayer || [];
 }
 
 export function persistAdParams() {
   const params = new URLSearchParams(window.location.search);
-  const hasAdParam = AD_PARAM_KEYS.some((key) => Boolean(params.get(key)));
+  const durable = readDurableAttribution()?.values ?? {};
 
   AD_PARAM_KEYS.forEach((key) => {
     const value = params.get(key);
     if (value) {
       safeSessionSet(key, value);
+      durable[key] = value;
     }
   });
 
-  if (hasAdParam) {
-    if (!safeSessionGet("landing_page")) {
-      safeSessionSet("landing_page", window.location.href);
+  const storedLandingPage = readStoredValue("landing_page", durable);
+  if (storedLandingPage) {
+    const landingPage = cleanLandingPageUrl(storedLandingPage);
+    if (landingPage !== storedLandingPage) {
+      safeSessionSet("landing_page", landingPage);
+      durable.landing_page = landingPage;
     }
-    if (!safeSessionGet("referrer") && document.referrer) {
+  } else if (!hasStoredValue("landing_page", durable)) {
+    const landingPage = cleanLandingPageUrl(window.location.href);
+    safeSessionSet("landing_page", landingPage);
+    durable.landing_page = landingPage;
+  }
+  if (!hasStoredValue("referrer", durable)) {
+    if (document.referrer) {
       safeSessionSet("referrer", document.referrer);
     }
+    durable.referrer = document.referrer;
   }
+
+  writeDurableAttribution(durable);
 }
 
 function injectGtm() {
@@ -88,6 +523,12 @@ export function loadGtmNow() {
   injectGtm();
 }
 
+function isGtmPreview() {
+  const params = new URLSearchParams(window.location.search);
+
+  return GTM_PREVIEW_PARAM_KEYS.some((key) => params.has(key));
+}
+
 export function loadGtmWhenIdle() {
   const schedulePassiveLoad = () => {
     if (window.__teyesGtmLoaded) return;
@@ -110,12 +551,18 @@ export function loadGtmWhenIdle() {
       });
     });
 
-    // Passive pageview tracking can wait. Conversion events still call loadGtmNow() immediately.
+    // Preview sessions must load immediately so Tag Assistant can connect.
+    // Normal pageview tracking waits briefly; conversion events still call loadGtmNow() immediately.
     window.__teyesGtmLoadTimer = window.setTimeout(() => {
       cleanupInteractionListeners();
       injectGtm();
-    }, 6000);
+    }, GTM_IDLE_DELAY_MS);
   };
+
+  if (isGtmPreview()) {
+    loadGtmNow();
+    return;
+  }
 
   if (document.readyState === "complete") {
     schedulePassiveLoad();
@@ -126,18 +573,20 @@ export function loadGtmWhenIdle() {
 }
 
 export function getStoredAdParams() {
+  const durable = readDurableAttribution()?.values ?? {};
+
   return {
-    gclid: safeSessionGet("gclid"),
-    gbraid: safeSessionGet("gbraid"),
-    wbraid: safeSessionGet("wbraid"),
-    utm_source: safeSessionGet("utm_source"),
-    utm_medium: safeSessionGet("utm_medium"),
-    utm_campaign: safeSessionGet("utm_campaign"),
-    utm_content: safeSessionGet("utm_content"),
-    utm_term: safeSessionGet("utm_term"),
-    fbclid: safeSessionGet("fbclid"),
-    landing_page: safeSessionGet("landing_page"),
-    referrer: safeSessionGet("referrer"),
+    gclid: readStoredValue("gclid", durable),
+    gbraid: readStoredValue("gbraid", durable),
+    wbraid: readStoredValue("wbraid", durable),
+    utm_source: readStoredValue("utm_source", durable),
+    utm_medium: readStoredValue("utm_medium", durable),
+    utm_campaign: readStoredValue("utm_campaign", durable),
+    utm_content: readStoredValue("utm_content", durable),
+    utm_term: readStoredValue("utm_term", durable),
+    fbclid: readStoredValue("fbclid", durable),
+    landing_page: readStoredValue("landing_page", durable),
+    referrer: readStoredValue("referrer", durable),
   };
 }
 

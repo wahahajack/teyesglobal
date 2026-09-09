@@ -10,8 +10,8 @@ const partners = [
   },
   {
     icon: Car,
-    title: "Private Label & Auto Brands",
-    description: "White-label and co-branded infotainment solutions tailored to your market strategy.",
+    title: "Brand and OEM/ODM Projects",
+    description: "Discuss branding, software and vehicle-compatibility requirements for your project.",
     href: "/solutions/auto-brands/",
   },
   {

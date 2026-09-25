@@ -77,18 +77,18 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.02] tracking-[-0.035em]">
-              <span className="text-gradient">TEYES Global Smart Infotainment Solutions</span>
+              <span className="text-gradient">TEYES Android Head Units &amp; Car Audio</span>
             </h1>
 
             <p className="text-sm md:text-base text-muted-foreground/80 font-medium tracking-wide max-w-xl">
-              TEYES Android head units and car audio products for distributors, installers and
-              automotive partners.
+              For distributors, wholesalers, installers and automotive partners worldwide.
+              Wholesale, distribution and OEM/ODM cooperation available.
             </p>
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Button variant="hero" size="lg" className="md:h-12 md:px-6" asChild>
-                <Link id="hero-product-cta" to="/products/">
-                  Explore Product Lines
+                <Link to="/contact/">
+                  Business Inquiry
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
@@ -98,7 +98,7 @@ export function HeroSection() {
                 className="border-border/80 bg-secondary/90 shadow-sm hover:border-primary/70 hover:bg-secondary md:h-12 md:px-6"
                 asChild
               >
-                <Link to="/contact/">Contact TEYES</Link>
+                <Link id="hero-product-cta" to="/products/">Explore Products</Link>
               </Button>
             </div>
 

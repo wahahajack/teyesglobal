@@ -8,6 +8,7 @@ import {
   newsCategories,
   getArticleBySlug,
   getSortedArticles,
+  editorialByline,
   type NewsArticleBlock,
 } from "@/data/news";
 import NotFound from "@/pages/NotFound";
@@ -90,8 +91,13 @@ const NewsArticlePage = () => {
     datePublished: article.date,
     dateModified: article.date,
     url,
-    image: article.image ?? `${BASE_URL}/og-image.webp`,
-    author: { "@type": "Organization", name: "TEYES", url: BASE_URL },
+    image: article.image
+      ? `${BASE_URL}${article.image}`
+      : `${BASE_URL}/og-image.webp`,
+    author: { "@type": "Organization", name: editorialByline.writerName, url: `${BASE_URL}${editorialByline.profilePath}` },
+    ...(article.reviewedBy
+      ? { reviewedBy: { "@type": "Person", name: article.reviewedBy } }
+      : {}),
     publisher: {
       "@type": "Organization",
       name: "TEYES",
@@ -114,7 +120,9 @@ const NewsArticlePage = () => {
         description={article.excerpt}
         path={`/news/${article.category}/${article.slug}/`}
         ogType="article"
+        image={article.image}
         schema={articleSchema}
+        faq={article.faq}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "News", href: "/news/" },
@@ -147,6 +155,18 @@ const NewsArticlePage = () => {
               <CalendarDays className="h-4 w-4" />
               {formatDate(article.date)}
             </span>
+            <span className="inline-flex items-center gap-1.5">
+              Written by {editorialByline.writerName}
+              {article.reviewedBy
+                ? ` · Technically reviewed by ${article.reviewedBy}`
+                : ""}
+            </span>
+            <Link
+              to={editorialByline.profilePath}
+              className="inline-flex items-center gap-1.5 text-primary hover:underline"
+            >
+              How we write and review
+            </Link>
             {article.eventDates && (
               <span className="inline-flex items-center gap-1.5">
                 Event: {article.eventDates}
@@ -187,6 +207,27 @@ const NewsArticlePage = () => {
           {article.blocks.map((block, index) => (
             <BlockRenderer key={index} block={block} />
           ))}
+
+          {/* FAQ (visible; FAQPage JSON-LD is emitted via the SEO component) */}
+          {article.faq && article.faq.length > 0 && (
+            <section className="mt-12 pt-8 border-t border-border/50">
+              <h2 className="text-xl md:text-2xl font-display font-bold mb-6">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-6">
+                {article.faq.map((item) => (
+                  <div key={item.question}>
+                    <h3 className="font-display font-bold text-base mb-1.5">
+                      {item.question}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Prev / Next */}
           <nav

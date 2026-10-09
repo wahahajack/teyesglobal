@@ -33,6 +33,7 @@ const staticPages = [
   { path: '/landing/distributor', source: 'src/pages/landing/LandingDistributor.tsx', priority: '0.8' },
   { path: '/accessories', source: 'src/pages/Accessories.tsx', priority: '0.8' },
   { path: '/about', source: 'src/pages/about/About.tsx', priority: '0.7' },
+  { path: '/about/editorial', source: 'src/pages/about/AboutEditorial.tsx', priority: '0.5' },
   { path: '/news', source: 'src/pages/news/News.tsx', priority: '0.7' },
   { path: '/news/company', source: 'src/pages/news/News.tsx', priority: '0.6' },
   { path: '/news/exhibitions', source: 'src/pages/news/News.tsx', priority: '0.6' },

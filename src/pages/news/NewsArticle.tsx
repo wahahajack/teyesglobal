@@ -8,6 +8,7 @@ import {
   newsCategories,
   getArticleBySlug,
   getSortedArticles,
+  editorialByline,
   type NewsArticleBlock,
 } from "@/data/news";
 import NotFound from "@/pages/NotFound";
@@ -91,7 +92,10 @@ const NewsArticlePage = () => {
     dateModified: article.updatedAt ?? article.date,
     url,
     image: new URL(article.image, BASE_URL).href,
-    author: { "@type": "Organization", "@id": `${BASE_URL}/#organization`, name: "TEYES", url: `${BASE_URL}/about/` },
+    author: { "@type": "Organization", "@id": `${BASE_URL}/#organization`, name: editorialByline.writerName, url: `${BASE_URL}${editorialByline.profilePath}` },
+    ...(article.reviewedBy
+      ? { reviewedBy: { "@type": "Person", name: article.reviewedBy } }
+      : {}),
     publisher: {
       "@type": "Organization",
       "@id": `${BASE_URL}/#organization`,
@@ -120,6 +124,7 @@ const NewsArticlePage = () => {
         ogType="article"
         image={article.image}
         schema={articleSchema}
+        faq={article.faq}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "News", href: "/news/" },
@@ -155,7 +160,18 @@ const NewsArticlePage = () => {
             {article.updatedAt && article.updatedAt !== article.date && (
               <span>Updated <time dateTime={article.updatedAt}>{formatDate(article.updatedAt)}</time></span>
             )}
-            <span>By <Link to="/about/" className="text-primary hover:underline">TEYES</Link></span>
+            <span className="inline-flex items-center gap-1.5">
+              Written by {editorialByline.writerName}
+              {article.reviewedBy
+                ? ` · Technically reviewed by ${article.reviewedBy}`
+                : ""}
+            </span>
+            <Link
+              to={editorialByline.profilePath}
+              className="inline-flex items-center gap-1.5 text-primary hover:underline"
+            >
+              How we write and review
+            </Link>
             {article.eventDates && (
               <span className="inline-flex items-center gap-1.5">
                 Event: {article.eventDates}
@@ -194,6 +210,27 @@ const NewsArticlePage = () => {
             {article.blocks.map((block, index) => (
               <BlockRenderer key={index} block={block} />
             ))}
+
+            {/* FAQ (visible; FAQPage JSON-LD is emitted via the SEO component) */}
+            {article.faq && article.faq.length > 0 && (
+              <section className="mt-12 pt-8 border-t border-border/50">
+                <h2 className="text-xl md:text-2xl font-display font-bold mb-6">
+                  Frequently Asked Questions
+                </h2>
+                <div className="space-y-6">
+                  {article.faq.map((item) => (
+                    <div key={item.question}>
+                      <h3 className="font-display font-bold text-base mb-1.5">
+                        {item.question}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {item.answer}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Related reading */}
             <nav

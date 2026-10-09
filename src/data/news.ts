@@ -36,8 +36,20 @@ export interface NewsArticle {
     label: string;
     href: string;
   };
+  // Name of the engineer who technically reviewed the article. Omit until the
+  // reviewer's name is confirmed for publication; bylines and schema adapt.
+  reviewedBy?: string;
+  // Optional FAQ section rendered visibly at the end of the article and
+  // emitted as FAQPage JSON-LD.
+  faq?: { question: string; answer: string }[];
   blocks: NewsArticleBlock[];
 }
+
+// Editorial identity shared by article bylines and the /about/editorial/ page.
+export const editorialByline = {
+  writerName: "TEYES Editorial",
+  profilePath: "/about/editorial/",
+};
 
 export const newsCategories: {
   id: NewsCategory;
@@ -57,11 +69,129 @@ export const newsCategories: {
   {
     id: "industry",
     name: "Industry Insights",
-    description: "No industry articles have been published yet. Read the latest product announcements and exhibition updates from TEYES.",
+    description: "Analysis and trends shaping the automotive infotainment and aftermarket industry.",
   },
 ];
 
 export const newsArticles: NewsArticle[] = [
+  {
+    slug: "sony-exit-north-america-head-unit-supplier-checklist",
+    category: "industry",
+    title:
+      "Sony Exits North American Car Audio: A Supplier Checklist for Head Unit Buyers",
+    date: "2026-10-07",
+    updatedAt: "2026-10-07",
+    excerpt:
+      "Sony has notified the industry that it is leaving the North American aftermarket car audio business, after exiting Europe in 2025. For distributors, retailers and installers, the practical question is not why Sony left — it is how to evaluate the supplier who takes its place on the shelf.",
+    image: "/assets/news/automechanika-2026-cc4-pro-counter-large.webp",
+    imageAlt:
+      "TEYES CC4 PRO head unit with camera and microphone accessories on display at Automechanika Frankfurt 2026",
+    imageWidth: 1280,
+    imageHeight: 720,
+    imageCaption:
+      "The CC4 PRO head unit and camera accessories on the TEYES stand at Automechanika Frankfurt 2026.",
+    cta: {
+      title: "Evaluating your head unit lineup?",
+      description:
+        "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
+      label: "Discuss distribution",
+      href: "/contact/",
+    },
+    reviewedBy: "Chris Peng, TEYES Engineering",
+    faq: [
+      {
+        question: "Did Sony stop making car stereos?",
+        answer:
+          "Sony has announced its exit from the aftermarket car audio business in North America, following its earlier exit from the European aftermarket, where shipments ended in March 2025. Sony continues other consumer electronics businesses; this decision concerns aftermarket car audio.",
+      },
+      {
+        question: "Will existing Sony car audio warranties still be honored?",
+        answer:
+          "When Sony exited Europe, it stated that warranties would remain in place according to the laws of each region. For North America, buyers should confirm warranty handling with their place of purchase and Sony's regional support channels, as detailed exit terms had not been published at the time of writing.",
+      },
+      {
+        question: "Which tier-one brands remain in aftermarket head units?",
+        answer:
+          "Following Sony's departure, dealers name Alpine, Pioneer and Kenwood as the remaining tier-one brands in the category.",
+      },
+      {
+        question:
+          "Does Sony's exit mean the aftermarket head unit category is shrinking?",
+        answer:
+          "The exit reflects one company's portfolio decision. Demand indicators remain: infotainment systems account for roughly 25% of new-vehicle problems according to a JD Power finding reported in September 2026, and competitors launched new large-screen receivers in the same week.",
+      },
+      {
+        question: "What should a distributor ask a new head unit supplier first?",
+        answer:
+          "Start with supply continuity and warranty terms in writing — how long the current generation ships, how end-of-life is communicated, and exactly who honors warranty claims in your market. Then verify software update processes and per-SKU specifications before placing volume orders.",
+      },
+    ],
+    blocks: [
+      {
+        type: "paragraph",
+        text: "Sony has told the car audio industry that it is stepping back from the aftermarket car audio business in North America. According to trade publication CEoutlook, the notice was sent to industry members by email on September 30, 2026. It follows Sony's exit from the European aftermarket, where the company stopped taking orders at the end of 2024 and ended shipments in March 2025, stating at the time that warranties would remain in place according to the laws of each region.",
+      },
+      {
+        type: "paragraph",
+        text: "Dealer reactions appeared within days. SCR Distribution in the UK summarized the situation bluntly on Facebook: Sony is leaving the US market after already leaving Europe, leaving Alpine, Pioneer and Kenwood as the remaining tier-one head unit brands. Other dealers described themselves as heartbroken. In its October 2 follow-up, CEoutlook reported that industry members speculating on the reasons for the departure noted Sony's sales were heavily concentrated in head units — a category under pressure. That explanation is industry speculation, not a statement from Sony.",
+      },
+      {
+        type: "paragraph",
+        text: "For distributors, importers, retailers and installers outside the tier-one brand system, the why matters less than the what now. Shelf space, installer recommendations and customer trust that Sony occupied do not disappear; they get reallocated. This article looks at what the exit changes for the trade, and offers a checklist for evaluating whichever supplier takes that place.",
+      },
+      {
+        type: "heading",
+        text: "What actually changed",
+      },
+      {
+        type: "paragraph",
+        text: "The exit itself was telegraphed in the channel. By August 2026, parts specialist Auto Harness House reported that Sony's previous receiver generation — the XAV-AX5000, AX5600, AX7000 and AX8100 — had been discontinued, that remaining units were available only in small numbers from third-party sellers, and that leftover XAV-AX7000 stock was selling above its original price. When discontinued models trade at a premium, it usually means demand for the product still exists while the supply line has already been wound down.",
+      },
+      {
+        type: "paragraph",
+        text: "The demand side has not changed. Consumers continue to report problems with factory infotainment systems — infotainment accounts for roughly 25% of all new-vehicle problems, according to a JD Power finding reported by CEoutlook on September 20, 2026. Vehicles on the road keep aging, and drivers keep upgrading. What changed is the supply side: one of the most recognized names in the category has left its second major region within two years.",
+      },
+      {
+        type: "paragraph",
+        text: "Meanwhile, the remaining tier-one brands are redirecting their energy. Alpine used the weeks before SEMA 2026 to promote an all-new marine audio line — head units, amplifiers, speakers and subwoofers for boats — after announcing its return to the marine market earlier in 2026. Pioneer Electronics AsiaCentre introduced two new large-screen A Series multimedia receivers in the Philippines in late September, and followed with the 9-inch DMH-AP6850BT with wireless Apple CarPlay in early October. The pattern is visible: incumbents are diversifying into adjacent categories and concentrating head unit investment on large-screen, smartphone-centric models in growth markets.",
+      },
+      {
+        type: "heading",
+        text: "A checklist for evaluating a replacement supplier",
+      },
+      {
+        type: "paragraph",
+        text: "Whether the replacement for a departed brand is another tier-one line or an Android head unit specialist, the evaluation questions are the same. They are also the questions dealers are most likely to ask in the coming months, based on what the channel itself has been discussing this week.",
+      },
+      {
+        type: "list",
+        items: [
+          "Supply continuity. How long has the current product generation been shipping, and how does the supplier communicate end-of-life? Sony's channel wound down for months before the exit was announced; buyers who watched stock levels and discontinued SKUs had early warning.",
+          "Warranty terms in writing. How many years, honored by whom, in which markets, and through which process? When Sony left Europe, it stated that warranties would remain in place according to regional law — a reminder that exit terms matter as much as warranty length. Some retailers now warn consumers that products bought from unauthorized sellers may not be covered at all, so ask how the supplier defines and polices its authorized channel.",
+          "Software and firmware support. How are updates delivered, and what happens when an update fails? To take one current example from the Android segment: some suppliers require a Windows PC for system updates, and a failed or mismatched update can disable CarPlay/Android Auto until a paid reactivation. Multiply that by an installer's labor rate and it becomes a real cost line.",
+          "Verifiable specifications. US installers have publicly criticized low-cost Android head units this month for inflated hardware specifications, laggy software and absent support. Ask for the chipset model, RAM and storage configuration by SKU, and check them against the delivered unit. A supplier who publishes verifiable specifications is easier to stand behind than one who leads with adjectives.",
+          "Fitment and integration depth. As tier-one brands concentrate on large-screen CarPlay receivers, differentiation moves to vehicle integration: CAN bus decoders, steering-wheel control retention, factory camera retention, 360-degree camera support and ADAS (advanced driver assistance systems) camera inputs. Confirm these per vehicle model and year, not as a blanket claim.",
+          "Certifications for your market. E-mark for European-type-approval markets, CE for the EU, FCC for the US. Ask which documents the supplier can provide for the specific SKU you are buying, not the brand in general.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Among Android head unit specialists, TEYES publishes per-model specifications and vehicle-specific integration lists rather than generic compatibility claims. Firmware updates for its current Android head unit range are delivered over the air (OTA) — updates download and install directly on the device, with no PC or service visit required. Its CC4 PRO model supports 360-degree camera systems and ADAS camera inputs, and TEYES provides CE, FCC and E-mark documentation per SKU on request — the same verification points this checklist asks buyers to confirm before placing volume orders.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Sony's North American exit is the largest single-brand event in the aftermarket head unit category this year. It does not signal the end of the category — the demand drivers are intact, and the same week brought new large-screen receivers from Pioneer and a diversified marine line from Alpine. It does signal that the supplier list buyers trusted for two decades is being rewritten, and that the evaluation criteria above will decide who inherits the shelf.",
+      },
+      {
+        type: "paragraph",
+        text: "TEYES develops Android car stereos, car audio products and accessories, and works with distributors, retailers and businesses seeking customized products. Distributors evaluating their head unit lineup for 2027 can contact the TEYES team to discuss model ranges, warranty terms and market requirements.",
+      },
+    ],
+  },
   {
     slug: "teyes-car-audio-series-launch",
     category: "company",

@@ -33,6 +33,7 @@ export const STATIC_ROUTES = [
   '/landing/distributor',
   '/accessories',
   '/about',
+  '/about/editorial',
   '/news',
   '/news/company',
   '/news/exhibitions',

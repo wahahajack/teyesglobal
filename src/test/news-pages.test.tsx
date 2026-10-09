@@ -39,15 +39,15 @@ describe("news reading and metadata", () => {
     expect(schema.dateModified).toBe(article.updatedAt);
   });
 
-  it("keeps an empty category readable but out of the index", async () => {
+  it("indexes the industry category now that it has articles", async () => {
     renderRoute("/news/industry/");
-    expect(screen.getByRole("link", { name: "Browse all news" })).toHaveAttribute("href", "/news/");
-    await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow"));
+    expect(screen.getByRole("link", { name: /Sony Exits North American Car Audio/ })).toBeInTheDocument();
+    await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "index, follow"));
   });
 
-  it("only advertises categories with articles", async () => {
+  it("advertises every category that has articles", async () => {
     renderRoute("/news/");
-    expect(screen.queryByRole("link", { name: "Industry Insights" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Industry Insights" })).toHaveAttribute("href", "/news/industry/");
     await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "index, follow"));
   });
 

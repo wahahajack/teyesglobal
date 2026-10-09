@@ -69,6 +69,7 @@ function getNewsSchema(html) {
 const routes = getAllRoutes();
 const indexableRoutes = getIndexableRoutes();
 const newsMetadata = getNewsMetadata();
+const hasIndustryArticles = newsMetadata.some((article) => article.category === 'industry');
 const existingNoindexRoutes = new Set(['/landing/oem', '/landing/market-entry', '/landing/distributor']);
 const titles = new Map();
 const descriptions = new Map();
@@ -116,9 +117,9 @@ for (const route of routes) {
   }
 
   const robots = getMetaContent(html, 'robots');
-  if (route === '/news/industry' && robots !== 'noindex, follow') {
+  if (route === '/news/industry' && !hasIndustryArticles && robots !== 'noindex, follow') {
     fail(route, `empty category must use noindex, follow (got "${robots}")`);
-  } else if (route !== '/news/industry' && !existingNoindexRoutes.has(route) && robots !== 'index, follow') {
+  } else if ((route !== '/news/industry' || hasIndustryArticles) && !existingNoindexRoutes.has(route) && robots !== 'index, follow') {
     fail(route, `expected index, follow robots directive (got "${robots}")`);
   }
 

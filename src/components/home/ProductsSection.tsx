@@ -16,9 +16,9 @@ const productSeries = [
     id: "flagship",
     name: "Flagship Series",
     tagline: "CC4 Pro",
-    description: "Premium Android head unit positioning for mature markets, flagship installers, and high-margin upgrade channels.",
+    description: "Premium Android head unit for installers and distributors who need a broader feature set.",
     image: cc4ProImg,
-    badge: "NEW",
+    badge: null,
     features: ["8-Core 6nm CPU", "12TOPS AI NPU", "7.1 Channel Audio", "360° Camera"],
     href: "/products/#flagship",
   },
@@ -26,9 +26,8 @@ const productSeries = [
     id: "advanced",
     name: "Advanced Series",
     tagline: "CC3 2K",
-    description: "Mainstream distributor model for balanced performance, strong feature value, and wider market demand.",
+    description: "Mainstream Android car stereo for balanced features and everyday installations.",
     image: cc3Img,
-    badge: "BESTSELLER",
     features: ["8-Core 12nm CPU", "2K Display", "5.1 Channel Audio", "4 Cameras"],
     href: "/products/#advanced",
   },
@@ -36,7 +35,7 @@ const productSeries = [
     id: "entry",
     name: "Entry Series",
     tagline: "X1 Pro",
-    description: "Reliable entry-level choice for price-sensitive channels, trial markets, and volume-focused product ladders.",
+    description: "Entry-level Android head unit for straightforward installations and value-focused product ranges.",
     image: x1ProImg,
     badge: null,
     features: ["Quad-Core CPU", "HD Display", "Apple CarPlay", "Android Auto"],
@@ -50,13 +49,12 @@ export function ProductsSection() {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <p className="text-primary font-medium mb-2">Product Ladder</p>
+            <p className="text-primary font-medium mb-2">Head unit range</p>
             <h2 className="section-title">
-              TEYES Android Head Unit Product Ladder
+              TEYES Android car stereos
             </h2>
             <p className="section-subtitle mt-4 max-w-3xl">
-              Choose flagship, mainstream, or entry-level Android car stereo models for different
-              markets, channels, and customer budgets.
+              Choose a model based on features, installation requirements and customer budget.
             </p>
           </div>
           <Button variant="hero-outline" asChild>

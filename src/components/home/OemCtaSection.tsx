@@ -27,8 +27,8 @@ export function OemCtaSection() {
                 Building Your Own Product Line?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Start with TEYES OEM / ODM Solutions. We help you bring competitive
-                infotainment products to market faster.
+                Discuss product platforms, branding, software and vehicle compatibility with the
+                TEYES team.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

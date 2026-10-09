@@ -31,6 +31,7 @@ interface SEOProps {
     ogType?: 'website' | 'product' | 'article';
     schema?: string; // Raw JSON-LD string
     noindex?: boolean;
+    followWhenNoindex?: boolean;
     productData?: ProductData;
     breadcrumbs?: BreadcrumbItem[];
     faq?: FAQItem[];
@@ -58,6 +59,7 @@ export const SEO = ({
     ogType = 'website',
     schema,
     noindex = false,
+    followWhenNoindex = false,
     productData,
     breadcrumbs,
     faq,
@@ -139,7 +141,7 @@ export const SEO = ({
             <link rel="canonical" href={fullUrl} />
             {/* Single source of truth for robots — the hardcoded tag was removed
                 from index.html so noindex pages never ship two robots metas. */}
-            <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+            <meta name="robots" content={noindex ? (followWhenNoindex ? 'noindex, follow' : 'noindex, nofollow') : 'index, follow'} />
             {keywords && <meta name="keywords" content={keywords} />}
 
             {/* Open Graph / Facebook */}
@@ -158,7 +160,7 @@ export const SEO = ({
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={imageUrl} />
 
-            {/* Raw JSON-LD (e.g., Corporation schema from Index) */}
+            {/* Raw JSON-LD supplied by the page (for example, Organization or NewsArticle). */}
             {schema && (
                 <script type="application/ld+json">{schema}</script>
             )}

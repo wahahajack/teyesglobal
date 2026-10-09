@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getPopulatedNewsCategories } from "@/data/news";
 
 const ThemeToggle = lazy(() =>
   import("@/components/ui/theme-toggle").then((module) => ({ default: module.ThemeToggle }))
@@ -42,11 +43,7 @@ const navigation = [
   {
     name: "News",
     href: "/news/",
-    children: [
-      { name: "Company News", href: "/news/company/" },
-      { name: "Exhibitions & Events", href: "/news/exhibitions/" },
-      { name: "Industry Insights", href: "/news/industry/" },
-    ],
+    children: getPopulatedNewsCategories().map(({ id, name }) => ({ name, href: `/news/${id}/` })),
   },
   {
     name: "About",

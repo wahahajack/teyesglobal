@@ -5,6 +5,7 @@ import { ContextHeader } from "@/components/layout/ContextHeader";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import {
   newsCategories,
+  getPopulatedNewsCategories,
   getSortedArticles,
   getArticlesByCategory,
   type NewsArticle,
@@ -38,7 +39,9 @@ export const NewsCard = ({ article }: { article: NewsArticle }) => {
         {article.image ? (
           <img
             src={article.image}
-            alt={article.title}
+            alt={article.imageAlt}
+            width={article.imageWidth}
+            height={article.imageHeight}
             loading="lazy"
             className="w-full h-full object-cover"
           />
@@ -97,17 +100,18 @@ const NewsPage = () => {
 
   const seoTitle = activeCategory
     ? `${activeCategory.name} - TEYES News`
-    : "News & Events - TEYES";
+    : "TEYES News | Product and Exhibition Updates";
   const seoDescription = activeCategory
     ? activeCategory.description
-    : "Latest news from TEYES: company announcements, exhibition participation at global trade fairs like Automechanika Frankfurt, and automotive infotainment industry insights.";
+    : "Read TEYES product announcements and exhibition updates, including the car audio launch at Automechanika Frankfurt 2026.";
 
   return (
     <Layout>
       <SEO
         title={seoTitle}
         description={seoDescription}
-        keywords="TEYES news, TEYES exhibition, Automechanika, automotive infotainment news, android head unit news"
+        noindex={articles.length === 0}
+        followWhenNoindex
         path={category ? `/news/${category}/` : "/news/"}
         breadcrumbs={
           category
@@ -124,7 +128,7 @@ const NewsPage = () => {
         description={
           activeCategory
             ? activeCategory.description
-            : "Company announcements, exhibition participation, and industry insights from TEYES."
+            : "Product announcements and exhibition updates from TEYES."
         }
         breadcrumbs={
           category
@@ -150,7 +154,7 @@ const NewsPage = () => {
           >
             All
           </Link>
-          {newsCategories.map((c) => (
+          {getPopulatedNewsCategories().map((c) => (
             <Link
               key={c.id}
               to={`/news/${c.id}/`}
@@ -177,11 +181,11 @@ const NewsPage = () => {
             </div>
           ) : (
             <div className="text-center py-16 text-muted-foreground">
-              <p className="text-lg mb-2">No articles yet.</p>
+              <p className="text-lg mb-2">There are no articles in this category yet.</p>
               <p className="text-sm">
-                New {activeCategory?.name.toLowerCase()} will be published here
-                soon.
+                Read our product announcements and exhibition updates.
               </p>
+              <Link to="/news/" className="inline-block mt-4 text-primary underline">Browse all news</Link>
             </div>
           )}
         </div>

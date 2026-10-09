@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { HeroSection } from "@/components/home/HeroSection";
+import { organizationSchema } from "@/data/company";
 
 const OfficialPortalSection = lazy(() =>
   import("@/components/home/OfficialPortalSection").then((module) => ({ default: module.OfficialPortalSection }))
@@ -32,65 +33,31 @@ const FinalCtaSection = lazy(() =>
 );
 
 const Index = () => {
-  const schema = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Corporation",
-    "name": "TEYES",
-    "url": "https://teyesglobal.com",
-    "logo": "https://teyesglobal.com/logo.webp",
-    "description": "Global leader in automotive infotainment systems, offering advanced Android head units, 360° cameras, and smart driving solutions for the aftermarket.",
-    "foundingDate": "2011",
-    "numberOfEmployees": {
-      "@type": "QuantitativeValue",
-      "minValue": 500
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Global (100+ markets)"
-    },
-    "knowsAbout": [
-      "Car Infotainment Systems",
-      "Android Head Units",
-      "OEM/ODM Manufacturing",
-      "Automotive Aftermarket Solutions"
-    ],
-    "sameAs": [
-      "https://www.facebook.com/teyesglobal",
-      "https://www.instagram.com/teyes_global",
-      "https://www.youtube.com/@teyes"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "sales",
-      "availableLanguage": ["English", "Chinese", "Russian"]
-    }
-  });
-
   const faq = [
     {
       question: "Is this the official TEYES Global website?",
       answer:
-        "TEYES Global is the international B2B cooperation portal for TEYES smart infotainment, Android head unit, and car stereo solutions.",
+        "This is the international website for TEYES Android car stereos, car audio products and accessories.",
     },
     {
       question: "Does TEYES Global support distributors?",
       answer:
-        "Yes. TEYES Global supports distributors, wholesalers, installers, and retail channels with product-line planning, wholesale cooperation, accessories, and market support.",
+        "Yes. TEYES works with distributors, wholesalers, installers and retail partners. Contact the team to discuss product selection and current distribution options.",
     },
     {
       question: "Can I become a TEYES distributor in my market?",
       answer:
-        "You can contact us with your country, business type, sales channel, and target product range. Our team will review the cooperation fit and suggest a trial plan.",
+        "Send us your country, business type, sales channel and target products. The team can then discuss whether TEYES products fit your business and market.",
     },
     {
       question: "Does TEYES support OEM / ODM projects?",
       answer:
-        "Yes. TEYES supports OEM/ODM cooperation, including product platform selection, branding, UI/software customization, accessories, and project support.",
+        "Yes. TEYES can discuss OEM/ODM projects covering product platforms, branding, software, accessories and vehicle compatibility.",
     },
     {
       question: "Which TEYES model should distributors start with?",
       answer:
-        "It depends on the market. CC4 Pro is positioned for premium channels, CC3 2K for mainstream demand, and X1 Pro or CC4L for entry-level or price-sensitive markets.",
+        "It depends on the market. CC4 Pro is positioned for premium channels, CC3 2K for mainstream demand, and X1 Pro or CC4L for entry-level channels. Compare the specifications and vehicle requirements before selecting a model.",
     },
   ];
 
@@ -100,7 +67,7 @@ const Index = () => {
         title="TEYES Premium Android Head Units & Car Audio"
         description="Premium TEYES Android head units and car audio solutions for distributors, installers, wholesalers and automotive partners in the global automotive aftermarket."
         path="/"
-        schema={schema}
+        schema={organizationSchema}
         faq={faq}
       />
       <HeroSection />

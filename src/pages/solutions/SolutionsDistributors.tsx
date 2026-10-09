@@ -8,13 +8,13 @@ import { ArrowRight, Check, Package, TrendingUp, Users, Headphones } from "lucid
 const benefits = [
   {
     icon: Package,
-    title: "Proven Product Portfolio",
-    description: "Access to a complete range of infotainment products with proven market success across 100+ countries.",
+    title: "Product Portfolio",
+    description: "Review Android car stereos, car audio products and accessories for your business.",
   },
   {
     icon: TrendingUp,
-    title: "Competitive Margins",
-    description: "Wholesale pricing structures designed to ensure healthy margins for your distribution business.",
+    title: "Pricing and Orders",
+    description: "Ask about wholesale pricing, order requirements and current availability.",
   },
   {
     icon: Users,
@@ -23,43 +23,41 @@ const benefits = [
   },
   {
     icon: Headphones,
-    title: "Dedicated Support",
-    description: "Account managers and technical support to help you succeed in your market.",
+    title: "Product Support",
+    description: "Discuss product questions, compatibility and cooperation requirements.",
   },
 ];
 
 const partnershipLevels = [
   {
-    name: "Authorized Distributor",
-    description: "Standard partnership for regional distribution",
+    name: "Standard distribution",
+    description: "A starting point for businesses reviewing the TEYES range",
     features: [
-      "Access to full product catalog",
-      "Standard wholesale pricing",
-      "Basic marketing materials",
-      "Email technical support",
+      "Product catalog",
+      "Wholesale terms to discuss",
+      "Product images and specifications",
+      "Email product questions",
     ],
   },
   {
-    name: "Preferred Partner",
-    description: "Enhanced partnership with priority benefits",
+    name: "Expanded cooperation",
+    description: "For businesses planning a broader TEYES product range",
     features: [
-      "Everything in Authorized tier",
-      "Improved pricing tiers",
-      "Priority stock allocation",
-      "Dedicated account manager",
-      "Co-marketing opportunities",
+      "Product selection discussion",
+      "Order planning",
+      "Marketing material coordination",
+      "Technical contact",
     ],
     highlighted: true,
   },
   {
-    name: "Strategic Partner",
-    description: "Premium partnership for key markets",
+    name: "Customized project",
+    description: "For businesses with branding or product requirements",
     features: [
-      "Everything in Preferred tier",
-      "Exclusive territory rights",
-      "Custom product options",
-      "Joint business planning",
-      "Executive-level engagement",
+      "OEM/ODM discussion",
+      "Custom product requirements",
+      "Joint project planning",
+      "Project contact",
     ],
   },
 ];
@@ -69,13 +67,13 @@ const SolutionsDistributorsPage = () => {
     <Layout>
       <SEO
         title="Distributor Partnership - Wholesale Car Infotainment"
-        description="Become a TEYES distributor. Access proven products, competitive wholesale pricing, marketing support, and dedicated account management across 100+ markets."
+        description="Explore TEYES Android car stereos, car audio products and distribution options for your business."
         keywords="car infotainment distributor, wholesale head unit, TEYES partner, distribution partnership"
         path="/solutions/distributors/"
       />
       <ContextHeader
         title="Solutions for Distributors"
-        description="Partner with TEYES to access premium products, competitive pricing, and comprehensive support."
+        description="Review TEYES products and discuss distribution requirements for your business."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Solutions", href: "/solutions/" },
@@ -87,9 +85,9 @@ const SolutionsDistributorsPage = () => {
       <section className="py-20 bg-background">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="section-title mb-4">Why Partner with TEYES</h2>
+            <h2 className="section-title mb-4">How TEYES Can Help</h2>
             <p className="section-subtitle mx-auto">
-              We provide everything you need to build a successful distribution business.
+              Review product information and cooperation options before planning a TEYES distribution business.
             </p>
           </div>
 
@@ -114,9 +112,9 @@ const SolutionsDistributorsPage = () => {
       <section className="py-20 bg-card">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="section-title mb-4">Partnership Levels</h2>
+            <h2 className="section-title mb-4">Cooperation Options</h2>
             <p className="section-subtitle mx-auto">
-              Choose the partnership level that matches your business scale and ambitions.
+              Start with the arrangement that fits your products, market and order requirements.
             </p>
           </div>
 
@@ -130,9 +128,7 @@ const SolutionsDistributorsPage = () => {
                     : "bg-background border border-border/50"
                 }`}
               >
-                {level.highlighted && (
-                  <div className="text-primary text-sm font-medium mb-4">Most Popular</div>
-                )}
+                {level.highlighted && <div className="text-primary text-sm font-medium mb-4">Expanded cooperation</div>}
                 <h3 className="text-xl font-semibold mb-2">{level.name}</h3>
                 <p className="text-muted-foreground text-sm mb-6">{level.description}</p>
                 <ul className="space-y-3">

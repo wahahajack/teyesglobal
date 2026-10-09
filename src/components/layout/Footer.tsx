@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getPopulatedNewsCategories } from "@/data/news";
 import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react";
 
 const footerLinks = {
@@ -21,11 +22,7 @@ const footerLinks = {
     { name: "Project Cases", href: "/oem-odm/cases/" },
     { name: "Contact", href: "/contact/" },
   ],
-  news: [
-    { name: "Company News", href: "/news/company/" },
-    { name: "Exhibitions & Events", href: "/news/exhibitions/" },
-    { name: "Industry Insights", href: "/news/industry/" },
-  ],
+  news: getPopulatedNewsCategories().map(({ id, name }) => ({ name, href: `/news/${id}/` })),
 };
 
 const socialLinks = [
@@ -51,8 +48,8 @@ export function Footer() {
               />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Global Smart Infotainment Solutions for the Automotive Aftermarket.
-              Trusted by distributors and auto brands across 100+ markets.
+              Android car stereos, car audio and accessories.
+              Contact TEYES about distribution and customized products.
             </p>
           </div>
 

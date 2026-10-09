@@ -1,0 +1,27 @@
+# TEYES
+
+> TEYES develops Android car stereos (head units), car audio products (speakers, amplifiers, subwoofers) and accessories. Based in Shenzhen, China, TEYES works with distributors, retailers and businesses seeking customized car electronics (OEM/ODM).
+
+## Key pages
+
+- About: https://teyesglobal.com/about/
+- Products (Android head units): https://teyesglobal.com/products/
+- Car audio: https://teyesglobal.com/car-audio/
+- Accessories: https://teyesglobal.com/accessories/
+- Solutions for distributors: https://teyesglobal.com/solutions/distributors/
+- OEM/ODM services: https://teyesglobal.com/oem-odm/
+- OEM/ODM certifications: https://teyesglobal.com/oem-odm/certifications/
+- Newsroom: https://teyesglobal.com/news/
+- Industry Insights (analysis and trends): https://teyesglobal.com/news/industry/
+- Editorial & technical review policy: https://teyesglobal.com/about/editorial/
+- Contact: https://teyesglobal.com/contact/
+
+## Content policy
+
+- Newsroom and Industry Insights articles are dated, written by TEYES Editorial, and technically reviewed against product documentation before publication.
+- Market figures and industry events cited in articles carry named sources; vendor claims and third-party observations are labeled as such.
+- Product specifications live on the individual product pages under /products/ and /car-audio/; articles link to them rather than restating full spec sheets.
+
+## Sitemap
+
+- https://teyesglobal.com/sitemap.xml

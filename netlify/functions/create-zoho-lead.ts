@@ -17,12 +17,14 @@ export const ZOHO_FIELDS = {
 } as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const GAD_NUMBER_RE = /^[0-9]{1,20}$/;
+const USER_AGENT_RE = /^[\x20-\x7E]{16,255}$/;
 const CORRELATION_ID_RE = /^[0-9a-f]{30}$/i;
 const generateCorrelationId = () => Array.from(crypto.getRandomValues(new Uint8Array(15)), (byte) => byte.toString(16).padStart(2, "0")).join("");
 const SOURCES = new Set(["contact_page", "wholesale_quote", "manufacturing_quote", "distributor_application", "catalog_request"]);
 const LIMITS = { fullName: 100, email: 254, company: 150, country: 100, inquiryType: 100, message: 4000, estimatedQuantity: 100, businessModel: 100, attributionValue: 2048, formEntryPage: 255, pageJourney: 1024, whatsappClickJourney: 1024, whatsappClickPath: 255, whatsappClickCount: 1_000_000 } as const;
 const MAX_JOURNEY_ENTRIES = 20;
-const ATTRIBUTION_KEYS = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "landing_page", "referrer"] as const;
+const ATTRIBUTION_KEYS = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "landing_page", "referrer", "gad_source", "gad_campaignid", "session_start_time_usec", "landing_user_agent"] as const;
 
 type Attribution = Record<(typeof ATTRIBUTION_KEYS)[number], string>;
 interface LeadPayload {
@@ -101,13 +103,14 @@ const journey = (value: unknown, limit: number) => {
 const clickCount = (value: unknown) => typeof value === "number" && Number.isFinite(value)
   ? Math.min(Math.max(0, Math.floor(value)), LIMITS.whatsappClickCount)
   : 0;
-const description = (message: string, entryPage: string, pageJourney = "", whatsappClickJourney = "", whatsappClickPath = "", whatsappClickCount = 0) => {
+const description = (message: string, entryPage: string, pageJourney = "", whatsappClickJourney = "", whatsappClickPath = "", whatsappClickCount = 0, sessionLines: string[] = []) => {
   const suffixLines = [
     entryPage ? `Form Entry Page: ${entryPage}` : "",
     pageJourney ? `Page Journey: ${pageJourney}` : "",
     whatsappClickJourney ? `WA Click Journey: ${whatsappClickJourney}` : "",
     whatsappClickPath ? `WA Click Path: ${whatsappClickPath}` : "",
     whatsappClickCount > 0 ? `WA Click Count: ${whatsappClickCount}` : "",
+    ...sessionLines,
   ].filter(Boolean);
   if (!suffixLines.length) return message;
   const suffix = `---\nAttribution\n${suffixLines.join("\n")}`;
@@ -123,6 +126,14 @@ function normalizePayload(input: unknown, origin: string, correlationId: string)
   if (!attributionInput || typeof attributionInput !== "object" || Array.isArray(attributionInput)) return null;
   const rawAttribution = attributionInput as Record<string, unknown>;
   const attribution = Object.fromEntries(ATTRIBUTION_KEYS.map((key) => [key, text(rawAttribution[key], LIMITS.attributionValue)])) as Attribution;
+  const gadSource = text(rawAttribution.gad_source, 21);
+  attribution.gad_source = /^[0-9]{1,10}$/.test(gadSource) ? gadSource : "";
+  const gadCampaignId = text(rawAttribution.gad_campaignid, 21);
+  attribution.gad_campaignid = GAD_NUMBER_RE.test(gadCampaignId) ? gadCampaignId : "";
+  const sessionStartTimeUsec = text(rawAttribution.session_start_time_usec, 21);
+  attribution.session_start_time_usec = GAD_NUMBER_RE.test(sessionStartTimeUsec) ? sessionStartTimeUsec : "";
+  const landingUserAgent = text(rawAttribution.landing_user_agent, 255);
+  attribution.landing_user_agent = USER_AGENT_RE.test(landingUserAgent) ? landingUserAgent : "";
   const payload: LeadPayload = {
     submissionId: correlationId,
     source: text(body.source, 100), fullName: text(body.fullName, LIMITS.fullName), email: text(body.email, LIMITS.email),
@@ -138,10 +149,16 @@ function normalizePayload(input: unknown, origin: string, correlationId: string)
 function toZohoLead(payload: LeadPayload) {
   const { attribution } = payload;
   const submittedAt = new Date(payload.submittedAt).toISOString().replace(/\.\d{3}Z$/, "+00:00");
+  const sessionLines = [
+    attribution.gad_source ? `GAD Source: ${attribution.gad_source}` : "",
+    attribution.gad_campaignid ? `GAD Campaign ID: ${attribution.gad_campaignid}` : "",
+    attribution.session_start_time_usec ? `Session Start Time Usec: ${attribution.session_start_time_usec}` : "",
+    attribution.landing_user_agent ? `Landing User Agent: ${attribution.landing_user_agent}` : "",
+  ].filter(Boolean);
   return {
     Last_Name: payload.fullName || payload.email.split("@")[0], Company: payload.company || "Not provided", Email: payload.email.toLowerCase(),
     [ZOHO_FIELDS.orderId]: payload.submissionId,
-    Country: payload.country, Description: description(payload.message, payload.formEntryPage, payload.pageJourney, payload.whatsappClickJourney, payload.whatsappClickPath, payload.whatsappClickCount), Lead_Source: "Web Download",
+    Country: payload.country, Description: description(payload.message, payload.formEntryPage, payload.pageJourney, payload.whatsappClickJourney, payload.whatsappClickPath, payload.whatsappClickCount, sessionLines), Lead_Source: "Web Download",
     [ZOHO_FIELDS.gclid]: attribution.gclid, [ZOHO_FIELDS.gbraid]: attribution.gbraid, [ZOHO_FIELDS.wbraid]: attribution.wbraid,
     [ZOHO_FIELDS.utmSource]: attribution.utm_source, [ZOHO_FIELDS.utmMedium]: attribution.utm_medium, [ZOHO_FIELDS.utmCampaign]: attribution.utm_campaign,
     [ZOHO_FIELDS.utmContent]: attribution.utm_content, [ZOHO_FIELDS.utmTerm]: attribution.utm_term, [ZOHO_FIELDS.fbclid]: attribution.fbclid,

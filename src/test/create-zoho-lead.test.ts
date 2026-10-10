@@ -10,6 +10,7 @@ const validEnv: ZohoEnvironment = {
   ZOHO_API_BASE_URL: "https://www.zohoapis.test",
 };
 const validPayload = { source: "contact_page", fullName: "Jane Doe", email: "jane@example.com", company: "Example Auto", country: "Brazil", inquiryType: "Distribution Partnership", message: "Please send distributor terms.", estimatedQuantity: "", businessModel: "", submittedAt: "2026-08-07T10:00:00.000Z", website: "", formEntryPage: "/products/cc4-pro/?source=test", attribution: { gclid: "gclid-123", gbraid: "", wbraid: "", utm_source: "google", utm_medium: "cpc", utm_campaign: "distributor_test", utm_content: "", utm_term: "android head unit distributor", fbclid: "", landing_page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", referrer: "https://www.google.com/" } };
+const sessionAttribution = { gad_source: "1", gad_campaignid: "23457354672", session_start_time_usec: "1767711548052000", landing_user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" };
 const tokenResponse = () => new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200, headers: { "Content-Type": "application/json" } });
 const searchResponse = (leads: unknown[]) => new Response(JSON.stringify({ data: leads }), { status: 200, headers: { "Content-Type": "application/json" } });
 const createSuccessResponse = () => new Response(JSON.stringify({ data: [{ status: "success" }] }), { status: 201, headers: { "Content-Type": "application/json" } });
@@ -60,6 +61,7 @@ describe("createZohoLeadHandler", () => {
     const response = await post({
       ...validPayload,
       submissionId: CORRELATION_ID,
+      attribution: { ...validPayload.attribution, ...sessionAttribution },
     }, validEnv, fetchMock);
     expect(response.status).toBe(201);
     expect(await response.clone().json()).toEqual({
@@ -67,8 +69,20 @@ describe("createZohoLeadHandler", () => {
       status: "created",
       submission_id: CORRELATION_ID,
     });
-    expect(JSON.parse(String(fetchMock.mock.calls[2][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Fax: CORRELATION_ID, Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Description: "Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=test", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
+    expect(JSON.parse(String(fetchMock.mock.calls[2][1]?.body)).data[0]).toMatchObject({ Last_Name: "Jane Doe", Company: "Example Auto", Email: "jane@example.com", Fax: CORRELATION_ID, Lead_Source: "Web Download", Google_Click_ID: "gclid-123", UTM_Source: "google", Lead_Form: "contact_page", Description: "Please send distributor terms.\n\n---\nAttribution\nForm Entry Page: /products/cc4-pro/?source=test\nGAD Source: 1\nGAD Campaign ID: 23457354672\nSession Start Time Usec: 1767711548052000\nLanding User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36", Initial_Landing_Page: "https://deploy-preview.example.netlify.app/?gclid=gclid-123", Website_Submitted_At: "2026-08-07T10:00:00+00:00" });
     expect(JSON.parse(String(fetchMock.mock.calls[2][1]?.body)).data[0]).not.toHaveProperty("Form_Entry_Page");
+  });
+  it("非法会话属性值被忽略而不是拒绝整单", async () => {
+    const fetchMock = mockZohoTokenAndCreate();
+    const response = await post({
+      ...validPayload,
+      submissionId: CORRELATION_ID,
+      attribution: { ...validPayload.attribution, gad_source: "abc", landing_user_agent: "short" },
+    }, validEnv, fetchMock);
+    expect(response.status).toBe(201);
+    const lead = JSON.parse(String(fetchMock.mock.calls[2][1]?.body)).data[0];
+    expect(lead.Description).not.toContain("GAD Source");
+    expect(lead.Description).not.toContain("Landing User Agent");
   });
   it("旧客户端缺少 submissionId 时生成关联 ID", async () => {
     const response = await post(validPayload, validEnv, mockZohoTokenAndCreate());

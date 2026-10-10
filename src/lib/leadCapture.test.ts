@@ -6,11 +6,13 @@ import {
   type LeadCapturePayload,
 } from "./leadCapture";
 import {
+  captureSessionAttributes,
   clearFormEntryPage,
   clearPageJourney,
   getFormEntryPage,
   getPageJourneySnapshot,
   getStoredAdParams,
+  getStoredSessionAttributeComponents,
   installContactEntryTracking,
   installPageJourneyTracking,
   persistAdParams,
@@ -41,6 +43,10 @@ const validPayload: LeadCapturePayload = {
     fbclid: "",
     landing_page: "",
     referrer: "",
+    gad_source: "",
+    gad_campaignid: "",
+    session_start_time_usec: "",
+    landing_user_agent: "",
   },
 };
 
@@ -245,7 +251,8 @@ describe("lead capture attribution", () => {
     vi.setSystemTime("2026-08-21T00:00:00Z");
     history.replaceState({}, "", "/landing?gclid=expired-click");
     persistAdParams();
-    expect(localStorage.length).toBe(1);
+    expect(localStorage.length).toBe(2);
+    expect(localStorage.getItem("teyes_session_attributes_v1")).not.toBeNull();
     sessionStorage.clear();
 
     vi.advanceTimersByTime(90 * 24 * 60 * 60 * 1000 + 1);
@@ -289,7 +296,40 @@ describe("lead capture attribution", () => {
       fbclid: "",
       landing_page: "",
       referrer: "",
+      gad_source: "",
+      gad_campaignid: "",
+      session_start_time_usec: "",
+      landing_user_agent: "",
     });
+  });
+
+  it("读取已捕获的会话属性组件", () => {
+    const encoded = btoa(JSON.stringify({
+      gad_source: "1",
+      gad_campaignid: "23457354672",
+      session_start_time_usec: "1767711548052000",
+      landing_page_user_agent: "Mozilla/5.0 Test Agent",
+    })).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    sessionStorage.setItem("teyes_session_attributes_v1", encoded);
+
+    expect(buildAttribution()).toMatchObject({
+      gad_source: "1",
+      gad_campaignid: "23457354672",
+      session_start_time_usec: "1767711548052000",
+      landing_user_agent: "Mozilla/5.0 Test Agent",
+    });
+  });
+
+  it("从 gad_* 参数捕获会话属性并读取组件", () => {
+    history.replaceState({}, "", "/?gad_source=1&gad_campaignid=23457354672&gclid=preview-gclid&utm_source=google");
+
+    const encoded = captureSessionAttributes();
+
+    expect(encoded).toMatch(/^[A-Za-z0-9_-]+$/);
+    const components = getStoredSessionAttributeComponents();
+    expect(components.gad_source).toBe("1");
+    expect(components.gad_campaignid).toBe("23457354672");
+    expect(components.session_start_time_usec).toMatch(/^[0-9]+$/);
   });
 });
 

@@ -1,6 +1,7 @@
 import {
   beginSubmissionTracking,
   getStoredAdParams,
+  getStoredSessionAttributeComponents,
 } from "@/lib/tracking";
 
 export const LEAD_SOURCES = [
@@ -25,6 +26,10 @@ export interface LeadAttribution {
   fbclid: string;
   landing_page: string;
   referrer: string;
+  gad_source: string;
+  gad_campaignid: string;
+  session_start_time_usec: string;
+  landing_user_agent: string;
 }
 
 export interface LeadCapturePayload {
@@ -63,6 +68,7 @@ export function createSubmissionId(): string {
 
 export function buildAttribution(): LeadAttribution {
   const stored = getStoredAdParams();
+  const sessionComponents = getStoredSessionAttributeComponents();
   return {
     gclid: text(stored.gclid),
     gbraid: text(stored.gbraid),
@@ -75,6 +81,10 @@ export function buildAttribution(): LeadAttribution {
     fbclid: text(stored.fbclid),
     landing_page: text(stored.landing_page),
     referrer: text(stored.referrer),
+    gad_source: sessionComponents.gad_source,
+    gad_campaignid: sessionComponents.gad_campaignid,
+    session_start_time_usec: sessionComponents.session_start_time_usec,
+    landing_user_agent: sessionComponents.landing_user_agent,
   };
 }
 

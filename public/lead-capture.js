@@ -19,6 +19,8 @@
   const MAX_FORM_ENTRY_LENGTH = 255;
   const LEAD_REQUEST_TIMEOUT_MS = 12000;
   const WHATSAPP_HOSTS = new Set(["wa.me", "api.whatsapp.com", "web.whatsapp.com"]);
+  const SESSION_ATTRIBUTES_KEY = "teyes_session_attributes_v1";
+  const MAX_SESSION_ATTRIBUTES_LENGTH = 2048;
   const readSession = (key) => {
     try { return window.sessionStorage.getItem(key) || ""; } catch { return ""; }
   };
@@ -163,6 +165,76 @@
       changed = true;
     }
     if (changed) writeEmailContext(context);
+  };
+  const readStoredSessionAttributes = () => {
+    const sessionValue = readSession(SESSION_ATTRIBUTES_KEY);
+    if (sessionValue) return sessionValue.slice(0, MAX_SESSION_ATTRIBUTES_LENGTH);
+    try {
+      const raw = window.localStorage.getItem(SESSION_ATTRIBUTES_KEY);
+      if (!raw) return "";
+      const parsed = JSON.parse(raw);
+      if (
+        !parsed || typeof parsed !== "object" ||
+        typeof parsed.expiresAt !== "number" ||
+        !Number.isFinite(parsed.expiresAt) ||
+        parsed.expiresAt <= Date.now() ||
+        typeof parsed.value !== "string"
+      ) {
+        try { window.localStorage.removeItem(SESSION_ATTRIBUTES_KEY); } catch { /* storage can be unavailable */ }
+        return "";
+      }
+      return normalizeValue(parsed.value, MAX_SESSION_ATTRIBUTES_LENGTH);
+    } catch {
+      return "";
+    }
+  };
+  const readStoredSessionAttributeComponents = () => {
+    const empty = { gad_source: "", gad_campaignid: "", session_start_time_usec: "", landing_user_agent: "" };
+    const encoded = readStoredSessionAttributes();
+    if (!encoded) return empty;
+    try {
+      const normalized = encoded.replace(/-/g, "+").replace(/_/g, "/");
+      const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+      const parsed = JSON.parse(atob(padded));
+      if (!parsed || typeof parsed !== "object") return empty;
+      const pick = (key, limit) => (typeof parsed[key] === "string" ? parsed[key].slice(0, limit) : "");
+      return {
+        gad_source: pick("gad_source", 20),
+        gad_campaignid: pick("gad_campaignid", 40),
+        session_start_time_usec: pick("session_start_time_usec", 40),
+        landing_user_agent: pick("landing_page_user_agent", 255),
+      };
+    } catch {
+      return empty;
+    }
+  };
+  const persistSessionAttributes = () => {
+    const params = new URLSearchParams(window.location.search);
+    const hasGad = Array.from(params.keys()).some((key) => key.startsWith("gad_"));
+    if (!hasGad && !params.has("gclid") && !params.has("gbraid")) {
+      return readStoredSessionAttributes();
+    }
+    const values = {};
+    params.forEach((paramValue, key) => {
+      if (key.startsWith("gad_")) values[key] = normalizeValue(paramValue, 500);
+    });
+    values.session_start_time_usec = (Date.now() * 1000).toString();
+    values.landing_page_url = cleanLandingPageUrl(window.location.href);
+    values.landing_page_referrer = document.referrer;
+    values.landing_page_user_agent = navigator.userAgent;
+    let encoded = "";
+    try {
+      encoded = btoa(JSON.stringify(values)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    } catch { /* session attributes must not break forms */ }
+    if (!encoded) return "";
+    writeSession(SESSION_ATTRIBUTES_KEY, encoded);
+    try {
+      window.localStorage.setItem(SESSION_ATTRIBUTES_KEY, JSON.stringify({
+        expiresAt: Date.now() + ATTRIBUTION_TTL_MS,
+        value: encoded,
+      }));
+    } catch { /* session attributes are best-effort */ }
+    return encoded;
   };
   const removeSession = (key) => {
     try { window.sessionStorage.removeItem(key); } catch { /* storage must not break forms */ }
@@ -547,9 +619,14 @@
     const formData = new FormData(form);
     const correlationId = options.submissionId || value(formData, "submission_id") || createSubmissionId();
     const durable = readDurable();
+    const sessionComponents = readStoredSessionAttributeComponents();
     const attribution = {
       landing_page: readStorage("landing_page", durable),
       referrer: readStorage("referrer", durable),
+      gad_source: sessionComponents.gad_source,
+      gad_campaignid: sessionComponents.gad_campaignid,
+      session_start_time_usec: sessionComponents.session_start_time_usec,
+      landing_user_agent: sessionComponents.landing_user_agent,
     };
     ATTRIBUTION_KEYS.forEach((key) => { attribution[key] = readStorage(key, durable); });
     const tracking = beginSubmissionTracking();
@@ -601,12 +678,15 @@
 
   installJourneyTracking();
   initEmailAttributionContext();
+  persistSessionAttributes();
   persistAttribution();
   installEmailContextInjection();
   window.TeyesLeadCapture = Object.freeze({
     capture,
     createSubmissionId,
     persistAttribution,
+    getSessionAttributes: readStoredSessionAttributes,
+    getSessionAttributeComponents: readStoredSessionAttributeComponents,
     getEmailAttributionSnapshot,
   });
 })();

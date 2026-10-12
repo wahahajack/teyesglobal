@@ -82,6 +82,21 @@ it("从表单和 sessionStorage 构造统一 payload", async () => {
   });
 });
 
+it("从 gad_* 参数生成会话属性并随表单提交", async () => {
+  renderForm();
+  history.replaceState({}, "", "/?gad_source=1&gad_campaignid=23457354672&gclid=preview-gclid");
+  const fetchMock = vi.fn().mockImplementation(async () => createdResponse());
+  vi.stubGlobal("fetch", fetchMock);
+  window.eval(staticLeadClient);
+
+  await client().capture(form(), options);
+
+  const body = JSON.parse(String(fetchMock.mock.calls[0][1]?.body));
+  expect(body.attribution.gad_source).toBe("1");
+  expect(body.attribution.gad_campaignid).toBe("23457354672");
+  expect(body.attribution.session_start_time_usec).toMatch(/^[0-9]+$/);
+});
+
 it("静态客户端生成适配 Zoho Fax 长度的 ID 并复用调用方 submissionId", async () => {
   renderForm();
   const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({

@@ -156,6 +156,12 @@ describe("tracking contract: 静态页面 Lead capture", () => {
       expect(readFileSync(join(PUBLIC_DIR, rel), "utf8")).toContain("/lead-capture.js");
     });
   }
+  it("lead-capture.js 捕获 gad_* 会话属性并按 base64url 编码", () => {
+    const source = readFileSync(join(PUBLIC_DIR, "lead-capture.js"), "utf8");
+    expect(source).toContain("teyes_session_attributes_v1");
+    expect(source).toContain("session_start_time_usec");
+    expect(source).toContain("landing_page_user_agent");
+  });
   it("Wholesale 保留原转化事件并在成功分支调用 capture", () => {
     const source = readFileSync(join(PUBLIC_DIR, "android-car-stereo-wholesale/script.js"), "utf8");
     expect(source).toContain("event: 'form_submit_success'");

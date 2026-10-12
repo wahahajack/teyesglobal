@@ -37,6 +37,8 @@ const STORED_ATTRIBUTION_KEYS = [
 ] as const;
 const ATTRIBUTION_STORAGE_KEY = "teyes_attribution_v1";
 const ATTRIBUTION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+const SESSION_ATTRIBUTES_KEY = "teyes_session_attributes_v1";
+const MAX_SESSION_ATTRIBUTES_LENGTH = 2048;
 
 const GTM_INTERACTION_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
 const GTM_IDLE_DELAY_MS = 4000;
@@ -164,6 +166,121 @@ function writeDurableAttribution(values: AttributionValues) {
     );
   } catch {
     // Durable attribution is best-effort and must not break the page.
+  }
+}
+
+const toBase64Url = (value: string) => {
+  try {
+    return btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  } catch {
+    return "";
+  }
+};
+
+function readStoredSessionAttributes(): string {
+  const sessionValue = safeSessionGet(SESSION_ATTRIBUTES_KEY);
+  if (sessionValue) return sessionValue.slice(0, MAX_SESSION_ATTRIBUTES_LENGTH);
+  try {
+    const raw = localStorage.getItem(SESSION_ATTRIBUTES_KEY);
+    if (!raw) return "";
+    const parsed: unknown = JSON.parse(raw);
+    const candidate = parsed as { expiresAt?: unknown; value?: unknown };
+    if (
+      typeof candidate?.expiresAt !== "number" ||
+      !Number.isFinite(candidate.expiresAt) ||
+      candidate.expiresAt <= Date.now() ||
+      typeof candidate.value !== "string"
+    ) {
+      try {
+        localStorage.removeItem(SESSION_ATTRIBUTES_KEY);
+      } catch {
+        // Storage can be unavailable in some privacy modes.
+      }
+      return "";
+    }
+    return candidate.value.slice(0, MAX_SESSION_ATTRIBUTES_LENGTH);
+  } catch {
+    return "";
+  }
+}
+
+export function captureSessionAttributes(): string {
+  const params = new URLSearchParams(window.location.search);
+  const hasGad = Array.from(params.keys()).some((key) => key.startsWith("gad_"));
+
+  if (hasGad || params.has("gclid") || params.has("gbraid")) {
+    const values: Record<string, string> = {};
+    params.forEach((paramValue, key) => {
+      if (key.startsWith("gad_")) values[key] = paramValue;
+    });
+    values.session_start_time_usec = (Date.now() * 1000).toString();
+    values.landing_page_url = cleanLandingPageUrl(window.location.href);
+    values.landing_page_referrer = document.referrer;
+    values.landing_page_user_agent = navigator.userAgent;
+    const encoded = toBase64Url(JSON.stringify(values));
+    if (encoded) {
+      safeSessionSet(SESSION_ATTRIBUTES_KEY, encoded);
+      try {
+        localStorage.setItem(
+          SESSION_ATTRIBUTES_KEY,
+          JSON.stringify({
+            expiresAt: Date.now() + ATTRIBUTION_TTL_MS,
+            value: encoded,
+          }),
+        );
+      } catch {
+        // Durable session attributes are best-effort and must not break the page.
+      }
+    }
+    return encoded;
+  }
+
+  return readStoredSessionAttributes();
+}
+
+export function getStoredSessionAttributes(): string {
+  return readStoredSessionAttributes();
+}
+
+const fromBase64Url = (value: string): string => {
+  try {
+    const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+    return atob(padded);
+  } catch {
+    return "";
+  }
+};
+
+export interface SessionAttributeComponents {
+  gad_source: string;
+  gad_campaignid: string;
+  session_start_time_usec: string;
+  landing_user_agent: string;
+}
+
+export function getStoredSessionAttributeComponents(): SessionAttributeComponents {
+  const empty: SessionAttributeComponents = {
+    gad_source: "",
+    gad_campaignid: "",
+    session_start_time_usec: "",
+    landing_user_agent: "",
+  };
+  const encoded = readStoredSessionAttributes();
+  if (!encoded) return empty;
+  try {
+    const parsed: unknown = JSON.parse(fromBase64Url(encoded));
+    const source = parsed as Record<string, unknown>;
+    const pick = (key: string, limit: number) =>
+      typeof source[key] === "string" ? (source[key] as string).slice(0, limit) : "";
+    return {
+      gad_source: pick("gad_source", 20),
+      gad_campaignid: pick("gad_campaignid", 40),
+      session_start_time_usec: pick("session_start_time_usec", 40),
+      landing_user_agent: pick("landing_page_user_agent", 255),
+    };
+  } catch {
+    return empty;
   }
 }
 
@@ -465,6 +582,7 @@ export function initDataLayer() {
 }
 
 export function persistAdParams() {
+  captureSessionAttributes();
   const params = new URLSearchParams(window.location.search);
   const durable = readDurableAttribution()?.values ?? {};
 

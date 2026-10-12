@@ -75,6 +75,130 @@ export const newsCategories: {
 
 export const newsArticles: NewsArticle[] = [
   {
+    slug: "sony-car-audio-global-exit-transition-timeline",
+    category: "industry",
+    title:
+      "Sony's Car Audio Exit Goes Global: A Transition Timeline for Head Unit Buyers",
+    date: "2026-10-12",
+    updatedAt: "2026-10-12",
+    excerpt:
+      "Sony's exit from aftermarket car audio is now confirmed as worldwide. Australian retailers were notified in writing in the week of October 7, shipments run until December 31, 2026, and dealer support continues into 2027. For distributors and retailers, the transition is now a dated planning exercise.",
+    image: "/assets/news/teyes-front-adas-camera.webp",
+    imageAlt: "TEYES front ADAS camera close-up",
+    imageWidth: 1600,
+    imageHeight: 899,
+    imageCaption:
+      "A TEYES front ADAS camera. The CC4 PRO head unit supports ADAS and 360-degree camera inputs.",
+    cta: {
+      title: "Reviewing your head unit lineup this quarter?",
+      description:
+        "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
+      label: "Discuss distribution",
+      href: "/contact/",
+    },
+    reviewedBy: "Chris Peng, TEYES Engineering",
+    faq: [
+      {
+        question: "Is Sony leaving the car audio business worldwide?",
+        answer:
+          "Yes. Trade publications in Australia, the US and the UK reported in the week of October 5, 2026 that Sony is exiting the aftermarket car audio business globally, including its marine audio line. Shipments of existing products continue until December 31, 2026. Sony had already exited the European aftermarket earlier: it stopped taking orders at the end of 2024 and ended shipments in March 2025.",
+      },
+      {
+        question:
+          "How long will Sony support car audio dealers after the exit?",
+        answer:
+          "According to trade reports, Sony's dealer-facing field, sales and technical support continues into early 2027 — one outlet reports spring 2027. After that point, product owners needing support will have to contact Sony directly rather than through the dealer channel.",
+      },
+      {
+        question: "Which retailers were notified in Australia?",
+        answer:
+          "ChannelNews, which first reported the Australian dealer letter on October 7, 2026, named Super Cheap Auto, Autobarn, Strathfield Car Radios, Ryda, Audio Emporium, Street Sound & Vision and Pulse Car Audio among the notified retailers.",
+      },
+      {
+        question:
+          "Should dealers place final orders before December 31, 2026?",
+        answer:
+          "Trade coverage advises placing final orders before the shipment cutoff while avoiding overstock: remaining inventory is widely expected to be cleared through year-end sales, which can reset street prices. Confirm order deadlines, return rights and warranty handling with Sony's regional channel in writing before committing volume.",
+      },
+      {
+        question: "What should buyers verify in a replacement supplier?",
+        answer:
+          "Focus on what an exit makes visible: supply continuity and end-of-life notice policy, written warranty terms including who honors claims in your market, the software and firmware update process, and verifiable per-model specifications. TEYES published a detailed supplier checklist when the North American exit was first announced.",
+      },
+    ],
+    blocks: [
+      {
+        type: "paragraph",
+        text: "Sony's departure from aftermarket car audio is larger than first reported. When the company notified US industry members by email on September 30, 2026, the announcement was understood as a North American exit. Within a week, trade publications confirmed the decision is global. ChannelNews in Australia reported on October 7 that Sony Australia had notified retailers in writing, naming Super Cheap Auto, Autobarn, Strathfield Car Radios, Ryda, Audio Emporium, Street Sound & Vision and Pulse Car Audio among them. StereoNET independently confirmed the US dealer letter on October 8 and reported that the exit also covers the UK, completing a withdrawal that began when Sony stopped taking European orders at the end of 2024. The company's marine audio line is being discontinued alongside car audio.",
+      },
+      {
+        type: "paragraph",
+        text: "When the North American exit was announced, this publication outlined <a href=\"/news/industry/sony-exit-north-america-head-unit-supplier-checklist/\">a checklist for evaluating a replacement supplier</a>. The confirmed details this week change the question from how to evaluate to when to act. The exit now has public dates, and those dates define a transition window that distributors, retailers and installers can plan around.",
+      },
+      {
+        type: "heading",
+        text: "The dates that matter",
+      },
+      {
+        type: "paragraph",
+        text: "Three dates structure the transition. First, shipments: existing Sony car and marine audio products continue to ship to dealers until December 31, 2026, according to ChannelNews and StereoNET. Second, support: Sony's local and regional teams keep providing field, sales and technical support to dealers into early 2027 — Best of High End reports spring 2027 — after which factory-direct support for the category ends and product owners contact Sony directly. Third, the European precedent: when Sony left Europe, it stated that warranties would remain in place according to the laws of each region. Buyers in other markets should confirm the equivalent terms with their regional Sony channel in writing rather than assume the same arrangement.",
+      },
+      {
+        type: "paragraph",
+        text: "What these dates mean in practice is a planning exercise of roughly eighty days for ordering and about six months for support. Retailers are widely expected to use year-end sales to clear remaining Sony stock, according to Best of High End. For competing brands and for the retailers who carry them, a clearance window of that scale can temporarily reset street prices in the receiver category — a short-term pricing effect worth factoring into buying decisions, even though no clearance pricing had been publicly observed at major US retailers at the time of writing.",
+      },
+      {
+        type: "heading",
+        text: "What the channel is saying",
+      },
+      {
+        type: "paragraph",
+        text: "Dealer reaction has been blunt. Jim Warren, president of Sound Distributions, which operates twenty former Car Toys stores in Washington state, told StereoNET: \"Sony's exit from our industry saddens me — but is yet understandable. Our niche is very small, and likely a rounding error for a company the size of Sony.\" Dealers speaking to StereoNET suggested that head units, Sony's largest car audio category, are in double-digit decline; that figure is dealer speculation, not company or third-party data. The exit also sits within a broader reshaping of Sony's hardware business: the company sold a 51% stake in its TV and home audio business to TCL earlier in 2026 and plans to skip CES 2027, according to the same reports.",
+      },
+      {
+        type: "paragraph",
+        text: "The timing surprised parts of the trade for one specific reason: Sony's European XAV-9550ES receiver launched only in 2023 and won a 2024–25 EISA Award. A product line young enough to be winning awards is not obviously a product line being wound down — a reminder that portfolio decisions at this scale are made above the category level, and that buyers should not read a supplier's product quality as a guarantee of its commitment to the category.",
+      },
+      {
+        type: "heading",
+        text: "Managing the transition",
+      },
+      {
+        type: "paragraph",
+        text: "For distributors, retailers and installers carrying Sony, the practical steps follow directly from the published dates:",
+      },
+      {
+        type: "list",
+        items: [
+          "Plan final orders against the December 31, 2026 shipment cutoff, and resist over-ordering. Stock bought at full wholesale price competes with clearance pricing within the same quarter.",
+          "Get warranty handling in writing: who honors claims in your market, through which process, and until when. Sony's European exit stated that warranties would remain in place under regional law; confirm the equivalent terms for your market rather than assuming them.",
+          "Map the support window against your own service promises. Dealer-facing support ends in early 2027; if your store offers longer service commitments to customers, the difference becomes your cost.",
+          "Apply the same diligence to the replacement supplier: supply continuity and end-of-life notice policy, written warranty terms, the firmware update process, and verifiable per-model specifications. The supplier checklist published with the North American announcement covers these questions in detail.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The demand side of the category has not moved with the supply side. Infotainment systems account for 25% of all problems reported by new-vehicle owners and are the only problem category to worsen year over year, according to JD Power's 2026 U.S. Multimedia Quality and Satisfaction Study published on September 9, 2026. JD Power's 2026 Initial Quality Study, published June 25, 2026, adds detail: connectivity problems with Android Auto and Apple CarPlay were the largest single contributor to the infotainment category's decline. Factory systems that frustrate owners are the aftermarket's demand engine, and that engine is running.",
+      },
+      {
+        type: "paragraph",
+        text: "Among Android head unit specialists, TEYES publishes per-model specifications and vehicle-specific integration lists rather than generic compatibility claims. Firmware updates for its current Android head unit range are delivered over the air (OTA) — updates install directly on the device, without a PC or a service visit. The CC4 PRO supports 360-degree camera systems and ADAS (advanced driver assistance systems) camera inputs, and TEYES provides CE, FCC and E-mark documentation per SKU on request. These are the same verification points a transition checklist asks buyers to confirm — and they are most useful when a supplier states them before being asked.",
+      },
+      {
+        type: "heading",
+        text: "The bottom line",
+      },
+      {
+        type: "paragraph",
+        text: "Sony's exit is no longer a regional story with an open ending. It is a worldwide withdrawal with a shipment deadline, a support deadline and a named list of retailers who now need replacement suppliers. For the trade, the work between now and December 31 is concrete: order deliberately, document warranty terms, and choose suppliers on what they can put in writing. The shelf space Sony occupied does not disappear; it gets reallocated to whoever passes that checklist.",
+      },
+      {
+        type: "paragraph",
+        text: "TEYES develops Android car stereos, car audio products and accessories, and works with distributors, retailers and businesses seeking customized products. Distributors evaluating their head unit lineup for 2027 can contact the TEYES team to discuss model ranges, warranty terms and market requirements.",
+      },
+    ],
+  },
+  {
     slug: "sony-exit-north-america-head-unit-supplier-checklist",
     category: "industry",
     title:

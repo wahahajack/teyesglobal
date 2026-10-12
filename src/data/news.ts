@@ -83,12 +83,13 @@ export const newsArticles: NewsArticle[] = [
     updatedAt: "2026-10-12",
     excerpt:
       "Sony's exit from aftermarket car audio is now confirmed as worldwide. Australian retailers were notified in writing in the week of October 7, shipments run until December 31, 2026, and dealer support continues into 2027. For distributors and retailers, the transition is now a dated planning exercise.",
-    image: "/assets/news/teyes-front-adas-camera.webp",
-    imageAlt: "TEYES front ADAS camera close-up",
-    imageWidth: 1600,
-    imageHeight: 899,
+    image: "/assets/news/automechanika-2026-cc4-pro-navigation.webp",
+    imageAlt:
+      "TEYES CC4 PRO head unit display with navigation screen and camera accessories",
+    imageWidth: 1200,
+    imageHeight: 675,
     imageCaption:
-      "A TEYES front ADAS camera. The CC4 PRO head unit supports ADAS and 360-degree camera inputs.",
+      "TEYES head units on display. Head units are the category most directly affected by Sony's withdrawal from the aftermarket.",
     cta: {
       title: "Reviewing your head unit lineup this quarter?",
       description:

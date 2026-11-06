@@ -48,6 +48,16 @@
 /android-car-stereo-oem-manufacturer/raw_html.html
   X-Robots-Tag: noindex, nofollow
 
+# Unlisted product resources
+/downloads
+  X-Robots-Tag: noindex, nofollow
+/downloads/*
+  X-Robots-Tag: noindex, nofollow
+/resource-files/*
+  X-Robots-Tag: noindex, nofollow
+/teyes-android-car-stereo-distributor/TEYES_2026_Wholesale_Catalog.pdf
+  X-Robots-Tag: noindex, nofollow
+
 # Service worker
 /sw.js
   Cache-Control: public, max-age=0, must-revalidate

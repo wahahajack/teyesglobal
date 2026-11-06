@@ -53,6 +53,7 @@ const NewsArticlePage = lazy(() => import("./pages/news/NewsArticle"));
 const AccessoriesPage = lazy(() => import("./pages/Accessories"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 const HomeThankYou = lazy(() => import("./pages/HomeThankYou"));
+const Downloads = lazy(() => import("./pages/Downloads"));
 
 // Minimal loading fallback
 function PageLoader() {
@@ -112,6 +113,8 @@ const App = () => (
               {/* Contact */}
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/thank-you" element={<HomeThankYou />} />
+              <Route path="/downloads" element={<Downloads />} />
+              <Route path="/downloads/:resourceId" element={<Downloads />} />
               {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>

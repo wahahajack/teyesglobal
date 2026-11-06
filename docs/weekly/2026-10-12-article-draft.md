@@ -3,7 +3,7 @@
 - 选题来源：本周简报头条（Sony 退出确认为全球退出，澳洲零售商被书面通知，发货截止 2026-12-31）。依据 topic-backlog 规则，时效性事件优先于 backlog，本周不取 backlog 题目。本篇为 2026-10-07 已发布文章《Sony Exits North American Car Audio: A Supplier Checklist for Head Unit Buyers》的后续报道，视角从"评估替代供应商"转为"过渡时间表与库存/质保管理"，不重复上周内容。
 - 状态：**已合入 `src/data/news.ts`（2026-10-12）**。技术审核人 Chris Peng 已确认核对清单全部通过，`reviewedBy: "Chris Peng, TEYES Engineering"`；`faq` 结构化字段同时渲染可见 FAQ 与 FAQPage JSON-LD。验证结果：`tsc --noEmit` 无输出（无错误）；`npm test` 175/175 通过（首次运行有 1 项偶发失败，两次重跑均全通过）；`npm run lint` 0 错误（7 个警告为仓库既有）；sitemap 已重新生成，仅新增本期文章 URL。新 URL：`/news/industry/sony-car-audio-global-exit-transition-timeline/`。
 - 正文词数：约 1,100 词（不含 FAQ 与署名）。
-- 已完成：① 署名块技术审核人 Chris Peng 已确认；② 第一手事实段落沿用 2026-10-08 所有者确认信息（全系 OTA、CC4 PRO 360/ADAS、按 SKU 认证文件），Chris Peng 审稿通过；③ 正文已加内链至上周文章 `/news/industry/sony-exit-north-america-head-unit-supplier-checklist/`；④ 主图最终定为 `teyes-front-adas-camera.webp`（1600×899，2026-10-12 所有者提供的前置 ADAS 摄像头特写原图转 webp，非展会场景）；换图后 `npm test` 175/175 通过。
+- 已完成：① 署名块技术审核人 Chris Peng 已确认；② 第一手事实段落沿用 2026-10-08 所有者确认信息（全系 OTA、CC4 PRO 360/ADAS、按 SKU 认证文件），Chris Peng 审稿通过；③ 正文已加内链至上周文章 `/news/industry/sony-exit-north-america-head-unit-supplier-checklist/`；④ 主图最终定为 `automechanika-2026-cc4-pro-navigation.webp`（1200×675，CC4 PRO 车机陈列图）。说明：合入时曾用所有者提供的 ADAS 摄像头特写（`teyes-front-adas-camera.webp`），所有者反馈"图文关联弱"，经 PR #34 更换为车机主题图并改写 alt/图注，更贴合"车机品类供应商更替"的文章主题。换图后测试 180/180 通过（偶发失败项重跑通过，与本次改动无关）。
 - 遗留说明：当前 `public/assets/news/` 素材库全部为 Automechanika 展会照片，长期建议补充非展会素材（实车安装、工作台、仓储/出货场景），行业分析类文章会更贴切。
 
 ---

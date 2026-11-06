@@ -9,6 +9,7 @@
 | TEYES 2026 产品目录 | `/downloads/product-catalog/` |
 | TEYES 2026 汽车音响目录 | `/downloads/car-audio-catalog/` |
 | TEYES 2026 专车专用面框清单 | `/downloads/fascia-panel-list/` |
+| TEYES 2026 CC4 车机目录 | `/downloads/cc4-head-unit-catalog/` |
 
 对外分享时，在路径前加上网站域名。建议分享查看页链接，方便以后更新文件。
 
@@ -43,4 +44,4 @@ PDF 提供内嵌预览、单独打开和下载按钮，其他格式提供打开�
 
 ## 当前文件来源
 
-产品目录复用仓库原有的经销商落地页 PDF。汽车音响目录和面框清单使用用户提供的两份 PDF，存放在 `public/resource-files/`。文件接入不代表对其中参数、适配信息或内容时效进行了审核。
+产品目录复用仓库原有的经销商落地页 PDF。汽车音响目录、面框清单和 CC4 车机目录使用用户提供的 PDF，存放在 `public/resource-files/`。文件接入不代表对其中参数、适配信息或内容时效进行了审核。

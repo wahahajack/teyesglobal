@@ -37,4 +37,13 @@ export const downloadResources: DownloadResource[] = [
     version: "2026",
     file: "/resource-files/teyes-vehicle-specific-fascia-panel-list-2026.pdf",
   },
+  {
+    id: "cc4-head-unit-catalog",
+    title: "2026 TEYES CC4 Head Unit Catalog",
+    description: "View the TEYES CC4 head unit catalog online or download a PDF copy.",
+    format: "PDF",
+    size: "4.7 MB",
+    version: "2026",
+    file: "/resource-files/teyes-cc4-head-unit-catalog-2026.pdf",
+  },
 ];

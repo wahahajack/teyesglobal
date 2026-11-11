@@ -118,6 +118,28 @@ describe("createZohoLeadHandler", () => {
     expect(await response.json()).toMatchObject({ ok: true, status: "created" });
     expect(fetchMock).toHaveBeenCalledTimes(3);
   });
+  it("CRM 去掉毫秒后，相同 submissionId 重试仍返回 duplicate", async () => {
+    const fetchMock = mockZohoTokenAndCreate([
+      { ...existingMatchingLead, Fax: CORRELATION_ID, Website_Submitted_At: "2026-08-07T10:00:00+00:00" },
+    ]);
+    const response = await post({
+      ...validPayload,
+      submittedAt: "2026-08-07T10:00:00.347Z",
+      submissionId: CORRELATION_ID,
+    }, validEnv, fetchMock);
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({ status: "duplicate", submission_id: CORRELATION_ID });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(new URL(String(fetchMock.mock.calls[1][0])).searchParams.get("fields")?.split(",")).toContain("Fax");
+  });
+  it("不同 submissionId 的独立询盘不因同秒时间而被吞掉", async () => {
+    const fetchMock = mockZohoTokenAndCreate([
+      { ...existingMatchingLead, Fax: "111111111111111111111111111111" },
+    ]);
+    const response = await post({ ...validPayload, submissionId: CORRELATION_ID }, validEnv, fetchMock);
+    expect(response.status).toBe(201);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
   it("提交时间相同但表单不同的询盘正常创建", async () => {
     const fetchMock = mockZohoTokenAndCreate([
       { ...existingMatchingLead, Lead_Form: "wholesale_quote" },

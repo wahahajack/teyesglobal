@@ -187,12 +187,14 @@ const ContactPage = () => {
       );
 
       if (result.status === 200) {
-        pushFormSubmitSuccess("contact_page", {
-          inquiry_type: formData.inquiryType || "General",
-          country: formData.country || user_country || "Unknown",
-          has_company: Boolean(formData.company.trim()),
-          submission_id: submissionId,
-        });
+        if (!formData.email.trim().toLowerCase().endsWith("@example.invalid")) {
+          pushFormSubmitSuccess("contact_page", {
+            inquiry_type: formData.inquiryType || "General",
+            country: formData.country || user_country || "Unknown",
+            has_company: Boolean(formData.company.trim()),
+            submission_id: submissionId,
+          });
+        }
         const leadPayload: LeadCapturePayload = {
           submissionId,
           source: "contact_page",

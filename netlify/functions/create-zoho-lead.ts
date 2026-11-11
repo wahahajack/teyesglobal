@@ -51,6 +51,8 @@ const normalizeIso = (value: string) => {
   return Number.isNaN(parsed) ? "" : new Date(parsed).toISOString();
 };
 const sameSubmission = (existing: Record<string, unknown>, payload: LeadPayload) => {
+  const existingSubmissionId = text(existing[ZOHO_FIELDS.orderId], 100);
+  if (existingSubmissionId) return existingSubmissionId === payload.submissionId;
   const existingSubmittedAt = text(existing[ZOHO_FIELDS.submittedAt], 100);
   if (!existingSubmittedAt) return false;
   if (normalizeIso(existingSubmittedAt) !== normalizeIso(payload.submittedAt)) return false;
@@ -248,7 +250,7 @@ export function createZohoLeadHandler(
       const searchUrl = new URL(`${apiBase}/crm/v2/Leads/search`);
       searchUrl.search = new URLSearchParams({
         criteria: `(Email:equals:${payload.email.toLowerCase()})`,
-        fields: `Email,${ZOHO_FIELDS.submittedAt},${ZOHO_FIELDS.leadForm}`,
+        fields: `Email,${ZOHO_FIELDS.orderId},${ZOHO_FIELDS.submittedAt},${ZOHO_FIELDS.leadForm}`,
       }).toString();
       const duplicateResponse = await fetchImpl(searchUrl, {
         method: "GET",

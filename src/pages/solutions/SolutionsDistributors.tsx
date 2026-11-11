@@ -73,7 +73,7 @@ const SolutionsDistributorsPage = () => {
       />
       <ContextHeader
         title="Solutions for Distributors"
-        description="Review TEYES products and discuss distribution requirements for your business."
+        description="For car audio dealers, installers and resale businesses. Discuss dealer terms and sample evaluation."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Solutions", href: "/solutions/" },
@@ -152,12 +152,11 @@ const SolutionsDistributorsPage = () => {
             Ready to Start?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Contact us to discuss partnership opportunities and find the right 
-            level for your business.
+            Tell us about your business, market and intended use. A sample or demo unit can be part of your product evaluation.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact/">
-              Contact Sales
+            <Link to="/contact/?inquiry=distribution">
+              Business Partnership Enquiry
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 import { getEmailAttributionSnapshot } from "@/lib/emailAttribution";
@@ -26,9 +26,9 @@ const EMAILJS_TEMPLATE_ID = "template_8l4kcgw";
 const EMAILJS_PUBLIC_KEY = "qqyCnA4nzk57_gF6N";
 
 const inquiryTypes = [
-  { value: "distribution", label: "Distribution Partnership" },
+  { value: "distribution", label: "Business Partnership (Dealers / Installers)" },
   { value: "oem", label: "OEM / ODM Inquiry" },
-  { value: "product", label: "Product Information" },
+  { value: "product", label: "Personal Purchase / Product Information" },
   { value: "support", label: "Technical Support" },
   { value: "other", label: "Other" },
 ];
@@ -52,6 +52,7 @@ const contactInfo = [
 const ContactPage = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pendingLeadPayload, setPendingLeadPayload] =
     useState<LeadCapturePayload | null>(null);
@@ -60,10 +61,13 @@ const ContactPage = () => {
     email: "",
     company: "",
     country: "",
-    inquiryType: "",
+    inquiryType: searchParams.get("inquiry") === "distribution" ? "distribution" : "",
+    businessModel: "",
+    estimatedQuantity: "",
     message: "",
     website: "",
   });
+  const isBusinessInquiry = ["distribution", "oem"].includes(formData.inquiryType);
 
   const handleEmailClick = (emailHref: string) => (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -80,6 +84,15 @@ const ContactPage = () => {
     e.preventDefault();
 
     if (formData.website.trim()) return;
+
+    if (isBusinessInquiry && (!formData.company.trim() || !formData.country.trim() || !formData.businessModel)) {
+      toast({
+        title: "Business Details Needed",
+        description: "Please add your company or shop, country and intended use.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
@@ -123,6 +136,9 @@ const ContactPage = () => {
       const submittedAt = new Date().toISOString();
       const inquiryType = formData.inquiryType || "General";
       const inquiryTypeLabel = inquiryTypes.find((type) => type.value === formData.inquiryType)?.label || inquiryType;
+      const message = isBusinessInquiry
+        ? `Business purpose: ${formData.businessModel}\nSample / quantity: ${formData.estimatedQuantity || "Not specified"}\n\n${formData.message}`
+        : formData.message;
 
       try {
         const geoResponse = await fetchWithTimeout("https://ipapi.co/json/");
@@ -158,7 +174,7 @@ const ContactPage = () => {
         inquiry_type: inquiryType,
         user_time: submittedAt,
         submission_id: submissionId,
-        message: formData.message,
+        message,
         to_email: "info@teyesauto.com",
         ...emailAttribution,
       };
@@ -185,9 +201,9 @@ const ContactPage = () => {
           company: formData.company.trim(),
           country: (formData.country || user_country || "").trim(),
           inquiryType: formData.inquiryType || "General",
-          message: formData.message.trim(),
-          estimatedQuantity: "",
-          businessModel: "",
+          message: message.trim(),
+          estimatedQuantity: isBusinessInquiry ? formData.estimatedQuantity : "",
+          businessModel: isBusinessInquiry ? formData.businessModel : "",
           submittedAt,
           website: formData.website.trim(),
           attribution: buildAttribution(),
@@ -260,6 +276,10 @@ const ContactPage = () => {
             <div className="lg:col-span-2">
               <div className="rounded-2xl bg-card border border-border/50 p-8">
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Dealers, installers and resale businesses: choose Business Partnership to discuss dealer terms and sample evaluation.
+                  For your own vehicle or an existing product, choose Personal Purchase / Product Information or Technical Support.
+                </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="absolute left-[-10000px]" aria-hidden="true">
@@ -301,23 +321,25 @@ const ContactPage = () => {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="company">Company</Label>
+                      <Label htmlFor="company">Company / Shop{isBusinessInquiry ? " *" : ""}</Label>
                       <Input
                         id="company"
                         placeholder="Your company name"
                         value={formData.company}
                         onChange={(e) => handleChange("company", e.target.value)}
                         maxLength={100}
+                        required={isBusinessInquiry}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="country">Country / Region</Label>
+                      <Label htmlFor="country">Country / Region{isBusinessInquiry ? " *" : ""}</Label>
                       <Input
                         id="country"
                         placeholder="Your location"
                         value={formData.country}
                         onChange={(e) => handleChange("country", e.target.value)}
                         maxLength={100}
+                        required={isBusinessInquiry}
                       />
                     </div>
                   </div>
@@ -328,7 +350,7 @@ const ContactPage = () => {
                       value={formData.inquiryType}
                       onValueChange={(value) => handleChange("inquiryType", value)}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="inquiryType">
                         <SelectValue placeholder="Select inquiry type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -340,6 +362,36 @@ const ContactPage = () => {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {isBusinessInquiry && (
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="businessModel">Intended Use *</Label>
+                        <Select value={formData.businessModel} onValueChange={(value) => handleChange("businessModel", value)} required>
+                          <SelectTrigger id="businessModel"><SelectValue placeholder="How will you use TEYES products?" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Resale">Resale / Distribution</SelectItem>
+                            <SelectItem value="Customer installations">Installations for Customers</SelectItem>
+                            <SelectItem value="OEM / ODM">OEM / ODM Project</SelectItem>
+                            <SelectItem value="Personal use">Personal Use</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="estimatedQuantity">Sample / Expected Quantity (Optional)</Label>
+                        <Select value={formData.estimatedQuantity} onValueChange={(value) => handleChange("estimatedQuantity", value)}>
+                          <SelectTrigger id="estimatedQuantity"><SelectValue placeholder="Select an option" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Sample evaluation">Sample Evaluation / Demo Unit</SelectItem>
+                            <SelectItem value="1-4">1–4 Units</SelectItem>
+                            <SelectItem value="5-14">5–14 Units</SelectItem>
+                            <SelectItem value="15+">15+ Units</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <p className="md:col-span-2 text-sm text-muted-foreground">A demo unit can be a starting point for a business discussion. You can include your website or business social page in your message.</p>
+                    </div>
+                  )}
 
                   <div className="space-y-2">
                     <Label htmlFor="message">Message *</Label>

@@ -204,11 +204,48 @@ function readStoredSessionAttributes(): string {
   }
 }
 
+function hasAttributionParams(params: URLSearchParams) {
+  return AD_PARAM_KEYS.some((key) => Boolean(params.get(key))) ||
+    Array.from(params.keys()).some((key) => key.startsWith("gad_") && Boolean(params.get(key)));
+}
+
+function isNewAttributionTouch(params: URLSearchParams) {
+  const durable = readDurableAttribution()?.values ?? {};
+  const clickKeys = ["gclid", "gbraid", "wbraid", "fbclid"] as const;
+  const hasClickId = clickKeys.some((key) => Boolean(params.get(key)));
+  const hasUtm = AD_PARAM_KEYS.some((key) => key.startsWith("utm_") && Boolean(params.get(key)));
+  // A tagged visit without its own click ID must not claim an older paid click,
+  // even if it repeats the same campaign name.
+  if (!hasClickId && hasUtm && clickKeys.some((key) => Boolean(readStoredValue(key, durable)))) {
+    return true;
+  }
+  if (AD_PARAM_KEYS.some((key) => {
+    const value = params.get(key);
+    return Boolean(value) && value !== readStoredValue(key, durable);
+  })) return true;
+
+  let previous: Record<string, unknown> = {};
+  try {
+    previous = JSON.parse(fromBase64Url(readStoredSessionAttributes())) || {};
+  } catch {
+    // Missing or invalid session attributes cannot identify a previous touch.
+  }
+  return Array.from(params.keys()).some((key) =>
+    key.startsWith("gad_") && Boolean(params.get(key)) && params.get(key) !== previous[key]);
+}
+
 export function captureSessionAttributes(): string {
   const params = new URLSearchParams(window.location.search);
-  const hasGad = Array.from(params.keys()).some((key) => key.startsWith("gad_"));
+  const previous = readStoredSessionAttributes();
 
-  if (hasGad || params.has("gclid") || params.has("gbraid")) {
+  if (hasAttributionParams(params) && (isNewAttributionTouch(params) || !previous)) {
+    // Never pair a new touch with stale session attributes if encoding/storage fails.
+    safeSessionRemove(SESSION_ATTRIBUTES_KEY);
+    try {
+      localStorage.removeItem(SESSION_ATTRIBUTES_KEY);
+    } catch {
+      // Tracking is best-effort when storage is unavailable.
+    }
     const values: Record<string, string> = {};
     params.forEach((paramValue, key) => {
       if (key.startsWith("gad_")) values[key] = paramValue;
@@ -235,7 +272,7 @@ export function captureSessionAttributes(): string {
     return encoded;
   }
 
-  return readStoredSessionAttributes();
+  return previous;
 }
 
 export function getStoredSessionAttributes(): string {
@@ -582,9 +619,23 @@ export function initDataLayer() {
 }
 
 export function persistAdParams() {
-  captureSessionAttributes();
   const params = new URLSearchParams(window.location.search);
+  const newTouch = isNewAttributionTouch(params);
+  captureSessionAttributes();
   const durable = readDurableAttribution()?.values ?? {};
+
+  if (newTouch) {
+    // Replace the current touch as a unit, rather than mixing old IDs/UTMs
+    // with a new visit. First-touch landing_page/referrer remain separate;
+    // session attributes contain the current touch's landing URL and time.
+    // Drop the stale durable record before writing its replacement. A quota
+    // failure must not make removed IDs reappear through the durable fallback.
+    removeDurableAttribution();
+    AD_PARAM_KEYS.forEach((key) => {
+      safeSessionRemove(key);
+      delete durable[key];
+    });
+  }
 
   AD_PARAM_KEYS.forEach((key) => {
     const value = params.get(key);

@@ -29,6 +29,7 @@ export interface NewsArticle {
   imageWidth: number;
   imageHeight: number;
   imageCaption?: string;
+  imageFit?: "contain" | "cover";
   location?: string;
   eventDates?: string;
   booth?: string;
@@ -84,6 +85,7 @@ export const newsArticles: NewsArticle[] = [
   updatedAt: "2026-11-14",
   excerpt: "Compare factory-radio retention, a replacement head unit and combined audio upgrades. A practical guide for car audio dealers quoting a customer’s next installation.",
   image: "/assets/news/head-unit-system-routes.svg",
+imageFit: "contain",
   imageAlt: "Three planning routes: keep the factory radio, replace the head unit, or plan the interface and audio together",
   imageWidth: 1280,
   imageHeight: 720,

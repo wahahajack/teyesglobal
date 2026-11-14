@@ -212,7 +212,7 @@ const NewsArticlePage = () => {
                 width={article.imageWidth}
                 height={article.imageHeight}
                 loading="eager"
-                className="w-full aspect-[4/3] md:aspect-[16/9] object-cover object-center mx-auto rounded-2xl border border-border/50"
+                className={`w-full ${article.imageFit === "contain" ? "h-auto object-contain" : "aspect-[4/3] md:aspect-[16/9] object-cover"} object-center mx-auto rounded-2xl border border-border/50`}
               />
               {article.imageCaption && <figcaption className="text-center text-xs text-muted-foreground mt-3">{article.imageCaption}</figcaption>}
             </figure>

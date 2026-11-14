@@ -73,6 +73,8 @@ describe("news reading and metadata", () => {
 describe("sample evaluation and complete system-choice guide", () => {
   it("renders the complete independent guide and accessible comparison table", () => {
     renderRoute("/news/industry/keep-factory-radio-or-replace-head-unit/");
+    expect(screen.getByRole("img", { name: /Three planning routes/ })).toHaveClass("object-contain", "h-auto");
+    expect(screen.getByRole("img", { name: /Three planning routes/ })).not.toHaveClass("object-cover");
     expect(screen.getByRole("heading", { name: "When keeping the factory radio makes sense" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "If the customer wants both, quote one coherent system" })).toBeInTheDocument();
     expect(screen.getByRole("table")).toBeInTheDocument();

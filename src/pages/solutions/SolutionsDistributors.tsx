@@ -66,20 +66,42 @@ const SolutionsDistributorsPage = () => {
   return (
     <Layout>
       <SEO
-        title="Distributor Partnership - Wholesale Car Infotainment"
-        description="Explore TEYES Android car stereos, car audio products and distribution options for your business."
+        title="TEYES Head Units for Dealers & Installers | Wholesale Enquiries"
+        description="Explore TEYES head units for your car audio business. Compare model roles, plan an evaluation and discuss wholesale terms for your market."
         keywords="car infotainment distributor, wholesale head unit, TEYES partner, distribution partnership"
         path="/solutions/distributors/"
       />
       <ContextHeader
-        title="Solutions for Distributors"
-        description="For car audio dealers, installers and resale businesses. Discuss dealer terms and sample evaluation."
+        title="TEYES Android Head Units for Dealers and Installers"
+        description="Expand your car audio range around the customers you already serve. Explore head units, car audio and accessories, then discuss the models and wholesale terms relevant to your business."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Solutions", href: "/solutions/" },
           { label: "For Distributors" },
         ]}
       />
+
+      {/* Buyer evaluation complements the existing support and cooperation modules. */}
+      <section className="py-16 bg-background" aria-labelledby="range-role">
+        <div className="container-wide max-w-4xl space-y-10">
+          <div>
+            <h2 id="range-role" className="section-title mb-4">Choose a role for TEYES in your range</h2>
+            <div className="space-y-4 text-muted-foreground">
+              <p>Whether you supply installation shops, sell to regional retailers or fit head units yourself, start with the upgrade your customers want. Do they need a more capable replacement radio, a premium option or a different price tier for everyday installations?</p>
+              <p>For a premium position, review <Link className="text-primary underline underline-offset-4" to="/products/cc4-pro/">CC4 Pro</Link>. Compare it with the mainstream CC3 2K and entry-level models in the <Link className="text-primary underline underline-offset-4" to="/products/">TEYES product range</Link>. Choose around the features your customers will use and the installations your team can support.</p>
+              <p>If your existing range already meets those needs, there may be no reason to replace it. A focused comparison should identify a useful addition, not create overlapping stock without a customer reason.</p>
+            </div>
+          </div>
+          <div>
+            <h2 className="section-title mb-4">Evaluate the installation, not just the screen</h2>
+            <div className="space-y-4 text-muted-foreground">
+              <p>Identify representative vehicles and the original equipment that matters to each installation. Ask which mounting parts, wiring interfaces and <Link className="text-primary underline underline-offset-4" to="/accessories/">accessories</Link> are required, which functions need confirmation and what is included in the proposed configuration.</p>
+              <p>For audio-focused customers, consider the planned speakers, amplification and other equipment alongside the <Link className="text-primary underline underline-offset-4" to="/car-audio/">car audio range</Link>. Compatibility is a configuration-specific question, not a promise attached to every model.</p>
+              <p>A sample or demo discussion can help define what to evaluate before a wider order. Confirm the evaluation arrangement and applicable terms rather than assuming a free sample or a particular delivery date.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Benefits */}
       <section className="py-20 bg-background">
@@ -149,10 +171,13 @@ const SolutionsDistributorsPage = () => {
       <section className="py-20 bg-background">
         <div className="container-wide text-center">
           <h2 className="text-2xl font-display font-bold mb-4">
-            Ready to Start?
+            Start a Practical Wholesale Conversation
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Tell us about your business, market and intended use. A sample or demo unit can be part of your product evaluation.
+            Tell us your country, business type, sales channel and the customer requests you want to address. Include target vehicles, preferred models or an approximate quantity if known. Your initial enquiry does not need to be a complete purchasing specification.
+          </p>
+          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+            Ask about current availability, order requirements, pricing and relevant product information. Distribution arrangements and market availability need confirmation for your location; an enquiry does not establish exclusive territory rights.
           </p>
           <Button variant="hero" size="lg" asChild>
             <Link to="/contact/?inquiry=distribution">

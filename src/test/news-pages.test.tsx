@@ -88,3 +88,19 @@ describe("sample evaluation and complete system-choice guide", () => {
     expect(screen.queryByText(/Technically reviewed by/)).not.toBeInTheDocument();
   });
 });
+
+describe("regional exit reporting corrections", () => {
+  it("keeps regional support and warranty distinct without a fabricated reviewer", () => {
+    renderRoute("/news/industry/sony-car-audio-global-exit-transition-timeline/");
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Regional Transition Timeline");
+    expect(screen.getByText(/field, sales and technical support for industry partners through March 2027/)).toBeInTheDocument();
+    expect(screen.getByText(/A dealer-support cutoff is not itself a warranty expiry/)).toBeInTheDocument();
+    expect(screen.queryByText(/Reviewed by/)).not.toBeInTheDocument();
+  });
+  it("preserves the practical sample worksheet while narrowing firmware scope", () => {
+    renderRoute("/news/industry/sony-exit-north-america-head-unit-supplier-checklist/");
+    expect(screen.getByRole("link", { name: "TEYES UK firmware page" })).toHaveAttribute("href", "https://www.teyes.uk/pages/firmwares");
+    expect(screen.getByRole("link", { name: "Download the blank sample evaluation record (CSV)" })).toHaveAttribute("href", "/downloads/head-unit-sample-evaluation-record.csv");
+    expect(screen.getByRole("heading", { name: "How to evaluate an Android head unit sample before stocking it" })).toBeInTheDocument();
+  });
+});

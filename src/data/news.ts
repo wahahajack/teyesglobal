@@ -273,265 +273,298 @@ imageFit: "contain",
   {
     slug: "sony-car-audio-global-exit-transition-timeline",
     category: "industry",
-    title:
-      "Sony's Car Audio Exit Goes Global: A Transition Timeline for Head Unit Buyers",
+    title: "Sony Car Audio Exit Reports: A Regional Transition Timeline for Head Unit Buyers",
     date: "2026-10-12",
-    updatedAt: "2026-10-12",
-    excerpt:
-      "Sony's exit from aftermarket car audio is now confirmed as worldwide. Australian retailers were notified in writing in the week of October 7, shipments run until December 31, 2026, and dealer support continues into 2027. For distributors and retailers, the transition is now a dated planning exercise.",
+    updatedAt: "2026-11-14",
+    excerpt: "Trade reports describe Sony’s withdrawal from aftermarket car audio. Separate regional sales deadlines, dealer support and warranty responsibilities before changing orders or choosing another supplier.",
     image: "/assets/news/automechanika-2026-cc4-pro-navigation.webp",
-    imageAlt:
-      "TEYES CC4 PRO head unit display with navigation screen and camera accessories",
+    imageAlt: "TEYES CC4 PRO head unit display with navigation screen and camera accessories",
     imageWidth: 1200,
     imageHeight: 675,
-    imageCaption:
-      "TEYES head units on display. Head units are the category most directly affected by Sony's withdrawal from the aftermarket.",
+    imageCaption: "TEYES head units on display. Evaluate any proposed alternative against the customer jobs your business handles.",
     cta: {
       title: "Reviewing your head unit lineup this quarter?",
-      description:
-        "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
+      description: "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
       label: "Discuss distribution",
-      href: "/contact/",
+      href: "/contact/"
     },
-    reviewedBy: "Chris Peng, TEYES Engineering",
     faq: [
       {
-        question: "Is Sony leaving the car audio business worldwide?",
-        answer:
-          "Yes. Trade publications in Australia, the US and the UK reported in the week of October 5, 2026 that Sony is exiting the aftermarket car audio business globally, including its marine audio line. Shipments of existing products continue until December 31, 2026. Sony had already exited the European aftermarket earlier: it stopped taking orders at the end of 2024 and ended shipments in March 2025.",
+        question: "Is Sony leaving aftermarket car audio worldwide?",
+        answer: "ChannelNews reported a worldwide car and marine audio withdrawal. This article distinguishes that trade report from the regional dates reported for North America and Australia; buyers should obtain the notice applicable to their own channel."
       },
       {
-        question:
-          "How long will Sony support car audio dealers after the exit?",
-        answer:
-          "According to trade reports, Sony's dealer-facing field, sales and technical support continues into early 2027 — one outlet reports spring 2027. After that point, product owners needing support will have to contact Sony directly rather than through the dealer channel.",
+        question: "Is a dealer-support cutoff also a warranty expiry date?",
+        answer: "No. Sales deadlines, dealer-facing assistance and warranty responsibilities are different matters. Check the written warranty and the relevant regional support arrangements before making promises to a customer."
       },
       {
-        question: "Which retailers were notified in Australia?",
-        answer:
-          "ChannelNews, which first reported the Australian dealer letter on October 7, 2026, named Super Cheap Auto, Autobarn, Strathfield Car Radios, Ryda, Audio Emporium, Street Sound & Vision and Pulse Car Audio among the notified retailers.",
+        question: "Should a dealer place a final order now?",
+        answer: "Base the decision on confirmed orders, current stock, the channel’s actual deadline and return terms. A withdrawal announcement alone is not a reason to increase inventory."
       },
       {
-        question:
-          "Should dealers place final orders before December 31, 2026?",
-        answer:
-          "Trade coverage advises placing final orders before the shipment cutoff while avoiding overstock: remaining inventory is widely expected to be cleared through year-end sales, which can reset street prices. Confirm order deadlines, return rights and warranty handling with Sony's regional channel in writing before committing volume.",
-      },
-      {
-        question: "What should buyers verify in a replacement supplier?",
-        answer:
-          "Focus on what an exit makes visible: supply continuity and end-of-life notice policy, written warranty terms including who honors claims in your market, the software and firmware update process, and verifiable per-model specifications. TEYES published a detailed supplier checklist when the North American exit was first announced.",
-      },
+        question: "What should buyers verify in another supplier?",
+        answer: "Review product lifecycle communication, written support and warranty terms, the update procedure and the exact model’s documentation. Then evaluate a sample against a customer job before committing volume."
+      }
     ],
     blocks: [
       {
         type: "paragraph",
-        text: "Sony's departure from aftermarket car audio is larger than first reported. When the company notified US industry members by email on September 30, 2026, the announcement was understood as a North American exit. Within a week, trade publications confirmed the decision is global. ChannelNews in Australia reported on October 7 that Sony Australia had notified retailers in writing, naming Super Cheap Auto, Autobarn, Strathfield Car Radios, Ryda, Audio Emporium, Street Sound & Vision and Pulse Car Audio among them. StereoNET independently confirmed the US dealer letter on October 8 and reported that the exit also covers the UK, completing a withdrawal that began when Sony stopped taking European orders at the end of 2024. The company's marine audio line is being discontinued alongside car audio.",
+        text: "<a href=\"https://www.channelnews.com.au/exclusive-sony-quits-car-audio-big-shock-for-retailers/\">ChannelNews’s October 7 report</a> describes Sony’s aftermarket car and marine audio withdrawal as worldwide and reports that Australian retailers received a written notice. The practical task for a buyer is regional: identify which notice applies to the products and channel you use."
       },
       {
         type: "paragraph",
-        text: "When the North American exit was announced, this publication outlined <a href=\"/news/industry/sony-exit-north-america-head-unit-supplier-checklist/\">a checklist for evaluating a replacement supplier</a>. The confirmed details this week change the question from how to evaluate to when to act. The exit now has public dates, and those dates define a transition window that distributors, retailers and installers can plan around.",
+        text: "Our <a href=\"/news/industry/sony-exit-north-america-head-unit-supplier-checklist/\">supplier checklist</a> covers how to evaluate another line. This timeline focuses on managing existing orders and support commitments without confusing the two decisions."
       },
       {
         type: "heading",
-        text: "The dates that matter",
+        text: "Separate sales, dealer support and warranty"
       },
       {
         type: "paragraph",
-        text: "Three dates structure the transition. First, shipments: existing Sony car and marine audio products continue to ship to dealers until December 31, 2026, according to ChannelNews and StereoNET. Second, support: Sony's local and regional teams keep providing field, sales and technical support to dealers into early 2027 — Best of High End reports spring 2027 — after which factory-direct support for the category ends and product owners contact Sony directly. Third, the European precedent: when Sony left Europe, it stated that warranties would remain in place according to the laws of each region. Buyers in other markets should confirm the equivalent terms with their regional Sony channel in writing rather than assume the same arrangement.",
+        text: "For North America, <a href=\"https://www.ceoutlook.com/2026/09/30/sony-car-audio-exits-the-north-american-market/\">CEoutlook’s September 30 report</a> reports sales through December 31, 2026 and field, sales and technical support for industry partners through March 2027. It also says end-users can contact Sony directly from January 2027. That is a contact arrangement, not a statement that support only begins then."
       },
       {
         type: "paragraph",
-        text: "What these dates mean in practice is a planning exercise of roughly eighty days for ordering and about six months for support. Retailers are widely expected to use year-end sales to clear remaining Sony stock, according to Best of High End. For competing brands and for the retailers who carry them, a clearance window of that scale can temporarily reset street prices in the receiver category — a short-term pricing effect worth factoring into buying decisions, even though no clearance pricing had been publicly observed at major US retailers at the time of writing.",
+        text: "For Australia, <a href=\"https://www.channelnews.com.au/exclusive-sony-quits-car-audio-big-shock-for-retailers/\">ChannelNews’s October 7 report</a> reports shipments through December 31, 2026 and describes local dealer assistance as continuing until spring 2027. Obtain an exact regional support date rather than converting that seasonal wording into a global deadline. Neither report establishes when every retailer will sell its remaining stock."
       },
       {
         type: "heading",
-        text: "What the channel is saying",
-      },
-      {
-        type: "paragraph",
-        text: "Dealer reaction has been blunt. Jim Warren, president of Sound Distributions, which operates twenty former Car Toys stores in Washington state, told StereoNET: \"Sony's exit from our industry saddens me — but is yet understandable. Our niche is very small, and likely a rounding error for a company the size of Sony.\" Dealers speaking to StereoNET suggested that head units, Sony's largest car audio category, are in double-digit decline; that figure is dealer speculation, not company or third-party data. The exit also sits within a broader reshaping of Sony's hardware business: the company sold a 51% stake in its TV and home audio business to TCL earlier in 2026 and plans to skip CES 2027, according to the same reports.",
-      },
-      {
-        type: "paragraph",
-        text: "The timing surprised parts of the trade for one specific reason: Sony's European XAV-9550ES receiver launched only in 2023 and won a 2024–25 EISA Award. A product line young enough to be winning awards is not obviously a product line being wound down — a reminder that portfolio decisions at this scale are made above the category level, and that buyers should not read a supplier's product quality as a guarantee of its commitment to the category.",
-      },
-      {
-        type: "heading",
-        text: "Managing the transition",
-      },
-      {
-        type: "paragraph",
-        text: "For distributors, retailers and installers carrying Sony, the practical steps follow directly from the published dates:",
+        text: "Turn the dates into an order and service plan"
       },
       {
         type: "list",
         items: [
-          "Plan final orders against the December 31, 2026 shipment cutoff, and resist over-ordering. Stock bought at full wholesale price competes with clearance pricing within the same quarter.",
-          "Get warranty handling in writing: who honors claims in your market, through which process, and until when. Sony's European exit stated that warranties would remain in place under regional law; confirm the equivalent terms for your market rather than assuming them.",
-          "Map the support window against your own service promises. Dealer-facing support ends in early 2027; if your store offers longer service commitments to customers, the difference becomes your cost.",
-          "Apply the same diligence to the replacement supplier: supply continuity and end-of-life notice policy, written warranty terms, the firmware update process, and verifiable per-model specifications. The supplier checklist published with the North American announcement covers these questions in detail.",
-        ],
+          "List confirmed customer orders, unsold units and proposed purchases separately. Check which orders the channel will accept and deliver before committing stock.",
+          "Record warranty responsibility, claim procedure and return rights for the products you buy. A dealer-support cutoff is not itself a warranty expiry.",
+          "Identify the service promises your shop has already made. Keep the support contact and required documents with those jobs, including the path for assistance after channel arrangements change.",
+          "If another line is worth evaluating, start with the installation jobs you expect to handle. Compare a sample and its support package before placing a larger order."
+        ]
       },
       {
         type: "paragraph",
-        text: "The demand side of the category has not moved with the supply side. Infotainment systems account for 25% of all problems reported by new-vehicle owners and are the only problem category to worsen year over year, according to JD Power's 2026 U.S. Multimedia Quality and Satisfaction Study published on September 9, 2026. JD Power's 2026 Initial Quality Study, published June 25, 2026, adds detail: connectivity problems with Android Auto and Apple CarPlay were the largest single contributor to the infotainment category's decline. Factory systems that frustrate owners are the aftermarket's demand engine, and that engine is running.",
-      },
-      {
-        type: "paragraph",
-        text: "Among Android head unit specialists, TEYES publishes per-model specifications and vehicle-specific integration lists rather than generic compatibility claims. Firmware updates for its current Android head unit range are delivered over the air (OTA) — updates install directly on the device, without a PC or a service visit. The CC4 PRO supports 360-degree camera systems and ADAS (advanced driver assistance systems) camera inputs, and TEYES provides CE, FCC and E-mark documentation per SKU on request. These are the same verification points a transition checklist asks buyers to confirm — and they are most useful when a supplier states them before being asked.",
+        text: "A withdrawal can prompt a supplier review without proving that a particular shop is short of stock or wants another brand. Your enquiries, inventory and installation capacity should determine the next step. Avoid forecasting clearance prices as if they were already observed."
       },
       {
         type: "heading",
-        text: "The bottom line",
+        text: "Evaluate the proposed replacement on its own merits"
       },
       {
         type: "paragraph",
-        text: "Sony's exit is no longer a regional story with an open ending. It is a worldwide withdrawal with a shipment deadline, a support deadline and a named list of retailers who now need replacement suppliers. For the trade, the work between now and December 31 is concrete: order deliberately, document warranty terms, and choose suppliers on what they can put in writing. The shelf space Sony occupied does not disappear; it gets reallocated to whoever passes that checklist.",
+        text: "For a TEYES proposal, start with the exact model and installation package. The <a href=\"https://www.teyes.uk/pages/firmwares\">TEYES UK firmware page</a> identifies the CC4 range as OTA-only and lists separate resources for other models. Confirm the update and recovery procedure for the unit being ordered. Bring the intended vehicle, accessories and destination market into the discussion, rather than treating a series name as proof of integration or compliance."
       },
       {
         type: "paragraph",
-        text: "TEYES develops Android car stereos, car audio products and accessories, and works with distributors, retailers and businesses seeking customized products. Distributors evaluating their head unit lineup for 2027 can contact the TEYES team to discuss model ranges, warranty terms and market requirements.",
+        text: "A product shortlist is only the beginning. Use the <a href=\"/news/industry/sony-exit-north-america-head-unit-supplier-checklist/\">sample-evaluation method and blank record</a> to distinguish supplier statements from what your shop has actually checked. That record is more useful for the next order than a broad claim that one brand replaces another."
       },
-    ],
+      {
+        type: "heading",
+        text: "The next decision"
+      },
+      {
+        type: "paragraph",
+        text: "Keep the existing-customer service plan separate from the new-supplier decision. Order against known commitments, document the support route and evaluate an alternative only where it fits your business."
+      },
+      {
+        type: "paragraph",
+        text: "Contact the TEYESGLOBAL team to discuss the proposed model, intended market and cooperation terms. Record the agreed availability, installation requirements and support responsibilities with the proposed order."
+      }
+    ]
   },
   {
     slug: "sony-exit-north-america-head-unit-supplier-checklist",
     category: "industry",
-    title:
-      "Sony Exits North American Car Audio: A Supplier Checklist for Head Unit Buyers",
+    title: "Sony Exits North American Car Audio: A Supplier Checklist for Head Unit Buyers",
     date: "2026-10-07",
     updatedAt: "2026-11-14",
-    excerpt:
-      "Sony has notified the industry that it is leaving the North American aftermarket car audio business, after exiting Europe in 2025. For distributors, retailers and installers, the practical question is not why Sony left — it is how to evaluate the supplier who takes its place on the shelf.",
+    excerpt: "CEoutlook reports Sony’s North American aftermarket car audio withdrawal. A practical checklist for evaluating supply, support, specifications and an Android head unit sample before stocking it.",
     image: "/assets/news/automechanika-2026-cc4-pro-counter-large.webp",
-    imageAlt:
-      "TEYES CC4 PRO head unit with camera and microphone accessories on display at Automechanika Frankfurt 2026",
+    imageAlt: "TEYES CC4 PRO head unit with camera and microphone accessories on display at Automechanika Frankfurt 2026",
     imageWidth: 1280,
     imageHeight: 720,
-    imageCaption:
-      "The CC4 PRO head unit and camera accessories on the TEYES stand at Automechanika Frankfurt 2026.",
+    imageCaption: "The CC4 PRO head unit and camera accessories on the TEYES stand at Automechanika Frankfurt 2026.",
     cta: {
       title: "Evaluating your head unit lineup?",
-      description:
-        "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
+      description: "Tell the TEYES team where you operate and which models you are considering to discuss specifications, warranty terms and distribution options.",
       label: "Discuss distribution",
-      href: "/contact/",
+      href: "/contact/"
     },
     faq: [
       {
-        question: "Did Sony stop making car stereos?",
-        answer:
-          "Sony has announced its exit from the aftermarket car audio business in North America, following its earlier exit from the European aftermarket, where shipments ended in March 2025. Sony continues other consumer electronics businesses; this decision concerns aftermarket car audio.",
+        question: "Has Sony announced a North American aftermarket car audio exit?",
+        answer: "CEoutlook reported the withdrawal on September 30, 2026, citing an industry email. Buyers should confirm the notice and order arrangements with their regional channel."
       },
       {
-        question: "Will existing Sony car audio warranties still be honored?",
-        answer:
-          "When Sony exited Europe, it stated that warranties would remain in place according to the laws of each region. For North America, buyers should confirm warranty handling with their place of purchase and Sony's regional support channels, as detailed exit terms had not been published at the time of writing.",
+        question: "Does the reported dealer-support deadline end existing warranties?",
+        answer: "Do not treat it as a warranty expiry. Check who handles claims, the applicable written terms and the regional contact route. Sales deadlines and dealer-facing assistance are separate from warranty responsibilities."
       },
       {
-        question: "Which tier-one brands remain in aftermarket head units?",
-        answer:
-          "Following Sony's departure, dealers name Alpine, Pioneer and Kenwood as the remaining tier-one brands in the category.",
-      },
-      {
-        question:
-          "Does Sony's exit mean the aftermarket head unit category is shrinking?",
-        answer:
-          "The exit reflects one company's portfolio decision. Demand indicators remain: infotainment systems account for roughly 25% of new-vehicle problems according to a JD Power finding reported in September 2026, and competitors launched new large-screen receivers in the same week.",
+        question: "Does this mean every dealer needs another supplier?",
+        answer: "No. Review actual enquiries, current inventory and installation capabilities. A supplier review may be worthwhile, but an exit announcement does not establish demand at a particular shop."
       },
       {
         question: "What should a distributor ask a new head unit supplier first?",
-        answer:
-          "Start with supply continuity and warranty terms in writing — how long the current generation ships, how end-of-life is communicated, and exactly who honors warranty claims in your market. Then verify software update processes and per-SKU specifications before placing volume orders.",
-      },
+        answer: "Start with lifecycle and supply information, written support and warranty terms, and the exact model’s documentation. Then evaluate the proposed installation with a sample and record what was actually demonstrated."
+      }
     ],
     blocks: [
       {
         type: "paragraph",
-        text: "Sony has told the car audio industry that it is stepping back from the aftermarket car audio business in North America. According to trade publication CEoutlook, the notice was sent to industry members by email on September 30, 2026. It follows Sony's exit from the European aftermarket, where the company stopped taking orders at the end of 2024 and ended shipments in March 2025, stating at the time that warranties would remain in place according to the laws of each region.",
+        text: "<a href=\"https://www.ceoutlook.com/2026/09/30/sony-car-audio-exits-the-north-american-market/\">CEoutlook’s September 30 report</a> says Sony is leaving North American aftermarket car audio. It reports sales through December 31, 2026, field, sales and technical support for industry partners through March 2027, and a direct end-user contact route from January 2027. Confirm the arrangements for your channel, including warranty handling, before changing orders."
       },
       {
         type: "paragraph",
-        text: "Dealer reactions appeared within days. SCR Distribution in the UK summarized the situation bluntly on Facebook: Sony is leaving the US market after already leaving Europe, leaving Alpine, Pioneer and Kenwood as the remaining tier-one head unit brands. Other dealers described themselves as heartbroken. In its October 2 follow-up, CEoutlook reported that industry members speculating on the reasons for the departure noted Sony's sales were heavily concentrated in head units — a category under pressure. That explanation is industry speculation, not a statement from Sony.",
-      },
-      {
-        type: "paragraph",
-        text: "For distributors, importers, retailers and installers outside the tier-one brand system, the why matters less than the what now. Shelf space, installer recommendations and customer trust that Sony occupied do not disappear; they get reallocated. This article looks at what the exit changes for the trade, and offers a checklist for evaluating whichever supplier takes that place.",
+        text: "For a distributor or installer, the useful question is which customer jobs a proposed supplier can help you serve. Start with your existing stock, enquiries and installation capabilities. Another brand is worth considering when it fills a concrete role, not simply because a familiar name is leaving."
       },
       {
         type: "heading",
-        text: "What actually changed",
+        text: "A checklist for evaluating a replacement supplier"
       },
       {
         type: "paragraph",
-        text: "The exit itself was telegraphed in the channel. By August 2026, parts specialist Auto Harness House reported that Sony's previous receiver generation — the XAV-AX5000, AX5600, AX7000 and AX8100 — had been discontinued, that remaining units were available only in small numbers from third-party sellers, and that leftover XAV-AX7000 stock was selling above its original price. When discontinued models trade at a premium, it usually means demand for the product still exists while the supply line has already been wound down.",
-      },
-      {
-        type: "paragraph",
-        text: "The demand side has not changed. Consumers continue to report problems with factory infotainment systems — infotainment accounts for roughly 25% of all new-vehicle problems, according to a JD Power finding reported by CEoutlook on September 20, 2026. Vehicles on the road keep aging, and drivers keep upgrading. What changed is the supply side: one of the most recognized names in the category has left its second major region within two years.",
-      },
-      {
-        type: "paragraph",
-        text: "Meanwhile, the remaining tier-one brands are redirecting their energy. Alpine used the weeks before SEMA 2026 to promote an all-new marine audio line — head units, amplifiers, speakers and subwoofers for boats — after announcing its return to the marine market earlier in 2026. Pioneer Electronics AsiaCentre introduced two new large-screen A Series multimedia receivers in the Philippines in late September, and followed with the 9-inch DMH-AP6850BT with wireless Apple CarPlay in early October. The pattern is visible: incumbents are diversifying into adjacent categories and concentrating head unit investment on large-screen, smartphone-centric models in growth markets.",
-      },
-      {
-        type: "heading",
-        text: "A checklist for evaluating a replacement supplier",
-      },
-      {
-        type: "paragraph",
-        text: "Whether the replacement for a departed brand is another tier-one line or an Android head unit specialist, the evaluation questions are the same. They are also the questions dealers are most likely to ask in the coming months, based on what the channel itself has been discussing this week.",
+        text: "Use these questions to shortlist a line. Then test the proposed package against an installation your business expects to handle."
       },
       {
         type: "list",
         items: [
-          "Supply continuity. How long has the current product generation been shipping, and how does the supplier communicate end-of-life? Sony's channel wound down for months before the exit was announced; buyers who watched stock levels and discontinued SKUs had early warning.",
-          "Warranty terms in writing. How many years, honored by whom, in which markets, and through which process? When Sony left Europe, it stated that warranties would remain in place according to regional law — a reminder that exit terms matter as much as warranty length. Some retailers now warn consumers that products bought from unauthorized sellers may not be covered at all, so ask how the supplier defines and polices its authorized channel.",
-          "Software and firmware support. How are updates delivered, and what happens when an update fails? To take one current example from the Android segment: some suppliers require a Windows PC for system updates, and a failed or mismatched update can disable CarPlay/Android Auto until a paid reactivation. Multiply that by an installer's labor rate and it becomes a real cost line.",
-          "Verifiable specifications. US installers have publicly criticized low-cost Android head units this month for inflated hardware specifications, laggy software and absent support. Ask for the chipset model, RAM and storage configuration by SKU, and check them against the delivered unit. A supplier who publishes verifiable specifications is easier to stand behind than one who leads with adjectives.",
-          "Fitment and integration depth. As tier-one brands concentrate on large-screen CarPlay receivers, differentiation moves to vehicle integration: CAN bus decoders, steering-wheel control retention, factory camera retention, 360-degree camera support and ADAS (advanced driver assistance systems) camera inputs. Confirm these per vehicle model and year, not as a blanket claim.",
-          "Certifications for your market. E-mark for European-type-approval markets, CE for the EU, FCC for the US. Ask which documents the supplier can provide for the specific SKU you are buying, not the brand in general.",
-        ],
+          "Supply continuity. How are lifecycle changes, final-order dates and replacement models communicated? Obtain the terms for the product you intend to stock.",
+          "Warranty and support. Who handles a claim in your market, what documents are needed, and which costs or exclusions apply? Keep the written terms with the order.",
+          "Software and firmware. Ask how updates are delivered for the exact model, what recovery procedure is available if an update fails, who assists and whether any charges apply.",
+          "Verifiable specifications. Record the chipset, RAM and storage for the proposed SKU, then compare the supplied documentation with the sample received. Resolve discrepancies before quoting the product.",
+          "Fitment and integration. Identify the vehicle, year, trim, interfaces and functions to retain. Assess the exact package rather than assuming that every configuration supports the same cameras, controls or audio equipment.",
+          "Market documentation. Establish which requirements apply to the product and destination, then request documents identifying the proposed model and configuration. Have the responsible compliance specialist assess their applicability before import or sale."
+        ]
       },
       {
         type: "paragraph",
-        text: "Among Android head unit specialists, TEYES publishes per-model specifications and vehicle-specific integration lists rather than generic compatibility claims. Firmware updates for its current Android head unit range are delivered over the air (OTA) — updates download and install directly on the device, with no PC or service visit required. Its CC4 PRO model supports 360-degree camera systems and ADAS camera inputs, and TEYES provides CE, FCC and E-mark documentation per SKU on request — the same verification points this checklist asks buyers to confirm before placing volume orders.",
+        text: "For a TEYES proposal, start with the exact model and installation package. The <a href=\"https://www.teyes.uk/pages/firmwares\">TEYES UK firmware page</a> identifies the CC4 range as OTA-only and lists separate resources for other models. Confirm the update and recovery procedure for the unit being ordered. Bring the intended vehicle, accessories and destination market into the discussion, rather than treating a series name as proof of integration or compliance."
       },
-      {"type": "heading", "text": "How to evaluate an Android head unit sample before stocking it"},
-      {"type": "paragraph", "text": "A supplier’s answers help you decide what to investigate. A sample evaluation helps you decide what you can confidently offer customers. Keep the two separate: a specification sheet describes the proposed product; your record shows what happened with the particular unit and installation you checked."},
-      {"type": "paragraph", "text": "Start with one customer job your shop expects to handle. Write down the requested outcome, the vehicle and the equipment that must stay. Then evaluate that job, rather than trying to prove every feature on the box in one sitting."},
-      {"type": "subheading", "text": "Define the sample, not just the brand"},
-      {"type": "paragraph", "text": "Record the exact model, configuration and software version, along with the accessories supplied for the proposed installation. Include the vehicle’s model year, trim and relevant original equipment. If you are comparing two samples, use the same requested outcome and record any differences in the test setup."},
-      {"type": "paragraph", "text": "For a TEYES enquiry, identify the model from the <a href=\"/products/\">product range</a> before asking about the package. A familiar series name is not a substitute for the configuration you intend to order."},
-      {"type": "subheading", "text": "Use a result sheet that separates claims from observations"},
-      {"type": "paragraph", "text": "Copy this structure into your sample record. The prompts below are things to check, not claims that a given unit supports them."},
-      {"type": "table", "headers": ["Check", "Record before evaluation", "Record after evaluation"], "rows": [["Requested phone connection", "Phone, software version and wired or wireless connection required", "What connected, under which setup, and any unresolved behaviour"], ["Functions the customer wants to retain", "Named controls, camera or original audio equipment", "Which were demonstrated, which were not, and the setup used"], ["Installation package", "Exact unit and accessories proposed for this vehicle", "Items used, missing items and unanswered compatibility questions"], ["Support request", "One specific question with model and configuration details", "Response received, supporting document and unresolved next step"]]},
-      {"type": "paragraph", "text": "Use <strong>pass</strong>, <strong>fail</strong> or <strong>not tested</strong> against a stated requirement. Add the observation that explains the result. “Pass” on its own tells the next installer very little; “not tested” is not a failure, but neither is it confirmation."},
-      {"type": "paragraph", "text": "Keep supplier statements in their own column. If a supplier says a function is supported but you have not checked it, preserve both facts. That prevents a brochure claim from becoming an assumed workshop result."},
-      {"type": "subheading", "text": "Turn an unresolved result into a useful question"},
-      {"type": "paragraph", "text": "Suppose your intended package includes a customer’s original camera, but the sample evaluation did not demonstrate it. Do not write “camera compatible” on the quotation. Ask which interface and configuration are required for that vehicle, what evidence supports the proposed arrangement and what the installer should verify."},
-      {"type": "paragraph", "text": "Record who will answer and what would settle the question. A reply that names a different vehicle or configuration does not resolve this one. Integration work should be assessed and performed by a qualified installer using the relevant vehicle and equipment instructions."},
-      {"type": "paragraph", "text": "This is a suggested evaluation method, not a report of a TEYES vehicle test. Leave the result fields empty until your shop has observations to enter."},
-      {"type": "subheading", "text": "Decide what the sample allows you to offer"},
-      {"type": "paragraph", "text": "At the end, separate three outcomes:"},
-      {"type": "list", "items": ["Suitable for the checked job: the requirements you defined were demonstrated in the recorded setup.", "Further evaluation needed: a required function, accessory or answer remains unresolved.", "Not suitable for that job: the evaluated arrangement did not meet a requirement you need."]},
-      {"type": "paragraph", "text": "A successful sample does not establish compatibility with every vehicle or every configuration in the range. Keep the record with the proposed order, and revisit the affected checks if the model, accessories or software change."},
-      {"type": "paragraph", "text": "The goal is a clear next decision, not a long checklist with every box ticked. Bring the sample model, intended vehicle, recorded observations and unresolved questions to the <a href=\"/solutions/distributors/\">TEYES distributor discussion</a>. Confirm availability and cooperation terms for your market separately from the technical evaluation."},
-      {"type": "paragraph", "text": "<a href=\"/downloads/head-unit-sample-evaluation-record.csv\" download>Download the blank sample evaluation record (CSV)</a>. This worksheet contains no test results; complete it with observations from your own evaluation."},
       {
         type: "heading",
-        text: "The bottom line",
+        text: "How to evaluate an Android head unit sample before stocking it"
       },
       {
         type: "paragraph",
-        text: "Sony's North American exit is the largest single-brand event in the aftermarket head unit category this year. It does not signal the end of the category — the demand drivers are intact, and the same week brought new large-screen receivers from Pioneer and a diversified marine line from Alpine. It does signal that the supplier list buyers trusted for two decades is being rewritten, and that the evaluation criteria above will decide who inherits the shelf.",
+        text: "A supplier’s answers help you decide what to investigate. A sample evaluation helps you decide what you can confidently offer customers. Keep the two separate: a specification sheet describes the proposed product; your record shows what happened with the particular unit and installation you checked."
       },
       {
         type: "paragraph",
-        text: "TEYES develops Android car stereos, car audio products and accessories, and works with distributors, retailers and businesses seeking customized products. Distributors evaluating their head unit lineup for 2027 can contact the TEYES team to discuss model ranges, warranty terms and market requirements.",
+        text: "Start with one customer job your shop expects to handle. Write down the requested outcome, the vehicle and the equipment that must stay. Then evaluate that job, rather than trying to prove every feature on the box in one sitting."
       },
-    ],
+      {
+        type: "subheading",
+        text: "Define the sample, not just the brand"
+      },
+      {
+        type: "paragraph",
+        text: "Record the exact model, configuration and software version, along with the accessories supplied for the proposed installation. Include the vehicle’s model year, trim and relevant original equipment. If you are comparing two samples, use the same requested outcome and record any differences in the test setup."
+      },
+      {
+        type: "paragraph",
+        text: "For a TEYES enquiry, identify the model from the <a href=\"/products/\">product range</a> before asking about the package. A familiar series name is not a substitute for the configuration you intend to order."
+      },
+      {
+        type: "subheading",
+        text: "Use a result sheet that separates claims from observations"
+      },
+      {
+        type: "paragraph",
+        text: "Copy this structure into your sample record. The prompts below are things to check, not claims that a given unit supports them."
+      },
+      {
+        type: "table",
+        headers: [
+          "Check",
+          "Record before evaluation",
+          "Record after evaluation"
+        ],
+        rows: [
+          [
+            "Requested phone connection",
+            "Phone, software version and wired or wireless connection required",
+            "What connected, under which setup, and any unresolved behaviour"
+          ],
+          [
+            "Functions the customer wants to retain",
+            "Named controls, camera or original audio equipment",
+            "Which were demonstrated, which were not, and the setup used"
+          ],
+          [
+            "Installation package",
+            "Exact unit and accessories proposed for this vehicle",
+            "Items used, missing items and unanswered compatibility questions"
+          ],
+          [
+            "Support request",
+            "One specific question with model and configuration details",
+            "Response received, supporting document and unresolved next step"
+          ]
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Use <strong>pass</strong>, <strong>fail</strong> or <strong>not tested</strong> against a stated requirement. Add the observation that explains the result. “Pass” on its own tells the next installer very little; “not tested” is not a failure, but neither is it confirmation."
+      },
+      {
+        type: "paragraph",
+        text: "Keep supplier statements in their own column. If a supplier says a function is supported but you have not checked it, preserve both facts. That prevents a brochure claim from becoming an assumed workshop result."
+      },
+      {
+        type: "subheading",
+        text: "Turn an unresolved result into a useful question"
+      },
+      {
+        type: "paragraph",
+        text: "Suppose your intended package includes a customer’s original camera, but the sample evaluation did not demonstrate it. Do not write “camera compatible” on the quotation. Ask which interface and configuration are required for that vehicle, what evidence supports the proposed arrangement and what the installer should verify."
+      },
+      {
+        type: "paragraph",
+        text: "Record who will answer and what would settle the question. A reply that names a different vehicle or configuration does not resolve this one. Integration work should be assessed and performed by a qualified installer using the relevant vehicle and equipment instructions."
+      },
+      {
+        type: "paragraph",
+        text: "This is a suggested evaluation method, not a report of a TEYES vehicle test. Leave the result fields empty until your shop has observations to enter."
+      },
+      {
+        type: "subheading",
+        text: "Decide what the sample allows you to offer"
+      },
+      {
+        type: "paragraph",
+        text: "At the end, separate three outcomes:"
+      },
+      {
+        type: "list",
+        items: [
+          "Suitable for the checked job: the requirements you defined were demonstrated in the recorded setup.",
+          "Further evaluation needed: a required function, accessory or answer remains unresolved.",
+          "Not suitable for that job: the evaluated arrangement did not meet a requirement you need."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "A successful sample does not establish compatibility with every vehicle or every configuration in the range. Keep the record with the proposed order, and revisit the affected checks if the model, accessories or software change."
+      },
+      {
+        type: "paragraph",
+        text: "The goal is a clear next decision, not a long checklist with every box ticked. Bring the sample model, intended vehicle, recorded observations and unresolved questions to the <a href=\"/solutions/distributors/\">TEYES distributor discussion</a>. Confirm availability and cooperation terms for your market separately from the technical evaluation."
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"/downloads/head-unit-sample-evaluation-record.csv\" download>Download the blank sample evaluation record (CSV)</a>. This worksheet contains no test results; complete it with observations from your own evaluation."
+      },
+      {
+        type: "heading",
+        text: "The bottom line"
+      },
+      {
+        type: "paragraph",
+        text: "A useful supplier decision connects three things: a customer job you can identify, a product package you have evaluated and support terms you can explain. Use the checklist to choose what to investigate, and the sample record to decide what you can confidently offer."
+      },
+      {
+        type: "paragraph",
+        text: "Contact the TEYESGLOBAL team to discuss the proposed model, intended market and cooperation terms. Record the agreed availability, installation requirements and support responsibilities with the proposed order."
+      }
+    ]
   },
   {
     slug: "teyes-car-audio-series-launch",

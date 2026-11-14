@@ -43,9 +43,12 @@ const staticPages = [
   // Exclude post-conversion utility pages like /thank-you from sitemap indexing.
 ];
 
-function getIsoDate(filePath) {
-  return fs.statSync(filePath).mtime.toISOString().split('T')[0];
-}
+// Checkout mtimes describe a build, not a content revision. Preserve explicit
+// committed dates for existing non-news URLs; omit unknown dates for new URLs.
+const priorSitemap = fs.existsSync(path.join(publicDir, 'sitemap.xml'))
+  ? fs.readFileSync(path.join(publicDir, 'sitemap.xml'), 'utf8') : '';
+const priorDates = new Map([...priorSitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)]
+  .map((match) => [match[1], match[2]]));
 
 function escapeXml(value) {
   return value
@@ -60,7 +63,7 @@ function createUrlEntry(loc, lastmod, priority) {
   return [
     '  <url>',
     `    <loc>${escapeXml(loc)}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
     '    <changefreq>weekly</changefreq>',
     `    <priority>${priority}</priority>`,
     '  </url>',
@@ -97,14 +100,13 @@ const staticEntries = staticPages
   .map((page) =>
   createUrlEntry(
     `${baseUrl}${toCanonicalPath(page.path)}`,
-    getIsoDate(path.join(rootDir, page.source)),
+    priorDates.get(`${baseUrl}${toCanonicalPath(page.path)}`),
     page.priority
   )
   );
 
-const productLastMod = getIsoDate(productsFile);
 const productEntries = getProductIds().map((id) =>
-  createUrlEntry(`${baseUrl}/products/${id}/`, productLastMod, '0.9')
+  createUrlEntry(`${baseUrl}/products/${id}/`, priorDates.get(`${baseUrl}/products/${id}/`), '0.9')
 );
 
 const newsEntries = getNewsMetadata().map(({ category, slug, date, updatedAt }) =>

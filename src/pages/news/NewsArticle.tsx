@@ -31,6 +31,19 @@ const BlockRenderer = ({ block }: { block: NewsArticleBlock }) => {
       </h2>
     );
   }
+  if (block.type === "subheading") {
+    return <h3 className="text-lg md:text-xl font-display font-bold mt-8 mb-3">{block.text}</h3>;
+  }
+  if (block.type === "table") {
+    return (
+      <div className="my-6 overflow-x-auto rounded-lg border border-border" role="region" aria-label={block.headers?.join("; ") || "Article comparison table"} tabIndex={0}>
+        <table className="w-full min-w-[36rem] text-sm text-left">
+          <thead className="bg-muted"><tr>{block.headers?.map((header) => <th key={header} scope="col" className="p-3 font-semibold align-top">{header}</th>)}</tr></thead>
+          <tbody>{block.rows?.map((row, index) => <tr key={index} className="border-t border-border">{row.map((cell, column) => column === 0 ? <th key={column} scope="row" className="p-3 font-medium align-top">{cell}</th> : <td key={column} className="p-3 text-muted-foreground align-top">{cell}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    );
+  }
   if (block.type === "list") {
     return (
       <ul className="my-4 space-y-2">

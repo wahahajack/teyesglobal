@@ -5,9 +5,11 @@
 export type NewsCategory = "company" | "exhibitions" | "industry";
 
 export interface NewsArticleBlock {
-  type: "paragraph" | "heading" | "list" | "image";
+  type: "paragraph" | "heading" | "subheading" | "list" | "image" | "table";
   text?: string;
   items?: string[];
+  headers?: string[];
+  rows?: string[][];
   src?: string;
   alt?: string;
   caption?: string;
@@ -74,6 +76,198 @@ export const newsCategories: {
 ];
 
 export const newsArticles: NewsArticle[] = [
+  {
+  slug: "keep-factory-radio-or-replace-head-unit",
+  category: "industry",
+  title: "Keep the Factory Radio or Replace the Head Unit? A Car Audio Dealer’s Decision Guide",
+  date: "2026-11-14",
+  updatedAt: "2026-11-14",
+  excerpt: "Compare factory-radio retention, a replacement head unit and combined audio upgrades. A practical guide for car audio dealers quoting a customer’s next installation.",
+  image: "/assets/news/head-unit-system-routes.svg",
+  imageAlt: "Three planning routes: keep the factory radio, replace the head unit, or plan the interface and audio together",
+  imageWidth: 1280,
+  imageHeight: 720,
+  imageCaption: "Three system-planning routes. This illustration is a decision aid, not a vehicle compatibility diagram.",
+  cta: {
+    title: "Planning a replacement-head-unit offer?",
+    description: "Identify the model and vehicle requirements before discussing availability and commercial terms for your market.",
+    label: "Explore TEYES models",
+    href: "/products/"
+  },
+  blocks: [
+    {
+      type: "paragraph",
+      text: "A customer asks for “better car audio.” Before choosing a head unit, find out whether they want better sound, a different dashboard experience, or both. Those are different jobs, and they do not always require the same purchase."
+    },
+    {
+      type: "paragraph",
+      text: "<strong>If the customer likes the original radio and wants an audio upgrade, start by looking at ways to keep it. If the screen, controls or connectivity are the problem, assess a replacement head unit. When both need attention, plan the interface and audio upgrades together.</strong> The vehicle’s existing equipment will help determine which route is practical."
+    },
+    {
+      type: "heading",
+      text: "Start with the change the customer actually wants"
+    },
+    {
+      type: "paragraph",
+      text: "Ask the customer to describe one thing they cannot do today. “I want more bass” is not the same request as “I want to use CarPlay or Android Auto without connecting my phone by cable.” A larger display is not evidence that the speakers need replacing. Equally, a customer happy with the original dashboard may still want a different audio system."
+    },
+    {
+      type: "paragraph",
+      text: "Turn that answer into a short job description before presenting products:"
+    },
+    {
+      type: "table",
+      headers: [
+        "Customer’s priority",
+        "Route worth evaluating",
+        "Question to settle first"
+      ],
+      rows: [
+        [
+          "Audio upgrade while keeping the original interface",
+          "Retain the radio and assess the audio integration",
+          "Where will the amplifier or processor receive its signal?"
+        ],
+        [
+          "New screen, interface or connectivity",
+          "Replacement head unit",
+          "Can the proposed installation preserve the functions the customer needs?"
+        ],
+        [
+          "New interface and a broader audio upgrade",
+          "Plan both together",
+          "What is the complete signal path, and what equipment remains?"
+        ]
+      ]
+    },
+    {
+      type: "paragraph",
+      text: "Use the table to narrow the conversation, then inspect the vehicle. A customer who likes the dashboard should not have to buy a new radio simply because an audio upgrade is being discussed."
+    },
+    {
+      type: "heading",
+      text: "When keeping the factory radio makes sense"
+    },
+    {
+      type: "paragraph",
+      text: "Retaining the radio does not mean leaving every part of the audio system untouched. A line output converter, often shortened to <strong>LOC</strong>, provides one way to connect a suitable factory speaker-level signal to aftermarket amplification."
+    },
+    {
+      type: "paragraph",
+      text: "For example, AudioControl describes its LC2i PRO as a factory-system integration device with speaker-level inputs and preamp outputs. Its manual shows a path from the factory head unit or amplifier through the converter to an aftermarket amplifier. The original radio remains the source; the converter provides a connection to the added amplification. <a href=\"https://audiocontrol.com/products/lc2i-pro-2-channel-line-output-converter-accubass\">AudioControl product information</a> · <a href=\"https://audiocontrol.com/downloads/car/current/lc2i-pro/lc2i-pro-user-manual.pdf\">LC2i PRO manual</a>"
+    },
+    {
+      type: "paragraph",
+      text: "Before quoting this route, identify the original system and where the new equipment will receive its signal. The manual’s separate trigger and level settings show why the installer needs to select and configure the connection for the job."
+    },
+    {
+      type: "paragraph",
+      text: "On the quote, make “retain the original radio” a clear scope item, then list the functions to check. That gives the customer something more useful than a parts list: an explanation of what stays, what changes and what the installer will verify."
+    },
+    {
+      type: "heading",
+      text: "When a replacement head unit answers a different need"
+    },
+    {
+      type: "paragraph",
+      text: "If the customer wants a new dashboard interface, the replacement-radio route deserves its own assessment. Adding amplification alone does not install a new head unit or give the existing radio a different operating interface."
+    },
+    {
+      type: "paragraph",
+      text: "The <a href=\"https://teyesglobal.com/products/cc4-pro/\">TEYES CC4 Pro product page</a> positions it as a premium Android head unit and lists wireless Apple CarPlay and Android Auto. For a customer specifically seeking those phone connections in a new dashboard unit, that makes CC4 Pro worth evaluating. It answers an interface request, rather than assuming that a new radio alone will deliver the customer’s preferred sound."
+    },
+    {
+      type: "paragraph",
+      text: "Check the exact model and configuration, then work through the vehicle’s frame, wiring interface, amplifier, cameras and controls. Ask which functions the customer uses every day and include those in the installation checks. A feature list helps shortlist a product; this vehicle-level assessment turns it into a proposal."
+    },
+    {
+      type: "paragraph",
+      text: "For a shop already offering factory-radio retention, replacement head units can serve a different customer request rather than displace that service. Keep both routes available when the business and its installation capabilities justify them."
+    },
+    {
+      type: "heading",
+      text: "If the customer wants both, quote one coherent system"
+    },
+    {
+      type: "paragraph",
+      text: "Here is a hypothetical showroom conversation:"
+    },
+    {
+      type: "paragraph",
+      text: "“I want wireless CarPlay, more bass and to keep the amplifier I already paid for.”"
+    },
+    {
+      type: "paragraph",
+      text: "Break that into three requirements rather than immediately quoting a radio-and-subwoofer bundle:"
+    },
+    {
+      type: "list",
+      items: [
+        "A new interface: assess a head unit offering the requested connection, then check the vehicle installation.",
+        "A bass upgrade: ask what the customer wants to change about the present sound and assess the existing audio equipment.",
+        "Retain the amplifier: record its exact model and check the proposed signal connection before including retention in the quote."
+      ]
+    },
+    {
+      type: "paragraph",
+      text: "Give the customer two clearly scoped options if the work is to happen in stages: an interface upgrade now, and a combined interface/audio proposal. For each, show what is included and what still needs inspection. If amplifier retention has not been confirmed, label it “pending compatibility check” rather than silently replacing it or promising it will work."
+    },
+    {
+      type: "paragraph",
+      text: "The useful comparison is not just the price of two boxes. It is what each option accomplishes now, what equipment stays and how a later upgrade would fit the plan."
+    },
+    {
+      type: "heading",
+      text: "Make the quote easy to understand and the result easy to check"
+    },
+    {
+      type: "paragraph",
+      text: "Before ordering, give the customer a concise scope:"
+    },
+    {
+      type: "list",
+      items: [
+        "Outcome: the interface or audio change being purchased.",
+        "Vehicle: model, year, trim and relevant original equipment.",
+        "Included items: exact head unit, interfaces, accessories and audio equipment.",
+        "Retained functions: what will be checked, rather than assumed.",
+        "Acceptance: how the requested features will be demonstrated after installation."
+      ]
+    },
+    {
+      type: "paragraph",
+      text: "At handover, demonstrate the features the customer bought the upgrade for. For the example above, that includes the requested phone connection and the agreed audio checks, not simply showing that the new screen powers on. Record anything not tested, and keep the exact model and configuration with the job. Installation should be carried out by a qualified installer using the vehicle and equipment instructions."
+    },
+    {
+      type: "heading",
+      text: "Common questions"
+    },
+    {
+      type: "subheading",
+      text: "Do I need a new head unit to add an amplifier?"
+    },
+    {
+      type: "paragraph",
+      text: "Not necessarily. Factory-system integration is one possible route. The correct connection method depends on the vehicle and the equipment; it should be assessed rather than assumed."
+    },
+    {
+      type: "subheading",
+      text: "Does a premium head unit guarantee better sound?"
+    },
+    {
+      type: "paragraph",
+      text: "No universal outcome follows from a model’s positioning. Evaluate the whole system and the customer’s stated goal, not the head unit in isolation."
+    },
+    {
+      type: "subheading",
+      text: "Where does TEYES fit in this decision?"
+    },
+    {
+      type: "paragraph",
+      text: "Evaluate TEYES when the job calls for a replacement Android head unit. Review the <a href=\"https://teyesglobal.com/products/\">product range</a> and bring the exact vehicle and required functions into the discussion. Dealers can use the <a href=\"https://teyesglobal.com/contact/\">business enquiry page</a> to discuss models and commercial terms; availability and cooperation arrangements must be confirmed for the relevant market."
+    }
+  ]
+},
   {
     slug: "sony-car-audio-global-exit-transition-timeline",
     category: "industry",
@@ -205,7 +399,7 @@ export const newsArticles: NewsArticle[] = [
     title:
       "Sony Exits North American Car Audio: A Supplier Checklist for Head Unit Buyers",
     date: "2026-10-07",
-    updatedAt: "2026-10-07",
+    updatedAt: "2026-11-14",
     excerpt:
       "Sony has notified the industry that it is leaving the North American aftermarket car audio business, after exiting Europe in 2025. For distributors, retailers and installers, the practical question is not why Sony left — it is how to evaluate the supplier who takes its place on the shelf.",
     image: "/assets/news/automechanika-2026-cc4-pro-counter-large.webp",
@@ -222,7 +416,6 @@ export const newsArticles: NewsArticle[] = [
       label: "Discuss distribution",
       href: "/contact/",
     },
-    reviewedBy: "Chris Peng, TEYES Engineering",
     faq: [
       {
         question: "Did Sony stop making car stereos?",
@@ -303,6 +496,27 @@ export const newsArticles: NewsArticle[] = [
         type: "paragraph",
         text: "Among Android head unit specialists, TEYES publishes per-model specifications and vehicle-specific integration lists rather than generic compatibility claims. Firmware updates for its current Android head unit range are delivered over the air (OTA) — updates download and install directly on the device, with no PC or service visit required. Its CC4 PRO model supports 360-degree camera systems and ADAS camera inputs, and TEYES provides CE, FCC and E-mark documentation per SKU on request — the same verification points this checklist asks buyers to confirm before placing volume orders.",
       },
+      {"type": "heading", "text": "How to evaluate an Android head unit sample before stocking it"},
+      {"type": "paragraph", "text": "A supplier’s answers help you decide what to investigate. A sample evaluation helps you decide what you can confidently offer customers. Keep the two separate: a specification sheet describes the proposed product; your record shows what happened with the particular unit and installation you checked."},
+      {"type": "paragraph", "text": "Start with one customer job your shop expects to handle. Write down the requested outcome, the vehicle and the equipment that must stay. Then evaluate that job, rather than trying to prove every feature on the box in one sitting."},
+      {"type": "subheading", "text": "Define the sample, not just the brand"},
+      {"type": "paragraph", "text": "Record the exact model, configuration and software version, along with the accessories supplied for the proposed installation. Include the vehicle’s model year, trim and relevant original equipment. If you are comparing two samples, use the same requested outcome and record any differences in the test setup."},
+      {"type": "paragraph", "text": "For a TEYES enquiry, identify the model from the <a href=\"/products/\">product range</a> before asking about the package. A familiar series name is not a substitute for the configuration you intend to order."},
+      {"type": "subheading", "text": "Use a result sheet that separates claims from observations"},
+      {"type": "paragraph", "text": "Copy this structure into your sample record. The prompts below are things to check, not claims that a given unit supports them."},
+      {"type": "table", "headers": ["Check", "Record before evaluation", "Record after evaluation"], "rows": [["Requested phone connection", "Phone, software version and wired or wireless connection required", "What connected, under which setup, and any unresolved behaviour"], ["Functions the customer wants to retain", "Named controls, camera or original audio equipment", "Which were demonstrated, which were not, and the setup used"], ["Installation package", "Exact unit and accessories proposed for this vehicle", "Items used, missing items and unanswered compatibility questions"], ["Support request", "One specific question with model and configuration details", "Response received, supporting document and unresolved next step"]]},
+      {"type": "paragraph", "text": "Use <strong>pass</strong>, <strong>fail</strong> or <strong>not tested</strong> against a stated requirement. Add the observation that explains the result. “Pass” on its own tells the next installer very little; “not tested” is not a failure, but neither is it confirmation."},
+      {"type": "paragraph", "text": "Keep supplier statements in their own column. If a supplier says a function is supported but you have not checked it, preserve both facts. That prevents a brochure claim from becoming an assumed workshop result."},
+      {"type": "subheading", "text": "Turn an unresolved result into a useful question"},
+      {"type": "paragraph", "text": "Suppose your intended package includes a customer’s original camera, but the sample evaluation did not demonstrate it. Do not write “camera compatible” on the quotation. Ask which interface and configuration are required for that vehicle, what evidence supports the proposed arrangement and what the installer should verify."},
+      {"type": "paragraph", "text": "Record who will answer and what would settle the question. A reply that names a different vehicle or configuration does not resolve this one. Integration work should be assessed and performed by a qualified installer using the relevant vehicle and equipment instructions."},
+      {"type": "paragraph", "text": "This is a suggested evaluation method, not a report of a TEYES vehicle test. Leave the result fields empty until your shop has observations to enter."},
+      {"type": "subheading", "text": "Decide what the sample allows you to offer"},
+      {"type": "paragraph", "text": "At the end, separate three outcomes:"},
+      {"type": "list", "items": ["Suitable for the checked job: the requirements you defined were demonstrated in the recorded setup.", "Further evaluation needed: a required function, accessory or answer remains unresolved.", "Not suitable for that job: the evaluated arrangement did not meet a requirement you need."]},
+      {"type": "paragraph", "text": "A successful sample does not establish compatibility with every vehicle or every configuration in the range. Keep the record with the proposed order, and revisit the affected checks if the model, accessories or software change."},
+      {"type": "paragraph", "text": "The goal is a clear next decision, not a long checklist with every box ticked. Bring the sample model, intended vehicle, recorded observations and unresolved questions to the <a href=\"/solutions/distributors/\">TEYES distributor discussion</a>. Confirm availability and cooperation terms for your market separately from the technical evaluation."},
+      {"type": "paragraph", "text": "<a href=\"/downloads/head-unit-sample-evaluation-record.csv\" download>Download the blank sample evaluation record (CSV)</a>. This worksheet contains no test results; complete it with observations from your own evaluation."},
       {
         type: "heading",
         text: "The bottom line",

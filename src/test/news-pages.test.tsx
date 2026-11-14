@@ -69,3 +69,20 @@ describe("news reading and metadata", () => {
     await waitFor(() => expect(document.querySelector('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow"));
   });
 });
+
+describe("sample evaluation and complete system-choice guide", () => {
+  it("renders the complete independent guide and accessible comparison table", () => {
+    renderRoute("/news/industry/keep-factory-radio-or-replace-head-unit/");
+    expect(screen.getByRole("heading", { name: "When keeping the factory radio makes sense" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "If the customer wants both, quote one coherent system" })).toBeInTheDocument();
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryByText(/Technically reviewed by/)).not.toBeInTheDocument();
+  });
+  it("adds a sample record to the existing guide without inventing test results", () => {
+    renderRoute("/news/industry/sony-exit-north-america-head-unit-supplier-checklist/");
+    expect(screen.getByRole("heading", { name: "How to evaluate an Android head unit sample before stocking it" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Download the blank sample evaluation record (CSV)" })).toHaveAttribute("href", "/downloads/head-unit-sample-evaluation-record.csv");
+    expect(screen.getByRole("columnheader", { name: "Record after evaluation" })).toBeInTheDocument();
+    expect(screen.queryByText(/Technically reviewed by/)).not.toBeInTheDocument();
+  });
+});

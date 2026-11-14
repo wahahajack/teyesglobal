@@ -106,14 +106,6 @@ const ProductsPage = () => {
         </div>
       </section>
 
-      <section className="bg-background pb-6">
-        <div className="container-wide">
-          <p className="text-muted-foreground">
-            Selecting head units for your business? <Link className="text-primary underline underline-offset-4" to="/solutions/distributors/">Plan a dealer range and installation evaluation</Link> before discussing wholesale terms.
-          </p>
-        </div>
-      </section>
-
       {/* Featured Products */}
       <section className="py-10 bg-card">
         <div className="container-wide">

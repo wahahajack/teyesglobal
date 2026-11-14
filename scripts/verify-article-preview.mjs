@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {getNewsMetadata,getIndexableRoutes} from './routes.mjs';
+const route='/news/industry/keep-factory-radio-or-replace-head-unit';
+assert(getNewsMetadata().some(a=>a.slug==='keep-factory-radio-or-replace-head-unit'));
+assert(getIndexableRoutes().includes(route));
+const before=fs.readFileSync('public/sitemap.xml','utf8');
+execFileSync(process.execPath,['scripts/generate-sitemap.js']);
+const after=fs.readFileSync('public/sitemap.xml','utf8');
+assert.equal(after,before,'Repeated generation must not replace content dates with checkout/build time');
+assert(after.includes(`https://teyesglobal.com${route}/`));
+const csv=fs.readFileSync('public/downloads/head-unit-sample-evaluation-record.csv','utf8').trim().split('\n');
+assert.equal(csv.length,1);assert.equal(csv[0].split(',').length,15);
+console.log('PASS: new route, stable sitemap and blank 15-field CSV');

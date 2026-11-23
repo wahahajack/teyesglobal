@@ -129,8 +129,8 @@ export const newsArticles: NewsArticle[] = [
       {
         "type": "list",
         "items": [
-          "<strong>EN 40000-1-1</strong> establishes common cybersecurity vocabulary.",
-          "<strong>EN 40000-1-2</strong> establishes general principles, product risk-management activities and lifecycle activities."
+          "EN 40000-1-1 establishes common cybersecurity vocabulary.",
+          "EN 40000-1-2 establishes general principles, product risk-management activities and lifecycle activities."
         ]
       },
       {
@@ -152,10 +152,10 @@ export const newsArticles: NewsArticle[] = [
       {
         "type": "list",
         "items": [
-          "<strong>What exactly is being placed on the EU market?</strong> Identify the head unit, included connectivity modules, installed software, companion applications and any remote data processing that supports product functions.",
-          "<strong>Is it exclusively designed and constructed for covered vehicles?</strong> Document whether the hardware and software are clearly intended and suitable only for integration into vehicles covered by the relevant EU vehicle rules.",
-          "<strong>How is it offered?</strong> General retail or direct-to-consumer online availability is relevant to the Commission's test. A restricted automotive B2B channel can point the other way, but it does not replace the product analysis.",
-          "<strong>Do variants change the cybersecurity profile?</strong> Screen size or cosmetic differences may not matter, while a different connectivity module, update mechanism, operating-system branch or cloud dependency can matter."
+          "What exactly is being placed on the EU market? Identify the head unit, included connectivity modules, installed software, companion applications and any remote data processing that supports product functions.",
+          "Is it exclusively designed and constructed for covered vehicles? Document whether the hardware and software are clearly intended and suitable only for integration into vehicles covered by the relevant EU vehicle rules.",
+          "How is it offered? General retail or direct-to-consumer online availability is relevant to the Commission's test. A restricted automotive B2B channel can point the other way, but it does not replace the product analysis.",
+          "Do variants change the cybersecurity profile? Screen size or cosmetic differences may not matter, while a different connectivity module, update mechanism, operating-system branch or cloud dependency can matter."
         ]
       },
       {
@@ -294,10 +294,10 @@ export const newsArticles: NewsArticle[] = [
       {
         "type": "list",
         "items": [
-          "<strong>“CRA certified.”</strong> The CRA uses conformity-assessment routes; EN 40000-1-2 is not, by itself, a product certificate. Verify the exact legal and standards basis for any conformity claim.",
-          "<strong>“All automotive electronics are exempt.”</strong> The Commission's guidance uses an exclusivity and route-to-market test. A broadly marketed generic digital product may not meet it.",
-          "<strong>“CE already covers everything.”</strong> CE marking can relate to several EU laws. Ask which legislation, product and configuration the underlying declaration addresses.",
-          "<strong>“One platform document covers every model.”</strong> Shared treatment is reasonable only where the security-relevant architecture, intended purpose and risk are genuinely shared."
+          "“CRA certified.” The CRA uses conformity-assessment routes; EN 40000-1-2 is not, by itself, a product certificate. Verify the exact legal and standards basis for any conformity claim.",
+          "“All automotive electronics are exempt.” The Commission's guidance uses an exclusivity and route-to-market test. A broadly marketed generic digital product may not meet it.",
+          "“CE already covers everything.” CE marking can relate to several EU laws. Ask which legislation, product and configuration the underlying declaration addresses.",
+          "“One platform document covers every model.” Shared treatment is reasonable only where the security-relevant architecture, intended purpose and risk are genuinely shared."
         ]
       },
       {

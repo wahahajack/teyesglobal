@@ -131,7 +131,7 @@ const NewsArticlePage = () => {
   return (
     <Layout>
       <SEO
-        title={article.title}
+        title={article.seoTitle ?? article.title}
         description={article.excerpt}
         path={`/news/${article.category}/${article.slug}/`}
         ogType="article"

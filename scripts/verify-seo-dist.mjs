@@ -8,16 +8,18 @@
 //   - exactly one canonical, pointing at the route's own trailing-slash URL
 //   - exactly one meta description, non-empty
 //   - real body text (not an empty SPA shell)
+//   - robots directives match the route's indexing policy (no exceptions)
 // Globally:
 //   - titles are unique across routes
 //   - descriptions are unique across routes
 //   - sitemap.xml <loc> entries exactly match the route list
+//   - no sitemap URL has a rendered robots/googlebot noindex or none directive
 
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { rootDir, getAllRoutes, getIndexableRoutes, getNewsMetadata, toCanonicalUrl } from './routes.mjs';
 
-const distDir = path.join(rootDir, 'dist');
+const distDir = path.resolve(process.env.SEO_DIST_DIR || path.join(rootDir, 'dist'));
 const errors = [];
 
 function fail(route, message) {
@@ -53,6 +55,15 @@ function getMetaContent(html, name, attribute = 'name') {
   return tag?.match(/content="([^"]*)"/i)?.[1] || '';
 }
 
+function hasNoindexMeta(html) {
+  return [...html.matchAll(/<meta\b[^>]*>/gi)].some(([tag]) => {
+    const name = tag.match(/\bname\s*=\s*["']([^"']*)["']/i)?.[1];
+    if (!/^(robots|googlebot)$/i.test(name || '')) return false;
+    const content = tag.match(/\bcontent\s*=\s*["']([^"']*)["']/i)?.[1] || '';
+    return content.split(/[\s,]+/).some((directive) => /^(noindex|none)$/i.test(directive));
+  });
+}
+
 function getNewsSchema(html) {
   const scripts = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)];
   for (const match of scripts) {
@@ -68,9 +79,9 @@ function getNewsSchema(html) {
 
 const routes = getAllRoutes();
 const indexableRoutes = getIndexableRoutes();
+const indexableRouteSet = new Set(indexableRoutes);
 const newsMetadata = getNewsMetadata();
-const hasIndustryArticles = newsMetadata.some((article) => article.category === 'industry');
-const existingNoindexRoutes = new Set(['/landing/oem', '/landing/market-entry', '/landing/distributor']);
+const noindexUrls = new Set();
 const titles = new Map();
 const descriptions = new Map();
 
@@ -117,11 +128,13 @@ for (const route of routes) {
   }
 
   const robots = getMetaContent(html, 'robots');
-  if (route === '/news/industry' && !hasIndustryArticles && robots !== 'noindex, follow') {
-    fail(route, `empty category must use noindex, follow (got "${robots}")`);
-  } else if ((route !== '/news/industry' || hasIndustryArticles) && !existingNoindexRoutes.has(route) && robots !== 'index, follow') {
-    fail(route, `expected index, follow robots directive (got "${robots}")`);
+  const expectedRobots = indexableRouteSet.has(route)
+    ? 'index, follow'
+    : route === '/news/industry' ? 'noindex, follow' : 'noindex, nofollow';
+  if (robots !== expectedRobots) {
+    fail(route, `expected ${expectedRobots} robots directive (got "${robots}")`);
   }
+  if (hasNoindexMeta(html)) noindexUrls.add(toCanonicalUrl(route));
 
   if (route === '/about' && extractElementText(html, 'main').length < 300) {
     fail(route, 'About main content is too short');
@@ -164,6 +177,7 @@ if (!existsSync(sitemapPath)) {
     if (!locs.has(url)) fail('sitemap', `route missing from sitemap.xml: ${url}`);
   }
   for (const url of locs) {
+    if (noindexUrls.has(url)) fail('sitemap', `sitemap.xml contains noindex/none URL: ${url}`);
     if (!expected.has(url)) fail('sitemap', `sitemap.xml contains URL not in route list: ${url}`);
   }
 }

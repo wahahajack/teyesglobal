@@ -7,9 +7,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const rootDir = path.resolve(__dirname, '..');
 export const BASE_URL = 'https://teyesglobal.com';
 
-// Public routes to prerender and verify.
-// Keep in sync with scripts/generate-sitemap.js (verify-seo-dist.mjs enforces this
-// against the generated sitemap at build time).
+// Public routes to prerender and verify, including intentionally noindex pages.
+// Only getIndexableRoutes() should feed the sitemap; verify-seo-dist.mjs checks
+// that subset against the actual rendered robots directives.
 // Car Audio category routes stay explicit so each page is prerendered and SEO-verified independently.
 export const STATIC_ROUTES = [
   '/',
@@ -39,6 +39,14 @@ export const STATIC_ROUTES = [
   '/news/exhibitions',
   '/news/industry',
   '/contact',
+];
+
+// Campaign variants overlap the formal OEM/distributor/market solutions pages.
+// Keep their existing noindex policy while still prerendering and verifying them.
+export const NOINDEX_ROUTES = [
+  '/landing/oem',
+  '/landing/market-entry',
+  '/landing/distributor',
 ];
 
 export function getNewsRoutes() {
@@ -126,9 +134,9 @@ export function getAllRoutes() {
 
 export function getIndexableRoutes(newsMetadata = getNewsMetadata()) {
   const hasIndustryArticles = newsMetadata.some((article) => article.category === 'industry');
-  return STATIC_ROUTES
-    .filter((route) => route !== '/news/industry' || hasIndustryArticles)
-    .concat(getProductRoutes(), getNewsRoutes());
+  return getAllRoutes().filter((route) =>
+    !NOINDEX_ROUTES.includes(route) && (route !== '/news/industry' || hasIndustryArticles)
+  );
 }
 
 // Site-wide canonical policy: trailing slash everywhere (matches Netlify's

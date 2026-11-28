@@ -24,6 +24,7 @@ export interface NewsArticle {
   date: string; // ISO date, e.g. "2026-09-08"
   updatedAt?: string;
   excerpt: string;
+  seoTitle?: string;
   image: string;
   imageAlt: string;
   imageWidth: number;
@@ -77,6 +78,278 @@ export const newsCategories: {
 ];
 
 export const newsArticles: NewsArticle[] = [
+  {
+    slug: "eu-cra-android-head-unit-importer-checklist",
+    category: "industry",
+    title: "EU CRA for Android Head Unit Importers: A Supplier-Diligence Checklist After EN 40000-1-2",
+    seoTitle: "EU CRA Checklist for Android Head Unit Importers",
+    date: "2026-11-23",
+    updatedAt: "2026-11-23",
+    excerpt: "What EU importers of connected aftermarket head units should verify after EN 40000-1-2: scope, support periods, updates, vulnerability handling and records.",
+    image: "/assets/news/automechanika-2026-cc4-pro-display.webp",
+    imageAlt: "TEYES CC4 PRO head unit and camera accessories displayed at Automechanika Frankfurt 2026",
+    imageWidth: 1200,
+    imageHeight: 675,
+    imageCaption: "Illustrative product display only. This image does not establish CRA scope, conformity, certification or documentation status for CC4 PRO or any configuration.",
+    cta: {
+      title: "Reviewing an EU head-unit distribution project?",
+      description: "Bring the exact product, software configuration, target market and documentation questions into the discussion.",
+      label: "Discuss distribution requirements",
+      href: "/contact/?inquiry=distribution"
+    },
+    blocks: [
+      {
+        type: "paragraph",
+        text: "The EU's new cybersecurity standards do <strong>not</strong> create an instant “CRA certificate” for an Android head unit. They do give manufacturers and economic operators a more concrete framework for product risk management across design, production, maintenance, end of support and decommissioning."
+      },
+      {
+        type: "paragraph",
+        text: "For an EU importer, the practical next step is to assess the exact product and route to market, then ask the supplier for evidence tied to the hardware and software configuration being purchased. Do not assume that every automotive product is excluded from the Cyber Resilience Act (CRA), and do not assume that every aftermarket head unit is automatically in scope."
+      },
+      {
+        type: "paragraph",
+        text: "This guide explains the November 2026 changes and turns them into a supplier due-diligence checklist. It does not replace the importer's full duties under the CRA. It is general commercial guidance, not legal advice or a scope decision for a particular product."
+      },
+      {
+        type: "heading",
+        text: "What changed in November 2026?"
+      },
+      {
+        type: "paragraph",
+        text: "The European Commission <a href=\"https://digital-strategy.ec.europa.eu/en/library/commission-publishes-new-guidance-support-timely-cyber-resilience-act-implementation\">issued non-binding CRA guidance on 27 July 2026</a>. That guidance appeared in the Official Journal as <a href=\"https://data.europa.eu/eli/C/2026/6013/oj\">OJ C/2026/6013 on 17 November</a>. It explains the Commission's interpretation of how the automotive-sector exclusion should be assessed; it is not a product-specific legal decision. A connected component can sit outside the CRA where it is exclusively designed and constructed for integration into vehicles covered by Regulation (EU) 2019/2144 or Regulation (EU) No 168/2013, and is clearly intended and suitable only for that integration."
+      },
+      {
+        type: "paragraph",
+        text: "The same guidance draws a different line for generic digital components. It treats a component that is not exclusively suitable for those vehicles and is offered through channels open beyond the automotive supply chain—such as general retail or online sales to the public—as within CRA scope. A restricted business-to-business automotive channel may indicate exclusive vehicle integration, but the assessment still depends on the product and the objective conditions in which it is supplied."
+      },
+      {
+        type: "paragraph",
+        text: "The standards became available on 18 November, and <a href=\"https://www.cencenelec.eu/news-events/news/2026/en-in-the-spotlight/2026-11-19-cra-standards-en-40000-1-1-and-en-40000-1-2/\">CEN-CENELEC announced the two publications on 19 November</a>:"
+      },
+      {
+        type: "list",
+        items: [
+          "EN 40000-1-1 establishes common cybersecurity vocabulary.",
+          "EN 40000-1-2 establishes general principles, product risk-management activities and lifecycle activities."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "EN 40000-1-2 is a horizontal foundation. CEN-CENELEC says further standards are still being developed for vulnerability handling, generic security requirements and individual product categories. Under <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R2847\">Article 27 of the CRA</a>, a presumption of conformity depends on a harmonised standard's reference being published in the Official Journal and only covers the requirements addressed by that standard. No such OJEU reference for EN 40000-1-1 or EN 40000-1-2 was identified by this article's 23 November 2026 research cutoff. Availability of the standards is therefore a useful procurement milestone, not proof that a particular head unit is certified, fully conformant or entitled to an Article 27 presumption."
+      },
+      {
+        type: "heading",
+        text: "First decide whether the exact product is in scope"
+      },
+      {
+        type: "paragraph",
+        text: "“It goes in a car” is not a sufficient scope assessment. For each product family or configuration, record the facts behind the conclusion."
+      },
+      {
+        type: "paragraph",
+        text: "Start with four questions:"
+      },
+      {
+        type: "list",
+        items: [
+          "What exactly is being placed on the EU market? Identify the head unit, included connectivity modules, installed software, companion applications and any remote data processing that supports product functions.",
+          "Is it exclusively designed and constructed for covered vehicles? Document whether the hardware and software are clearly intended and suitable only for integration into vehicles covered by the relevant EU vehicle rules.",
+          "How is it offered? General retail or direct-to-consumer online availability is relevant to the Commission's test. A restricted automotive B2B channel can point the other way, but it does not replace the product analysis.",
+          "Do variants change the cybersecurity profile? Screen size or cosmetic differences may not matter, while a different connectivity module, update mechanism, operating-system branch or cloud dependency can matter."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "Where the answer is uncertain, the importer should obtain a product-specific assessment before relying on an exclusion. Keep the assessment with the commercial and technical records for the SKU."
+      },
+      {
+        type: "heading",
+        text: "What EN 40000-1-2 changes in supplier review"
+      },
+      {
+        type: "paragraph",
+        text: "The standard moves the conversation away from a one-time security check. The expected evidence should describe how cybersecurity risks are managed through the product lifecycle."
+      },
+      {
+        type: "paragraph",
+        text: "That matters for an Android head unit because the delivered product is more than a screen and processor. Its risk profile can depend on the firmware image, operating-system components, wireless connections, update path, companion software and services used to support functions."
+      },
+      {
+        type: "paragraph",
+        text: "The Commission's guidance also says a manufacturer may treat variants together where they share the same architecture, security-relevant design, intended purpose and cybersecurity risks. Differences that affect security properties need separate treatment. For a mixed-model wholesale order, that makes the platform and software map as important as the carton-level SKU list."
+      },
+      {
+        type: "heading",
+        text: "A supplier due-diligence checklist for EU importers and distributors"
+      },
+      {
+        type: "table",
+        headers: [
+          "Evidence to request",
+          "What the importer is trying to establish",
+          "A weak answer to challenge"
+        ],
+        rows: [
+          [
+            "Written scope assessment for the exact product or product family",
+            "Why the CRA applies, or why a defined exclusion is being used",
+            "“Automotive products are exempt” without product and channel facts"
+          ],
+          [
+            "Hardware, firmware and software identity by SKU",
+            "Which delivered versions the evidence covers",
+            "One generic certificate or document for the whole brand"
+          ],
+          [
+            "Cybersecurity risk-management owner and process",
+            "Who maintains the assessment from design through end of support",
+            "A final pre-shipment check with no lifecycle owner"
+          ],
+          [
+            "Declared support period and basis",
+            "How long vulnerabilities will be handled and how the end date is communicated",
+            "“Updates when available” with no period or responsibility"
+          ],
+          [
+            "Vulnerability intake and escalation contact",
+            "How researchers, distributors and importers can report an issue",
+            "Only a consumer support form with no security escalation route"
+          ],
+          [
+            "Update policy and release records",
+            "How fixes are authenticated, distributed, tracked and recovered if installation fails",
+            "Unversioned files shared informally with no rollback or release history"
+          ],
+          [
+            "Integrated-component and dependency controls",
+            "How third-party hardware and software risks are identified and handled",
+            "No owner for chipset, operating-system or library vulnerabilities"
+          ],
+          [
+            "Conformity and technical documentation status, where the CRA applies",
+            "Whether the required assessment, declaration and CE-related records will be ready for the exact configuration",
+            "A promise that EN 40000-1-2 itself is a product certificate"
+          ],
+          [
+            "Incident and actively exploited vulnerability workflow",
+            "Who meets the applicable reporting deadlines and keeps economic operators informed",
+            "No allocation of responsibility between manufacturer and importer"
+          ],
+          [
+            "Change-control record",
+            "Whether a firmware, module or feature change alters the earlier risk and conformity assessment",
+            "Treating every product update as automatically covered by old evidence"
+          ],
+          [
+            "Importer and distributor corrective-action process",
+            "How sales are stopped, customers informed and records retained if non-conformity or risk is found",
+            "Warranty handling presented as a substitute for regulatory action"
+          ]
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "The importer does not need every confidential engineering file to begin a supplier questionnaire. It does need enough traceable evidence to verify that the correct product, version, responsibilities and lifecycle are covered. This commercial checklist does not reduce the documents an importer must verify, retain or make available under <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R2847\">Article 19</a>."
+      },
+      {
+        type: "paragraph",
+        text: "Article 19 also requires importers of in-scope products to complete pre-market checks, identify themselves, act on non-conformity and vulnerabilities, and cooperate with authorities. The importer must keep a copy of the EU declaration of conformity for at least 10 years after the product is placed on the market or for the support period, whichever is longer, and ensure that the technical documentation can be made available to authorities on request. Use the table above to organize supplier evidence, not as a substitute for those duties."
+      },
+      {
+        type: "heading",
+        text: "Support periods and firmware are commercial terms too"
+      },
+      {
+        type: "paragraph",
+        text: "Under <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R2847\">Article 13(8) of the CRA</a>, manufacturers of in-scope products must determine a support period during which vulnerabilities are handled. The period must be at least five years unless the product is expected to be used for less than five years, in which case it must match the expected use time. A product expected to remain in use longer should receive a longer support period. The Commission's guidance says the assessment should also take account of factors including user expectations, the product's nature and purpose, comparable products, the operating environment and the support periods of core third-party components."
+      },
+      {
+        type: "paragraph",
+        text: "For a wholesale buyer, the support period affects more than compliance. It influences installer confidence, return exposure and whether a model can remain in the catalogue. Ask for the date or method used to identify the support period, the products it covers and the way end-of-support will be communicated."
+      },
+      {
+        type: "paragraph",
+        text: "Firmware control deserves the same precision. Record the installed version at receipt, the approved update path and the recovery process for a failed update. If several head-unit variants share a software platform, verify which differences are security-relevant before treating one assessment as covering all of them."
+      },
+      {
+        type: "heading",
+        text: "Reporting duties are already active"
+      },
+      {
+        type: "paragraph",
+        text: "The CRA's main product obligations apply from 11 December 2027, but <a href=\"https://digital-strategy.ec.europa.eu/en/policies/cra-reporting\">Article 14 reporting obligations</a> have applied since 11 September 2026. Manufacturers of in-scope products must report actively exploited vulnerabilities and severe incidents through the EU reporting process within the applicable stages and deadlines."
+      },
+      {
+        type: "paragraph",
+        text: "An importer should therefore identify the manufacturer's security contact now. The commercial agreement should make clear who evaluates a report, who notifies the importer and distributors, and how an affected software version or shipment is identified. A generic warranty inbox is not a complete vulnerability-response workflow."
+      },
+      {
+        type: "heading",
+        text: "Claims importers should not repeat without evidence"
+      },
+      {
+        type: "paragraph",
+        text: "Avoid four shortcuts in product listings, tenders and dealer material:"
+      },
+      {
+        type: "list",
+        items: [
+          "“CRA certified.” The CRA uses conformity-assessment routes; EN 40000-1-2 is not, by itself, a product certificate. Verify the exact legal and standards basis for any conformity claim.",
+          "“All automotive electronics are exempt.” The Commission's guidance uses an exclusivity and route-to-market test. A broadly marketed generic digital product may not meet it.",
+          "“CE already covers everything.” CE marking can relate to several EU laws. Ask which legislation, product and configuration the underlying declaration addresses.",
+          "“One platform document covers every model.” Shared treatment is reasonable only where the security-relevant architecture, intended purpose and risk are genuinely shared."
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "These are not merely wording issues. Unsupported claims can obscure the evidence a buyer needs before placing a multi-SKU order."
+      },
+      {
+        type: "heading",
+        text: "A practical next step for wholesale evaluation"
+      },
+      {
+        type: "paragraph",
+        text: "Add a CRA section to the supplier questionnaire used for EU projects. Begin with one representative configuration, map its hardware and software variants, then identify which evidence can legitimately be reused across the proposed range. Keep open items visible in the order and launch plan instead of converting them into assumed compliance. For broader questions outside the CRA, use the <a href=\"https://teyesglobal.com/news/industry/sony-exit-north-america-head-unit-supplier-checklist/\">general head-unit supplier evaluation checklist</a> separately rather than duplicating it here."
+      },
+      {
+        type: "paragraph",
+        text: "For TEYES enquiries, EU importers can use the <a href=\"https://teyesglobal.com/solutions/distributors/\">distributor information page</a> and <a href=\"https://teyesglobal.com/contact/?inquiry=distribution\">business partnership form</a> to identify the target country, product models, software configuration and documentation questions. Availability, scope and compliance evidence must be confirmed for the exact product and market; this article does not state that any TEYES model or configuration is CRA-certified or within a particular legal category."
+      },
+      {
+        type: "heading",
+        text: "Official sources"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://digital-strategy.ec.europa.eu/en/library/commission-publishes-new-guidance-support-timely-cyber-resilience-act-implementation\">European Commission, *Commission publishes new guidance*, 27 July 2026</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://data.europa.eu/eli/C/2026/6013/oj\">European Commission, *Guidance on the application of Regulation (EU) 2024/2847*, OJ C/2026/6013, 17 November 2026</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://digital-strategy.ec.europa.eu/en/news/first-european-standard-published-support-cyber-resilience-act\">European Commission, *First European standard published to support the Cyber Resilience Act*, 19 November 2026</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://www.cencenelec.eu/news-events/news/2026/en-in-the-spotlight/2026-11-19-cra-standards-en-40000-1-1-and-en-40000-1-2/\">CEN-CENELEC, *First European standards supporting CRA*, 19 November 2026</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://digital-strategy.ec.europa.eu/en/policies/cra-standardisation\">European Commission, *CRA standardisation*</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R2847\">Regulation (EU) 2024/2847</a>"
+      },
+      {
+        type: "paragraph",
+        text: "<a href=\"https://digital-strategy.ec.europa.eu/en/policies/cra-reporting\">European Commission, *CRA reporting*</a>"
+      }
+    ]
+  },
   {
   slug: "keep-factory-radio-or-replace-head-unit",
   category: "industry",
